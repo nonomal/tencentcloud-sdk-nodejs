@@ -1,119 +1,143 @@
 # 本版本更新包含以下内容：
 
-## T-Sec-DDoS防护(Anti-DDoS)(antiddos) 版本：2020-03-09
+## 云数据仓库 PostgreSQL(cdwpg) 版本：2020-12-30
 
-### 第 70 次发布
+### 第 9 次发布
 
-发布时间：2025-03-24 01:07:53
+发布时间：2025-03-25 01:17:27
 
 本次发布包含了以下内容：
 
 改善已有的文档。
-
-<font color="#dd0000">**删除接口**：</font>
-
-* DescribeBlackWhiteIpList
-* DescribeListProtectThresholdConfig
-
-<font color="#dd0000">**删除数据结构**：</font>
-
-* ListenerCcThreholdConfig
-* ProtectThresholdRelation
 
 修改数据结构：
 
-* [RuleInstanceRelation](https://cloud.tencent.com/document/api/297/95396#RuleInstanceRelation)
+* [InstanceSimpleInfoNew](https://cloud.tencent.com/document/api/878/98895#InstanceSimpleInfoNew)
 
-	* <font color="#dd0000">**修改成员**：</font>EipList, InstanceId, Cname
-
-
-
-
-## 应用性能监控(apm) 版本：2021-06-22
-
-### 第 33 次发布
-
-发布时间：2025-03-24 01:09:19
-
-本次发布包含了以下内容：
-
-改善已有的文档。
-
-修改接口：
-
-* [DescribeGeneralSpanList](https://cloud.tencent.com/document/api/1463/98725)
-
-	* <font color="#dd0000">**修改入参**：</font>InstanceId, StartTime, EndTime
-
-* [DescribeMetricRecords](https://cloud.tencent.com/document/api/1463/68254)
-
-	* <font color="#dd0000">**修改入参**：</font>InstanceId, StartTime, EndTime, GroupBy
-
-* [DescribeServiceOverview](https://cloud.tencent.com/document/api/1463/73094)
-
-	* <font color="#dd0000">**修改入参**：</font>StartTime, EndTime
-
-* [DescribeTagValues](https://cloud.tencent.com/document/api/1463/105645)
-
-	* <font color="#dd0000">**修改入参**：</font>StartTime, EndTime
+	* <font color="#dd0000">**修改成员**：</font>ID, InstanceId, InstanceName, Version, Region, RegionId, RegionDesc, Zone, ZoneId, ZoneDesc, VpcId, SubnetId, CreateTime, ExpireTime, AccessInfo, PayMode, RenewFlag
 
 
 
 
-## 腾讯云数据仓库TCHouse-C(cdwch) 版本：2020-09-15
+## 云托付物理服务器(chc) 版本：2023-04-18
 
-### 第 29 次发布
+### 第 1 次发布
 
-发布时间：2025-03-24 01:16:39
+发布时间：2025-03-24 09:42:38
 
 本次发布包含了以下内容：
 
 改善已有的文档。
 
-修改接口：
+新增接口：
 
-* [DescribeBackUpJob](https://cloud.tencent.com/document/api/1299/97605)
+* [ConfirmCommonServiceWorkOrder](https://cloud.tencent.com/document/api/1448/117192)
+* [CreateCommonServiceWorkOrder](https://cloud.tencent.com/document/api/1448/117191)
+* [CreateModelEvaluationWorkOrder](https://cloud.tencent.com/document/api/1448/117190)
+* [CreateMovingWorkOrder](https://cloud.tencent.com/document/api/1448/117189)
+* [CreateNetDeviceModel](https://cloud.tencent.com/document/api/1448/117188)
+* [CreatePersonnelVisitWorkOrder](https://cloud.tencent.com/document/api/1448/117187)
+* [CreatePowerOffWorkOrder](https://cloud.tencent.com/document/api/1448/117186)
+* [CreatePowerOnWorkOrder](https://cloud.tencent.com/document/api/1448/117185)
+* [CreateQuitWorkOrder](https://cloud.tencent.com/document/api/1448/117184)
+* [CreateRackOffWorkOrder](https://cloud.tencent.com/document/api/1448/117183)
+* [CreateRackOnWorkOrder](https://cloud.tencent.com/document/api/1448/117182)
+* [CreateReceivingWorkOrder](https://cloud.tencent.com/document/api/1448/117181)
+* [CreateServerModel](https://cloud.tencent.com/document/api/1448/117180)
+* [DescribeAvailableModelList](https://cloud.tencent.com/document/api/1448/117179)
+* [DescribeCampusList](https://cloud.tencent.com/document/api/1448/117163)
+* [DescribeCommonServiceWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117178)
+* [DescribeCustomerInfo](https://cloud.tencent.com/document/api/1448/117162)
+* [DescribeDeviceList](https://cloud.tencent.com/document/api/1448/117161)
+* [DescribeDeviceWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117177)
+* [DescribeIdcUnitAssetDetail](https://cloud.tencent.com/document/api/1448/117176)
+* [DescribeIdcUnitDetail](https://cloud.tencent.com/document/api/1448/117175)
+* [DescribeIdcs](https://cloud.tencent.com/document/api/1448/117160)
+* [DescribeModel](https://cloud.tencent.com/document/api/1448/117174)
+* [DescribeModelEvaluationWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117173)
+* [DescribeModelTemplate](https://cloud.tencent.com/document/api/1448/117172)
+* [DescribeModelVersionList](https://cloud.tencent.com/document/api/1448/117171)
+* [DescribePersonnelVisitWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117170)
+* [DescribePositionStatusSummary](https://cloud.tencent.com/document/api/1448/117169)
+* [DescribePositions](https://cloud.tencent.com/document/api/1448/117159)
+* [DescribeRacks](https://cloud.tencent.com/document/api/1448/117158)
+* [DescribeRacksDistribution](https://cloud.tencent.com/document/api/1448/117157)
+* [DescribeResourceUsage](https://cloud.tencent.com/document/api/1448/117156)
+* [DescribeWorkOrderList](https://cloud.tencent.com/document/api/1448/117168)
+* [DescribeWorkOrderStatistics](https://cloud.tencent.com/document/api/1448/117167)
+* [DescribeWorkOrderTypes](https://cloud.tencent.com/document/api/1448/117166)
+* [ModifyWorkOrderTypeCollectFlag](https://cloud.tencent.com/document/api/1448/117165)
 
-	* 新增出参：ErrorMsg, TotalCount
+新增数据结构：
 
-* [DescribeBackUpTables](https://cloud.tencent.com/document/api/1299/97836)
-
-	* 新增出参：ErrorMsg
-
-* [DescribeInstanceState](https://cloud.tencent.com/document/api/1299/89676)
-
-	* 新增出参：ProcessName, ProcessSubName
-
-
-修改数据结构：
-
-* [BackUpJobDisplay](https://cloud.tencent.com/document/api/1299/83429#BackUpJobDisplay)
-
-	* 新增成员：ProcessSize, ErrorReason
-
-* [NodesSummary](https://cloud.tencent.com/document/api/1299/83429#NodesSummary)
-
-	* <font color="#dd0000">**修改成员**：</font>SubProductType, SpecCore, SpecMemory, DiskCount, MaxDiskSize, Encrypt
-
+* [AvailableModelVersion](https://cloud.tencent.com/document/api/1448/117193#AvailableModelVersion)
+* [Cage](https://cloud.tencent.com/document/api/1448/117193#Cage)
+* [Campus](https://cloud.tencent.com/document/api/1448/117193#Campus)
+* [CommonServiceBaseInfo](https://cloud.tencent.com/document/api/1448/117193#CommonServiceBaseInfo)
+* [CustomerInfo](https://cloud.tencent.com/document/api/1448/117193#CustomerInfo)
+* [CustomerReceipt](https://cloud.tencent.com/document/api/1448/117193#CustomerReceipt)
+* [Device](https://cloud.tencent.com/document/api/1448/117193#Device)
+* [DeviceHistory](https://cloud.tencent.com/document/api/1448/117193#DeviceHistory)
+* [DeviceOrderBaseInfo](https://cloud.tencent.com/document/api/1448/117193#DeviceOrderBaseInfo)
+* [DevicePosition](https://cloud.tencent.com/document/api/1448/117193#DevicePosition)
+* [DeviceRackOn](https://cloud.tencent.com/document/api/1448/117193#DeviceRackOn)
+* [Distribution](https://cloud.tencent.com/document/api/1448/117193#Distribution)
+* [ExpressDelivery](https://cloud.tencent.com/document/api/1448/117193#ExpressDelivery)
+* [Filter](https://cloud.tencent.com/document/api/1448/117193#Filter)
+* [Idc](https://cloud.tencent.com/document/api/1448/117193#Idc)
+* [IdcUnit](https://cloud.tencent.com/document/api/1448/117193#IdcUnit)
+* [IdcUnitInfo](https://cloud.tencent.com/document/api/1448/117193#IdcUnitInfo)
+* [LogisticsReceipt](https://cloud.tencent.com/document/api/1448/117193#LogisticsReceipt)
+* [ModelEvaluationBaseInfo](https://cloud.tencent.com/document/api/1448/117193#ModelEvaluationBaseInfo)
+* [ModelVersion](https://cloud.tencent.com/document/api/1448/117193#ModelVersion)
+* [ModelVersionCount](https://cloud.tencent.com/document/api/1448/117193#ModelVersionCount)
+* [ModelVersionDetail](https://cloud.tencent.com/document/api/1448/117193#ModelVersionDetail)
+* [NetDeviceModel](https://cloud.tencent.com/document/api/1448/117193#NetDeviceModel)
+* [NetReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#NetReceivingInfo)
+* [OptionValueItem](https://cloud.tencent.com/document/api/1448/117193#OptionValueItem)
+* [OrderStep](https://cloud.tencent.com/document/api/1448/117193#OrderStep)
+* [OtherDevReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#OtherDevReceivingInfo)
+* [Personnel](https://cloud.tencent.com/document/api/1448/117193#Personnel)
+* [PersonnelVisitBaseInfo](https://cloud.tencent.com/document/api/1448/117193#PersonnelVisitBaseInfo)
+* [Position](https://cloud.tencent.com/document/api/1448/117193#Position)
+* [PositionStatusItem](https://cloud.tencent.com/document/api/1448/117193#PositionStatusItem)
+* [PowerOffConfirm](https://cloud.tencent.com/document/api/1448/117193#PowerOffConfirm)
+* [Rack](https://cloud.tencent.com/document/api/1448/117193#Rack)
+* [RackUsage](https://cloud.tencent.com/document/api/1448/117193#RackUsage)
+* [SelfOperation](https://cloud.tencent.com/document/api/1448/117193#SelfOperation)
+* [ServerModel](https://cloud.tencent.com/document/api/1448/117193#ServerModel)
+* [ServerReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#ServerReceivingInfo)
+* [TemplateOption](https://cloud.tencent.com/document/api/1448/117193#TemplateOption)
+* [WireReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#WireReceivingInfo)
+* [WorkOrderData](https://cloud.tencent.com/document/api/1448/117193#WorkOrderData)
+* [WorkOrderFamilyDetail](https://cloud.tencent.com/document/api/1448/117193#WorkOrderFamilyDetail)
+* [WorkOrderTinyInfo](https://cloud.tencent.com/document/api/1448/117193#WorkOrderTinyInfo)
+* [WorkOrderTypeDetail](https://cloud.tencent.com/document/api/1448/117193#WorkOrderTypeDetail)
 
 
 
 ## 数据库智能管家 DBbrain(dbbrain) 版本：2021-05-27
 
-### 第 39 次发布
+### 第 40 次发布
 
-发布时间：2025-03-24 01:27:53
+发布时间：2025-03-25 01:28:08
 
 本次发布包含了以下内容：
 
 改善已有的文档。
 
-修改接口：
+新增接口：
 
-* [CreateProxySessionKillTask](https://cloud.tencent.com/document/api/1130/67782)
+* [DescribeDBPerfTimeSeries](https://cloud.tencent.com/document/api/1130/117228)
+* [DescribeRedisCmdPerfTimeSeries](https://cloud.tencent.com/document/api/1130/117231)
+* [DescribeRedisCommandCostStatistics](https://cloud.tencent.com/document/api/1130/117230)
+* [DescribeRedisCommandOverview](https://cloud.tencent.com/document/api/1130/117229)
 
-	* 新增入参：InstanceProxyId
+新增数据结构：
 
+* [CmdCostGroup](https://cloud.tencent.com/document/api/1130/57812#CmdCostGroup)
+* [CmdPerfInfo](https://cloud.tencent.com/document/api/1130/57812#CmdPerfInfo)
+* [RedisCmdInfo](https://cloud.tencent.com/document/api/1130/57812#RedisCmdInfo)
 
 
 
@@ -121,97 +145,11 @@
 
 
 
-## 弹性 MapReduce(emr) 版本：2019-01-03
+## 全站加速网络(ecdn) 版本：2019-10-12
 
-### 第 96 次发布
+### 第 14 次发布
 
-发布时间：2025-03-24 01:34:36
-
-本次发布包含了以下内容：
-
-改善已有的文档。
-
-修改接口：
-
-* [AttachDisks](https://cloud.tencent.com/document/api/589/115188)
-
-	* 新增入参：SelectiveConfServices
-
-* [DescribeNodeDataDisks](https://cloud.tencent.com/document/api/589/115191)
-
-	* 新增入参：Filters, InnerSearch, Limit, Offset
-
-	* 新增出参：MaxSize
-
-* [InquirePriceRenewEmr](https://cloud.tencent.com/document/api/589/53701)
-
-	* 新增出参：NodeRenewPriceDetails
-
-* [InquiryPriceRenewInstance](https://cloud.tencent.com/document/api/589/38064)
-
-	* 新增出参：NodeRenewPriceDetails
-
-* [ResizeDataDisks](https://cloud.tencent.com/document/api/589/115186)
-
-	* 新增入参：ResizeAll
-
-	* <font color="#dd0000">**修改入参**：</font>DiskIds
-
-
-新增数据结构：
-
-* [NodeRenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#NodeRenewPriceDetail)
-* [RenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#RenewPriceDetail)
-
-修改数据结构：
-
-* [CBSInstance](https://cloud.tencent.com/document/api/589/33981#CBSInstance)
-
-	* 新增成员：EmrResourceId
-
-
-
-
-## 腾讯混元大模型(hunyuan) 版本：2023-09-01
-
-### 第 38 次发布
-
-发布时间：2025-03-24 01:39:19
-
-本次发布包含了以下内容：
-
-改善已有的文档。
-
-修改数据结构：
-
-* [Message](https://cloud.tencent.com/document/api/1729/101838#Message)
-
-	* 新增成员：ReasoningContent
-
-
-
-
-## 物联网开发平台(iotexplorer) 版本：2019-04-23
-
-### 第 96 次发布
-
-发布时间：2025-03-24 01:40:53
-
-本次发布包含了以下内容：
-
-改善已有的文档。
-
-新增接口：
-
-* [DescribeUnbindedDevices](https://cloud.tencent.com/document/api/1081/117152)
-
-
-
-## 大模型知识引擎(lke) 版本：2023-11-30
-
-### 第 36 次发布
-
-发布时间：2025-03-21 12:02:42
+发布时间：2025-03-25 01:33:31
 
 本次发布包含了以下内容：
 
@@ -219,60 +157,26 @@
 
 <font color="#dd0000">**删除接口**：</font>
 
-* ResetSession
+* AddEcdnDomain
+* CreateVerifyRecord
+* DeleteEcdnDomain
+* DescribePurgeQuota
+* PurgePathCache
+* StartEcdnDomain
+* StopEcdnDomain
+* UpdateDomainConfig
+
+<font color="#dd0000">**删除数据结构**：</font>
+
+* Quota
 
 
 
-## 腾讯云可观测平台(monitor) 版本：2023-06-16
+## 腾讯电子签企业版(ess) 版本：2020-11-11
 
+### 第 214 次发布
 
-
-## 腾讯云可观测平台(monitor) 版本：2018-07-24
-
-### 第 133 次发布
-
-发布时间：2025-03-24 01:50:27
-
-本次发布包含了以下内容：
-
-改善已有的文档。
-
-新增接口：
-
-* [CreateConditionsTemplate](https://cloud.tencent.com/document/api/248/117153)
-
-新增数据结构：
-
-* [ModifyConditionsTemplateRequestCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestCondition)
-* [ModifyConditionsTemplateRequestEventCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestEventCondition)
-
-
-
-## 边缘安全加速平台(teo) 版本：2022-09-01
-
-### 第 99 次发布
-
-发布时间：2025-03-21 14:57:33
-
-本次发布包含了以下内容：
-
-改善已有的文档。
-
-新增接口：
-
-* [ModifyL7AccRulePriority](https://cloud.tencent.com/document/api/1552/117133)
-
-
-
-## 边缘安全加速平台(teo) 版本：2022-01-06
-
-
-
-## 高性能计算平台(thpc) 版本：2023-03-21
-
-### 第 20 次发布
-
-发布时间：2025-03-24 02:09:58
+发布时间：2025-03-25 01:36:08
 
 本次发布包含了以下内容：
 
@@ -280,14 +184,157 @@
 
 修改数据结构：
 
-* [GooseFSxOptionOverview](https://cloud.tencent.com/document/api/1527/89579#GooseFSxOptionOverview)
+* [CreateFlowOption](https://cloud.tencent.com/document/api/1323/70369#CreateFlowOption)
 
-	* <font color="#dd0000">**修改成员**：</font>Masters, LocalPath
+	* 新增成员：ForbidEditApprover
+
+
+
+
+## 腾讯电子签（基础版）(essbasic) 版本：2021-05-26
+
+### 第 214 次发布
+
+发布时间：2025-03-25 01:37:06
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [CreateFlowOption](https://cloud.tencent.com/document/api/1420/61525#CreateFlowOption)
+
+	* 新增成员：ForbidEditApprover
+
+
+
+
+## 腾讯电子签（基础版）(essbasic) 版本：2020-12-22
+
+
+
+## 云游戏(gs) 版本：2019-11-18
+
+### 第 22 次发布
+
+发布时间：2025-03-25 01:39:13
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+新增接口：
+
+* [ConnectAndroidInstance](https://cloud.tencent.com/document/api/1162/117268)
+* [CopyAndroidInstance](https://cloud.tencent.com/document/api/1162/117244)
+* [CreateAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/117236)
+* [CreateAndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/117241)
+* [CreateAndroidInstanceSSH](https://cloud.tencent.com/document/api/1162/117267)
+* [CreateAndroidInstanceWebShell](https://cloud.tencent.com/document/api/1162/117266)
+* [CreateAndroidInstances](https://cloud.tencent.com/document/api/1162/117265)
+* [DeleteAndroidInstanceImages](https://cloud.tencent.com/document/api/1162/117235)
+* [DeleteAndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/117240)
+* [DescribeAndroidApps](https://cloud.tencent.com/document/api/1162/117252)
+* [DescribeAndroidInstanceApps](https://cloud.tencent.com/document/api/1162/117251)
+* [DescribeAndroidInstanceImages](https://cloud.tencent.com/document/api/1162/117234)
+* [DescribeAndroidInstanceLabels](https://cloud.tencent.com/document/api/1162/117239)
+* [DescribeAndroidInstanceTasksStatus](https://cloud.tencent.com/document/api/1162/117270)
+* [DescribeAndroidInstances](https://cloud.tencent.com/document/api/1162/117264)
+* [DestroyAndroidInstances](https://cloud.tencent.com/document/api/1162/117263)
+* [ExecuteCommandOnAndroidInstances](https://cloud.tencent.com/document/api/1162/117262)
+* [InstallAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117250)
+* [ModifyAndroidInstanceInformation](https://cloud.tencent.com/document/api/1162/117261)
+* [ModifyAndroidInstanceResolution](https://cloud.tencent.com/document/api/1162/117260)
+* [ModifyAndroidInstancesLabels](https://cloud.tencent.com/document/api/1162/117238)
+* [ModifyAndroidInstancesUserId](https://cloud.tencent.com/document/api/1162/117259)
+* [RebootAndroidInstances](https://cloud.tencent.com/document/api/1162/117258)
+* [ResetAndroidInstances](https://cloud.tencent.com/document/api/1162/117257)
+* [RestartAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117249)
+* [StartAndroidInstances](https://cloud.tencent.com/document/api/1162/117256)
+* [StartAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117248)
+* [StopAndroidInstances](https://cloud.tencent.com/document/api/1162/117255)
+* [StopAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117247)
+* [SyncAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/117233)
+* [SyncExecuteCommandOnAndroidInstances](https://cloud.tencent.com/document/api/1162/117254)
+* [UninstallAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117246)
+* [UploadFileToAndroidInstances](https://cloud.tencent.com/document/api/1162/117243)
+
+新增数据结构：
+
+* [AndroidApp](https://cloud.tencent.com/document/api/1162/40743#AndroidApp)
+* [AndroidAppVersionInfo](https://cloud.tencent.com/document/api/1162/40743#AndroidAppVersionInfo)
+* [AndroidInstance](https://cloud.tencent.com/document/api/1162/40743#AndroidInstance)
+* [AndroidInstanceAppInfo](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceAppInfo)
+* [AndroidInstanceImage](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceImage)
+* [AndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceLabel)
+* [AndroidInstanceTask](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceTask)
+* [AndroidInstanceTaskStatus](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceTaskStatus)
+* [Filter](https://cloud.tencent.com/document/api/1162/40743#Filter)
+* [LabelRequirement](https://cloud.tencent.com/document/api/1162/40743#LabelRequirement)
+* [SyncAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/40743#SyncAndroidInstanceImage)
+* [SyncExecuteCommandResult](https://cloud.tencent.com/document/api/1162/40743#SyncExecuteCommandResult)
+
+
+
+## 腾讯云健康看板(tchd) 版本：2023-03-06
+
+### 第 3 次发布
+
+发布时间：2025-03-25 02:03:27
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [TotalStatus](https://cloud.tencent.com/document/api/1688/94859#TotalStatus)
+
+	* <font color="#dd0000">**修改成员**：</font>NormalCount, NotifyCount, AbnormalCount
+
+
+
+
+## 高性能计算平台(thpc) 版本：2023-03-21
+
+### 第 21 次发布
+
+发布时间：2025-03-25 02:09:57
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [NodeOverview](https://cloud.tencent.com/document/api/1527/89579#NodeOverview)
+
+	* 新增成员：NodeAllocateState
+
+* [QueueOverview](https://cloud.tencent.com/document/api/1527/89579#QueueOverview)
+
+	* <font color="#dd0000">**修改成员**：</font>QueueName
 
 
 
 
 ## 高性能计算平台(thpc) 版本：2022-04-01
+
+### 第 14 次发布
+
+发布时间：2025-03-25 02:09:47
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [QueueOverview](https://cloud.tencent.com/document/api/1527/72108#QueueOverview)
+
+	* <font color="#dd0000">**修改成员**：</font>QueueName
+
 
 
 
@@ -295,31 +342,59 @@
 
 
 
-## 数据开发治理平台 WeData(wedata) 版本：2021-08-20
+## TI-ONE 训练平台(tione) 版本：2021-11-11
 
-### 第 136 次发布
+### 第 71 次发布
 
-发布时间：2025-03-24 02:22:47
+发布时间：2025-03-25 02:10:11
 
 本次发布包含了以下内容：
 
 改善已有的文档。
 
+新增数据结构：
+
+* [GooseFSx](https://cloud.tencent.com/document/api/851/75051#GooseFSx)
+
 修改数据结构：
 
-* [ProdSchedulerTask](https://cloud.tencent.com/document/api/1267/76336#ProdSchedulerTask)
+* [ModelInfo](https://cloud.tencent.com/document/api/851/75051#ModelInfo)
 
-	* 新增成员：TaskType
+	* 新增成员：GooseFSx
 
-* [RuleGroup](https://cloud.tencent.com/document/api/1267/76336#RuleGroup)
 
-	* 新增成员：Name, ExecDetail, PipelineTaskCount, EnableRuleCount, Description, CreateUserName
 
-* [RuleGroupExecStrategy](https://cloud.tencent.com/document/api/1267/76336#RuleGroupExecStrategy)
 
-	* 新增成员：RuleGroupName, DatabaseName, SchemaName, TableName, DatasourceId, Description
+## TI-ONE 训练平台(tione) 版本：2019-10-22
 
-* [RuleGroupSubscribe](https://cloud.tencent.com/document/api/1267/76336#RuleGroupSubscribe)
+
+
+## 数据开发治理平台 WeData(wedata) 版本：2021-08-20
+
+### 第 137 次发布
+
+发布时间：2025-03-25 02:22:46
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改接口：
+
+* [AddProjectUserRole](https://cloud.tencent.com/document/api/1267/116211)
+
+	* 新增入参：ProjectId, UserIds, RoleIds
+
+	* 新增出参：Data
+
+
+修改数据结构：
+
+* [AlarmReceiverInfo](https://cloud.tencent.com/document/api/1267/76336#AlarmReceiverInfo)
+
+	* 新增成员：AlarmMessageSendResult
+
+* [TaskAlarmInfo](https://cloud.tencent.com/document/api/1267/76336#TaskAlarmInfo)
 
 	* 新增成员：AlarmMessageRule
 
@@ -27334,6 +27409,21 @@
 
 ## 云数据仓库 PostgreSQL(cdwpg) 版本：2020-12-30
 
+### 第 9 次发布
+
+发布时间：2025-03-25 01:17:27
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [InstanceSimpleInfoNew](https://cloud.tencent.com/document/api/878/98895#InstanceSimpleInfoNew)
+
+	* <font color="#dd0000">**修改成员**：</font>ID, InstanceId, InstanceName, Version, Region, RegionId, RegionDesc, Zone, ZoneId, ZoneDesc, VpcId, SubnetId, CreateTime, ExpireTime, AccessInfo, PayMode, RenewFlag
+
+
 ### 第 8 次发布
 
 发布时间：2025-03-05 14:42:21
@@ -30361,6 +30451,104 @@
 * [RuleInfoData](https://cloud.tencent.com/document/api/1132/49071#RuleInfoData)
 * [SequenceData](https://cloud.tencent.com/document/api/1132/49071#SequenceData)
 * [SwitchListsData](https://cloud.tencent.com/document/api/1132/49071#SwitchListsData)
+
+
+
+
+## 云托付物理服务器(chc) 版本：2023-04-18
+
+### 第 1 次发布
+
+发布时间：2025-03-24 09:42:38
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+新增接口：
+
+* [[ConfirmCommonServiceWorkOrder](https://cloud.tencent.com/document/api/1448/117192)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateCommonServiceWorkOrder](https://cloud.tencent.com/document/api/1448/117191)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateModelEvaluationWorkOrder](https://cloud.tencent.com/document/api/1448/117190)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateMovingWorkOrder](https://cloud.tencent.com/document/api/1448/117189)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateNetDeviceModel](https://cloud.tencent.com/document/api/1448/117188)](https://cloud.tencent.com/document/api/#/#)
+* [[CreatePersonnelVisitWorkOrder](https://cloud.tencent.com/document/api/1448/117187)](https://cloud.tencent.com/document/api/#/#)
+* [[CreatePowerOffWorkOrder](https://cloud.tencent.com/document/api/1448/117186)](https://cloud.tencent.com/document/api/#/#)
+* [[CreatePowerOnWorkOrder](https://cloud.tencent.com/document/api/1448/117185)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateQuitWorkOrder](https://cloud.tencent.com/document/api/1448/117184)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateRackOffWorkOrder](https://cloud.tencent.com/document/api/1448/117183)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateRackOnWorkOrder](https://cloud.tencent.com/document/api/1448/117182)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateReceivingWorkOrder](https://cloud.tencent.com/document/api/1448/117181)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateServerModel](https://cloud.tencent.com/document/api/1448/117180)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAvailableModelList](https://cloud.tencent.com/document/api/1448/117179)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeCampusList](https://cloud.tencent.com/document/api/1448/117163)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeCommonServiceWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117178)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeCustomerInfo](https://cloud.tencent.com/document/api/1448/117162)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeDeviceList](https://cloud.tencent.com/document/api/1448/117161)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeDeviceWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117177)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeIdcUnitAssetDetail](https://cloud.tencent.com/document/api/1448/117176)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeIdcUnitDetail](https://cloud.tencent.com/document/api/1448/117175)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeIdcs](https://cloud.tencent.com/document/api/1448/117160)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeModel](https://cloud.tencent.com/document/api/1448/117174)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeModelEvaluationWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117173)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeModelTemplate](https://cloud.tencent.com/document/api/1448/117172)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeModelVersionList](https://cloud.tencent.com/document/api/1448/117171)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribePersonnelVisitWorkOrderDetail](https://cloud.tencent.com/document/api/1448/117170)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribePositionStatusSummary](https://cloud.tencent.com/document/api/1448/117169)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribePositions](https://cloud.tencent.com/document/api/1448/117159)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeRacks](https://cloud.tencent.com/document/api/1448/117158)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeRacksDistribution](https://cloud.tencent.com/document/api/1448/117157)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeResourceUsage](https://cloud.tencent.com/document/api/1448/117156)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeWorkOrderList](https://cloud.tencent.com/document/api/1448/117168)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeWorkOrderStatistics](https://cloud.tencent.com/document/api/1448/117167)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeWorkOrderTypes](https://cloud.tencent.com/document/api/1448/117166)](https://cloud.tencent.com/document/api/#/#)
+* [[ModifyWorkOrderTypeCollectFlag](https://cloud.tencent.com/document/api/1448/117165)](https://cloud.tencent.com/document/api/#/#)
+
+新增数据结构：
+
+* [[AvailableModelVersion](https://cloud.tencent.com/document/api/1448/117193#AvailableModelVersion)](https://cloud.tencent.com/document/api/1448/117193#[AvailableModelVersion](https://cloud.tencent.com/document/api/1448/117193#AvailableModelVersion))
+* [[Cage](https://cloud.tencent.com/document/api/1448/117193#Cage)](https://cloud.tencent.com/document/api/1448/117193#[Cage](https://cloud.tencent.com/document/api/1448/117193#Cage))
+* [[Campus](https://cloud.tencent.com/document/api/1448/117193#Campus)](https://cloud.tencent.com/document/api/1448/117193#[Campus](https://cloud.tencent.com/document/api/1448/117193#Campus))
+* [[CommonServiceBaseInfo](https://cloud.tencent.com/document/api/1448/117193#CommonServiceBaseInfo)](https://cloud.tencent.com/document/api/1448/117193#[CommonServiceBaseInfo](https://cloud.tencent.com/document/api/1448/117193#CommonServiceBaseInfo))
+* [[CustomerInfo](https://cloud.tencent.com/document/api/1448/117193#CustomerInfo)](https://cloud.tencent.com/document/api/1448/117193#[CustomerInfo](https://cloud.tencent.com/document/api/1448/117193#CustomerInfo))
+* [[CustomerReceipt](https://cloud.tencent.com/document/api/1448/117193#CustomerReceipt)](https://cloud.tencent.com/document/api/1448/117193#[CustomerReceipt](https://cloud.tencent.com/document/api/1448/117193#CustomerReceipt))
+* [[Device](https://cloud.tencent.com/document/api/1448/117193#Device)](https://cloud.tencent.com/document/api/1448/117193#[Device](https://cloud.tencent.com/document/api/1448/117193#Device))
+* [[DeviceHistory](https://cloud.tencent.com/document/api/1448/117193#DeviceHistory)](https://cloud.tencent.com/document/api/1448/117193#[DeviceHistory](https://cloud.tencent.com/document/api/1448/117193#DeviceHistory))
+* [[DeviceOrderBaseInfo](https://cloud.tencent.com/document/api/1448/117193#DeviceOrderBaseInfo)](https://cloud.tencent.com/document/api/1448/117193#[DeviceOrderBaseInfo](https://cloud.tencent.com/document/api/1448/117193#DeviceOrderBaseInfo))
+* [[DevicePosition](https://cloud.tencent.com/document/api/1448/117193#DevicePosition)](https://cloud.tencent.com/document/api/1448/117193#[DevicePosition](https://cloud.tencent.com/document/api/1448/117193#DevicePosition))
+* [[DeviceRackOn](https://cloud.tencent.com/document/api/1448/117193#DeviceRackOn)](https://cloud.tencent.com/document/api/1448/117193#[DeviceRackOn](https://cloud.tencent.com/document/api/1448/117193#DeviceRackOn))
+* [[Distribution](https://cloud.tencent.com/document/api/1448/117193#Distribution)](https://cloud.tencent.com/document/api/1448/117193#[Distribution](https://cloud.tencent.com/document/api/1448/117193#Distribution))
+* [[ExpressDelivery](https://cloud.tencent.com/document/api/1448/117193#ExpressDelivery)](https://cloud.tencent.com/document/api/1448/117193#[ExpressDelivery](https://cloud.tencent.com/document/api/1448/117193#ExpressDelivery))
+* [[Filter](https://cloud.tencent.com/document/api/1448/117193#Filter)](https://cloud.tencent.com/document/api/1448/117193#[Filter](https://cloud.tencent.com/document/api/1448/117193#Filter))
+* [[Idc](https://cloud.tencent.com/document/api/1448/117193#Idc)](https://cloud.tencent.com/document/api/1448/117193#[Idc](https://cloud.tencent.com/document/api/1448/117193#Idc))
+* [[IdcUnit](https://cloud.tencent.com/document/api/1448/117193#IdcUnit)](https://cloud.tencent.com/document/api/1448/117193#[IdcUnit](https://cloud.tencent.com/document/api/1448/117193#IdcUnit))
+* [[IdcUnitInfo](https://cloud.tencent.com/document/api/1448/117193#IdcUnitInfo)](https://cloud.tencent.com/document/api/1448/117193#[IdcUnitInfo](https://cloud.tencent.com/document/api/1448/117193#IdcUnitInfo))
+* [[LogisticsReceipt](https://cloud.tencent.com/document/api/1448/117193#LogisticsReceipt)](https://cloud.tencent.com/document/api/1448/117193#[LogisticsReceipt](https://cloud.tencent.com/document/api/1448/117193#LogisticsReceipt))
+* [[ModelEvaluationBaseInfo](https://cloud.tencent.com/document/api/1448/117193#ModelEvaluationBaseInfo)](https://cloud.tencent.com/document/api/1448/117193#[ModelEvaluationBaseInfo](https://cloud.tencent.com/document/api/1448/117193#ModelEvaluationBaseInfo))
+* [[ModelVersion](https://cloud.tencent.com/document/api/1448/117193#ModelVersion)](https://cloud.tencent.com/document/api/1448/117193#[ModelVersion](https://cloud.tencent.com/document/api/1448/117193#ModelVersion))
+* [[ModelVersionCount](https://cloud.tencent.com/document/api/1448/117193#ModelVersionCount)](https://cloud.tencent.com/document/api/1448/117193#[ModelVersionCount](https://cloud.tencent.com/document/api/1448/117193#ModelVersionCount))
+* [[ModelVersionDetail](https://cloud.tencent.com/document/api/1448/117193#ModelVersionDetail)](https://cloud.tencent.com/document/api/1448/117193#[ModelVersionDetail](https://cloud.tencent.com/document/api/1448/117193#ModelVersionDetail))
+* [[NetDeviceModel](https://cloud.tencent.com/document/api/1448/117193#NetDeviceModel)](https://cloud.tencent.com/document/api/1448/117193#[NetDeviceModel](https://cloud.tencent.com/document/api/1448/117193#NetDeviceModel))
+* [[NetReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#NetReceivingInfo)](https://cloud.tencent.com/document/api/1448/117193#[NetReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#NetReceivingInfo))
+* [[OptionValueItem](https://cloud.tencent.com/document/api/1448/117193#OptionValueItem)](https://cloud.tencent.com/document/api/1448/117193#[OptionValueItem](https://cloud.tencent.com/document/api/1448/117193#OptionValueItem))
+* [[OrderStep](https://cloud.tencent.com/document/api/1448/117193#OrderStep)](https://cloud.tencent.com/document/api/1448/117193#[OrderStep](https://cloud.tencent.com/document/api/1448/117193#OrderStep))
+* [[OtherDevReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#OtherDevReceivingInfo)](https://cloud.tencent.com/document/api/1448/117193#[OtherDevReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#OtherDevReceivingInfo))
+* [[Personnel](https://cloud.tencent.com/document/api/1448/117193#Personnel)](https://cloud.tencent.com/document/api/1448/117193#[Personnel](https://cloud.tencent.com/document/api/1448/117193#Personnel))
+* [[PersonnelVisitBaseInfo](https://cloud.tencent.com/document/api/1448/117193#PersonnelVisitBaseInfo)](https://cloud.tencent.com/document/api/1448/117193#[PersonnelVisitBaseInfo](https://cloud.tencent.com/document/api/1448/117193#PersonnelVisitBaseInfo))
+* [[Position](https://cloud.tencent.com/document/api/1448/117193#Position)](https://cloud.tencent.com/document/api/1448/117193#[Position](https://cloud.tencent.com/document/api/1448/117193#Position))
+* [[PositionStatusItem](https://cloud.tencent.com/document/api/1448/117193#PositionStatusItem)](https://cloud.tencent.com/document/api/1448/117193#[PositionStatusItem](https://cloud.tencent.com/document/api/1448/117193#PositionStatusItem))
+* [[PowerOffConfirm](https://cloud.tencent.com/document/api/1448/117193#PowerOffConfirm)](https://cloud.tencent.com/document/api/1448/117193#[PowerOffConfirm](https://cloud.tencent.com/document/api/1448/117193#PowerOffConfirm))
+* [[Rack](https://cloud.tencent.com/document/api/1448/117193#Rack)](https://cloud.tencent.com/document/api/1448/117193#[Rack](https://cloud.tencent.com/document/api/1448/117193#Rack))
+* [[RackUsage](https://cloud.tencent.com/document/api/1448/117193#RackUsage)](https://cloud.tencent.com/document/api/1448/117193#[RackUsage](https://cloud.tencent.com/document/api/1448/117193#RackUsage))
+* [[SelfOperation](https://cloud.tencent.com/document/api/1448/117193#SelfOperation)](https://cloud.tencent.com/document/api/1448/117193#[SelfOperation](https://cloud.tencent.com/document/api/1448/117193#SelfOperation))
+* [[ServerModel](https://cloud.tencent.com/document/api/1448/117193#ServerModel)](https://cloud.tencent.com/document/api/1448/117193#[ServerModel](https://cloud.tencent.com/document/api/1448/117193#ServerModel))
+* [[ServerReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#ServerReceivingInfo)](https://cloud.tencent.com/document/api/1448/117193#[ServerReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#ServerReceivingInfo))
+* [[TemplateOption](https://cloud.tencent.com/document/api/1448/117193#TemplateOption)](https://cloud.tencent.com/document/api/1448/117193#[TemplateOption](https://cloud.tencent.com/document/api/1448/117193#TemplateOption))
+* [[WireReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#WireReceivingInfo)](https://cloud.tencent.com/document/api/1448/117193#[WireReceivingInfo](https://cloud.tencent.com/document/api/1448/117193#WireReceivingInfo))
+* [[WorkOrderData](https://cloud.tencent.com/document/api/1448/117193#WorkOrderData)](https://cloud.tencent.com/document/api/1448/117193#[WorkOrderData](https://cloud.tencent.com/document/api/1448/117193#WorkOrderData))
+* [[WorkOrderFamilyDetail](https://cloud.tencent.com/document/api/1448/117193#WorkOrderFamilyDetail)](https://cloud.tencent.com/document/api/1448/117193#[WorkOrderFamilyDetail](https://cloud.tencent.com/document/api/1448/117193#WorkOrderFamilyDetail))
+* [[WorkOrderTinyInfo](https://cloud.tencent.com/document/api/1448/117193#WorkOrderTinyInfo)](https://cloud.tencent.com/document/api/1448/117193#[WorkOrderTinyInfo](https://cloud.tencent.com/document/api/1448/117193#WorkOrderTinyInfo))
+* [[WorkOrderTypeDetail](https://cloud.tencent.com/document/api/1448/117193#WorkOrderTypeDetail)](https://cloud.tencent.com/document/api/1448/117193#[WorkOrderTypeDetail](https://cloud.tencent.com/document/api/1448/117193#WorkOrderTypeDetail))
 
 
 
@@ -56726,6 +56914,27 @@
 
 ## 数据库智能管家 DBbrain(dbbrain) 版本：2021-05-27
 
+### 第 40 次发布
+
+发布时间：2025-03-25 01:28:08
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+新增接口：
+
+* [[DescribeDBPerfTimeSeries](https://cloud.tencent.com/document/api/1130/117228)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeRedisCmdPerfTimeSeries](https://cloud.tencent.com/document/api/1130/117231)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeRedisCommandCostStatistics](https://cloud.tencent.com/document/api/1130/117230)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeRedisCommandOverview](https://cloud.tencent.com/document/api/1130/117229)](https://cloud.tencent.com/document/api/#/#)
+
+新增数据结构：
+
+* [[CmdCostGroup](https://cloud.tencent.com/document/api/1130/57812#CmdCostGroup)](https://cloud.tencent.com/document/api/1130/57812#[CmdCostGroup](https://cloud.tencent.com/document/api/1130/57812#CmdCostGroup))
+* [[CmdPerfInfo](https://cloud.tencent.com/document/api/1130/57812#CmdPerfInfo)](https://cloud.tencent.com/document/api/1130/57812#[CmdPerfInfo](https://cloud.tencent.com/document/api/1130/57812#CmdPerfInfo))
+* [[RedisCmdInfo](https://cloud.tencent.com/document/api/1130/57812#RedisCmdInfo)](https://cloud.tencent.com/document/api/1130/57812#[RedisCmdInfo](https://cloud.tencent.com/document/api/1130/57812#RedisCmdInfo))
+
 ### 第 39 次发布
 
 发布时间：2025-03-24 01:27:53
@@ -66645,6 +66854,29 @@
 
 ## 全站加速网络(ecdn) 版本：2019-10-12
 
+### 第 14 次发布
+
+发布时间：2025-03-25 01:33:31
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+<font color="#dd0000">**删除接口**：</font>
+
+* AddEcdnDomain
+* CreateVerifyRecord
+* DeleteEcdnDomain
+* DescribePurgeQuota
+* PurgePathCache
+* StartEcdnDomain
+* StopEcdnDomain
+* UpdateDomainConfig
+
+<font color="#dd0000">**删除数据结构**：</font>
+
+* Quota
+
 ### 第 13 次发布
 
 发布时间：2023-05-05 01:16:29
@@ -69193,8 +69425,8 @@
 
 新增数据结构：
 
-* [[NodeRenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#NodeRenewPriceDetail)](https://cloud.tencent.com/document/api/589/33981#[NodeRenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#NodeRenewPriceDetail))
-* [[RenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#RenewPriceDetail)](https://cloud.tencent.com/document/api/589/33981#[RenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#RenewPriceDetail))
+* [NodeRenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#NodeRenewPriceDetail)
+* [RenewPriceDetail](https://cloud.tencent.com/document/api/589/33981#RenewPriceDetail)
 
 修改数据结构：
 
@@ -73075,6 +73307,21 @@
 
 
 ## 腾讯电子签企业版(ess) 版本：2020-11-11
+
+### 第 214 次发布
+
+发布时间：2025-03-25 01:36:08
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [CreateFlowOption](https://cloud.tencent.com/document/api/1323/70369#CreateFlowOption)
+
+	* 新增成员：ForbidEditApprover
+
 
 ### 第 213 次发布
 
@@ -77099,6 +77346,21 @@
 
 
 ## 腾讯电子签（基础版）(essbasic) 版本：2021-05-26
+
+### 第 214 次发布
+
+发布时间：2025-03-25 01:37:06
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [CreateFlowOption](https://cloud.tencent.com/document/api/1420/61525#CreateFlowOption)
+
+	* 新增成员：ForbidEditApprover
+
 
 ### 第 213 次发布
 
@@ -85379,6 +85641,65 @@
 
 ## 云游戏(gs) 版本：2019-11-18
 
+### 第 22 次发布
+
+发布时间：2025-03-25 01:39:13
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+新增接口：
+
+* [[ConnectAndroidInstance](https://cloud.tencent.com/document/api/1162/117268)](https://cloud.tencent.com/document/api/#/#)
+* [[CopyAndroidInstance](https://cloud.tencent.com/document/api/1162/117244)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/117236)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateAndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/117241)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateAndroidInstanceSSH](https://cloud.tencent.com/document/api/1162/117267)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateAndroidInstanceWebShell](https://cloud.tencent.com/document/api/1162/117266)](https://cloud.tencent.com/document/api/#/#)
+* [[CreateAndroidInstances](https://cloud.tencent.com/document/api/1162/117265)](https://cloud.tencent.com/document/api/#/#)
+* [[DeleteAndroidInstanceImages](https://cloud.tencent.com/document/api/1162/117235)](https://cloud.tencent.com/document/api/#/#)
+* [[DeleteAndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/117240)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAndroidApps](https://cloud.tencent.com/document/api/1162/117252)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAndroidInstanceApps](https://cloud.tencent.com/document/api/1162/117251)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAndroidInstanceImages](https://cloud.tencent.com/document/api/1162/117234)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAndroidInstanceLabels](https://cloud.tencent.com/document/api/1162/117239)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAndroidInstanceTasksStatus](https://cloud.tencent.com/document/api/1162/117270)](https://cloud.tencent.com/document/api/#/#)
+* [[DescribeAndroidInstances](https://cloud.tencent.com/document/api/1162/117264)](https://cloud.tencent.com/document/api/#/#)
+* [[DestroyAndroidInstances](https://cloud.tencent.com/document/api/1162/117263)](https://cloud.tencent.com/document/api/#/#)
+* [[ExecuteCommandOnAndroidInstances](https://cloud.tencent.com/document/api/1162/117262)](https://cloud.tencent.com/document/api/#/#)
+* [[InstallAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117250)](https://cloud.tencent.com/document/api/#/#)
+* [[ModifyAndroidInstanceInformation](https://cloud.tencent.com/document/api/1162/117261)](https://cloud.tencent.com/document/api/#/#)
+* [[ModifyAndroidInstanceResolution](https://cloud.tencent.com/document/api/1162/117260)](https://cloud.tencent.com/document/api/#/#)
+* [[ModifyAndroidInstancesLabels](https://cloud.tencent.com/document/api/1162/117238)](https://cloud.tencent.com/document/api/#/#)
+* [[ModifyAndroidInstancesUserId](https://cloud.tencent.com/document/api/1162/117259)](https://cloud.tencent.com/document/api/#/#)
+* [[RebootAndroidInstances](https://cloud.tencent.com/document/api/1162/117258)](https://cloud.tencent.com/document/api/#/#)
+* [[ResetAndroidInstances](https://cloud.tencent.com/document/api/1162/117257)](https://cloud.tencent.com/document/api/#/#)
+* [[RestartAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117249)](https://cloud.tencent.com/document/api/#/#)
+* [[StartAndroidInstances](https://cloud.tencent.com/document/api/1162/117256)](https://cloud.tencent.com/document/api/#/#)
+* [[StartAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117248)](https://cloud.tencent.com/document/api/#/#)
+* [[StopAndroidInstances](https://cloud.tencent.com/document/api/1162/117255)](https://cloud.tencent.com/document/api/#/#)
+* [[StopAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117247)](https://cloud.tencent.com/document/api/#/#)
+* [[SyncAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/117233)](https://cloud.tencent.com/document/api/#/#)
+* [[SyncExecuteCommandOnAndroidInstances](https://cloud.tencent.com/document/api/1162/117254)](https://cloud.tencent.com/document/api/#/#)
+* [[UninstallAndroidInstancesApp](https://cloud.tencent.com/document/api/1162/117246)](https://cloud.tencent.com/document/api/#/#)
+* [[UploadFileToAndroidInstances](https://cloud.tencent.com/document/api/1162/117243)](https://cloud.tencent.com/document/api/#/#)
+
+新增数据结构：
+
+* [[AndroidApp](https://cloud.tencent.com/document/api/1162/40743#AndroidApp)](https://cloud.tencent.com/document/api/1162/40743#[AndroidApp](https://cloud.tencent.com/document/api/1162/40743#AndroidApp))
+* [[AndroidAppVersionInfo](https://cloud.tencent.com/document/api/1162/40743#AndroidAppVersionInfo)](https://cloud.tencent.com/document/api/1162/40743#[AndroidAppVersionInfo](https://cloud.tencent.com/document/api/1162/40743#AndroidAppVersionInfo))
+* [[AndroidInstance](https://cloud.tencent.com/document/api/1162/40743#AndroidInstance)](https://cloud.tencent.com/document/api/1162/40743#[AndroidInstance](https://cloud.tencent.com/document/api/1162/40743#AndroidInstance))
+* [[AndroidInstanceAppInfo](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceAppInfo)](https://cloud.tencent.com/document/api/1162/40743#[AndroidInstanceAppInfo](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceAppInfo))
+* [[AndroidInstanceImage](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceImage)](https://cloud.tencent.com/document/api/1162/40743#[AndroidInstanceImage](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceImage))
+* [[AndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceLabel)](https://cloud.tencent.com/document/api/1162/40743#[AndroidInstanceLabel](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceLabel))
+* [[AndroidInstanceTask](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceTask)](https://cloud.tencent.com/document/api/1162/40743#[AndroidInstanceTask](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceTask))
+* [[AndroidInstanceTaskStatus](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceTaskStatus)](https://cloud.tencent.com/document/api/1162/40743#[AndroidInstanceTaskStatus](https://cloud.tencent.com/document/api/1162/40743#AndroidInstanceTaskStatus))
+* [[Filter](https://cloud.tencent.com/document/api/1162/40743#Filter)](https://cloud.tencent.com/document/api/1162/40743#[Filter](https://cloud.tencent.com/document/api/1162/40743#Filter))
+* [[LabelRequirement](https://cloud.tencent.com/document/api/1162/40743#LabelRequirement)](https://cloud.tencent.com/document/api/1162/40743#[LabelRequirement](https://cloud.tencent.com/document/api/1162/40743#LabelRequirement))
+* [[SyncAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/40743#SyncAndroidInstanceImage)](https://cloud.tencent.com/document/api/1162/40743#[SyncAndroidInstanceImage](https://cloud.tencent.com/document/api/1162/40743#SyncAndroidInstanceImage))
+* [[SyncExecuteCommandResult](https://cloud.tencent.com/document/api/1162/40743#SyncExecuteCommandResult)](https://cloud.tencent.com/document/api/1162/40743#[SyncExecuteCommandResult](https://cloud.tencent.com/document/api/1162/40743#SyncExecuteCommandResult))
+
 ### 第 21 次发布
 
 发布时间：2024-04-10 01:16:17
@@ -90889,7 +91210,7 @@
 
 新增接口：
 
-* [[DescribeUnbindedDevices](https://cloud.tencent.com/document/api/1081/117152)](https://cloud.tencent.com/document/api/#/#)
+* [DescribeUnbindedDevices](https://cloud.tencent.com/document/api/1081/117152)
 
 ### 第 95 次发布
 
@@ -107170,12 +107491,12 @@
 
 新增接口：
 
-* [[CreateConditionsTemplate](https://cloud.tencent.com/document/api/248/117153)](https://cloud.tencent.com/document/api/#/#)
+* [CreateConditionsTemplate](https://cloud.tencent.com/document/api/248/117153)
 
 新增数据结构：
 
-* [[ModifyConditionsTemplateRequestCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestCondition)](https://cloud.tencent.com/document/api/248/30354#[ModifyConditionsTemplateRequestCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestCondition))
-* [[ModifyConditionsTemplateRequestEventCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestEventCondition)](https://cloud.tencent.com/document/api/248/30354#[ModifyConditionsTemplateRequestEventCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestEventCondition))
+* [ModifyConditionsTemplateRequestCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestCondition)
+* [ModifyConditionsTemplateRequestEventCondition](https://cloud.tencent.com/document/api/248/30354#ModifyConditionsTemplateRequestEventCondition)
 
 ### 第 132 次发布
 
@@ -139798,6 +140119,21 @@
 
 ## 腾讯云健康看板(tchd) 版本：2023-03-06
 
+### 第 3 次发布
+
+发布时间：2025-03-25 02:03:27
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [TotalStatus](https://cloud.tencent.com/document/api/1688/94859#TotalStatus)
+
+	* <font color="#dd0000">**修改成员**：</font>NormalCount, NotifyCount, AbnormalCount
+
+
 ### 第 2 次发布
 
 发布时间：2025-03-17 01:26:35
@@ -150515,7 +150851,7 @@
 
 新增接口：
 
-* [[ModifyL7AccRulePriority](https://cloud.tencent.com/document/api/1552/117133)](https://cloud.tencent.com/document/api/#/#)
+* [ModifyL7AccRulePriority](https://cloud.tencent.com/document/api/1552/117133)
 
 ### 第 98 次发布
 
@@ -153313,6 +153649,21 @@
 
 ## 高性能计算平台(thpc) 版本：2022-04-01
 
+### 第 14 次发布
+
+发布时间：2025-03-25 02:09:47
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [QueueOverview](https://cloud.tencent.com/document/api/1527/72108#QueueOverview)
+
+	* <font color="#dd0000">**修改成员**：</font>QueueName
+
+
 ### 第 13 次发布
 
 发布时间：2024-12-31 01:30:33
@@ -153551,6 +153902,25 @@
 
 
 ## 高性能计算平台(thpc) 版本：2023-03-21
+
+### 第 21 次发布
+
+发布时间：2025-03-25 02:09:57
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改数据结构：
+
+* [NodeOverview](https://cloud.tencent.com/document/api/1527/89579#NodeOverview)
+
+	* 新增成员：NodeAllocateState
+
+* [QueueOverview](https://cloud.tencent.com/document/api/1527/89579#QueueOverview)
+
+	* <font color="#dd0000">**修改成员**：</font>QueueName
+
 
 ### 第 20 次发布
 
@@ -155411,6 +155781,25 @@
 
 
 ## TI-ONE 训练平台(tione) 版本：2021-11-11
+
+### 第 71 次发布
+
+发布时间：2025-03-25 02:10:11
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+新增数据结构：
+
+* [[GooseFSx](https://cloud.tencent.com/document/api/851/75051#GooseFSx)](https://cloud.tencent.com/document/api/851/75051#[GooseFSx](https://cloud.tencent.com/document/api/851/75051#GooseFSx))
+
+修改数据结构：
+
+* [ModelInfo](https://cloud.tencent.com/document/api/851/75051#ModelInfo)
+
+	* 新增成员：GooseFSx
+
 
 ### 第 70 次发布
 
@@ -186912,6 +187301,34 @@
 
 
 ## 数据开发治理平台 WeData(wedata) 版本：2021-08-20
+
+### 第 137 次发布
+
+发布时间：2025-03-25 02:22:46
+
+本次发布包含了以下内容：
+
+改善已有的文档。
+
+修改接口：
+
+* [AddProjectUserRole](https://cloud.tencent.com/document/api/1267/116211)
+
+	* 新增入参：ProjectId, UserIds, RoleIds
+
+	* 新增出参：Data
+
+
+修改数据结构：
+
+* [AlarmReceiverInfo](https://cloud.tencent.com/document/api/1267/76336#AlarmReceiverInfo)
+
+	* 新增成员：AlarmMessageSendResult
+
+* [TaskAlarmInfo](https://cloud.tencent.com/document/api/1267/76336#TaskAlarmInfo)
+
+	* 新增成员：AlarmMessageRule
+
 
 ### 第 136 次发布
 
