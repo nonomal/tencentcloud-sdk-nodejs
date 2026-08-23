@@ -801,7 +801,7 @@ export interface ProxyRoute {
    */
   Weight?: number
   /**
-   * <p>路由状态：available/unavailable</p>
+   * <p>路由状态：online/offline</p><p>枚举值：</p><ul><li>online： 节点处于在线状态</li><li>offline： 节点处于下线状态</li></ul>
    */
   Status?: string
 }
@@ -1412,6 +1412,38 @@ export interface ProxyAddress {
    * <p>连接池大小</p>
    */
   ConnectionPoolLimit?: number
+  /**
+   * <p>读写分离开关。启用后 proxy 将读请求分发到只读节点，写请求仍走主节点。</p>
+   */
+  RwSplitEnable?: boolean
+  /**
+   * <p>权重模式</p><p>枚举值：</p><ul><li>system： 系统自动分配</li><li>custom： 用户自定义权重</li></ul>
+   */
+  WeightMode?: string
+  /**
+   * <p>新增只读是否自动加入读写分离</p>
+   */
+  RoAutoAdd?: boolean
+  /**
+   * <p>延迟剔除开关</p>
+   */
+  LatencyRemove?: boolean
+  /**
+   * <p>延迟剔除阈值</p><p>单位：秒</p>
+   */
+  LatencyRemoveTime?: number
+  /**
+   * <p>最小保留路由数。在延迟/故障剔除时，至少保留的路由数量，防止所有节点被剔除导致服务不可用。</p>
+   */
+  MinRouteNum?: number
+  /**
+   * <p>只读全部异常时是否回切到主</p>
+   */
+  FailOver?: boolean
+  /**
+   * <p>负载均衡策略</p><p>枚举值：</p><ul><li>0： 按活跃连接数(默认)</li><li>1： 按请求数</li></ul>
+   */
+  LoadBalancePolicy?: number
 }
 
 /**
@@ -2725,6 +2757,34 @@ export interface ModifyDBProxyAddressRequest {
    * <p>连接池开关</p><p>枚举值：</p><ul><li>true： 开启</li><li>false： 关闭</li></ul>
    */
   ConnectionPool?: boolean
+  /**
+   * <p>权重模式</p><p>枚举值：</p><ul><li>system： 系统自动分配权重</li><li>custom： 自定义权重，此模式下ProxyAllocation参数必传</li></ul><p>默认值：system</p>
+   */
+  WeightMode?: string
+  /**
+   * <p>system</p><p>入参限制：路由权重列表。若 WeightMode 传的是system或不传 ，则传入的权重不生效，由系统分配默认权重。</p>
+   */
+  ProxyAllocation?: Array<ProxyRoute>
+  /**
+   * <p>新增只读实例是否自动加入当前连接地址，仅后续新建实例生效</p>
+   */
+  RoAutoAdd?: boolean
+  /**
+   * <p>延迟剔除开关</p>
+   */
+  LatencyRemove?: boolean
+  /**
+   * <p>延迟剔除阈值，仅在延迟剔除开关打开时有效</p><p>单位：秒</p>
+   */
+  LatencyRemoveTime?: number
+  /**
+   * <p>最小保留路由数。在延迟/故障剔除时，至少保留的路由数量，防止所有节点被剔除导致服务不可用。</p>
+   */
+  MinRouteNum?: number
+  /**
+   * <p>负载均衡策略</p><p>枚举值：</p><ul><li>0： 按活跃连接数(默认)</li><li>1： 按请求数</li></ul>
+   */
+  LoadBalancePolicy?: number
 }
 
 /**
@@ -5863,6 +5923,10 @@ export interface DeleteBaseBackupRequest {
  * ModifyDBProxyAddress返回参数结构体
  */
 export interface ModifyDBProxyAddressResponse {
+  /**
+   * <p>异步任务 ID，用于 DescribeTasks 查询进度</p>
+   */
+  TaskId?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

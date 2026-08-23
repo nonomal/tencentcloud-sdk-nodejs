@@ -119,6 +119,7 @@ import {
   ExposePortConfig,
   Option,
   DescribeMountLimitsRequest,
+  ImageSecret,
   DeleteExportResponse,
   DefaultInnerCallInfo,
   AuthTokenBase,

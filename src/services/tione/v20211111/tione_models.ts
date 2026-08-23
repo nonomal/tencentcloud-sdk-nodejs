@@ -3187,6 +3187,32 @@ export interface DescribeMountLimitsRequest {
 }
 
 /**
+ * 自定义镜像仓库凭据
+ */
+export interface ImageSecret {
+  /**
+   * 用于加密密码的KMS公钥ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  KeyId?: string
+  /**
+   * 用户名
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Username?: string
+  /**
+   * 密码,base64编码； 当keyId不为空时，密码是加密后的
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Password?: string
+  /**
+   * 用户凭据ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SecretId?: string
+}
+
+/**
  * DeleteExport返回参数结构体
  */
 export interface DeleteExportResponse {
@@ -4347,38 +4373,43 @@ export interface UpdateSubAccountLinuxUserInfoResponse {
  */
 export interface ImageInfo {
   /**
-   * 镜像类型：TCR为腾讯云TCR镜像; CCR为腾讯云TCR个人版镜像，PreSet为平台预置镜像，CUSTOM为第三方自定义镜像
+   * <p>镜像类型：TCR为腾讯云TCR镜像; CCR为腾讯云TCR个人版镜像，PreSet为平台预置镜像，CUSTOM为第三方自定义镜像</p>
    */
   ImageType: string
   /**
-   * 镜像地址
+   * <p>镜像地址</p>
    */
   ImageUrl: string
   /**
-   * TCR镜像对应的地域
+   * <p>TCR镜像对应的地域</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RegistryRegion?: string
   /**
-   * TCR镜像对应的实例id
+   * <p>TCR镜像对应的实例id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RegistryId?: string
   /**
-   * 是否允许导出全部内容
+   * <p>是否允许导出全部内容</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AllowSaveAllContent?: boolean
   /**
-   * 镜像名称
+   * <p>镜像名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ImageName?: string
   /**
-   * 是否支持数据构建
+   * <p>是否支持数据构建</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SupportDataPipeline?: boolean
+  /**
+   * <p>镜像仓库用户名密码信息(仅当ImageType为CUSTOM第三方镜像的时候需要)</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ImageSecret?: ImageSecret
 }
 
 /**

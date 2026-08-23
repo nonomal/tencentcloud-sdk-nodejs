@@ -1709,6 +1709,16 @@ export interface ManagementConfig {
 }
 
 /**
+ * DetachApplicationRole返回参数结构体
+ */
+export interface DetachApplicationRoleResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DeleteNodePool请求参数结构体
  */
 export interface DeleteNodePoolRequest {
@@ -2319,6 +2329,20 @@ export interface NodeCountSummary {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AutoscalingAdded?: AutoscalingAdded
+}
+
+/**
+ * DetachApplicationRole请求参数结构体
+ */
+export interface DetachApplicationRoleRequest {
+  /**
+   * <p>集群 ID</p>
+   */
+  ClusterId?: string
+  /**
+   * <p>解绑的 CVM 实例列表</p>
+   */
+  Instances?: Array<string>
 }
 
 /**

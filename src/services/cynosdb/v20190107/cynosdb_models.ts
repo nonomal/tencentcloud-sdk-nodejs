@@ -1410,6 +1410,10 @@ export interface BackupFileInfo {
    */
   BackupName?: string
   /**
+   * <p>备份文件所在地域</p>
+   */
+  ExistRegions?: Array<BackupRegionAndIds>
+  /**
    * <p>投递状态</p>
    */
   CopyStatus?: string
@@ -6856,6 +6860,16 @@ export interface NetAddr {
 }
 
 /**
+ * DescribeClusterStorageAutoExpand请求参数结构体
+ */
+export interface DescribeClusterStorageAutoExpandRequest {
+  /**
+   * <p>集群ID</p>
+   */
+  ClusterId: string
+}
+
+/**
  * DescribeBackupOverview返回参数结构体
  */
 export interface DescribeBackupOverviewResponse {
@@ -9846,17 +9860,13 @@ export interface DescribeLibraDBClusterTableMappingResponse {
 }
 
 /**
- * DescribeInstanceCLSLogDelivery请求参数结构体
+ * DescribeLibraDBForwardConfig请求参数结构体
  */
-export interface DescribeInstanceCLSLogDeliveryRequest {
+export interface DescribeLibraDBForwardConfigRequest {
   /**
-   * 实例id
+   * 只读分析引擎实例id
    */
   InstanceId: string
-  /**
-   * 日志类型
-   */
-  LogType?: string
 }
 
 /**
@@ -15863,6 +15873,20 @@ export interface ModifyLibraDBClusterAccountDescriptionResponse {
 }
 
 /**
+ * ReplayInstanceAuditLog返回参数结构体
+ */
+export interface ReplayInstanceAuditLogResponse {
+  /**
+   * 任务id
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 计费资源信息
  */
 export interface BillingResourceInfo {
@@ -15910,13 +15934,17 @@ export interface DescribeBackupDownloadRestrictionResponse {
 }
 
 /**
- * DescribeLibraDBForwardConfig请求参数结构体
+ * DescribeInstanceCLSLogDelivery请求参数结构体
  */
-export interface DescribeLibraDBForwardConfigRequest {
+export interface DescribeInstanceCLSLogDeliveryRequest {
   /**
-   * 只读分析引擎实例id
+   * 实例id
    */
   InstanceId: string
+  /**
+   * 日志类型
+   */
+  LogType?: string
 }
 
 /**
@@ -16743,13 +16771,25 @@ export interface TablePrivileges {
 }
 
 /**
- * ReplayInstanceAuditLog返回参数结构体
+ * DescribeClusterStorageAutoExpand返回参数结构体
  */
-export interface ReplayInstanceAuditLogResponse {
+export interface DescribeClusterStorageAutoExpandResponse {
   /**
-   * 任务id
+   * <p>存储使用率阈值</p>
    */
-  TaskId?: number
+  StorageUsageThreshold?: number
+  /**
+   * <p>扩容步长</p>
+   */
+  ExpandStep?: number
+  /**
+   * <p>最大存储上限</p>
+   */
+  MaxStorageLimit?: number
+  /**
+   * <p>是否开启：yes-开启，no-关闭</p>
+   */
+  StorageAutoExpand?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

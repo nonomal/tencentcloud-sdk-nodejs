@@ -238,6 +238,16 @@ it("redis.v20180412.DescribeBackupUrl", async function () {
     }
 })
 
+it("redis.v20180412.ModifyInstancePasswordPolicy", async function () {
+    try {
+       const data = await client.ModifyInstancePasswordPolicy({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("redis.v20180412.DescribeSecondLevelBackupInfo", async function () {
     try {
        const data = await client.DescribeSecondLevelBackupInfo({})

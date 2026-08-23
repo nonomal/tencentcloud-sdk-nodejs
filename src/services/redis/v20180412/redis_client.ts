@@ -110,6 +110,7 @@ import {
   ModifyInstanceResponse,
   RedisCommonInstanceList,
   SourceInfo,
+  ModifyInstancePasswordPolicyResponse,
   ModifyDBInstanceSecurityGroupsResponse,
   ChangeMasterInstanceRequest,
   DescribeInstanceDTSInfoRequest,
@@ -240,6 +241,7 @@ import {
   ResourceBundle,
   ManualBackupInstanceRequest,
   DescribeReplicationGroupResponse,
+  ModifyInstancePasswordPolicyRequest,
   ModifyParamTemplateRequest,
   AvailableRegion,
   FailedInstance,
@@ -551,6 +553,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeBackupUrlResponse) => void
   ): Promise<DescribeBackupUrlResponse> {
     return this.request("DescribeBackupUrl", req, cb)
+  }
+
+  /**
+   * 本接口（ModifyInstancePasswordPolicy）用于修改实例密码复杂度。
+   */
+  async ModifyInstancePasswordPolicy(
+    req: ModifyInstancePasswordPolicyRequest,
+    cb?: (error: string, rep: ModifyInstancePasswordPolicyResponse) => void
+  ): Promise<ModifyInstancePasswordPolicyResponse> {
+    return this.request("ModifyInstancePasswordPolicy", req, cb)
   }
 
   /**

@@ -284,6 +284,7 @@ import {
   CreateProxyEndPointResponse,
   DescribeSQLExecutionPlanResponse,
   NetAddr,
+  DescribeClusterStorageAutoExpandRequest,
   DescribeBackupOverviewResponse,
   ReplayInstanceAuditLogRequest,
   MigrateDBItem,
@@ -396,7 +397,7 @@ import {
   ActivateInstanceRequest,
   ExecutionPlanDetail,
   DescribeLibraDBClusterTableMappingResponse,
-  DescribeInstanceCLSLogDeliveryRequest,
+  DescribeLibraDBForwardConfigRequest,
   CynosdbErrorLogItem,
   ModifyVipVportRequest,
   InstanceAbility,
@@ -627,10 +628,11 @@ import {
   DeleteClusterSaveBackupRequest,
   DescribeSlaveZonesRequest,
   ModifyLibraDBClusterAccountDescriptionResponse,
+  ReplayInstanceAuditLogResponse,
   BillingResourceInfo,
   InstanceNameWeight,
   DescribeBackupDownloadRestrictionResponse,
-  DescribeLibraDBForwardConfigRequest,
+  DescribeInstanceCLSLogDeliveryRequest,
   UpgradeInstanceResponse,
   IsolateLibraDBClusterResponse,
   CreateAuditRuleTemplateResponse,
@@ -663,7 +665,7 @@ import {
   TaskMaintainInfo,
   DescribeServerlessStrategyRequest,
   TablePrivileges,
-  ReplayInstanceAuditLogResponse,
+  DescribeClusterStorageAutoExpandResponse,
   DescribeBinlogSaveDaysResponse,
   ModifyLibraDBClusterProjectRequest,
   DeleteClusterPeriodScalePolicyResponse,
@@ -2399,6 +2401,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: SetRenewFlagResponse) => void
   ): Promise<SetRenewFlagResponse> {
     return this.request("SetRenewFlag", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeClusterStorageAutoExpand）用于查询自动库容配置。
+   */
+  async DescribeClusterStorageAutoExpand(
+    req: DescribeClusterStorageAutoExpandRequest,
+    cb?: (error: string, rep: DescribeClusterStorageAutoExpandResponse) => void
+  ): Promise<DescribeClusterStorageAutoExpandResponse> {
+    return this.request("DescribeClusterStorageAutoExpand", req, cb)
   }
 
   /**

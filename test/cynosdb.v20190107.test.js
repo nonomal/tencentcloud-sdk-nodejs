@@ -1728,6 +1728,16 @@ it("cynosdb.v20190107.SetRenewFlag", async function () {
     }
 })
 
+it("cynosdb.v20190107.DescribeClusterStorageAutoExpand", async function () {
+    try {
+       const data = await client.DescribeClusterStorageAutoExpand({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("cynosdb.v20190107.InquirePriceRenew", async function () {
     try {
        const data = await client.InquirePriceRenew({})

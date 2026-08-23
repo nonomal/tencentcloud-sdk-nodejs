@@ -77,6 +77,7 @@ import {
   DescribeGPUInfoRequest,
   Filter,
   ManagementConfig,
+  DetachApplicationRoleResponse,
   DeleteNodePoolRequest,
   SetMachineLoginResponse,
   Machine,
@@ -104,6 +105,7 @@ import {
   LifecycleConfig,
   InstanceChargePrepaid,
   NodeCountSummary,
+  DetachApplicationRoleRequest,
   UpdateNativeNodePoolParam,
   HealthCheckPolicy,
   HealthCheckPolicyBinding,
@@ -361,6 +363,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DeleteHealthCheckPolicyResponse) => void
   ): Promise<DeleteHealthCheckPolicyResponse> {
     return this.request("DeleteHealthCheckPolicy", req, cb)
+  }
+
+  /**
+   * 解绑原生节点 Application Role
+   */
+  async DetachApplicationRole(
+    req: DetachApplicationRoleRequest,
+    cb?: (error: string, rep: DetachApplicationRoleResponse) => void
+  ): Promise<DetachApplicationRoleResponse> {
+    return this.request("DetachApplicationRole", req, cb)
   }
 
   /**

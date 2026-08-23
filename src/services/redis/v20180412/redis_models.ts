@@ -2308,6 +2308,16 @@ export interface SourceInfo {
 }
 
 /**
+ * ModifyInstancePasswordPolicy返回参数结构体
+ */
+export interface ModifyInstancePasswordPolicyResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * ModifyDBInstanceSecurityGroups返回参数结构体
  */
 export interface ModifyDBInstanceSecurityGroupsResponse {
@@ -5452,6 +5462,20 @@ export interface DescribeReplicationGroupResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * ModifyInstancePasswordPolicy请求参数结构体
+ */
+export interface ModifyInstancePasswordPolicyRequest {
+  /**
+   * <p>实例 ID。请登录 <a href="https://console.cloud.tencent.com/redis">Redis 控制台</a>在实例列表复制实例 ID。</p>
+   */
+  InstanceId: string
+  /**
+   * <p>实例的密码复杂度策略控制对象，包含密码长度及各类字符（字母/数字/特殊符号）最小数量的校验指标。</p>
+   */
+  PasswordPolicy: PasswordPolicy
 }
 
 /**
