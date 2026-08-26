@@ -20,43 +20,43 @@
  */
 export interface ChatCompletionsRequest {
   /**
-   * 会话内容，按对话时间从旧到新在数组中排列，长度受模型窗口大小限制。
+   * <p>会话内容，按对话时间从旧到新在数组中排列，长度受模型窗口大小限制。</p>
    */
   Messages: Array<Message>
   /**
-   * 模型名称，可选模型列表：hunyuan-turbo，hunyuan-large，hunyuan-large-longcontext，hunyuan-standard，hunyuan-standard-256K，deepseek-r1，deepseek-v3，deepseek-r1-distill-qwen-32b。
+   * <p>模型名称，可选模型列表：hunyuan-turbo，hunyuan-large，hunyuan-large-longcontext，hunyuan-standard，hunyuan-standard-256K，deepseek-r1，deepseek-v3，deepseek-r1-distill-qwen-32b。</p>
    */
   ModelName: string
   /**
-   * 是否以流式接口的形式返回数据，默认true。
+   * <p>是否以流式接口的形式返回数据，默认true。</p>
    */
   Stream?: boolean
   /**
-   * 取值区间为[0.0, 1.0], 非必要不建议使用, 不合理的取值会影响效果 。
+   * <p>取值区间为[0.0, 1.0], 非必要不建议使用, 不合理的取值会影响效果 。</p>
    */
   TopP?: number
   /**
-   * 取值区间为[0.0, 2.0], 非必要不建议使用, 不合理的取值会影响效果 。
+   * <p>取值区间为[0.0, 2.0], 非必要不建议使用, 不合理的取值会影响效果 。</p>
    */
   Temperature?: number
   /**
-   * 是否开启联网搜索。默认为 false。
+   * <p>是否开启联网搜索。默认为 false。</p>
    */
   OnlineSearch?: boolean
   /**
-   * 当 OnlineSearch 为 true 时，指定的搜索引擎，默认为 bing。
+   * <p>当 OnlineSearch 为 true 时，指定的搜索引擎，默认为 bing。</p>
    */
   OnlineSearchOptions?: OnlineSearchOptions
   /**
-   * 可调用的工具列表，当前支持模型：hunyuan-turbo, deepseek-v3。
+   * <p>可调用的工具列表，当前支持模型：hunyuan-turbo, deepseek-v3。</p>
    */
   Tools?: Array<Tool>
   /**
-   * 工具使用选项，可选值包括 none、auto、custom。说明：1. 仅对 hunyuan-turbo、deepseek-v3 模型生效。2. none：不调用工具；auto：模型自行选择生成回复或调用工具；custom：强制模型调用指定的工具。3. 未设置时，默认值为auto
+   * <p>工具使用选项，可选值包括 none、auto、custom。说明：1. 仅对 hunyuan-turbo、deepseek-v3 模型生效。2. none：不调用工具；auto：模型自行选择生成回复或调用工具；custom：强制模型调用指定的工具。3. 未设置时，默认值为auto</p>
    */
   ToolChoice?: string
   /**
-   * 强制模型调用指定的工具，当参数ToolChoice为custom时，此参数为必填
+   * <p>强制模型调用指定的工具，当参数ToolChoice为custom时，此参数为必填</p>
    */
   CustomTool?: Tool
 }
@@ -831,19 +831,19 @@ export interface MultiModalUsage {
  */
 export interface ChatCompletionsResponse {
   /**
-   * 此次请求的id
+   * <p>此次请求的id</p>
    */
   Id?: string
   /**
-   * 回复内容
+   * <p>回复内容</p>
    */
   Choices?: Array<Choice>
   /**
-   * token使用量
+   * <p>token使用量</p>
    */
   Usage?: TokenUsage
   /**
-   * 联网搜索结果。
+   * <p>联网搜索结果。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OnlineSearchContent?: Array<WebContent>

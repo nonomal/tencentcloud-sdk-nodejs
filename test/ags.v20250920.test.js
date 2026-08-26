@@ -28,9 +28,9 @@ it("ags.v20250920.CreatePreCacheImageTask", async function () {
     }
 })
 
-it("ags.v20250920.UpdateSandboxInstance", async function () {
+it("ags.v20250920.ModifyDeployment", async function () {
     try {
-       const data = await client.UpdateSandboxInstance({})
+       const data = await client.ModifyDeployment({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -38,9 +38,9 @@ it("ags.v20250920.UpdateSandboxInstance", async function () {
     }
 })
 
-it("ags.v20250920.StartSandboxInstance", async function () {
+it("ags.v20250920.DescribeDeploymentList", async function () {
     try {
-       const data = await client.StartSandboxInstance({})
+       const data = await client.DescribeDeploymentList({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -58,9 +58,49 @@ it("ags.v20250920.AcquireSandboxInstanceToken", async function () {
     }
 })
 
-it("ags.v20250920.DescribePreCacheImageTask", async function () {
+it("ags.v20250920.CreateAPIKey", async function () {
     try {
-       const data = await client.DescribePreCacheImageTask({})
+       const data = await client.CreateAPIKey({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.CreateDeployment", async function () {
+    try {
+       const data = await client.CreateDeployment({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.StartSandboxInstance", async function () {
+    try {
+       const data = await client.StartSandboxInstance({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.UpdateSandboxTool", async function () {
+    try {
+       const data = await client.UpdateSandboxTool({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.DescribeDeployment", async function () {
+    try {
+       const data = await client.DescribeDeployment({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -71,6 +111,46 @@ it("ags.v20250920.DescribePreCacheImageTask", async function () {
 it("ags.v20250920.ResumeSandboxInstance", async function () {
     try {
        const data = await client.ResumeSandboxInstance({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.DescribeSandboxInstanceList", async function () {
+    try {
+       const data = await client.DescribeSandboxInstanceList({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.PauseSandboxInstance", async function () {
+    try {
+       const data = await client.PauseSandboxInstance({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.DeleteDeployment", async function () {
+    try {
+       const data = await client.DeleteDeployment({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.CreateSandboxTool", async function () {
+    try {
+       const data = await client.CreateSandboxTool({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -98,26 +178,6 @@ it("ags.v20250920.DescribeAPIKeyList", async function () {
     }
 })
 
-it("ags.v20250920.DescribeSandboxInstanceList", async function () {
-    try {
-       const data = await client.DescribeSandboxInstanceList({})
-       expect(data).to.be.ok
-    } catch(error) {
-      expect(error.requestId).to.be.ok
-      expect(error.code).to.be.ok
-    }
-})
-
-it("ags.v20250920.CreateAPIKey", async function () {
-    try {
-       const data = await client.CreateAPIKey({})
-       expect(data).to.be.ok
-    } catch(error) {
-      expect(error.requestId).to.be.ok
-      expect(error.code).to.be.ok
-    }
-})
-
 it("ags.v20250920.DeleteSandboxTool", async function () {
     try {
        const data = await client.DeleteSandboxTool({})
@@ -128,9 +188,19 @@ it("ags.v20250920.DeleteSandboxTool", async function () {
     }
 })
 
-it("ags.v20250920.PauseSandboxInstance", async function () {
+it("ags.v20250920.UpdateSandboxInstance", async function () {
     try {
-       const data = await client.PauseSandboxInstance({})
+       const data = await client.UpdateSandboxInstance({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ags.v20250920.DescribePreCacheImageTask", async function () {
+    try {
+       const data = await client.DescribePreCacheImageTask({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -158,19 +228,9 @@ it("ags.v20250920.DeleteAPIKey", async function () {
     }
 })
 
-it("ags.v20250920.CreateSandboxTool", async function () {
+it("ags.v20250920.AcquireDeploymentToken", async function () {
     try {
-       const data = await client.CreateSandboxTool({})
-       expect(data).to.be.ok
-    } catch(error) {
-      expect(error.requestId).to.be.ok
-      expect(error.code).to.be.ok
-    }
-})
-
-it("ags.v20250920.UpdateSandboxTool", async function () {
-    try {
-       const data = await client.UpdateSandboxTool({})
+       const data = await client.AcquireDeploymentToken({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

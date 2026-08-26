@@ -44,6 +44,29 @@ export interface PauseSandboxInstanceRequest {
 }
 
 /**
+ * 沙箱工具中实例存储挂载配置
+ */
+export interface StorageMount {
+  /**
+   * <p>存储挂载配置名称</p>
+   */
+  Name?: string
+  /**
+   * <p>存储配置</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  StorageSource?: StorageSource
+  /**
+   * <p>沙箱实例本地挂载路径</p>
+   */
+  MountPath?: string
+  /**
+   * <p>存储挂载读写权限配置，默认为false</p>
+   */
+  ReadOnly?: boolean
+}
+
+/**
  * 沙箱实例对象存储挂载配置
  */
 export interface CosStorageSource {
@@ -100,69 +123,33 @@ export interface StartSandboxInstanceRequest {
 }
 
 /**
- * 沙箱实例结构体
+ * CreateDeployment请求参数结构体
  */
-export interface SandboxInstance {
+export interface CreateDeploymentRequest {
   /**
-   * <p>沙箱实例唯一标识符</p>
+   * <p>唯一的 Deployment 名称，必须符合 DNS-1123 命名规范，创建后不可修改。</p>
    */
-  InstanceId: string
+  DeploymentName: string
   /**
-   * <p>所属沙箱工具 ID</p>
+   * <p>用于关联 Sandbox Tool 的标识，格式为 sdt- 加 8 位小写 base36 字符。</p>
    */
-  ToolId: string
+  ToolId?: string
   /**
-   * <p>所属沙箱工具名称</p>
+   * <p>伸缩配置；省略的成员由服务端补全默认值。</p>
    */
-  ToolName: string
+  ScalingConfiguration?: ScalingConfiguration
   /**
-   * <p>实例状态：STARTING（启动中）、RUNNING（运行中）、STOPPING（停止中）、STOPPED（已停止）、STOP_FAILED（停止失败）、FAILED（失败状态）</p>
+   * <p>空闲生命周期配置；省略的成员由服务端补全默认值。</p>
    */
-  Status: string
+  LifecycleConfiguration?: LifecycleConfiguration
   /**
-   * <p>是否常驻实例</p>
+   * <p>Affinity 配置；省略或空 Mode 表示不启用。</p>
    */
-  Persistent?: boolean
+  AffinityConfiguration?: AffinityConfiguration
   /**
-   * <p>超时时间（秒），null 表示无超时设置</p>
+   * <p>标签</p>
    */
-  TimeoutSeconds?: number
-  /**
-   * <p>过期时间（ISO 8601 格式），null 表示无过期时间</p>
-   */
-  ExpiresAt?: string
-  /**
-   * <p>停止原因：manual（手动）、timeout（超时）、error（错误）、system（系统），仅在状态为 STOPPED、STOP_FAILED 或 FAILED 时有值。当 provider 停止失败时，状态为 STOP_FAILED，原因为 error</p>
-   */
-  StopReason?: string
-  /**
-   * <p>创建时间（ISO 8601 格式）</p>
-   */
-  CreateTime?: string
-  /**
-   * <p>更新时间（ISO 8601 格式）</p>
-   */
-  UpdateTime?: string
-  /**
-   * <p>存储挂载选项</p>
-   */
-  MountOptions?: Array<MountOption>
-  /**
-   * <p>沙箱实例自定义配置</p>
-   */
-  CustomConfiguration?: CustomConfigurationDetail
-  /**
-   * <p>网络模式</p><p>枚举值：</p><ul><li>PUBLIC： 公网访问</li><li>SANDBOX： 无网络</li><li>INTERNAL_SERVICE： 腾讯云内部公共服务</li></ul><p>可以覆盖工具级别的网络配置。但如果一个工具本身就不支持 VPC 网络，那么即便在实例设置里选了 VPC 模式，也是无效的</p>
-   */
-  NetworkMode?: string
-  /**
-   * <p>沙箱实例元数据</p>
-   */
-  Metadata?: Array<MetadataVar>
-  /**
-   * <p>沙箱访问认证模式</p><p>枚举值：</p><ul><li>DEFAULT： 默认，即 TOKEN 认证</li><li>TOKEN： Token认证，即所有端口访问都需携带TOKEN</li><li>NONE： 免认证，即所有端口访问无需携带TOKEN</li><li>PUBLIC： 公开模式，即ENVD管理端口（49983）访问需携带TOKEN，其他端口无需携带TOKEN</li></ul><p>默认值：DEFAULT</p>
-   */
-  AuthMode?: string
+  Tags?: Array<Tag>
 }
 
 /**
@@ -180,6 +167,20 @@ export interface CfsStorageSource {
 }
 
 /**
+ * Deployment 对 Sandbox Instance 的亲和配置。
+ */
+export interface AffinityConfiguration {
+  /**
+   * <p>Affinity 模式。</p><p>枚举值：</p><ul><li>BEST_EFFORT：优先复用原 Instance，不可用时允许改选。</li><li>STRICT：只复用原 Instance，不可用时失败且不改选。</li><li>EXCLUSIVE：一个 Affinity ID 独占一个 Instance，不能迁移。</li></ul><p>缺失或空字符串表示关闭 Affinity。</p>
+   */
+  Mode?: string
+  /**
+   * <p>请求和响应使用的 Affinity Header 名称。必须符合 HTTP field-name token 语法，长度为 1..128 个 ASCII 字节，且不能使用平台保留 Header。</p>
+   */
+  HeaderName?: string
+}
+
+/**
  * StopSandboxInstance请求参数结构体
  */
 export interface StopSandboxInstanceRequest {
@@ -187,6 +188,20 @@ export interface StopSandboxInstanceRequest {
    * 沙箱实例ID
    */
   InstanceId: string
+}
+
+/**
+ * metadata 项
+ */
+export interface MetadataVar {
+  /**
+   * <p>沙箱元数据名</p>
+   */
+  Name?: string
+  /**
+   * <p>沙箱元数据值</p>
+   */
+  Value?: string
 }
 
 /**
@@ -205,6 +220,16 @@ export interface DescribeSandboxToolListResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 桌面电脑环境类沙箱配置
+ */
+export interface ComputerConfiguration {
+  /**
+   * <p>waa沙箱工具配置</p>
+   */
+  WAAConfiguration?: WAAConfiguration
 }
 
 /**
@@ -230,6 +255,16 @@ export interface CreateAPIKeyResponse {
 }
 
 /**
+ * AcquireDeploymentToken请求参数结构体
+ */
+export interface AcquireDeploymentTokenRequest {
+  /**
+   * <p>目标 ACTIVE Deployment 的稳定 ID。</p>
+   */
+  DeploymentId: string
+}
+
+/**
  * DescribeSandboxToolList请求参数结构体
  */
 export interface DescribeSandboxToolListRequest {
@@ -249,6 +284,56 @@ export interface DescribeSandboxToolListRequest {
    * 过滤条件
    */
   Filters?: Array<Filter>
+}
+
+/**
+ * 沙箱网络配置
+ */
+export interface NetworkConfiguration {
+  /**
+   * 网络模式（当前支持 PUBLIC, VPC, SANDBOX）
+   */
+  NetworkMode: string
+  /**
+   * VPC网络相关配置
+   */
+  VpcConfig?: VPCConfig
+}
+
+/**
+ * AcquireDeploymentToken返回参数结构体
+ */
+export interface AcquireDeploymentTokenResponse {
+  /**
+   * <p>只用于目标 Deployment 数据面入口的短期 bearer Token，格式为 dpt_ 加非空、无 padding 的 Base64URL opaque 后缀。</p>
+   */
+  Token?: string
+  /**
+   * <p>Token 的绝对过期时间，UTC、秒精度 RFC3339 格式。</p>
+   */
+  ExpiresAt?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeDeploymentList返回参数结构体
+ */
+export interface DescribeDeploymentListResponse {
+  /**
+   * <p>当前页完整 Deployment；无匹配时为空数组。</p>
+   */
+  DeploymentSet?: Array<Deployment>
+  /**
+   * <p>应用 Filters 后、分页前的结果总数。</p>
+   */
+  TotalCount?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -295,6 +380,10 @@ export interface CreateSandboxToolRequest {
    * <p>沙箱工具自定义配置</p>
    */
   CustomConfiguration?: CustomConfiguration
+  /**
+   * <p>桌面电脑环境类沙箱配置</p>
+   */
+  ComputerConfiguration?: ComputerConfiguration
   /**
    * <p>沙箱工具日志推送相关配置</p>
    */
@@ -414,43 +503,63 @@ export interface UpdateSandboxInstanceResponse {
 }
 
 /**
- * DescribePreCacheImageTask请求参数结构体
+ * Deployment 稳定访问入口定义
  */
-export interface DescribePreCacheImageTaskRequest {
+export interface Deployment {
   /**
-   * <p>镜像地址</p>
+   * <p>Deployment 稳定 ID，格式为 dpl- 加 8 位小写 base36 字符。</p>
    */
-  Image: string
+  DeploymentId?: string
   /**
-   * <p>镜像 Digest</p>
+   * <p>唯一且创建后不可修改的名称，必须符合 DNS-1123 命名规范。</p>
    */
-  ImageDigest: string
+  DeploymentName?: string
   /**
-   * <p>镜像仓库类型：<code>enterprise</code>、<code>personal</code>、<code>custom</code> 。</p><p>枚举值：</p><ul><li>enterprise： tcr 企业容器镜像服务</li><li>personal： ccr 个人容器镜像服务</li></ul>
+   * <p>用于关联 Sandbox Tool 的标识，格式为 sdt- 加 8 位小写 base36 字符。</p>
    */
-  ImageRegistryType: string
+  ToolId?: string
+  /**
+   * <p>完整的活跃容量配置。</p>
+   */
+  ScalingConfiguration?: ScalingConfiguration
+  /**
+   * <p>完整的空闲生命周期配置。</p>
+   */
+  LifecycleConfiguration?: LifecycleConfiguration
+  /**
+   * <p>可选 Affinity 配置；未启用时省略。</p>
+   */
+  AffinityConfiguration?: AffinityConfiguration
+  /**
+   * <p>Deployment 控制面状态。</p><p>枚举值：</p><ul><li>ACTIVE：入口可用。</li><li>DELETING：入口已关闭并正在异步删除。</li><li>DELETE_FAILED：最近一次异步删除失败，可再次调用 DeleteDeployment。</li></ul>
+   */
+  Status?: string
+  /**
+   * <p>DELETE_FAILED 状态下 1..1024 个 UTF-8 字节的安全失败摘要，格式为 {Code}[.{SubCode}]: {Message}；其他状态省略。</p>
+   */
+  StatusReason?: string
+  /**
+   * <p>创建时间，UTC、秒精度 RFC3339 格式。</p>
+   */
+  CreatedTime?: string
+  /**
+   * <p>最近一次成功公共配置写入或 Deployment 状态迁移时间，UTC、秒精度 RFC3339 格式。</p>
+   */
+  UpdatedTime?: string
+  /**
+   * <p>标签</p>
+   */
+  Tags?: Array<Tag>
 }
 
 /**
- * 挂载存储配置
+ * DeleteDeployment返回参数结构体
  */
-export interface StorageSource {
+export interface DeleteDeploymentResponse {
   /**
-   * <p>对象存储桶配置</p>
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Cos?: CosStorageSource
-  /**
-   * <p>镜像卷配置</p>
-   */
-  Image?: ImageStorageSource
-  /**
-   * <p>文件存储配置</p>
-   */
-  Cfs?: CfsStorageSource
-  /**
-   * <p>AgentBucket 存储配置</p>
-   */
-  AgentBucket?: AgentBucketStorageSource
+  RequestId?: string
 }
 
 /**
@@ -487,6 +596,20 @@ export interface CreateSandboxToolResponse {
 }
 
 /**
+ * DescribeDeployment返回参数结构体
+ */
+export interface DescribeDeploymentResponse {
+  /**
+   * <p>完整 Deployment。</p>
+   */
+  Deployment?: Deployment
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * CreateAPIKey请求参数结构体
  */
 export interface CreateAPIKeyRequest {
@@ -497,17 +620,78 @@ export interface CreateAPIKeyRequest {
 }
 
 /**
- * 沙箱网络配置
+ * DescribeAPIKeyList请求参数结构体
  */
-export interface NetworkConfiguration {
+export type DescribeAPIKeyListRequest = null
+
+/**
+ * 沙箱实例结构体
+ */
+export interface SandboxInstance {
   /**
-   * 网络模式（当前支持 PUBLIC, VPC, SANDBOX）
+   * <p>沙箱实例唯一标识符</p>
    */
-  NetworkMode: string
+  InstanceId: string
   /**
-   * VPC网络相关配置
+   * <p>所属沙箱工具 ID</p>
    */
-  VpcConfig?: VPCConfig
+  ToolId: string
+  /**
+   * <p>所属沙箱工具名称</p>
+   */
+  ToolName: string
+  /**
+   * <p>实例状态：STARTING（启动中）、RUNNING（运行中）、STOPPING（停止中）、STOPPED（已停止）、STOP_FAILED（停止失败）、FAILED（失败状态）</p>
+   */
+  Status: string
+  /**
+   * <p>是否常驻实例</p>
+   */
+  Persistent?: boolean
+  /**
+   * <p>超时时间（秒），null 表示无超时设置</p>
+   */
+  TimeoutSeconds?: number
+  /**
+   * <p>过期时间（ISO 8601 格式），null 表示无过期时间</p>
+   */
+  ExpiresAt?: string
+  /**
+   * <p>停止原因：manual（手动）、timeout（超时）、error（错误）、system（系统），仅在状态为 STOPPED、STOP_FAILED 或 FAILED 时有值。当 provider 停止失败时，状态为 STOP_FAILED，原因为 error</p>
+   */
+  StopReason?: string
+  /**
+   * <p>创建时间（ISO 8601 格式）</p>
+   */
+  CreateTime?: string
+  /**
+   * <p>更新时间（ISO 8601 格式）</p>
+   */
+  UpdateTime?: string
+  /**
+   * <p>存储挂载选项</p>
+   */
+  MountOptions?: Array<MountOption>
+  /**
+   * <p>沙箱实例自定义配置</p>
+   */
+  CustomConfiguration?: CustomConfigurationDetail
+  /**
+   * <p>桌面电脑环境类沙箱配置</p>
+   */
+  ComputerConfiguration?: ComputerConfiguration
+  /**
+   * <p>网络模式</p><p>枚举值：</p><ul><li>PUBLIC： 公网访问</li><li>SANDBOX： 无网络</li><li>INTERNAL_SERVICE： 腾讯云内部公共服务</li></ul><p>可以覆盖工具级别的网络配置。但如果一个工具本身就不支持 VPC 网络，那么即便在实例设置里选了 VPC 模式，也是无效的</p>
+   */
+  NetworkMode?: string
+  /**
+   * <p>沙箱实例元数据</p>
+   */
+  Metadata?: Array<MetadataVar>
+  /**
+   * <p>沙箱访问认证模式</p><p>枚举值：</p><ul><li>DEFAULT： 默认，即 TOKEN 认证</li><li>TOKEN： Token认证，即所有端口访问都需携带TOKEN</li><li>NONE： 免认证，即所有端口访问无需携带TOKEN</li><li>PUBLIC： 公开模式，即ENVD管理端口（49983）访问需携带TOKEN，其他端口无需携带TOKEN</li></ul><p>默认值：DEFAULT</p>
+   */
+  AuthMode?: string
 }
 
 /**
@@ -554,6 +738,24 @@ export interface DNSConfig {
    * <p>配置项(对应  resolv.conf 选项)</p>
    */
   Options?: Array<string>
+}
+
+/**
+ * Deployment 活跃容量配置
+ */
+export interface ScalingConfiguration {
+  /**
+   * <p>活跃 Sandbox Instance 下限，必须大于等于 0。</p>
+   */
+  MinInstanceCount?: number
+  /**
+   * <p>活跃 Sandbox Instance 上限，必须大于等于 1，并且不小于 MinInstanceCount。</p>
+   */
+  MaxInstanceCount?: number
+  /**
+   * <p>每个活跃 Sandbox Instance 同时持有的 Deployment 请求或连接 Lease 上限，必须大于等于 1。</p>
+   */
+  MaxInstanceRequestConcurrency?: number
 }
 
 /**
@@ -621,9 +823,31 @@ export interface SandboxTool {
    */
   LogConfiguration?: LogConfiguration
   /**
+   * <p>桌面电脑环境类沙箱配置</p>
+   */
+  ComputerConfiguration?: ComputerConfiguration
+  /**
    * <p>用于说明沙箱工具处于该状态的原因</p>
    */
   StatusReason?: string
+}
+
+/**
+ * DescribePreCacheImageTask请求参数结构体
+ */
+export interface DescribePreCacheImageTaskRequest {
+  /**
+   * <p>镜像地址</p>
+   */
+  Image: string
+  /**
+   * <p>镜像 Digest</p>
+   */
+  ImageDigest: string
+  /**
+   * <p>镜像仓库类型：<code>enterprise</code>、<code>personal</code>、<code>custom</code> 。</p><p>枚举值：</p><ul><li>enterprise： tcr 企业容器镜像服务</li><li>personal： ccr 个人容器镜像服务</li></ul>
+   */
+  ImageRegistryType: string
 }
 
 /**
@@ -751,6 +975,16 @@ export interface AcquireSandboxInstanceTokenRequest {
 }
 
 /**
+ * waa自定义配置项
+ */
+export interface WAAConfiguration {
+  /**
+   * <p>自定义waa镜像ID</p>
+   */
+  ImageId?: string
+}
+
+/**
  * 日志源配置
  */
 export interface LogSources {
@@ -759,6 +993,28 @@ export interface LogSources {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Files?: Array<string>
+}
+
+/**
+ * 挂载存储配置
+ */
+export interface StorageSource {
+  /**
+   * <p>对象存储桶配置</p>
+   */
+  Cos?: CosStorageSource
+  /**
+   * <p>镜像卷配置</p>
+   */
+  Image?: ImageStorageSource
+  /**
+   * <p>文件存储配置</p>
+   */
+  Cfs?: CfsStorageSource
+  /**
+   * <p>AgentBucket 存储配置</p>
+   */
+  AgentBucket?: AgentBucketStorageSource
 }
 
 /**
@@ -799,6 +1055,16 @@ export interface CreatePreCacheImageTaskResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * DescribeDeployment请求参数结构体
+ */
+export interface DescribeDeploymentRequest {
+  /**
+   * <p>待查询的 Deployment ID。</p>
+   */
+  DeploymentId: string
 }
 
 /**
@@ -874,26 +1140,39 @@ export interface CustomConfigurationDetail {
 }
 
 /**
- * DescribeAPIKeyList请求参数结构体
+ * CreateDeployment返回参数结构体
  */
-export type DescribeAPIKeyListRequest = null
+export interface CreateDeploymentResponse {
+  /**
+   * <p>已创建并完成默认值物化的 Deployment。</p>
+   */
+  Deployment?: Deployment
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
 
 /**
- * UpdateSandboxInstance请求参数结构体
+ * ModifyDeployment请求参数结构体
  */
-export interface UpdateSandboxInstanceRequest {
+export interface ModifyDeploymentRequest {
   /**
-   * <p>沙箱实例ID</p>
+   * <p>待修改的 Deployment ID。</p>
    */
-  InstanceId: string
+  DeploymentId: string
   /**
-   * <p>新的超时时间（从设置时开始重新计算超时），支持格式：5m、300s、1h等。最小30s，最大24h。如果不指定则保持原有超时设置</p>
+   * <p>完整替换伸缩配置；提供时必须包含全部三个成员。</p>
    */
-  Timeout?: string
+  ScalingConfiguration?: ScalingConfiguration
   /**
-   * <p>沙箱实例元数据</p>
+   * <p>完整替换生命周期配置；提供时必须包含全部两个成员。</p>
    */
-  Metadata?: Array<MetadataVar>
+  LifecycleConfiguration?: LifecycleConfiguration
+  /**
+   * <p>标签</p>
+   */
+  Tags?: Array<Tag>
 }
 
 /**
@@ -1011,6 +1290,20 @@ export interface ProbeConfiguration {
 }
 
 /**
+ * ModifyDeployment返回参数结构体
+ */
+export interface ModifyDeploymentResponse {
+  /**
+   * <p>修改后的完整 Deployment。</p>
+   */
+  Deployment?: Deployment
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * CreatePreCacheImageTask请求参数结构体
  */
 export interface CreatePreCacheImageTaskRequest {
@@ -1049,17 +1342,13 @@ export interface LogConfiguration {
 }
 
 /**
- * metadata 项
+ * DeleteDeployment请求参数结构体
  */
-export interface MetadataVar {
+export interface DeleteDeploymentRequest {
   /**
-   * <p>沙箱元数据名</p>
+   * <p>待删除的 Deployment ID。</p>
    */
-  Name?: string
-  /**
-   * <p>沙箱元数据值</p>
-   */
-  Value?: string
+  DeploymentId: string
 }
 
 /**
@@ -1100,6 +1389,10 @@ export interface UpdateSandboxToolRequest {
    * <p>沙箱工具自定义配置</p>
    */
   CustomConfiguration?: CustomConfiguration
+  /**
+   * <p>桌面电脑环境类沙箱配置</p>
+   */
+  ComputerConfiguration?: ComputerConfiguration
 }
 
 /**
@@ -1113,26 +1406,17 @@ export interface ResumeSandboxInstanceResponse {
 }
 
 /**
- * 沙箱工具中实例存储挂载配置
+ * Deployment 管理的 Sandbox Instance 的空闲生命周期配置
  */
-export interface StorageMount {
+export interface LifecycleConfiguration {
   /**
-   * <p>存储挂载配置名称</p>
+   * <p>Sandbox Instance 没有活跃 Deployment 请求或连接后进入 IdleAction 的秒数，必须大于等于 30。</p>
    */
-  Name?: string
+  IdleTimeoutSeconds?: number
   /**
-   * <p>存储配置</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>空闲处理动作。</p><p>枚举值：</p><ul><li>STOP：停止并释放 Sandbox Instance。</li><li>PAUSE：暂停并保留 Sandbox Instance 状态。</li></ul>
    */
-  StorageSource?: StorageSource
-  /**
-   * <p>沙箱实例本地挂载路径</p>
-   */
-  MountPath?: string
-  /**
-   * <p>存储挂载读写权限配置，默认为false</p>
-   */
-  ReadOnly?: boolean
+  IdleAction?: string
 }
 
 /**
@@ -1168,6 +1452,24 @@ export interface DescribeSandboxInstanceListResponse {
 }
 
 /**
+ * DescribeDeploymentList请求参数结构体
+ */
+export interface DescribeDeploymentListRequest {
+  /**
+   * <p>分页偏移量，默认 0，必须大于等于 0。</p>
+   */
+  Offset?: number
+  /**
+   * <p>分页返回数量，默认 20，范围 1..200。</p>
+   */
+  Limit?: number
+  /**
+   * <p>查询过滤条件。</p><p>Filter.Name 枚举值：</p><ul><li>deployment-id：按 DeploymentId 精确匹配</li><li>deployment-name：按 DeploymentName 精确匹配</li><li>deployment-name-like：按 DeploymentName 进行普通文本包含匹配，%、_ 等字符没有通配语义</li><li>tool-id：按 ToolId 精确匹配</li><li>status：按 Deployment 状态精确匹配，支持 ACTIVE、DELETING、DELETE_FAILED</li></ul><p>所有匹配均区分大小写。不同 Filter 之间为 AND，同一 Filter 的 Values 之间为 OR。</p>
+   */
+  Filters?: Array<Filter>
+}
+
+/**
  * StopSandboxInstance返回参数结构体
  */
 export interface StopSandboxInstanceResponse {
@@ -1175,4 +1477,22 @@ export interface StopSandboxInstanceResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * UpdateSandboxInstance请求参数结构体
+ */
+export interface UpdateSandboxInstanceRequest {
+  /**
+   * <p>沙箱实例ID</p>
+   */
+  InstanceId: string
+  /**
+   * <p>新的超时时间（从设置时开始重新计算超时），支持格式：5m、300s、1h等。最小30s，最大24h。如果不指定则保持原有超时设置</p>
+   */
+  Timeout?: string
+  /**
+   * <p>沙箱实例元数据</p>
+   */
+  Metadata?: Array<MetadataVar>
 }

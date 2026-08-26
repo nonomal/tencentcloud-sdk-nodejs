@@ -53,6 +53,7 @@ import {
   DescribeWafAutoDenyRulesRequest,
   MajorEventsProPkg,
   GenerateDealsAndPayNewRequest,
+  QueryClientMsgRequest,
   DeleteCustomWhiteRuleResponse,
   ModifyHostModeResponse,
   ModifyBotSceneStatusResponse,
@@ -219,6 +220,7 @@ import {
   QueryBypassAllStatusRequest,
   DescribeOwaspRulesRequest,
   DescribeCCRuleListRequest,
+  EnableClientMsgRequest,
   ResponseCode,
   PeakPointsItem,
   TopicExtendInfo,
@@ -266,6 +268,7 @@ import {
   ApiDetailSampleHistory,
   WafThreatenIntelligenceDetails,
   DescribeDomainWhiteRulesRequest,
+  QueryClientMsgResponse,
   DescribePeakPointsResponse,
   ModifyInstanceRenewFlagRequest,
   UserWhiteRuleItem,
@@ -622,6 +625,7 @@ import {
   DescribeDomainRulesResponse,
   DeleteProtectGroupRequest,
   CreateDealsResponse,
+  EnableClientMsgResponse,
   DestroyPostCKafkaFlowResponse,
   DescribeCiphersDetailRequest,
   DescribeDomainVerifyResultResponse,
@@ -858,6 +862,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyCustomRuleResponse) => void
   ): Promise<ModifyCustomRuleResponse> {
     return this.request("ModifyCustomRule", req, cb)
+  }
+
+  /**
+   * 查询是否开启透传客户端信息
+   */
+  async QueryClientMsg(
+    req: QueryClientMsgRequest,
+    cb?: (error: string, rep: QueryClientMsgResponse) => void
+  ): Promise<QueryClientMsgResponse> {
+    return this.request("QueryClientMsg", req, cb)
   }
 
   /**
@@ -1489,6 +1503,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateAreaBanRuleResponse) => void
   ): Promise<CreateAreaBanRuleResponse> {
     return this.request("CreateAreaBanRule", req, cb)
+  }
+
+  /**
+   * 开关开启后，会将客户端的ip和port透传到后端
+   */
+  async EnableClientMsg(
+    req: EnableClientMsgRequest,
+    cb?: (error: string, rep: EnableClientMsgResponse) => void
+  ): Promise<EnableClientMsgResponse> {
+    return this.request("EnableClientMsg", req, cb)
   }
 
   /**
@@ -2777,8 +2801,9 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * Waf  会话定义 Upsert接口
-   */
+     * 新增或更新WAF会话（Session）定义
+说明：SessionID传-1时为新增，传已有ID时为更新。每个域名最多支持10条会话规则。
+     */
   async UpsertSession(
     req: UpsertSessionRequest,
     cb?: (error: string, rep: UpsertSessionResponse) => void

@@ -3111,11 +3111,11 @@ export interface DeployResourceRequest {
    */
   VpcId: string
   /**
-   * <p>需要开通服务的子网ID</p>
+   * <p>需要开通服务的子网ID，此字段即将废除，请填写DeploySubnets包含的子网</p>
    */
   SubnetId: string
   /**
-   * <p>需要开通服务的子网网段</p>
+   * <p>需要开通服务的子网网段，此字段即将废除，请填写DeploySubnets包含的子网</p>
    */
   CidrBlock: string
   /**
@@ -3127,7 +3127,7 @@ export interface DeployResourceRequest {
    */
   VpcCidrBlock?: string
   /**
-   * <p>需要开通服务的子网名称</p>
+   * <p>需要开通服务的子网名称，此字段即将废除，请填写DeploySubnets包含的子网</p>
    */
   SubnetName?: string
   /**
@@ -3155,7 +3155,7 @@ export interface DeployResourceRequest {
    */
   ExternalAccess?: number
   /**
-   * <p>开通堡垒机的子网信息</p>
+   * <p>开通堡垒机的子网信息，最多支持2个子网</p>
    */
   DeploySubnets?: Array<ParamInitResourceSubnet>
   /**
@@ -3171,7 +3171,7 @@ export interface DeployResourceRequest {
    */
   IntranetVpcName?: string
   /**
-   * <p>开通内网访问的子网信息</p>
+   * <p>开通内网访问的子网信息，最多支持2个子网</p>
    */
   IntranetSubnets?: Array<ParamInitResourceSubnet>
 }

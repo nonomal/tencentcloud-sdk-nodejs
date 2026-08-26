@@ -1619,7 +1619,7 @@ export interface CynosdbInstance {
    */
   Zone?: string
   /**
-   * <p>实例状态</p>
+   * <p>实例状态</p><p>枚举值：</p><ul><li>creating： 创建中</li><li>running： 运行中</li><li>isolating： 隔离中</li><li>isolated： 已隔离</li><li>activating： 从回收站重新恢复</li><li>offlining： 下线中</li><li>offlined： 已下线</li><li>deleting： 删除中</li><li>deleted： 已删除</li></ul>
    */
   Status?: string
   /**
@@ -5808,6 +5808,31 @@ export interface DescribeVaultsResponse {
  */
 export interface TransferClusterPrepayToPostpayResponse {
   /**
+   * <p>预付费总订单号</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  BigDealIds?: Array<string>
+  /**
+   * <p>冻结流水</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TranId?: string
+  /**
+   * <p>订单号</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DealNames?: Array<string>
+  /**
+   * <p>资源id</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceIds?: Array<string>
+  /**
+   * <p>集群id</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ClusterIds?: Array<string>
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -7046,7 +7071,12 @@ export interface RegionInstanceSpecInfo {
 /**
  * TransferClusterPrepayToPostpay请求参数结构体
  */
-export type TransferClusterPrepayToPostpayRequest = null
+export interface TransferClusterPrepayToPostpayRequest {
+  /**
+   * <p>集群id</p>
+   */
+  ClusterId: string
+}
 
 /**
  * ModifyAccountPrivileges返回参数结构体

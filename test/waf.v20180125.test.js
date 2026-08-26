@@ -188,6 +188,16 @@ it("waf.v20180125.ModifyCustomRule", async function () {
     }
 })
 
+it("waf.v20180125.QueryClientMsg", async function () {
+    try {
+       const data = await client.QueryClientMsg({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("waf.v20180125.ModifyHostFlowMode", async function () {
     try {
        const data = await client.ModifyHostFlowMode({})
@@ -811,6 +821,16 @@ it("waf.v20180125.DescribeAccessFastAnalysis", async function () {
 it("waf.v20180125.CreateAreaBanRule", async function () {
     try {
        const data = await client.CreateAreaBanRule({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("waf.v20180125.EnableClientMsg", async function () {
+    try {
+       const data = await client.EnableClientMsg({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

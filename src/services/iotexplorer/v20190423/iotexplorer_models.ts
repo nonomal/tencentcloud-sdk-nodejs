@@ -34,6 +34,16 @@ export interface UpdateDevicesEnableStateResponse {
 }
 
 /**
+ * DeleteTWeSeePerson返回参数结构体
+ */
+export interface DeleteTWeSeePersonResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 云存套餐包消耗统计
  */
 export interface PackageConsumeStat {
@@ -436,6 +446,16 @@ export interface DescribeCloudStorageAIServiceTaskRequest {
 }
 
 /**
+ * TWeSee 人脸识别结果
+ */
+export interface SeeFaceRecognitionResult {
+  /**
+   * 识别到的人员列表
+   */
+  Persons?: Array<SeeTaskPersonInfo>
+}
+
+/**
  * DescribeCloudStorageThumbnailList请求参数结构体
  */
 export interface DescribeCloudStorageThumbnailListRequest {
@@ -539,6 +559,32 @@ export interface DescribeCloudStorageUsersResponse {
 }
 
 /**
+ * CreateTWeSeePerson请求参数结构体
+ */
+export interface CreateTWeSeePersonRequest {
+  /**
+   * 产品 ID
+   */
+  ProductId: string
+  /**
+   * 设备名称
+   */
+  DeviceName: string
+  /**
+   * 人员名称，最多 64 个字符
+   */
+  Name: string
+  /**
+   * 人脸 ID 列表，最多 5 个
+   */
+  FaceIds?: Array<string>
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
+}
+
+/**
  * 云存上报统计信息
  */
 export interface CountDataInfo {
@@ -593,6 +639,32 @@ export interface RevokeShareDeviceFromUserRequest {
    * <p>被取消分享用户 OpenID（不存在视为已取消，幂等成功）</p>
    */
   ToOpenID: string
+}
+
+/**
+ * TWeSee 任务人员信息
+ */
+export interface SeeTaskPersonInfo {
+  /**
+   * 该人员在任务中的人脸列表
+   */
+  Faces?: Array<SeeTaskFaceInfo>
+  /**
+   * 是否已标记为持久记忆
+   */
+  IsRemembered?: boolean
+  /**
+   * 人员名称
+   */
+  Name?: string
+  /**
+   * 人员 ID
+   */
+  PersonId?: string
+  /**
+   * 创建来源。0：自动识别；1：用户创建
+   */
+  Source?: number
 }
 
 /**
@@ -936,6 +1008,24 @@ export interface SearchTopicRuleResponse {
 }
 
 /**
+ * ImportTWeSeeFaces返回参数结构体
+ */
+export interface ImportTWeSeeFacesResponse {
+  /**
+   * 检测到的人脸列表
+   */
+  Faces?: Array<SeeFaceInfo>
+  /**
+   * 本次人脸导入任务 ID
+   */
+  TaskId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * ModifyCloudStorageAIService返回参数结构体
  */
 export interface ModifyCloudStorageAIServiceResponse {
@@ -950,30 +1040,27 @@ export interface ModifyCloudStorageAIServiceResponse {
  */
 export interface InvokeTWeSeeComprehensionRequest {
   /**
-   * 输入视频 / 图片的 URL
+   * <p>输入视频 / 图片的 URL</p>
    */
   InputURL: string
   /**
-   * 算法类型。可选值：
-
-- `VID_COMP`：视频理解
-- `IMG_COMP`：图片理解
+   * <p>算法类型。可选值：</p><ul><li><code>VID_COMP</code>：视频理解</li><li><code>IMG_COMP</code>：图片理解</li></ul>
    */
   ServiceType: string
   /**
-   * 任务元数据
+   * <p>任务元数据</p>
    */
   Metadata?: SeeTaskMetadata
   /**
-   * 视觉理解配置项
+   * <p>视觉理解配置项</p>
    */
   ComprehensionConfig?: SeeComprehensionConfig
   /**
-   * 等待结果的超时时间（单位：秒）。填 0 表示无需等待结果。最大超时时长 25 秒，默认超时时长 20 秒。
+   * <p>等待结果的超时时间（单位：秒）。填 0 表示无需等待结果。最大超时时长 25 秒，默认超时时长 20 秒。</p>
    */
   WaitResultTimeout?: number
   /**
-   * 回调目标 ID
+   * <p>回调目标 ID</p>
    */
   CallbackId?: string
 }
@@ -1818,6 +1905,14 @@ export interface SeeComprehensionConfig {
    * <p>自定义摘要提示词</p>
    */
   SummaryPrompt?: string
+  /**
+   * <p>是否开启人脸检测</p>
+   */
+  EnableFaceDetection?: boolean
+  /**
+   * <p>画面旋转角度</p><p>枚举值：</p><ul><li>0： 不旋转</li><li>90： 顺时针旋转90度</li><li>-90： 逆时针旋转90度</li><li>180： 旋转180度</li></ul><p>默认值：0</p>
+   */
+  InputRotateDegree?: number
 }
 
 /**
@@ -1850,6 +1945,56 @@ export interface DescribeUnbindedDevicesRequest {
    * 分页的页大小
    */
   Limit: number
+}
+
+/**
+ * 设备固件详细信息
+ */
+export interface FirmwareInfo {
+  /**
+   * 固件版本
+   */
+  Version?: string
+  /**
+   * 固件MD5值
+   */
+  Md5sum?: string
+  /**
+   * 固件创建时间
+   */
+  CreateTime?: number
+  /**
+   * 产品名称
+   */
+  ProductName?: string
+  /**
+   * 固件名称
+   */
+  Name?: string
+  /**
+   * 固件描述
+   */
+  Description?: string
+  /**
+   * 产品ID
+   */
+  ProductId?: string
+  /**
+   * 固件升级模块
+   */
+  FwType?: string
+  /**
+   * 创建者子 uin
+   */
+  CreateUserId?: number
+  /**
+   * 创建者昵称
+   */
+  CreatorNickName?: string
+  /**
+   * 固件用户自定义配置信息
+   */
+  UserDefined?: string
 }
 
 /**
@@ -1981,6 +2126,40 @@ export interface ModifyTWeSeeSubscriptionRenewFlagRequest {
    * 通道 ID
    */
   ChannelId?: number
+}
+
+/**
+ * TWeSee 人脸元数据
+ */
+export interface SeeFaceInfo {
+  /**
+   * 人脸框坐标，依次为左、上、右、下，取值范围为 0 到 1
+   */
+  BoundingBox?: Array<number>
+  /**
+   * 人脸 ID
+   */
+  FaceId?: string
+  /**
+   * 人脸裁剪图 URL
+   */
+  CropImageURL?: string
+  /**
+   * 是否为代表人脸
+   */
+  IsPrototype?: boolean
+  /**
+   * 人员 ID
+   */
+  PersonId?: string
+  /**
+   * 创建来源。0：自动识别；1：图片导入
+   */
+  Source?: number
+  /**
+   * 人脸所在画面的毫秒级 UNIX 时间戳
+   */
+  TimestampMs?: number
 }
 
 /**
@@ -2564,6 +2743,16 @@ export interface PauseTWeCallDeviceRequest {
 }
 
 /**
+ * ModifyTWeSeePerson返回参数结构体
+ */
+export interface ModifyTWeSeePersonResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * TWeTalk智能体配置信息描述
  */
 export interface TalkAgentInfo {
@@ -2857,25 +3046,6 @@ export interface ModifyLoRaFrequencyResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
-}
-
-/**
- * ActivateTWeCallLicense请求参数结构体
- */
-export interface ActivateTWeCallLicenseRequest {
-  /**
-   * TWecall类型：0-体验套餐；1-基础版；3-高级版；
-   */
-  PkgType: number
-  /**
-   * 参数已弃用，不用传参
-   * @deprecated
-   */
-  MiniProgramAppId?: string
-  /**
-   * 设备列表
-   */
-  DeviceList?: Array<TWeCallInfo>
 }
 
 /**
@@ -3928,6 +4098,32 @@ export interface RevokeShareDeviceFromUserResponse {
 }
 
 /**
+ * DescribeGatewayBindDevices请求参数结构体
+ */
+export interface DescribeGatewayBindDevicesRequest {
+  /**
+   * 网关设备的产品ID
+   */
+  GatewayProductId: string
+  /**
+   * 网关设备的设备名
+   */
+  GatewayDeviceName: string
+  /**
+   * 子产品的ID
+   */
+  ProductId: string
+  /**
+   * 分页的偏移
+   */
+  Offset: number
+  /**
+   * 分页的页大小
+   */
+  Limit: number
+}
+
+/**
  * RevokeBindUserDevice请求参数结构体
  */
 export interface RevokeBindUserDeviceRequest {
@@ -4139,6 +4335,36 @@ export interface FenceBindDeviceItem {
    * 告警处理方法
    */
   Method: string
+}
+
+/**
+ * ModifyTWeSeeFace请求参数结构体
+ */
+export interface ModifyTWeSeeFaceRequest {
+  /**
+   * 产品 ID
+   */
+  ProductId: string
+  /**
+   * 设备名称
+   */
+  DeviceName: string
+  /**
+   * 人员 ID
+   */
+  PersonId: string
+  /**
+   * 人脸 ID
+   */
+  FaceId: string
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
+  /**
+   * 是否设为代表人脸。关联未归属的人脸时，默认值为 true
+   */
+  IsPrototype?: boolean
 }
 
 /**
@@ -5159,6 +5385,36 @@ export interface DescribeBatchProductionRequest {
 }
 
 /**
+ * DirectBindDeviceInFamily请求参数结构体
+ */
+export interface DirectBindDeviceInFamilyRequest {
+  /**
+   * 小程序appid
+   */
+  IotAppID: string
+  /**
+   * 用户ID
+   */
+  UserID: string
+  /**
+   * 家庭ID
+   */
+  FamilyId: string
+  /**
+   * 产品ID
+   */
+  ProductId: string
+  /**
+   * 设备名
+   */
+  DeviceName: string
+  /**
+   * 房间ID
+   */
+  RoomId?: string
+}
+
+/**
  * DescribeCloudStorageAIServiceTask返回参数结构体
  */
 export interface DescribeCloudStorageAIServiceTaskResponse {
@@ -5301,6 +5557,28 @@ export interface DescribeInstanceResponse {
 }
 
 /**
+ * DescribeTWeSeeFace请求参数结构体
+ */
+export interface DescribeTWeSeeFaceRequest {
+  /**
+   * 产品 ID
+   */
+  ProductId: string
+  /**
+   * 设备名称
+   */
+  DeviceName: string
+  /**
+   * 人脸 ID
+   */
+  FaceId: string
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
+}
+
+/**
  * DeleteTWeSeeTasksByCondition请求参数结构体
  */
 export interface DeleteTWeSeeTasksByConditionRequest {
@@ -5425,21 +5703,17 @@ export interface CreateLoRaGatewayResponse {
 }
 
 /**
- * 围栏详细信息(包含创建时间及更新时间)
+ * ModifyTWeSeeFace返回参数结构体
  */
-export interface PositionFenceInfo {
+export interface ModifyTWeSeeFaceResponse {
   /**
-   * 围栏信息
+   * 人脸元数据
    */
-  GeoFence?: PositionFenceItem
+  Face?: SeeFaceInfo
   /**
-   * 围栏创建时间
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  CreateTime?: number
-  /**
-   * 围栏更新时间
-   */
-  UpdateTime?: number
+  RequestId?: string
 }
 
 /**
@@ -5595,21 +5869,37 @@ export interface EventHistoryItem {
 }
 
 /**
- * ShareDeviceToUser返回参数结构体
+ * ListTWeSeePersons请求参数结构体
  */
-export interface ShareDeviceToUserResponse {
+export interface ListTWeSeePersonsRequest {
   /**
-   * <p>Owner 的 UserID</p>
+   * 产品 ID
    */
-  OwnerUserID?: string
+  ProductId: string
   /**
-   * <p>被分享用户的 UserID</p>
+   * 设备名称
    */
-  ToUserID?: string
+  DeviceName: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * 分页拉取数量，取值范围为 1 到 100
    */
-  RequestId?: string
+  Limit: number
+  /**
+   * 分页拉取偏移，默认值为 0
+   */
+  Offset?: number
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
+  /**
+   * 每个人员返回的代表人脸数量，取值范围为 1 到 5，默认值为 1
+   */
+  FaceLimit?: number
+  /**
+   * 人员记忆状态。true：仅查询持久记忆人员；false：仅查询非持久记忆人员；不传时查询全部人员
+   */
+  IsRemembered?: boolean
 }
 
 /**
@@ -5815,9 +6105,13 @@ export interface ResetTWeCallDeviceResponse {
 }
 
 /**
- * ModifyTWeTalkAgent返回参数结构体
+ * DescribeTWeSeePerson返回参数结构体
  */
-export interface ModifyTWeTalkAgentResponse {
+export interface DescribeTWeSeePersonResponse {
+  /**
+   * 人员信息
+   */
+  Person?: SeePersonInfo
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -5901,6 +6195,36 @@ export interface DescribeCloudStorageResponse {
 }
 
 /**
+ * ModifyTWeSeePerson请求参数结构体
+ */
+export interface ModifyTWeSeePersonRequest {
+  /**
+   * 产品 ID
+   */
+  ProductId: string
+  /**
+   * 设备名称
+   */
+  DeviceName: string
+  /**
+   * 人员 ID
+   */
+  PersonId: string
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
+  /**
+   * 是否标记为持久记忆。
+   */
+  IsRemembered?: boolean
+  /**
+   * 人员名称，最多 64 个字符
+   */
+  Name?: string
+}
+
+/**
  * 智能体绑定配置
  */
 export interface TalkAgentBinding {
@@ -5972,6 +6296,20 @@ export interface ListEventHistoryResponse {
    * 搜集结果集
    */
   EventHistory?: Array<EventHistoryItem>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeTWeSeeFace返回参数结构体
+ */
+export interface DescribeTWeSeeFaceResponse {
+  /**
+   * 人脸元数据
+   */
+  Face?: SeeFaceInfo
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -6166,6 +6504,28 @@ export interface DescribeUnbindedDevicesResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * DescribeBindedProducts请求参数结构体
+ */
+export interface DescribeBindedProductsRequest {
+  /**
+   * 网关产品ID
+   */
+  GatewayProductId: string
+  /**
+   * 分页偏移量
+   */
+  Offset: number
+  /**
+   * 分页大小
+   */
+  Limit: number
+  /**
+   * 是否跨账号绑定产品
+   */
+  ProductSource?: number
 }
 
 /**
@@ -6833,6 +7193,16 @@ export interface GetLoRaGatewayListRequest {
    * 限制个数
    */
   Limit?: number
+}
+
+/**
+ * DeleteTWeSeeFace返回参数结构体
+ */
+export interface DeleteTWeSeeFaceResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -8915,6 +9285,28 @@ export interface InvokeTWeSeeRecognitionTaskWithFileRequest {
 }
 
 /**
+ * TWeSee 任务人脸元数据
+ */
+export interface SeeTaskFaceInfo {
+  /**
+   * 人脸裁剪图下载 URL，仅在请求 FileURLExpireTime 时返回
+   */
+  CropImageURL?: string
+  /**
+   * 人脸 ID
+   */
+  FaceId?: string
+  /**
+   * 人员 ID
+   */
+  PersonId?: string
+  /**
+   * 人脸所在画面的毫秒级 UNIX 时间戳
+   */
+  TimestampMs?: number
+}
+
+/**
  * TWeCall信息
  */
 export interface TWeCallInfo {
@@ -9702,29 +10094,29 @@ export interface BatchCreateTWeSeeRecognitionTaskResponse {
 }
 
 /**
- * DescribeGatewayBindDevices请求参数结构体
+ * DescribeTWeSeePerson请求参数结构体
  */
-export interface DescribeGatewayBindDevicesRequest {
+export interface DescribeTWeSeePersonRequest {
   /**
-   * 网关设备的产品ID
+   * 设备名称
    */
-  GatewayProductId: string
+  DeviceName: string
   /**
-   * 网关设备的设备名
+   * 人员 ID
    */
-  GatewayDeviceName: string
+  PersonId: string
   /**
-   * 子产品的ID
+   * 产品 ID
    */
   ProductId: string
   /**
-   * 分页的偏移
+   * 通道 ID，默认值为 0
    */
-  Offset: number
+  ChannelId?: number
   /**
-   * 分页的页大小
+   * 返回的代表人脸数量，取值范围为 1 到 5，默认值为 1
    */
-  Limit: number
+  FaceLimit?: number
 }
 
 /**
@@ -10178,6 +10570,16 @@ export interface DescribeInstanceRequest {
 }
 
 /**
+ * ModifyTWeTalkAgent返回参数结构体
+ */
+export interface ModifyTWeTalkAgentResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * ShareDeviceToUser请求参数结构体
  */
 export interface ShareDeviceToUserRequest {
@@ -10235,6 +10637,28 @@ export interface CreatePositionSpaceRequest {
    * 缩略图
    */
   Icon?: string
+}
+
+/**
+ * ImportTWeSeeFaces请求参数结构体
+ */
+export interface ImportTWeSeeFacesRequest {
+  /**
+   * 产品 ID
+   */
+  ProductId: string
+  /**
+   * 设备名称
+   */
+  DeviceName: string
+  /**
+   * 图片 URL，支持 HTTP(S) URL 或 JPG、PNG、BMP 格式的 data URL，图片大小不超过 5 MiB
+   */
+  ImageURL: string
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
 }
 
 /**
@@ -10569,6 +10993,32 @@ export interface ModifyModelDefinitionRequest {
    * 数据模板定义
    */
   ModelSchema: string
+}
+
+/**
+ * ListTWeSeePersons返回参数结构体
+ */
+export interface ListTWeSeePersonsResponse {
+  /**
+   * 本次请求的分页数量
+   */
+  Limit?: number
+  /**
+   * 本次请求的分页偏移
+   */
+  Offset?: number
+  /**
+   * 人员列表
+   */
+  Persons?: Array<SeePersonInfo>
+  /**
+   * 符合条件的人员总数
+   */
+  TotalCount?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -11356,6 +11806,51 @@ export interface TalkTTSFlow {
 }
 
 /**
+ * 固件升级任务信息
+ */
+export interface FirmwareTaskInfo {
+  /**
+   * 任务ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: number
+  /**
+   * 任务状态
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: number
+  /**
+   * 任务类型
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Type?: number
+  /**
+   * 任务创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CreateTime?: number
+  /**
+   * 创建者
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CreatorNickName?: string
+  /**
+   * 创建者ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CreateUserId?: number
+  /**
+   * 任务启动时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CronTime?: number
+  /**
+   * 固件类型
+   */
+  FwType?: string
+}
+
+/**
  * InvokeExternalSourceAIServiceTask请求参数结构体
  */
 export interface InvokeExternalSourceAIServiceTaskRequest {
@@ -11647,53 +12142,25 @@ export interface ResetCloudStorageResponse {
 }
 
 /**
- * 设备固件详细信息
+ * CreatePositionFence请求参数结构体
  */
-export interface FirmwareInfo {
+export interface CreatePositionFenceRequest {
   /**
-   * 固件版本
+   * 位置空间Id
    */
-  Version?: string
+  SpaceId: string
   /**
-   * 固件MD5值
+   * 围栏名称
    */
-  Md5sum?: string
+  FenceName: string
   /**
-   * 固件创建时间
+   * 围栏区域信息，采用 GeoJSON 格式
    */
-  CreateTime?: number
+  FenceArea: string
   /**
-   * 产品名称
+   * 围栏描述
    */
-  ProductName?: string
-  /**
-   * 固件名称
-   */
-  Name?: string
-  /**
-   * 固件描述
-   */
-  Description?: string
-  /**
-   * 产品ID
-   */
-  ProductId?: string
-  /**
-   * 固件升级模块
-   */
-  FwType?: string
-  /**
-   * 创建者子 uin
-   */
-  CreateUserId?: number
-  /**
-   * 创建者昵称
-   */
-  CreatorNickName?: string
-  /**
-   * 固件用户自定义配置信息
-   */
-  UserDefined?: string
+  FenceDesc?: string
 }
 
 /**
@@ -11964,6 +12431,32 @@ export interface DescribeTWeTalkProductConfigRequest {
 }
 
 /**
+ * TWeSee 人员信息
+ */
+export interface SeePersonInfo {
+  /**
+   * 代表人脸列表
+   */
+  Faces?: Array<SeeFaceInfo>
+  /**
+   * 是否已标记为持久记忆
+   */
+  IsRemembered?: boolean
+  /**
+   * 人员名称
+   */
+  Name?: string
+  /**
+   * 人员 ID
+   */
+  PersonId?: string
+  /**
+   * 创建来源。0：自动识别；1：用户创建
+   */
+  Source?: number
+}
+
+/**
  * DescribeFirmwareTasks返回参数结构体
  */
 export interface DescribeFirmwareTasksResponse {
@@ -12046,28 +12539,23 @@ export interface ModifyFenceBindRequest {
  */
 export interface InvokeTWeSeeComprehensionResponse {
   /**
-   * 任务 ID
+   * <p>任务 ID</p>
    */
   TaskId?: string
   /**
-   * 任务状态。可能取值：
-
-- `1`：失败
-- `2`：空结果
-- `3`：有效结果
-- `4`：处理中
+   * <p>任务状态。可能取值：</p><ul><li><code>1</code>：失败</li><li><code>2</code>：空结果</li><li><code>3</code>：有效结果</li><li><code>4</code>：处理中</li></ul>
    */
   Status?: number
   /**
-   * 视觉理解结果
+   * <p>视觉理解结果</p>
    */
   ComprehensionResult?: SeeComprehensionResult
   /**
-   * 完成该任务所消耗的基础能力额度
+   * <p>完成该任务所消耗的基础能力额度</p>
    */
   CostBasic?: number
   /**
-   * 完成该任务所消耗的高级能力额度
+   * <p>完成该任务所消耗的高级能力额度</p>
    */
   CostAdvanced?: number
   /**
@@ -12191,48 +12679,22 @@ export interface DeleteFenceBindResponse {
 }
 
 /**
- * 固件升级任务信息
+ * ActivateTWeCallLicense请求参数结构体
  */
-export interface FirmwareTaskInfo {
+export interface ActivateTWeCallLicenseRequest {
   /**
-   * 任务ID
-注意：此字段可能返回 null，表示取不到有效值。
+   * TWecall类型：0-体验套餐；1-基础版；3-高级版；
    */
-  TaskId?: number
+  PkgType: number
   /**
-   * 任务状态
-注意：此字段可能返回 null，表示取不到有效值。
+   * 参数已弃用，不用传参
+   * @deprecated
    */
-  Status?: number
+  MiniProgramAppId?: string
   /**
-   * 任务类型
-注意：此字段可能返回 null，表示取不到有效值。
+   * 设备列表
    */
-  Type?: number
-  /**
-   * 任务创建时间
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  CreateTime?: number
-  /**
-   * 创建者
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  CreatorNickName?: string
-  /**
-   * 创建者ID
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  CreateUserId?: number
-  /**
-   * 任务启动时间
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  CronTime?: number
-  /**
-   * 固件类型
-   */
-  FwType?: string
+  DeviceList?: Array<TWeCallInfo>
 }
 
 /**
@@ -12540,33 +13002,29 @@ export interface DescribeTWeSeeRecognitionTaskRequest {
 }
 
 /**
- * DirectBindDeviceInFamily请求参数结构体
+ * DeleteTWeSeePerson请求参数结构体
  */
-export interface DirectBindDeviceInFamilyRequest {
+export interface DeleteTWeSeePersonRequest {
   /**
-   * 小程序appid
-   */
-  IotAppID: string
-  /**
-   * 用户ID
-   */
-  UserID: string
-  /**
-   * 家庭ID
-   */
-  FamilyId: string
-  /**
-   * 产品ID
+   * 产品 ID
    */
   ProductId: string
   /**
-   * 设备名
+   * 设备名称
    */
   DeviceName: string
   /**
-   * 房间ID
+   * 人员 ID
    */
-  RoomId?: string
+  PersonId: string
+  /**
+   * 通道 ID，默认值为 0
+   */
+  ChannelId?: number
+  /**
+   * 是否同时删除关联人脸，默认值为 false。人员仍有关联人脸时可设为 true 同步删除
+   */
+  DeleteFaces?: boolean
 }
 
 /**
@@ -12618,25 +13076,17 @@ export interface Filter {
 }
 
 /**
- * DescribeBindedProducts请求参数结构体
+ * CreateTWeSeePerson返回参数结构体
  */
-export interface DescribeBindedProductsRequest {
+export interface CreateTWeSeePersonResponse {
   /**
-   * 网关产品ID
+   * 人员信息
    */
-  GatewayProductId: string
+  Person?: SeePersonInfo
   /**
-   * 分页偏移量
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Offset: number
-  /**
-   * 分页大小
-   */
-  Limit: number
-  /**
-   * 是否跨账号绑定产品
-   */
-  ProductSource?: number
+  RequestId?: string
 }
 
 /**
@@ -12892,6 +13342,24 @@ export interface GenerateCloudStorageAIServiceTaskFileURLRequest {
 }
 
 /**
+ * ShareDeviceToUser返回参数结构体
+ */
+export interface ShareDeviceToUserResponse {
+  /**
+   * <p>Owner 的 UserID</p>
+   */
+  OwnerUserID?: string
+  /**
+   * <p>被分享用户的 UserID</p>
+   */
+  ToUserID?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * BindCloudStorageUser返回参数结构体
  */
 export interface BindCloudStorageUserResponse {
@@ -13066,6 +13534,24 @@ export interface CreateBatchProductionResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 围栏详细信息(包含创建时间及更新时间)
+ */
+export interface PositionFenceInfo {
+  /**
+   * 围栏信息
+   */
+  GeoFence?: PositionFenceItem
+  /**
+   * 围栏创建时间
+   */
+  CreateTime?: number
+  /**
+   * 围栏更新时间
+   */
+  UpdateTime?: number
 }
 
 /**
@@ -13391,25 +13877,25 @@ export interface CreateTWeSeePostPaidServiceRequest {
 }
 
 /**
- * CreatePositionFence请求参数结构体
+ * DeleteTWeSeeFace请求参数结构体
  */
-export interface CreatePositionFenceRequest {
+export interface DeleteTWeSeeFaceRequest {
   /**
-   * 位置空间Id
+   * 产品 ID
    */
-  SpaceId: string
+  ProductId: string
   /**
-   * 围栏名称
+   * 设备名称
    */
-  FenceName: string
+  DeviceName: string
   /**
-   * 围栏区域信息，采用 GeoJSON 格式
+   * 人脸 ID
    */
-  FenceArea: string
+  FaceId: string
   /**
-   * 围栏描述
+   * 通道 ID，默认值为 0
    */
-  FenceDesc?: string
+  ChannelId?: number
 }
 
 /**
@@ -13452,6 +13938,10 @@ export interface SeeTaskInfo {
    * <p>标签持续检测结果</p>
    */
   DetectContinuousResult?: SeeDetectContinuousResult
+  /**
+   * <p>人脸检测结果</p>
+   */
+  FaceRecognitionResult?: SeeFaceRecognitionResult
   /**
    * <p>完成该任务所消耗的基础能力额度</p>
    */

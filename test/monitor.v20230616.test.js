@@ -18,9 +18,19 @@ const client = new tencentcloud.monitor.v20230616.Client({
 })
 describe("monitor.v20230616.test.js", function () {
 
-it("monitor.v20230616.DeleteNoticeContentTmpls", async function () {
+it("monitor.v20230616.DescribeAIWorkbenchExecution", async function () {
     try {
-       const data = await client.DeleteNoticeContentTmpls({})
+       const data = await client.DescribeAIWorkbenchExecution({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchMessages", async function () {
+    try {
+       const data = await client.ListAIWorkbenchMessages({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -38,9 +48,69 @@ it("monitor.v20230616.DescribeNoticeContentTmpl", async function () {
     }
 })
 
-it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinWorkLogDetail", async function () {
+it("monitor.v20230616.ListAIWorkbenchSessions", async function () {
     try {
-       const data = await client.DescribeAIWorkbenchSREDigitalTwinWorkLogDetail({})
+       const data = await client.ListAIWorkbenchSessions({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchTasks", async function () {
+    try {
+       const data = await client.ListAIWorkbenchTasks({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeAIWorkbenchSkill", async function () {
+    try {
+       const data = await client.DescribeAIWorkbenchSkill({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.CancelAIWorkbenchChat", async function () {
+    try {
+       const data = await client.CancelAIWorkbenchChat({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeAIWorkbenchAgent", async function () {
+    try {
+       const data = await client.DescribeAIWorkbenchAgent({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchSkills", async function () {
+    try {
+       const data = await client.ListAIWorkbenchSkills({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchResourceInstances", async function () {
+    try {
+       const data = await client.ListAIWorkbenchResourceInstances({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -68,9 +138,9 @@ it("monitor.v20230616.TriggerAIWorkbenchSREDigitalTwinTask", async function () {
     }
 })
 
-it("monitor.v20230616.ModifyNoticeContentTmpl", async function () {
+it("monitor.v20230616.ListAIWorkbenchMCPs", async function () {
     try {
-       const data = await client.ModifyNoticeContentTmpl({})
+       const data = await client.ListAIWorkbenchMCPs({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -78,9 +148,39 @@ it("monitor.v20230616.ModifyNoticeContentTmpl", async function () {
     }
 })
 
-it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinWorkLogList", async function () {
+it("monitor.v20230616.DeleteAIWorkbenchAgent", async function () {
     try {
-       const data = await client.DescribeAIWorkbenchSREDigitalTwinWorkLogList({})
+       const data = await client.DeleteAIWorkbenchAgent({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeAIWorkbenchSession", async function () {
+    try {
+       const data = await client.DescribeAIWorkbenchSession({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DeleteAIWorkbenchTask", async function () {
+    try {
+       const data = await client.DeleteAIWorkbenchTask({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.CreateAIWorkbenchAgent", async function () {
+    try {
+       const data = await client.CreateAIWorkbenchAgent({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -98,9 +198,139 @@ it("monitor.v20230616.DescribeAlarmNotifyHistories", async function () {
     }
 })
 
+it("monitor.v20230616.DescribeAIWorkbenchArtifact", async function () {
+    try {
+       const data = await client.DescribeAIWorkbenchArtifact({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchArtifacts", async function () {
+    try {
+       const data = await client.ListAIWorkbenchArtifacts({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.TriggerAIWorkbenchTask", async function () {
+    try {
+       const data = await client.TriggerAIWorkbenchTask({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.CreateAIWorkbenchTask", async function () {
+    try {
+       const data = await client.CreateAIWorkbenchTask({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchExecutions", async function () {
+    try {
+       const data = await client.ListAIWorkbenchExecutions({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinWorkLogList", async function () {
+    try {
+       const data = await client.DescribeAIWorkbenchSREDigitalTwinWorkLogList({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinTaskList", async function () {
     try {
        const data = await client.DescribeAIWorkbenchSREDigitalTwinTaskList({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DeleteNoticeContentTmpls", async function () {
+    try {
+       const data = await client.DeleteNoticeContentTmpls({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinWorkLogDetail", async function () {
+    try {
+       const data = await client.DescribeAIWorkbenchSREDigitalTwinWorkLogDetail({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.UpdateAIWorkbenchAgent", async function () {
+    try {
+       const data = await client.UpdateAIWorkbenchAgent({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchAgents", async function () {
+    try {
+       const data = await client.ListAIWorkbenchAgents({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ListAIWorkbenchResourceMaps", async function () {
+    try {
+       const data = await client.ListAIWorkbenchResourceMaps({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ModifyNoticeContentTmpl", async function () {
+    try {
+       const data = await client.ModifyNoticeContentTmpl({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.GetAIWorkbenchArtifactDownloadURL", async function () {
+    try {
+       const data = await client.GetAIWorkbenchArtifactDownloadURL({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

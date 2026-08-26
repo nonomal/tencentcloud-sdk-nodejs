@@ -432,6 +432,7 @@ import {
   DescribeStreamPackageLinearAssemblyChannelAlertsRequest,
   AiAnalysisTaskDelLogoInput,
   DescribeAigcImageTaskResponse,
+  MediaUsageItem,
   SmartSubtitleTaskBatchOutput,
   BatchStopStreamLinkFlowRequest,
   DeleteStreamPackageLinearAssemblyProgramsByChannelResponse,

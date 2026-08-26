@@ -207,6 +207,10 @@ export interface CreateModelServiceRequest {
    * <p>资源供应属性(潮汐/竞价等供应模式);空表示常规按量后付费</p>
    */
   ResourceSupplyAttribute?: ResourceSupplyAttribute
+  /**
+   * <p>推理模板 ID</p>
+   */
+  InferTemplateId?: string
 }
 
 /**
@@ -2022,6 +2026,10 @@ export interface ModifyModelServiceRequest {
    * <p>目标工作空间，不为0则进行迁移，源服务只允许在默认空间</p>
    */
   TargetProjectId?: number
+  /**
+   * <p>推理模板 ID，在内置大模型场景下使用</p>
+   */
+  InferTemplateId?: string
 }
 
 /**
@@ -4623,6 +4631,10 @@ export interface ServiceInfo {
    * <p>服务实际运行的节点数</p>
    */
   NodeCount?: number
+  /**
+   * <p>推理模板Id</p><p>参数格式：推理模板 ID</p>
+   */
+  InferTemplateId?: string
 }
 
 /**
@@ -6710,38 +6722,38 @@ export interface Attribute {
  */
 export interface ResourceGroup {
   /**
-   * 资源组id
+   * <p>资源组id</p>
    */
   ResourceGroupId?: string
   /**
-   * 资源组名称
+   * <p>资源组名称</p>
    */
   ResourceGroupName?: string
   /**
-   * 可用节点个数(运行中的节点)
+   * <p>可用节点个数(运行中的节点)</p>
    */
   FreeInstance?: number
   /**
-   * 总节点个数(所有节点)
+   * <p>总节点个数(所有节点)</p>
    */
   TotalInstance?: number
   /**
-   * 资源组已用的资源
+   * <p>资源组已用的资源</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UsedResource?: GroupResource
   /**
-   * 资源组总资源
+   * <p>资源组总资源</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TotalResource?: GroupResource
   /**
-   * 节点信息
+   * <p>节点信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InstanceSet?: Array<Instance>
   /**
-   * 标签列表
+   * <p>标签列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TagSet?: Array<Tag>

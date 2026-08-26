@@ -53,7 +53,7 @@ import {
   ModifyInstancePasswordResponse,
   DescribeSecondLevelBackupInfoResponse,
   RenewInstanceResponse,
-  DescribeSlowLogResponse,
+  DescribeInstancePasswordPolicyResponse,
   DescribeCommonDBInstancesRequest,
   DescribeDBSecurityGroupsResponse,
   RestoreInstanceResponse,
@@ -69,7 +69,7 @@ import {
   SecurityGroupsInboundAndOutbound,
   ModifyLogRequest,
   ClearInstanceRequest,
-  UpgradeInstanceVersionRequest,
+  DescribeInstancePasswordPolicyRequest,
   RegionConf,
   BigKeyInfo,
   DescribeBandwidthRangeResponse,
@@ -213,7 +213,7 @@ import {
   ResourceTag,
   AssociateSecurityGroupsResponse,
   LogDeliveryInfo,
-  DescribeTaskInfoResponse,
+  DescribeSlowLogResponse,
   DescribeInstanceMonitorBigKeyTypeDistResponse,
   DeleteReplicationInstanceResponse,
   CleanUpInstanceRequest,
@@ -227,7 +227,7 @@ import {
   Filter,
   ModifyInstancePasswordRequest,
   ModifyReplicationGroupResponse,
-  InstanceInfo,
+  DescribeTaskInfoResponse,
   ReleaseWanAddressResponse,
   DescribeAutoBackupConfigRequest,
   DescribeBackupUrlRequest,
@@ -302,6 +302,7 @@ import {
   PasswordPolicy,
   DescribeSecondLevelBackupInfoRequest,
   SecurityGroupDetail,
+  InstanceInfo,
   InquiryPriceUpgradeInstanceResponse,
   DeleteInstanceAccountResponse,
   DescribeInstanceMonitorSIPRequest,
@@ -312,6 +313,7 @@ import {
   DescribeGlobalReplicationAreaResponse,
   ZoneCapacityConf,
   ModifyInstanceEventResponse,
+  UpgradeInstanceVersionRequest,
   TendisSlowLogDetail,
   DescribeInstanceNodeInfoResponse,
   DescribeProjectSecurityGroupResponse,
@@ -576,13 +578,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（ModifyConnectionConfig）用于修改实例的连接配置，包括带宽和最大连接数。
+   * 本接口（DisassociateSecurityGroups）用于安全组批量解绑实例。
    */
-  async ModifyConnectionConfig(
-    req: ModifyConnectionConfigRequest,
-    cb?: (error: string, rep: ModifyConnectionConfigResponse) => void
-  ): Promise<ModifyConnectionConfigResponse> {
-    return this.request("ModifyConnectionConfig", req, cb)
+  async DisassociateSecurityGroups(
+    req: DisassociateSecurityGroupsRequest,
+    cb?: (error: string, rep: DisassociateSecurityGroupsResponse) => void
+  ): Promise<DisassociateSecurityGroupsResponse> {
+    return this.request("DisassociateSecurityGroups", req, cb)
   }
 
   /**
@@ -886,13 +888,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（DisassociateSecurityGroups）用于安全组批量解绑实例。
+   * 本接口（ModifyConnectionConfig）用于修改实例的连接配置，包括带宽和最大连接数。
    */
-  async DisassociateSecurityGroups(
-    req: DisassociateSecurityGroupsRequest,
-    cb?: (error: string, rep: DisassociateSecurityGroupsResponse) => void
-  ): Promise<DisassociateSecurityGroupsResponse> {
-    return this.request("DisassociateSecurityGroups", req, cb)
+  async ModifyConnectionConfig(
+    req: ModifyConnectionConfigRequest,
+    cb?: (error: string, rep: ModifyConnectionConfigResponse) => void
+  ): Promise<ModifyConnectionConfigResponse> {
+    return this.request("ModifyConnectionConfig", req, cb)
   }
 
   /**
@@ -1433,6 +1435,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeProxySlowLogResponse) => void
   ): Promise<DescribeProxySlowLogResponse> {
     return this.request("DescribeProxySlowLog", req, cb)
+  }
+
+  /**
+   * 查询指定实例当前密码复杂度配置
+   */
+  async DescribeInstancePasswordPolicy(
+    req: DescribeInstancePasswordPolicyRequest,
+    cb?: (error: string, rep: DescribeInstancePasswordPolicyResponse) => void
+  ): Promise<DescribeInstancePasswordPolicyResponse> {
+    return this.request("DescribeInstancePasswordPolicy", req, cb)
   }
 
   /**

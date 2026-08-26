@@ -32,6 +32,7 @@ import {
   DynamicPodSpec,
   CustomImage,
   DescribeDynamicInstanceDetailResponse,
+  GpuImageDriverSpec,
   ResetYarnConfigRequest,
   ComputeResourceAdvanceParams,
   ServiceDeployInfo,

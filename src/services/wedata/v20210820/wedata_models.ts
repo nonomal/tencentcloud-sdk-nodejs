@@ -33368,6 +33368,14 @@ export interface DescribeTableContentPreviewRequest {
    * <p>引擎名</p>
    */
   EngineId?: string
+  /**
+   * <p>引擎类型详情</p><ul><li>SparkSQL：SparkSQL</li><li>PrestoSQL：Presto</li><li>SparkBatch：Spark作业</li><li>StandardPresto：Presto</li><li>StandardSpark：Spark</li></ul>
+   */
+  EngineTypeDetail?: string
+  /**
+   * <p>数据源ID</p>
+   */
+  DatasourceId?: number
 }
 
 /**

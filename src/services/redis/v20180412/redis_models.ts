@@ -857,22 +857,13 @@ export interface RenewInstanceResponse {
 }
 
 /**
- * DescribeSlowLog返回参数结构体
+ * DescribeInstancePasswordPolicy返回参数结构体
  */
-export interface DescribeSlowLogResponse {
+export interface DescribeInstancePasswordPolicyResponse {
   /**
-   * 慢查询总数。
+   * <p>实例密码复杂度策略。</p>
    */
-  TotalCount?: number
-  /**
-   * 已废弃，该参数存在命名不规范问题，后续用参数InstanceSlowLogDetail取代。慢查询详情。
-   * @deprecated
-   */
-  InstanceSlowlogDetail?: Array<InstanceSlowlogDetail>
-  /**
-   * 慢查询详情，注意：TotalCount大于1W，即慢日志超过1万条，不支持返回日志详情，返回数据为空。 建议缩小BeginTime和EndTime的时间间隔，多次查询。
-   */
-  InstanceSlowLogDetail?: Array<InstanceSlowlogDetail>
+  PasswordPolicy?: PasswordPolicy
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -1322,26 +1313,11 @@ export interface ClearInstanceRequest {
 }
 
 /**
- * UpgradeInstanceVersion请求参数结构体
+ * DescribeInstancePasswordPolicy请求参数结构体
  */
-export interface UpgradeInstanceVersionRequest {
+export interface DescribeInstancePasswordPolicyRequest {
   /**
-   * 目标实例类型，同 [CreateInstances](https://cloud.tencent.com/document/api/239/20026) 的**TypeId**，即实例要变更的目标类型。
-- Redis 4.0 及以上的版本，支持相同版本的实例从标准架构升级至集群架构，例如，支持 Redis 4.0 标准架构升级至 Redis 4.0 集群架构。
-- 不支持跨版本架构升级，例如，Redis 4.0 标准架构升级至 Redis 5.0 集群架构。
-- 不支持 Redis 2.8 版本升级架构。
-- 不支持从集群架构降级至标准架构。
-
-   */
-  TargetInstanceType: string
-  /**
-   * 切换时间。
-- 1：维护时间窗切换。
-- 2：立即切换。
-   */
-  SwitchOption: number
-  /**
-   * 指定实例 ID。例如：crs-xjhsdj****，请登录[Redis控制台](https://console.cloud.tencent.com/redis#/)在实例列表复制实例 ID。
+   * <p>实例 ID。请登录 <a href="https://console.cloud.tencent.com/redis">Redis 控制台</a>在实例列表复制实例 ID。</p>
    */
   InstanceId: string
 }
@@ -4746,34 +4722,22 @@ export interface LogDeliveryInfo {
 }
 
 /**
- * DescribeTaskInfo返回参数结构体
+ * DescribeSlowLog返回参数结构体
  */
-export interface DescribeTaskInfoResponse {
+export interface DescribeSlowLogResponse {
   /**
-   * 任务状态。
-- preparing：待执行。
-- running：执行中。
-- succeed：成功。
-- failed：失败。
-- error：执行出错。
+   * 慢查询总数。
    */
-  Status?: string
+  TotalCount?: number
   /**
-   * 任务开始时间。
+   * 已废弃，该参数存在命名不规范问题，后续用参数InstanceSlowLogDetail取代。慢查询详情。
+   * @deprecated
    */
-  StartTime?: string
+  InstanceSlowlogDetail?: Array<InstanceSlowlogDetail>
   /**
-   * 任务类型。常见的类型包含：新建类型、配置变更、关闭实例、清空实例、重置密码、版本升级、备份实例、改变网络类型、实例可用区迁移、手动提主等。
+   * 慢查询详情，注意：TotalCount大于1W，即慢日志超过1万条，不支持返回日志详情，返回数据为空。 建议缩小BeginTime和EndTime的时间间隔，多次查询。
    */
-  TaskType?: string
-  /**
-   * 实例的 ID。
-   */
-  InstanceId?: string
-  /**
-   * 任务执行返回的信息，执行错误时显示错误信息。执行中或执行成功则为空。
-   */
-  TaskMessage?: string
+  InstanceSlowLogDetail?: Array<InstanceSlowlogDetail>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -5190,53 +5154,38 @@ export interface ModifyReplicationGroupResponse {
 }
 
 /**
- * 实例信息
+ * DescribeTaskInfo返回参数结构体
  */
-export interface InstanceInfo {
+export interface DescribeTaskInfoResponse {
   /**
-   * <p>实例名称</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 任务状态。
+- preparing：待执行。
+- running：执行中。
+- succeed：成功。
+- failed：失败。
+- error：执行出错。
    */
-  InstanceName?: string
+  Status?: string
   /**
-   * <p>项目ID</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 任务开始时间。
    */
-  ProjectId?: number
+  StartTime?: string
   /**
-   * <p>实例状态</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 任务类型。常见的类型包含：新建类型、配置变更、关闭实例、清空实例、重置密码、版本升级、备份实例、改变网络类型、实例可用区迁移、手动提主等。
    */
-  Status?: number
+  TaskType?: string
   /**
-   * <p>流程中的实例返回的子状态。</p><p>枚举值：</p><ul><li>0： 磁盘只读，</li></ul>
+   * 实例的 ID。
    */
-  SubStatus?: number
+  InstanceId?: string
   /**
-   * <p>地域</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 任务执行返回的信息，执行错误时显示错误信息。执行中或执行成功则为空。
    */
-  Region?: string
+  TaskMessage?: string
   /**
-   * <p>区</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Zone?: string
-  /**
-   * <p>降级策略，单位：毫秒，实例P99达到降级策略后，审计数据自动丢弃，优先保障业务的可用性,默认值：500毫秒，范围值：300-1000毫秒</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  DegradeStrategy?: number
-  /**
-   * <p>标签信息</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  InstanceTags?: Array<InstanceTagInfo>
-  /**
-   * <p>架构版本</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Type?: number
+  RequestId?: string
 }
 
 /**
@@ -7041,6 +6990,56 @@ export interface SecurityGroupDetail {
 }
 
 /**
+ * 实例信息
+ */
+export interface InstanceInfo {
+  /**
+   * <p>实例名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  InstanceName?: string
+  /**
+   * <p>项目ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ProjectId?: number
+  /**
+   * <p>实例状态</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: number
+  /**
+   * <p>流程中的实例返回的子状态。</p><p>枚举值：</p><ul><li>0： 磁盘只读，</li></ul>
+   */
+  SubStatus?: number
+  /**
+   * <p>地域</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Region?: string
+  /**
+   * <p>区</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Zone?: string
+  /**
+   * <p>降级策略，单位：毫秒，实例P99达到降级策略后，审计数据自动丢弃，优先保障业务的可用性,默认值：500毫秒，范围值：300-1000毫秒</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DegradeStrategy?: number
+  /**
+   * <p>标签信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  InstanceTags?: Array<InstanceTagInfo>
+  /**
+   * <p>架构版本</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Type?: number
+}
+
+/**
  * InquiryPriceUpgradeInstance返回参数结构体
  */
 export interface InquiryPriceUpgradeInstanceResponse {
@@ -7294,6 +7293,31 @@ export interface ModifyInstanceEventResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * UpgradeInstanceVersion请求参数结构体
+ */
+export interface UpgradeInstanceVersionRequest {
+  /**
+   * 目标实例类型，同 [CreateInstances](https://cloud.tencent.com/document/api/239/20026) 的**TypeId**，即实例要变更的目标类型。
+- Redis 4.0 及以上的版本，支持相同版本的实例从标准架构升级至集群架构，例如，支持 Redis 4.0 标准架构升级至 Redis 4.0 集群架构。
+- 不支持跨版本架构升级，例如，Redis 4.0 标准架构升级至 Redis 5.0 集群架构。
+- 不支持 Redis 2.8 版本升级架构。
+- 不支持从集群架构降级至标准架构。
+
+   */
+  TargetInstanceType: string
+  /**
+   * 切换时间。
+- 1：维护时间窗切换。
+- 2：立即切换。
+   */
+  SwitchOption: number
+  /**
+   * 指定实例 ID。例如：crs-xjhsdj****，请登录[Redis控制台](https://console.cloud.tencent.com/redis#/)在实例列表复制实例 ID。
+   */
+  InstanceId: string
 }
 
 /**

@@ -355,17 +355,21 @@ export interface OpsWorkflows {
  */
 export interface ProjectRequest {
   /**
-   * 项目标识，英文名，以字母开头，可包含字母、数字和下划线，不能超过32个字符
+   * <p>项目标识，英文名，以字母开头，可包含字母、数字和下划线，不能超过32个字符</p>
    */
   ProjectName: string
   /**
-   * 项目显示名称，可以为中文名，以字母开头，可包含字母、数字和下划线，不能超过32个字符
+   * <p>项目显示名称，可以为中文名，以字母开头，可包含字母、数字和下划线，不能超过32个字符</p>
    */
   DisplayName: string
   /**
-   * 项目模式，SIMPLE（默认）：简单模式 STANDARD：标准模式
+   * <p>项目模式，SIMPLE（默认）：简单模式 STANDARD：标准模式</p>
    */
   ProjectModel?: string
+  /**
+   * <p>项目调度模式，task：任务模式 workflow：工作流模式</p>
+   */
+  ScheduleMode?: string
 }
 
 /**
@@ -2614,6 +2618,22 @@ export interface GetTaskVersionResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 项目扩展信息
+ */
+export interface WorkspaceExt {
+  /**
+   * <p>参数名</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Key?: string
+  /**
+   * <p>参数值</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Value?: string
 }
 
 /**
@@ -7589,7 +7609,7 @@ export interface ListSQLScriptRunsResponse {
  */
 export interface GetProjectResponse {
   /**
-   * 项目信息
+   * <p>项目信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Data?: Project
@@ -11779,6 +11799,11 @@ export interface TriggerTaskBrief {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExecuteUserUin?: string
+  /**
+   * <p>周期类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CycleType?: string
 }
 
 /**
@@ -11966,7 +11991,7 @@ export interface ListDownstreamOpsTasksResponse {
  */
 export interface GetProjectRequest {
   /**
-   * 项目id。一般使用项目Id来查询，与projectName必须存在一个。
+   * <p>项目id。一般使用项目Id来查询，与projectName必须存在一个。</p>
    */
   ProjectId: string
 }
@@ -16216,49 +16241,53 @@ export interface ModifyQualityRuleGroupResponse {
  */
 export interface Project {
   /**
-   * 项目id
+   * <p>项目id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectId?: string
   /**
-   * 项目标识，英文名
+   * <p>项目标识，英文名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectName?: string
   /**
-   * 项目显示名称，可以为中文名
+   * <p>项目显示名称，可以为中文名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DisplayName?: string
   /**
-   * 备注
+   * <p>备注</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Description?: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreateTime?: string
   /**
-   * 项目创建人id
+   * <p>项目创建人id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreatorUin?: string
   /**
-   * 项目责任人id
+   * <p>项目责任人id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectOwnerUin?: string
   /**
-   * 项目状态：0：禁用，1：启用，-3:禁用中，2：启用中
+   * <p>项目状态：0：禁用，1：启用，-3:禁用中，2：启用中</p>
    */
   Status?: number
   /**
-   * 项目模式，SIMPLE：简单模式 STANDARD：标准模式
+   * <p>项目模式，SIMPLE：简单模式 STANDARD：标准模式</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectModel?: string
+  /**
+   * <p>项目的额外配置参数，{Key: &quot;scheduleMode&quot;, Value: &quot;task|workflow&quot;}</p>
+   */
+  WorkspaceExt?: Array<WorkspaceExt>
 }
 
 /**

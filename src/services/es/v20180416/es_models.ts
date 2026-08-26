@@ -5107,6 +5107,14 @@ export interface InstanceInfo {
    * <p>证书类型</p>
    */
   ServerCertSource?: string
+  /**
+   * <p>集群待迁移的VIP</p>
+   */
+  OldEsVip?: string
+  /**
+   * <p>集群待迁移的TCP地址</p>
+   */
+  OldEsPrivateTcpUrl?: string
 }
 
 /**

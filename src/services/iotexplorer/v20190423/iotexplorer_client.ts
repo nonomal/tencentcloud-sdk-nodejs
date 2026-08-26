@@ -19,6 +19,7 @@ import { AbstractClient } from "../../../common/abstract_client"
 import { ClientConfig } from "../../../common/interface"
 import {
   UpdateDevicesEnableStateResponse,
+  DeleteTWeSeePersonResponse,
   PackageConsumeStat,
   DescribeCloudStoragePackageConsumeDetailsResponse,
   TWeCallActiveInfo,
@@ -41,11 +42,14 @@ import {
   ModifyPositionFenceResponse,
   DescribeTWeSeeRecognitionTaskResponse,
   DescribeCloudStorageAIServiceTaskRequest,
+  SeeFaceRecognitionResult,
   DescribeCloudStorageThumbnailListRequest,
   DescribeTWeSeeSubscriptionResponse,
   DescribeCloudStorageUsersResponse,
+  CreateTWeSeePersonRequest,
   CountDataInfo,
   RevokeShareDeviceFromUserRequest,
+  SeeTaskPersonInfo,
   DescribeCloudStoragePackageConsumeDetailsRequest,
   BatchUpdateFirmwareResponse,
   DescribeActivateLicenseServiceResponse,
@@ -59,6 +63,7 @@ import {
   CallDeviceRRPCSyncRequest,
   DescribeCloudStorageEventsWithAITasksResponse,
   SearchTopicRuleResponse,
+  ImportTWeSeeFacesResponse,
   ModifyCloudStorageAIServiceResponse,
   InvokeTWeSeeComprehensionRequest,
   TalkIOTTool,
@@ -106,11 +111,13 @@ import {
   SeeComprehensionConfig,
   CreateTWeSeeCallbackResponse,
   DescribeUnbindedDevicesRequest,
+  FirmwareInfo,
   RegisteredDeviceNetTypeInfo,
   InvokeAISearchServiceResponse,
   ModifyTWeSeeConfigRequest,
   DescribeGatewaySubDeviceListRequest,
   ModifyTWeSeeSubscriptionRenewFlagRequest,
+  SeeFaceInfo,
   GetDeviceListRequest,
   DescribeDeviceDataHistoryRequest,
   DescribeStudioProductRequest,
@@ -135,6 +142,7 @@ import {
   ModifyProjectRequest,
   ModifySpacePropertyResponse,
   PauseTWeCallDeviceRequest,
+  ModifyTWeSeePersonResponse,
   TalkAgentInfo,
   ModifyTWeSeeCallbackResponse,
   DescribeDeviceDataHistoryResponse,
@@ -146,7 +154,6 @@ import {
   GetBatchProductionsListRequest,
   DeleteDeviceResponse,
   ModifyLoRaFrequencyResponse,
-  ActivateTWeCallLicenseRequest,
   InstanceDetail,
   InvokeTWeSeeRecognitionTaskWithFileResponse,
   GetBatchProductionsListResponse,
@@ -188,6 +195,7 @@ import {
   UploadFirmwareRequest,
   DescribeFirmwareRequest,
   RevokeShareDeviceFromUserResponse,
+  DescribeGatewayBindDevicesRequest,
   RevokeBindUserDeviceRequest,
   ModifyTWeTalkProductConfigV2Response,
   DescribeP2PRouteResponse,
@@ -201,6 +209,7 @@ import {
   TalkProductInfo,
   ModifyTWeSeeSubscriptionResponse,
   FenceBindDeviceItem,
+  ModifyTWeSeeFaceRequest,
   CreateTWeSeeSubscriptionResponse,
   DescribeBatchProductionResponse,
   DescribeProductCloudStorageAIServiceResponse,
@@ -251,12 +260,14 @@ import {
   SeeTaskMetadata,
   ModifyTopicRuleResponse,
   DescribeBatchProductionRequest,
+  DirectBindDeviceInFamilyRequest,
   DescribeCloudStorageAIServiceTaskResponse,
   PublishRRPCMessageResponse,
   CloudStorageEvent,
   InquireTWeSeeSubscriptionCreatePriceResponse,
   CreateTWeTalkProductConfigV2Request,
   DescribeInstanceResponse,
+  DescribeTWeSeeFaceRequest,
   DeleteTWeSeeTasksByConditionRequest,
   DescribeProjectRequest,
   SeeEventIdFilterConfig,
@@ -265,13 +276,13 @@ import {
   ModifyTopicPolicyRequest,
   DeleteTopicRuleRequest,
   CreateLoRaGatewayResponse,
-  PositionFenceInfo,
+  ModifyTWeSeeFaceResponse,
   DescribeDeviceBindGatewayResponse,
   BindUserDeviceResponse,
   ControlDeviceDataResponse,
   TalkLLMConfigInfo,
   EventHistoryItem,
-  ShareDeviceToUserResponse,
+  ListTWeSeePersonsRequest,
   CreatePositionSpaceResponse,
   CreateTWeTalkProductConfigResponse,
   ListProductOtaModulesResponse,
@@ -283,12 +294,14 @@ import {
   PauseTWeCallDeviceResponse,
   DescribeActivateDeviceResponse,
   ResetTWeCallDeviceResponse,
-  ModifyTWeTalkAgentResponse,
+  DescribeTWeSeePersonResponse,
   AppDeviceInfo,
   DescribeCloudStorageResponse,
+  ModifyTWeSeePersonRequest,
   TalkAgentBinding,
   DescribeCloudStorageStreamDataRequest,
   ListEventHistoryResponse,
+  DescribeTWeSeeFaceResponse,
   BatchCreateTWeSeeRecognitionTaskRequest,
   ProjectEntryEx,
   PublishMessageResponse,
@@ -300,6 +313,7 @@ import {
   DescribeDeviceDataResponse,
   DescribePositionFenceListRequest,
   DescribeUnbindedDevicesResponse,
+  DescribeBindedProductsRequest,
   InvokeCloudStorageAIServiceTaskRequest,
   SeeDeleteTaskCondition,
   GetTWeTalkProductConfigListResponse,
@@ -330,6 +344,7 @@ import {
   CallDeviceActionSyncRequest,
   ProductDevicesPositionItem,
   GetLoRaGatewayListRequest,
+  DeleteTWeSeeFaceResponse,
   ResetCloudStorageAIServiceResponse,
   DeleteTWeSeeCallbackRequest,
   CreateTWeSeeRecognitionTaskRequest,
@@ -421,6 +436,7 @@ import {
   UpdateFirmwareRequest,
   DeviceSignatureInfo,
   InvokeTWeSeeRecognitionTaskWithFileRequest,
+  SeeTaskFaceInfo,
   TWeCallInfo,
   DescribeDeviceRequest,
   SeeCompHighlightResult,
@@ -460,7 +476,7 @@ import {
   GenSingleDeviceSignatureOfPublicRequest,
   CreateVisionRecognitionTaskOutput,
   BatchCreateTWeSeeRecognitionTaskResponse,
-  DescribeGatewayBindDevicesRequest,
+  DescribeTWeSeePersonRequest,
   DescribeGatewaySubProductsRequest,
   InquireTWeSeeSubscriptionRenewPriceRequest,
   CreateExternalSourceAIServiceTaskResponse,
@@ -479,8 +495,10 @@ import {
   DescribeTWeTalkProductConfigV2Response,
   DeviceInfo,
   DescribeInstanceRequest,
+  ModifyTWeTalkAgentResponse,
   ShareDeviceToUserRequest,
   CreatePositionSpaceRequest,
+  ImportTWeSeeFacesRequest,
   BindUserDeviceRequest,
   DeleteProjectRequest,
   CloudStoragePackageInfo,
@@ -496,6 +514,7 @@ import {
   PositionFenceItem,
   DeleteTopicRuleResponse,
   ModifyModelDefinitionRequest,
+  ListTWeSeePersonsResponse,
   TransferCloudStorageResponse,
   CreateStudioProductResponse,
   TalkBasicConfigInfo,
@@ -531,6 +550,7 @@ import {
   InvokeVideosKeywordsAnalyzerRequest,
   DescribeFirmwareTaskDevicesRequest,
   TalkTTSFlow,
+  FirmwareTaskInfo,
   InvokeExternalSourceAIServiceTaskRequest,
   DescribeProductCloudStorageAIServiceRequest,
   DeleteLoRaGatewayRequest,
@@ -545,7 +565,7 @@ import {
   ResumeWeCallDeviceResponse,
   TopicRulePayload,
   ResetCloudStorageResponse,
-  FirmwareInfo,
+  CreatePositionFenceRequest,
   ResumeWeCallDeviceRequest,
   GetCOSURLRequest,
   CreateTWeSeeSubscriptionRequest,
@@ -556,6 +576,7 @@ import {
   FamilySubDevice,
   TalkActivationStatusInfo,
   DescribeTWeTalkProductConfigRequest,
+  SeePersonInfo,
   DescribeFirmwareTasksResponse,
   ModifyTWeTalkProductConfigRequest,
   GetDeviceLocationHistoryResponse,
@@ -568,7 +589,7 @@ import {
   TopicRule,
   DescribeCloudStoragePackageConsumeStatsRequest,
   DeleteFenceBindResponse,
-  FirmwareTaskInfo,
+  ActivateTWeCallLicenseRequest,
   DescribeAISearchTaskAsyncResponse,
   IotApplication,
   DeleteDeviceSDPResponse,
@@ -580,10 +601,10 @@ import {
   CreateTopicRuleRequest,
   CreateTopicPolicyRequest,
   DescribeTWeSeeRecognitionTaskRequest,
-  DirectBindDeviceInFamilyRequest,
+  DeleteTWeSeePersonRequest,
   DescribeCloudStorageEventsResponse,
   Filter,
-  DescribeBindedProductsRequest,
+  CreateTWeSeePersonResponse,
   CreateFreeCloudStorageRequest,
   DescribeLoRaFrequencyResponse,
   CreateCloudStorageAIServiceTaskResponse,
@@ -593,6 +614,7 @@ import {
   CloudStorageTimeInfo,
   CreateIotVideoCloudStorageRequest,
   GenerateCloudStorageAIServiceTaskFileURLRequest,
+  ShareDeviceToUserResponse,
   BindCloudStorageUserResponse,
   DeleteTopicPolicyResponse,
   DeviceActivationDetail,
@@ -601,6 +623,7 @@ import {
   CreateOtaModuleResponse,
   ModifyTWeTalkAgentRequest,
   CreateBatchProductionResponse,
+  PositionFenceInfo,
   VisionObjectDetectConfig,
   BatchUpdateFirmwareRequest,
   SeeCompHighlightConfig,
@@ -617,7 +640,7 @@ import {
   DescribeCloudStorageRequest,
   GenerateSignedVideoURLResponse,
   CreateTWeSeePostPaidServiceRequest,
-  CreatePositionFenceRequest,
+  DeleteTWeSeeFaceRequest,
   SeeTaskInfo,
   DescribeCloudStorageThumbnailResponse,
   DescribeProductDynamicRegisterResponse,
@@ -686,6 +709,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 删除指定 TWeSee 人员，可选择同时删除其关联人脸。
+   */
+  async DeleteTWeSeePerson(
+    req: DeleteTWeSeePersonRequest,
+    cb?: (error: string, rep: DeleteTWeSeePersonResponse) => void
+  ): Promise<DeleteTWeSeePersonResponse> {
+    return this.request("DeleteTWeSeePerson", req, cb)
+  }
+
+  /**
    * 本接口（DescribeFirmwareUpdateStatus）用于查询设备固件升级状态及进度。
    */
   async DescribeFirmwareUpdateStatus(
@@ -696,13 +729,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 退订 TWeSee 预付费订阅
+   * TWeTalk设备激活接口。
    */
-  async TerminateTWeSeeSubscription(
-    req: TerminateTWeSeeSubscriptionRequest,
-    cb?: (error: string, rep: TerminateTWeSeeSubscriptionResponse) => void
-  ): Promise<TerminateTWeSeeSubscriptionResponse> {
-    return this.request("TerminateTWeSeeSubscription", req, cb)
+  async ActivateTWeTalk(
+    req: ActivateTWeTalkRequest,
+    cb?: (error: string, rep: ActivateTWeTalkResponse) => void
+  ): Promise<ActivateTWeTalkResponse> {
+    return this.request("ActivateTWeTalk", req, cb)
   }
 
   /**
@@ -850,6 +883,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询指定设备的 TWeSee 人员列表。
+   */
+  async ListTWeSeePersons(
+    req: ListTWeSeePersonsRequest,
+    cb?: (error: string, rep: ListTWeSeePersonsResponse) => void
+  ): Promise<ListTWeSeePersonsResponse> {
+    return this.request("ListTWeSeePersons", req, cb)
+  }
+
+  /**
    * 创建 TWeSee 语义理解任务
    */
   async CreateTWeSeeRecognitionTask(
@@ -917,6 +960,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: GetLoRaGatewayListResponse) => void
   ): Promise<GetLoRaGatewayListResponse> {
     return this.request("GetLoRaGatewayList", req, cb)
+  }
+
+  /**
+   * 查询指定 TWeSee 人员详情及其代表人脸。
+   */
+  async DescribeTWeSeePerson(
+    req: DescribeTWeSeePersonRequest,
+    cb?: (error: string, rep: DescribeTWeSeePersonResponse) => void
+  ): Promise<DescribeTWeSeePersonResponse> {
+    return this.request("DescribeTWeSeePerson", req, cb)
   }
 
   /**
@@ -1658,6 +1711,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 修改指定 TWeSee 人员的名称或记忆状态。Name、IsRemembered 至少传入一项，不支持取消持久记忆。
+   */
+  async ModifyTWeSeePerson(
+    req: ModifyTWeSeePersonRequest,
+    cb?: (error: string, rep: ModifyTWeSeePersonResponse) => void
+  ): Promise<ModifyTWeSeePersonResponse> {
+    return this.request("ModifyTWeSeePerson", req, cb)
+  }
+
+  /**
    * 查询固件升级任务的设备列表
    */
   async DescribeFirmwareTaskDevices(
@@ -1718,13 +1781,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 重置指定设备的云存 AI 服务
+   * 将 TWeSee 人脸关联到指定人员，或修改其代表人脸状态。
    */
-  async ResetCloudStorageAIService(
-    req: ResetCloudStorageAIServiceRequest,
-    cb?: (error: string, rep: ResetCloudStorageAIServiceResponse) => void
-  ): Promise<ResetCloudStorageAIServiceResponse> {
-    return this.request("ResetCloudStorageAIService", req, cb)
+  async ModifyTWeSeeFace(
+    req: ModifyTWeSeeFaceRequest,
+    cb?: (error: string, rep: ModifyTWeSeeFaceResponse) => void
+  ): Promise<ModifyTWeSeeFaceResponse> {
+    return this.request("ModifyTWeSeeFace", req, cb)
   }
 
   /**
@@ -1738,13 +1801,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 为用户提供新建项目的能力，用于集中管理产品和应用。
+   * 拉取多个云存事件缩略图
    */
-  async CreateProject(
-    req: CreateProjectRequest,
-    cb?: (error: string, rep: CreateProjectResponse) => void
-  ): Promise<CreateProjectResponse> {
-    return this.request("CreateProject", req, cb)
+  async DescribeCloudStorageMultiThumbnail(
+    req: DescribeCloudStorageMultiThumbnailRequest,
+    cb?: (error: string, rep: DescribeCloudStorageMultiThumbnailResponse) => void
+  ): Promise<DescribeCloudStorageMultiThumbnailResponse> {
+    return this.request("DescribeCloudStorageMultiThumbnail", req, cb)
   }
 
   /**
@@ -1867,6 +1930,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: GetPositionSpaceListResponse) => void
   ): Promise<GetPositionSpaceListResponse> {
     return this.request("GetPositionSpaceList", req, cb)
+  }
+
+  /**
+   * 退订 TWeSee 预付费订阅
+   */
+  async TerminateTWeSeeSubscription(
+    req: TerminateTWeSeeSubscriptionRequest,
+    cb?: (error: string, rep: TerminateTWeSeeSubscriptionResponse) => void
+  ): Promise<TerminateTWeSeeSubscriptionResponse> {
+    return this.request("TerminateTWeSeeSubscription", req, cb)
   }
 
   /**
@@ -2304,13 +2377,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * TWeTalk设备激活接口。
+   * 创建一个 TWeSee 人员，可关联已导入的人脸。
    */
-  async ActivateTWeTalk(
-    req: ActivateTWeTalkRequest,
-    cb?: (error: string, rep: ActivateTWeTalkResponse) => void
-  ): Promise<ActivateTWeTalkResponse> {
-    return this.request("ActivateTWeTalk", req, cb)
+  async CreateTWeSeePerson(
+    req: CreateTWeSeePersonRequest,
+    cb?: (error: string, rep: CreateTWeSeePersonResponse) => void
+  ): Promise<CreateTWeSeePersonResponse> {
+    return this.request("CreateTWeSeePerson", req, cb)
   }
 
   /**
@@ -2534,6 +2607,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 重置指定设备的云存 AI 服务
+   */
+  async ResetCloudStorageAIService(
+    req: ResetCloudStorageAIServiceRequest,
+    cb?: (error: string, rep: ResetCloudStorageAIServiceResponse) => void
+  ): Promise<ResetCloudStorageAIServiceResponse> {
+    return this.request("ResetCloudStorageAIService", req, cb)
+  }
+
+  /**
    * 创建外部视频 AI 分析任务
    */
   async CreateExternalSourceAIServiceTask(
@@ -2616,13 +2699,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 拉取多个云存事件缩略图
+   * 为用户提供新建项目的能力，用于集中管理产品和应用。
    */
-  async DescribeCloudStorageMultiThumbnail(
-    req: DescribeCloudStorageMultiThumbnailRequest,
-    cb?: (error: string, rep: DescribeCloudStorageMultiThumbnailResponse) => void
-  ): Promise<DescribeCloudStorageMultiThumbnailResponse> {
-    return this.request("DescribeCloudStorageMultiThumbnail", req, cb)
+  async CreateProject(
+    req: CreateProjectRequest,
+    cb?: (error: string, rep: CreateProjectResponse) => void
+  ): Promise<CreateProjectResponse> {
+    return this.request("CreateProject", req, cb)
   }
 
   /**
@@ -2747,6 +2830,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DeleteDeviceSDPResponse) => void
   ): Promise<DeleteDeviceSDPResponse> {
     return this.request("DeleteDeviceSDP", req, cb)
+  }
+
+  /**
+   * 查询指定 TWeSee 人脸详情。
+   */
+  async DescribeTWeSeeFace(
+    req: DescribeTWeSeeFaceRequest,
+    cb?: (error: string, rep: DescribeTWeSeeFaceResponse) => void
+  ): Promise<DescribeTWeSeeFaceResponse> {
+    return this.request("DescribeTWeSeeFace", req, cb)
   }
 
   /**
@@ -2907,6 +3000,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: PauseTWeCallDeviceResponse) => void
   ): Promise<PauseTWeCallDeviceResponse> {
     return this.request("PauseTWeCallDevice", req, cb)
+  }
+
+  /**
+   * 检测图片中的人脸，并返回可用于人员管理的人脸元数据。
+   */
+  async ImportTWeSeeFaces(
+    req: ImportTWeSeeFacesRequest,
+    cb?: (error: string, rep: ImportTWeSeeFacesResponse) => void
+  ): Promise<ImportTWeSeeFacesResponse> {
+    return this.request("ImportTWeSeeFaces", req, cb)
   }
 
   /**
@@ -3097,6 +3200,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateFenceBindResponse) => void
   ): Promise<CreateFenceBindResponse> {
     return this.request("CreateFenceBind", req, cb)
+  }
+
+  /**
+   * 删除指定 TWeSee 人脸。
+   */
+  async DeleteTWeSeeFace(
+    req: DeleteTWeSeeFaceRequest,
+    cb?: (error: string, rep: DeleteTWeSeeFaceResponse) => void
+  ): Promise<DeleteTWeSeeFaceResponse> {
+    return this.request("DeleteTWeSeeFace", req, cb)
   }
 
   /**

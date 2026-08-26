@@ -38,12 +38,13 @@ import {
   PolicyTag,
   DeletePrometheusClusterAgentRequest,
   DescribePrometheusScrapeJobsRequest,
-  CreatePolicyGroupResponse,
+  CreateAlarmHistoryShieldResponse,
   DescribeBaseMetricsResponse,
   CreatePrometheusMultiTenantInstancePostPayModeRequest,
   DescribePolicyConditionListResponseDeprecatingInfo,
   PrometheusTempModify,
   UnBindingPolicyObjectRequest,
+  UpdateAlertRuleResponse,
   CommonNamespaceNew,
   Tag,
   DescribePrometheusAgentInstancesRequest,
@@ -67,7 +68,7 @@ import {
   PrometheusRuleSet,
   DescribeAllNamespacesResponse,
   CreateAlarmShieldRequest,
-  CheckAddressByPrometheusRequest,
+  DescribeAlarmHistoryShieldRequest,
   InstallPluginsResponse,
   ProductSimple,
   AlarmPolicyRule,
@@ -83,6 +84,7 @@ import {
   GetTopNMonitorDataResponse,
   RegionPolicyObjectCount,
   AlarmGroupByItem,
+  ShieldMetric,
   DescribePrometheusIntegrationMetricsResponse,
   DescribePrometheusInstanceUsageRequest,
   DeleteSSOAccountRequest,
@@ -114,14 +116,14 @@ import {
   ModifyAlarmPolicyStatusResponse,
   DescribeExporterIntegrationsResponse,
   CreateOnCallFormRequest,
-  UpdateAlertRuleResponse,
+  AlarmHistory,
   InstanceGroup,
   EnableGrafanaSSORequest,
   DescribePrometheusScrapeJobsResponse,
   EnableGrafanaInternetRequest,
   DescribePluginOverviewsResponse,
   GrafanaAccountRole,
-  DestroyPrometheusInstanceRequest,
+  DeleteRecordingRulesResponse,
   PolicyGroupReceiverInfo,
   Metric,
   MidQueryCondition,
@@ -144,7 +146,7 @@ import {
   CleanGrafanaInstanceRequest,
   OnCallForm,
   DescribeSSOAccountRequest,
-  DescribeExternalClusterUninstallCommandRequest,
+  CreateAlarmHistoryShieldRequest,
   CreateAlarmNoticeRequest,
   InstanceGroups,
   PrometheusAgentInfo,
@@ -153,7 +155,7 @@ import {
   AlarmPolicyCondition,
   DescribeGrafanaChannelsRequest,
   DescribeRemoteURLsRequest,
-  DescribeOnCallFormResponse,
+  DescribePhoneAlarmFlowTotalCountRequest,
   DescribeGrafanaConfigRequest,
   UpdateRecordingRuleRequest,
   DescribePolicyConditionListConfigManualCalcValue,
@@ -168,12 +170,14 @@ import {
   PrometheusTag,
   DescribePolicyConditionListMetric,
   DescribePrometheusAlertmanagerConfigRequest,
+  UpdateExporterIntegrationResponse,
   PrometheusAlertmanagerConfigV2,
   BindingPolicyObjectRequest,
   ModifyPrometheusAgentExternalLabelsRequest,
   DescribePrometheusAlertmanagerConfigResponse,
   UpdatePrometheusAlertGroupRequest,
   EnableSSOCamCheckResponse,
+  ReceiverInfo,
   DescribeAccidentEventListRequest,
   CreatePrometheusScrapeJobResponse,
   CreateAlarmPolicyRequest,
@@ -206,7 +210,7 @@ import {
   DescribeAlertRulesResponse,
   ReplacePrometheusAlertmanagerConfigRequest,
   IntegrationMetricGroup,
-  UpdateExporterIntegrationResponse,
+  DescribeExternalClusterUninstallCommandRequest,
   DescribeBasicAlarmListResponse,
   ModifyAlarmReceiversRequest,
   DescribeExporterIntegrationsRequest,
@@ -241,6 +245,7 @@ import {
   DescribePrometheusAlertPolicyRequest,
   DescribePolicyConditionListConfigManualCalcType,
   DescribeGrafanaWhiteListRequest,
+  ModifyAlarmHistoryShieldRequest,
   DescribePrometheusConfigRequest,
   CreateGrafanaInstanceResponse,
   UpdateAlertRuleRequest,
@@ -248,11 +253,12 @@ import {
   DeleteAlarmNoticesRequest,
   DescribeGrafanaNotificationChannelsResponse,
   WriteDestination,
-  DescribeAlarmMetricsResponse,
+  DescribeGrafanaVersionsResponse,
   ResumeGrafanaInstanceResponse,
   DescribeAccidentEventListResponse,
   DescribePrometheusTempSyncResponse,
   CreatePrometheusConfigResponse,
+  CreatePolicyGroupResponse,
   StaffInfo,
   UpdateDNSConfigRequest,
   DeletePrometheusClusterAgentResponse,
@@ -289,6 +295,7 @@ import {
   DescribeAlertRulesRequest,
   DescribePrometheusInstancesResponse,
   LogFilterInfo,
+  ModifyAlarmHistoryShieldResponse,
   BindingPolicyTagResponse,
   DeleteServiceDiscoveryResponse,
   CreateExporterIntegrationRequest,
@@ -319,22 +326,24 @@ import {
   ModifyPrometheusAlertPolicyResponse,
   NoticeContentTmplBindInfo,
   DescribePhoneAlarmFlowTotalCountResponse,
-  TerminatePrometheusInstancesRequest,
+  CheckAddressByPrometheusRequest,
   UnbindPrometheusManagedGrafanaResponse,
-  PeriodsSt,
+  DeleteAlarmHistoryShieldsResponse,
+  DescribeAlarmHistoryShieldResponse,
   ModifyAlarmReceiversResponse,
   RoutePrometheusDynamicAPIResponse,
   GrafanaChannel,
   CreatePrometheusConfigRequest,
   DescribeSSOAccountResponse,
   CreateAlarmPolicyResponse,
+  DescribeGrafanaInstancesResponse,
   DeleteGrafanaNotificationChannelRequest,
-  CreatePrometheusAlertGroupRequest,
-  AlarmNotice,
+  IntegrationConfiguration,
   DescribeProductEventListEventsDimensions,
   CreatePrometheusClusterAgentRequest,
   ModifyAlarmPolicyConditionResponse,
   DescribePrometheusInstancesOverviewResponse,
+  CreatePrometheusAlertGroupRequest,
   EnablePredefinedPoliciesResponse,
   MetricSet,
   PrometheusInstanceGrantInfo,
@@ -389,19 +398,21 @@ import {
   DescribeAlarmEventsRequest,
   ModifyAlarmPolicyConditionRequest,
   ModifyAlarmNoticeResponse,
+  PeriodsSt,
   PrometheusJobTargets,
   PrometheusClusterScrapeStatistics,
   UpdateGrafanaConfigRequest,
   DescribeGrafanaIntegrationsRequest,
   CreateOnCallFormResponse,
-  AlarmHistory,
+  DeleteAlarmHistoryShieldsRequest,
   PrometheusClusterAgentBasic,
   CreatePolicyGroupRequest,
   DescribeOnCallFormsResponse,
   CreatePrometheusScrapeJobRequest,
+  TerminatePrometheusInstancesRequest,
   CreatePrometheusTempResponse,
   DescribePolicyConditionListEventMetric,
-  DescribePolicyGroupListRequest,
+  DescribeAlarmMetricsResponse,
   UnBindingAllPolicyObjectResponse,
   DescribeAlarmNoticesRequest,
   RunPrometheusInstanceResponse,
@@ -411,7 +422,7 @@ import {
   DeleteAlertRulesRequest,
   SyncPrometheusTempRequest,
   GetMonitorDataResponse,
-  ReceiverInfo,
+  DescribePolicyGroupListRequest,
   DescribeRecordingRulesRequest,
   DeleteOnCallFormsRequest,
   UpgradeGrafanaDashboardRequest,
@@ -419,6 +430,7 @@ import {
   DeleteServiceDiscoveryRequest,
   DescribeInstalledPluginsResponse,
   UpdateGrafanaConfigResponse,
+  DescribeClusterAgentCreatingProgressResponse,
   PrometheusRegionItem,
   DescribeAlarmNoticeCallbacksResponse,
   ModifyPrometheusInstanceAttributesRequest,
@@ -428,11 +440,10 @@ import {
   CreatePrometheusGlobalNotificationRequest,
   ModifyPrometheusTempResponse,
   DescribeRecordingRulesResponse,
-  DeleteRecordingRulesResponse,
   UpdateGrafanaWhiteListRequest,
   ModifyConditionsTemplateRequestEventCondition,
   UpdatePrometheusAgentStatusRequest,
-  DescribeGrafanaInstancesResponse,
+  DescribeAlarmNoticeCallbacksRequest,
   DescribeRemoteURLsResponse,
   DescribePolicyGroupInfoRequest,
   UpdateAlertRuleStateResponse,
@@ -444,14 +455,13 @@ import {
   ModifyAlarmPolicyNoticeRequest,
   DeleteAlarmPolicyRequest,
   EventCondition,
-  DescribeClusterAgentCreatingProgressResponse,
+  DestroyPrometheusInstanceRequest,
   CreateAlertRuleResponse,
   DescribePolicyConditionListConfigManualContinueTime,
   ModifyAlarmPolicyTasksResponse,
   MonitorTypeInfo,
   DimensionNew,
   CreateExternalClusterResponse,
-  DescribeGrafanaVersionsResponse,
   DeleteAlertRulesResponse,
   DescribePrometheusScrapeStatisticsRequest,
   DeletePrometheusScrapeJobsRequest,
@@ -482,7 +492,7 @@ import {
   ModifyPolicyGroupCondition,
   ModifyPolicyGroupRequest,
   DescribeBaseMetricsRequest,
-  DescribePhoneAlarmFlowTotalCountRequest,
+  DescribeOnCallFormResponse,
   DeletePrometheusConfigRequest,
   CreateExternalClusterRequest,
   PrometheusAlertPolicyItem,
@@ -514,7 +524,7 @@ import {
   EnableGrafanaSSOResponse,
   UpdateSSOAccountRequest,
   DescribePolicyConditionListConfigManualStatType,
-  IntegrationConfiguration,
+  AlarmNotice,
   DescribePrometheusAgentsResponse,
   ModifyPrometheusGlobalNotificationResponse,
   CheckAddressByPrometheusResponse,
@@ -528,7 +538,6 @@ import {
   CreatePrometheusAlertGroupResponse,
   DeletePrometheusRecordRuleYamlRequest,
   GrafanaVersion,
-  DescribeAlarmNoticeCallbacksRequest,
   DescribeStatisticDataRequest,
   DescribeExternalClusterUninstallCommandResponse,
   GrafanaNotificationChannel,
@@ -693,6 +702,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribePolicyObjectCountResponse) => void
   ): Promise<DescribePolicyObjectCountResponse> {
     return this.request("DescribePolicyObjectCount", req, cb)
+  }
+
+  /**
+   * 创建小程序告警屏蔽规则
+   */
+  async CreateAlarmHistoryShield(
+    req: CreateAlarmHistoryShieldRequest,
+    cb?: (error: string, rep: CreateAlarmHistoryShieldResponse) => void
+  ): Promise<CreateAlarmHistoryShieldResponse> {
+    return this.request("CreateAlarmHistoryShield", req, cb)
   }
 
   /**
@@ -1154,13 +1173,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取告警通知模板所有回调URL
+   * 查看外部集群 Agent 卸载命令
    */
-  async DescribeAlarmNoticeCallbacks(
-    req: DescribeAlarmNoticeCallbacksRequest,
-    cb?: (error: string, rep: DescribeAlarmNoticeCallbacksResponse) => void
-  ): Promise<DescribeAlarmNoticeCallbacksResponse> {
-    return this.request("DescribeAlarmNoticeCallbacks", req, cb)
+  async DescribeExternalClusterUninstallCommand(
+    req: DescribeExternalClusterUninstallCommandRequest,
+    cb?: (error: string, rep: DescribeExternalClusterUninstallCommandResponse) => void
+  ): Promise<DescribeExternalClusterUninstallCommandResponse> {
+    return this.request("DescribeExternalClusterUninstallCommand", req, cb)
   }
 
   /**
@@ -1261,6 +1280,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: BindPrometheusManagedGrafanaResponse) => void
   ): Promise<BindPrometheusManagedGrafanaResponse> {
     return this.request("BindPrometheusManagedGrafana", req, cb)
+  }
+
+  /**
+   * 删除 Grafana Dashboard
+   */
+  async UninstallGrafanaDashboard(
+    req: UninstallGrafanaDashboardRequest,
+    cb?: (error: string, rep: UninstallGrafanaDashboardResponse) => void
+  ): Promise<UninstallGrafanaDashboardResponse> {
+    return this.request("UninstallGrafanaDashboard", req, cb)
   }
 
   /**
@@ -1465,13 +1494,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（DeleteGrafanaInstance）用于 Grafana 包年包月实例的退费，调用后实例处于停服状态，不可使用，7天后自动销毁。
+   * 获取小程序告警屏蔽规则
    */
-  async DeleteGrafanaInstance(
-    req: DeleteGrafanaInstanceRequest,
-    cb?: (error: string, rep: DeleteGrafanaInstanceResponse) => void
-  ): Promise<DeleteGrafanaInstanceResponse> {
-    return this.request("DeleteGrafanaInstance", req, cb)
+  async DescribeAlarmHistoryShield(
+    req: DescribeAlarmHistoryShieldRequest,
+    cb?: (error: string, rep: DescribeAlarmHistoryShieldResponse) => void
+  ): Promise<DescribeAlarmHistoryShieldResponse> {
+    return this.request("DescribeAlarmHistoryShield", req, cb)
   }
 
   /**
@@ -1582,6 +1611,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeSSOAccountResponse) => void
   ): Promise<DescribeSSOAccountResponse> {
     return this.request("DescribeSSOAccount", req, cb)
+  }
+
+  /**
+   * 修改小程序告警屏蔽规则
+   */
+  async ModifyAlarmHistoryShield(
+    req: ModifyAlarmHistoryShieldRequest,
+    cb?: (error: string, rep: ModifyAlarmHistoryShieldResponse) => void
+  ): Promise<ModifyAlarmHistoryShieldResponse> {
+    return this.request("ModifyAlarmHistoryShield", req, cb)
   }
 
   /**
@@ -2106,13 +2145,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 删除 Grafana Dashboard
+   * 删除小程序告警屏蔽规则
    */
-  async UninstallGrafanaDashboard(
-    req: UninstallGrafanaDashboardRequest,
-    cb?: (error: string, rep: UninstallGrafanaDashboardResponse) => void
-  ): Promise<UninstallGrafanaDashboardResponse> {
-    return this.request("UninstallGrafanaDashboard", req, cb)
+  async DeleteAlarmHistoryShields(
+    req: DeleteAlarmHistoryShieldsRequest,
+    cb?: (error: string, rep: DeleteAlarmHistoryShieldsResponse) => void
+  ): Promise<DeleteAlarmHistoryShieldsResponse> {
+    return this.request("DeleteAlarmHistoryShields", req, cb)
   }
 
   /**
@@ -2295,13 +2334,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查看外部集群 Agent 卸载命令
+   * 获取告警通知模板所有回调URL
    */
-  async DescribeExternalClusterUninstallCommand(
-    req: DescribeExternalClusterUninstallCommandRequest,
-    cb?: (error: string, rep: DescribeExternalClusterUninstallCommandResponse) => void
-  ): Promise<DescribeExternalClusterUninstallCommandResponse> {
-    return this.request("DescribeExternalClusterUninstallCommand", req, cb)
+  async DescribeAlarmNoticeCallbacks(
+    req: DescribeAlarmNoticeCallbacksRequest,
+    cb?: (error: string, rep: DescribeAlarmNoticeCallbacksResponse) => void
+  ): Promise<DescribeAlarmNoticeCallbacksResponse> {
+    return this.request("DescribeAlarmNoticeCallbacks", req, cb)
   }
 
   /**
@@ -2362,6 +2401,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribePrometheusInstancesOverviewResponse) => void
   ): Promise<DescribePrometheusInstancesOverviewResponse> {
     return this.request("DescribePrometheusInstancesOverview", req, cb)
+  }
+
+  /**
+   * 本接口（DeleteGrafanaInstance）用于 Grafana 包年包月实例的退费，调用后实例处于停服状态，不可使用，7天后自动销毁。
+   */
+  async DeleteGrafanaInstance(
+    req: DeleteGrafanaInstanceRequest,
+    cb?: (error: string, rep: DeleteGrafanaInstanceResponse) => void
+  ): Promise<DeleteGrafanaInstanceResponse> {
+    return this.request("DeleteGrafanaInstance", req, cb)
   }
 
   /**

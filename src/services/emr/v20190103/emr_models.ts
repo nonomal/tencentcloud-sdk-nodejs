@@ -508,6 +508,40 @@ export interface DescribeDynamicInstanceDetailResponse {
 }
 
 /**
+ * GPU机型镜像与驱动配置
+ */
+export interface GpuImageDriverSpec {
+  /**
+   * <p>镜像ID</p>
+   */
+  ImageId?: string
+  /**
+   * <p>驱动名称</p>
+   */
+  DriverName?: string
+  /**
+   * <p>驱动版本</p>
+   */
+  DriverVersion?: string
+  /**
+   * <p>CUDA名称</p>
+   */
+  CUDAName?: string
+  /**
+   * <p>CUDA版本</p>
+   */
+  CUDAVersion?: string
+  /**
+   * <p>CUDNN名称</p>
+   */
+  CUDNNName?: string
+  /**
+   * <p>CUDNN版本</p>
+   */
+  CUDNNVersion?: string
+}
+
+/**
  * ResetYarnConfig请求参数结构体
  */
 export interface ResetYarnConfigRequest {
@@ -4028,41 +4062,45 @@ export interface HostPathVolumeSource {
  */
 export interface OperationLog {
   /**
-   * EMR实例ID
+   * <p>EMR实例ID</p>
    */
   InstanceId?: number
   /**
-   * 操作名称
+   * <p>操作名称</p>
    */
   Operation?: string
   /**
-   * 操作类型
+   * <p>操作类型</p>
    */
   OperationType?: number
   /**
-   * 用户类型
+   * <p>用户类型</p>
    */
   UserType?: number
   /**
-   * 操作者
+   * <p>操作者</p>
    */
   Operator?: string
   /**
-   * 操作时间
+   * <p>操作时间</p>
    */
   CreateTime?: string
   /**
-   * 操作对象
+   * <p>操作对象</p>
    */
   Operand?: string
   /**
-   * 操作详情
+   * <p>操作详情</p>
    */
   OperationDesc?: string
   /**
-   * 安全级别
+   * <p>安全级别</p>
    */
   SecurityLevel?: string
+  /**
+   * <p>操作者名称</p>
+   */
+  OperatorName?: string
 }
 
 /**
@@ -7549,29 +7587,57 @@ export interface ModifyYarnDeployResponse {
  */
 export interface UserManagerUserBriefInfo {
   /**
-   * 用户名
+   * <p>用户名</p>
    */
   UserName?: string
   /**
-   * 用户所属的组
+   * <p>用户所属的组</p>
    */
   UserGroup?: string
   /**
-   * Manager表示管理员、NormalUser表示普通用户
+   * <p>Manager表示管理员、NormalUser表示普通用户</p>
    */
   UserType?: string
   /**
-   * 用户创建时间
+   * <p>用户创建时间</p>
    */
   CreateTime?: string
   /**
-   * 是否可以下载用户对应的keytab文件，对开启kerberos的集群才有意义
+   * <p>是否可以下载用户对应的keytab文件，对开启kerberos的集群才有意义</p>
    */
   SupportDownLoadKeyTab?: boolean
   /**
-   * keytab文件的下载地址
+   * <p>keytab文件的下载地址</p>
    */
   DownLoadKeyTabUrl?: string
+  /**
+   * <p>用户组</p>
+   */
+  Groups?: Array<string>
+  /**
+   * <p>客户UIN</p>
+   */
+  Uin?: string
+  /**
+   * <p>用户状态</p>
+   */
+  State?: number
+  /**
+   * <p>是否展示密码更新时间</p>
+   */
+  DisplayPasswdUpdateTime?: boolean
+  /**
+   * <p>密码最近更新时间</p>
+   */
+  PasswdUpdateTime?: string
+  /**
+   * <p>已经使用的天数</p><p>单位：天</p>
+   */
+  PasswdUsedDay?: number
+  /**
+   * <p>已经使用的小时数</p><p>单位：时</p>
+   */
+  PasswdUsedHour?: number
 }
 
 /**
@@ -8961,6 +9027,14 @@ export interface Resource {
    * <p>高性能集群ID</p>
    */
   HCCHpcClusterId?: string
+  /**
+   * <p>自定义主机名</p>
+   */
+  CustomNodeName?: string
+  /**
+   * <p>GPU镜像驱动配置</p>
+   */
+  GpuImageDriver?: GpuImageDriverSpec
 }
 
 /**
@@ -9209,6 +9283,10 @@ export interface DynamicInstanceForm {
    * <p>GooseFS盘</p>
    */
   GooseFSVolumes?: Array<GooseFSVolume>
+  /**
+   * <p>开启HistoryServer</p>
+   */
+  EnableHistoryServer?: boolean
 }
 
 /**
@@ -9415,78 +9493,82 @@ export interface CreateSLInstanceRequest {
  */
 export interface AutoScaleResourceConf {
   /**
-   * 配置ID。
+   * <p>配置ID。</p>
    */
   Id?: number
   /**
-   * 集群实例ID。
+   * <p>集群实例ID。</p>
    */
   ClusterId?: number
   /**
-   * 自动扩缩容保留最小实例数。
+   * <p>自动扩缩容保留最小实例数。</p>
    */
   ScaleLowerBound?: number
   /**
-   * 自动扩缩容最大实例数。
+   * <p>自动扩缩容最大实例数。</p>
    */
   ScaleUpperBound?: number
   /**
-   * 扩容规则类型，1为按负载指标扩容规则，2为按时间扩容规则
+   * <p>扩容规则类型，1为按负载指标扩容规则，2为按时间扩容规则</p>
    */
   StrategyType?: number
   /**
-   * 下次可扩容时间。
+   * <p>下次可扩容时间。</p>
    */
   NextTimeCanScale?: number
   /**
-   * 优雅缩容开关
+   * <p>优雅缩容开关</p>
    */
   GraceDownFlag?: boolean
   /**
-   * "CVM"表示规格全部使用CVM相关类型，"POD"表示规格使用容器相关类型,默认为"CVM"。
+   * <p>&quot;CVM&quot;表示规格全部使用CVM相关类型，&quot;POD&quot;表示规格使用容器相关类型,默认为&quot;CVM&quot;。</p>
    */
   HardwareType?: string
   /**
-   * "POSTPAY"表示只使用按量计费，"SPOT_FIRST"表示竞价实例优先，只有HardwareType为"HOST"时支持竞价实例优先，"POD"只支持纯按量计费。
+   * <p>&quot;POSTPAY&quot;表示只使用按量计费，&quot;SPOT_FIRST&quot;表示竞价实例优先，只有HardwareType为&quot;HOST&quot;时支持竞价实例优先，&quot;POD&quot;只支持纯按量计费。</p>
    */
   PayMode?: string
   /**
-   * 竞价实例优先的场景下，按量计费资源数量的最低百分比，整数
+   * <p>竞价实例优先的场景下，按量计费资源数量的最低百分比，整数</p>
    */
   PostPayPercentMin?: number
   /**
-   * 预设资源类型为HOST时，支持勾选“资源不足时切换POD”；支持取消勾选；0表示默认不勾选（0），1表示勾选
+   * <p>预设资源类型为HOST时，支持勾选“资源不足时切换POD”；支持取消勾选；0表示默认不勾选（0），1表示勾选</p>
    */
   ChangeToPod?: number
   /**
-   * 伸缩组名
+   * <p>伸缩组名</p>
    */
   GroupName?: string
   /**
-   * 标签
+   * <p>标签</p>
    */
   YarnNodeLabel?: string
   /**
-   * 对应的计算组
+   * <p>对应的计算组</p>
    */
   WarehouseName?: string
   /**
-   * 伸缩组状态
+   * <p>伸缩组状态</p>
    */
   GroupStatus?: number
   /**
-   * 并行伸缩 0关闭；1开启
+   * <p>并行伸缩 0关闭；1开启</p>
    */
   Parallel?: number
   /**
-   * 是否支持MNode
+   * <p>是否支持MNode</p>
    */
   EnableMNode?: number
   /**
-   * 伸缩组更多设置
+   * <p>伸缩组更多设置</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExtraAdvanceAttrs?: AutoScaleGroupAdvanceAttrs
+  /**
+   * <p>自定义主机名</p>
+   */
+  CustomNodeName?: string
 }
 
 /**
@@ -10443,6 +10525,10 @@ export interface NodeResourceSpec {
    * <p>节点配置信息，目前仅提供给terraform平台校验参数使用</p>
    */
   SoftwareConfig?: Array<ServiceDeploy>
+  /**
+   * <p>自定义主机名</p>
+   */
+  CustomNodeName?: string
 }
 
 /**
@@ -11642,6 +11728,14 @@ export interface CreateCloudInstanceRequest {
    * <p>spark监控</p>
    */
   EnableSparkAppMonitorInfo?: EnableSparkAppMonitorInfo
+  /**
+   * <p>已有EMR资源节点组Id列表</p>
+   */
+  ComputeResourceGroupIds?: Array<string>
+  /**
+   * <p>是否开启实例保护</p>
+   */
+  TerminateProtection?: boolean
 }
 
 /**

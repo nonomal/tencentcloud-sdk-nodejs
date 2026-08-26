@@ -420,13 +420,13 @@ export interface DescribePrometheusScrapeJobsRequest {
 }
 
 /**
- * CreatePolicyGroup返回参数结构体
+ * CreateAlarmHistoryShield返回参数结构体
  */
-export interface CreatePolicyGroupResponse {
+export interface CreateAlarmHistoryShieldResponse {
   /**
-   * 创建成功的策略组Id
+   * 屏蔽规则的Id
    */
-  GroupId?: number
+  ShieldId?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -578,6 +578,20 @@ export interface UnBindingPolicyObjectRequest {
    * 是否配置了事件告警
    */
   EbEventFlag?: number
+}
+
+/**
+ * UpdateAlertRule返回参数结构体
+ */
+export interface UpdateAlertRuleResponse {
+  /**
+   * 规则 ID
+   */
+  RuleId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -1323,21 +1337,41 @@ export interface CreateAlarmShieldRequest {
 }
 
 /**
- * CheckAddressByPrometheus请求参数结构体
+ * DescribeAlarmHistoryShield请求参数结构体
  */
-export interface CheckAddressByPrometheusRequest {
+export interface DescribeAlarmHistoryShieldRequest {
   /**
-   * <p>实例id</p>
+   * 模块名，这里填“monitor”
    */
-  InstanceId: string
+  Module: string
   /**
-   * <p>探测地址</p>
+   * 策略id
    */
-  Target: string
+  ShieldPolicyId: string
   /**
-   * <p>探测方式。tcp或http，默认是tcp</p>
+   * 告警历史维度
    */
-  ProbeProtocol?: string
+  ShieldObject?: Array<string>
+  /**
+   * 指标名称
+   */
+  MetricName?: string
+  /**
+   * 屏蔽策略Id
+   */
+  ShieldId?: string
+  /**
+   * 告警等级
+   */
+  ShieldAlarmLevel?: string
+  /**
+   * 告警历史会话ID
+   */
+  SessionId?: string
+  /**
+   * 监控类型
+   */
+  MonitorType?: string
 }
 
 /**
@@ -1718,6 +1752,20 @@ export interface AlarmGroupByItem {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
+}
+
+/**
+ * 告警屏蔽的指标
+ */
+export interface ShieldMetric {
+  /**
+   * 屏蔽指标
+   */
+  Metric: string
+  /**
+   * 屏蔽指标展示名称
+   */
+  MetricShowName: string
 }
 
 /**
@@ -2318,17 +2366,157 @@ export interface CreateOnCallFormRequest {
 }
 
 /**
- * UpdateAlertRule返回参数结构体
+ * 告警历史数据
  */
-export interface UpdateAlertRuleResponse {
+export interface AlarmHistory {
   /**
-   * 规则 ID
+   * 告警历史Id
    */
-  RuleId?: string
+  AlarmId?: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * 监控类型
    */
-  RequestId?: string
+  MonitorType?: string
+  /**
+   * 策略类型
+   */
+  Namespace?: string
+  /**
+   * 告警对象
+   */
+  AlarmObject?: string
+  /**
+   * 告警内容
+   */
+  Content?: string
+  /**
+   * 时间戳，首次出现时间
+   */
+  FirstOccurTime?: number
+  /**
+   * 时间戳，最后出现时间
+   */
+  LastOccurTime?: number
+  /**
+   * 告警状态，ALARM=未恢复 OK=已恢复 NO_CONF=已失效 NO_DATA=数据不足
+   */
+  AlarmStatus?: string
+  /**
+   * 告警策略 Id
+   */
+  PolicyId?: string
+  /**
+   * 策略名称
+   */
+  PolicyName?: string
+  /**
+   * 基础产品告警的告警对象所属网络
+   */
+  VPC?: string
+  /**
+   * 项目 Id
+   */
+  ProjectId?: number
+  /**
+   * 项目名字
+   */
+  ProjectName?: string
+  /**
+   * 告警对象所属实例组
+   */
+  InstanceGroup?: Array<InstanceGroups>
+  /**
+   * 接收人列表
+   */
+  ReceiverUids?: Array<number | bigint>
+  /**
+   * 接收组列表
+   */
+  ReceiverGroups?: Array<number | bigint>
+  /**
+   * 告警渠道列表 SMS=短信 EMAIL=邮件 CALL=电话 WECHAT=微信
+   */
+  NoticeWays?: Array<string>
+  /**
+   * 可用于实例、实例组的绑定和解绑接口（[BindingPolicyObject](https://cloud.tencent.com/document/product/248/40421)、[UnBindingAllPolicyObject](https://cloud.tencent.com/document/product/248/40568)、[UnBindingPolicyObject](https://cloud.tencent.com/document/product/248/40567)）的策略 ID
+   */
+  OriginId?: string
+  /**
+   * 告警类型
+   */
+  AlarmType?: string
+  /**
+   * 事件Id
+   */
+  EventId?: number
+  /**
+   * 地域
+   */
+  Region?: string
+  /**
+   * 策略是否存在 0=不存在 1=存在
+   */
+  PolicyExists?: number
+  /**
+   * 指标信息
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MetricsInfo?: Array<AlarmHistoryMetric>
+  /**
+   * 告警实例的维度信息
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Dimensions?: string
+  /**
+   * 告警等级
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AlarmLevel?: string
+  /**
+   * 是否有配置告警屏蔽规则
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ShieldFlag?: number
+  /**
+   * 屏蔽类型（英文）
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AlarmShieldingType?: string
+  /**
+   * 屏蔽时间（英文）
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AlarmShieldingTime?: string
+  /**
+   * 屏蔽类型（中文）
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AlarmShieldingShowType?: string
+  /**
+   * 屏蔽时间（中文）
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AlarmShieldingShowTime?: string
+  /**
+   * 屏蔽原因
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AlarmShieldReason?: string
+  /**
+   * 告警实例的维度信息
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  InternalDimensions?: string
+  /**
+   * 指标名称
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MetricName?: string
+  /**
+   * 策略是否有权限
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PolicyPermissions?: number
 }
 
 /**
@@ -2423,13 +2611,13 @@ export interface GrafanaAccountRole {
 }
 
 /**
- * DestroyPrometheusInstance请求参数结构体
+ * DeleteRecordingRules返回参数结构体
  */
-export interface DestroyPrometheusInstanceRequest {
+export interface DeleteRecordingRulesResponse {
   /**
-   * 实例 ID，该实例必须先被 terminate
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  InstanceId: string
+  RequestId?: string
 }
 
 /**
@@ -2588,27 +2776,27 @@ export interface MidQueryCondition {
  */
 export interface DescribeGrafanaInstancesRequest {
   /**
-   * 查询偏移量
+   * <p>查询偏移量</p>
    */
   Offset: number
   /**
-   * 查询数量
+   * <p>查询数量</p>
    */
   Limit: number
   /**
-   * Grafana 实例 ID 数组
+   * <p>Grafana 实例 ID 数组</p>
    */
   InstanceIds?: Array<string>
   /**
-   * Grafana 实例名，支持前缀模糊搜索
+   * <p>Grafana 实例名，支持前缀模糊搜索</p>
    */
   InstanceName?: string
   /**
-   * 查询状态
+   * <p>查询状态</p>
    */
   InstanceStatus?: Array<number | bigint>
   /**
-   * 标签过滤数组
+   * <p>标签过滤数组</p>
    */
   TagFilters?: Array<PrometheusTag>
 }
@@ -3104,17 +3292,77 @@ export interface DescribeSSOAccountRequest {
 }
 
 /**
- * DescribeExternalClusterUninstallCommand请求参数结构体
+ * CreateAlarmHistoryShield请求参数结构体
  */
-export interface DescribeExternalClusterUninstallCommandRequest {
+export interface CreateAlarmHistoryShieldRequest {
   /**
-   * 实例 ID
+   * 模块名，这里填“monitor”
    */
-  InstanceId: string
+  Module: string
   /**
-   * 集群 ID
+   * 屏蔽策略名称
    */
-  ClusterId: string
+  Name: string
+  /**
+   * 监控类型
+   */
+  MonitorType: string
+  /**
+   * 屏蔽策略id
+   */
+  ShieldPolicyId: string
+  /**
+   * 屏蔽时间类型 FOREVER_SHIELD:永久屏蔽 PERIOD_SHIELD:绝对时间范围屏蔽 LOOP_SHIELD:相对时间范围屏蔽
+   */
+  ShieldTimeType: string
+  /**
+   * 命名空间即策略类型
+   */
+  NameSpace?: string
+  /**
+   * 屏蔽对象
+   */
+  ShieldObject?: Array<string>
+  /**
+   * 指标名称
+   */
+  MetricName?: string
+  /**
+   * 屏蔽指标 为空则为全部指标
+   */
+  ShieldMetric?: Array<string>
+  /**
+   * 开始时间 相对时间范围:36000 绝对时间范围:1648742400 缺省:0
+   */
+  StartTime?: number
+  /**
+   * 结束时间 相对时间范围:72000 绝对时间范围:1649088000 缺省:0
+   */
+  EndTime?: number
+  /**
+   * 循环开始日期 2022/04/01 缺省:0
+   */
+  LoopStartDate?: number
+  /**
+   * 循环结束日期 2022/04/05 缺省:0
+   */
+  LoopEndDate?: number
+  /**
+   * 需要屏蔽的告警等级，取值范围Warn,Remind,Serious
+   */
+  ShieldAlarmLevel?: string
+  /**
+   * 屏蔽规则的描述
+   */
+  Description?: string
+  /**
+   * 时区，东八区+8，西八区减8，以此类推
+   */
+  TimeZone?: number
+  /**
+   * 被屏蔽的告警会话ID(历史的alarmId)
+   */
+  SessionId?: string
 }
 
 /**
@@ -3301,17 +3549,17 @@ export interface DescribeRemoteURLsRequest {
 }
 
 /**
- * DescribeOnCallForm返回参数结构体
+ * DescribePhoneAlarmFlowTotalCount请求参数结构体
  */
-export interface DescribeOnCallFormResponse {
+export interface DescribePhoneAlarmFlowTotalCountRequest {
   /**
-   * 值班详情
+   * <p>默认monitor</p>
    */
-  OnCallForm?: OneOnCallForm
+  Module: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>unix时间戳，单位：s</p>
    */
-  RequestId?: string
+  QueryTime: number
 }
 
 /**
@@ -3660,6 +3908,16 @@ export interface DescribePrometheusAlertmanagerConfigRequest {
 }
 
 /**
+ * UpdateExporterIntegration返回参数结构体
+ */
+export interface UpdateExporterIntegrationResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * Prometheus Alertmanger 可修改配置
  */
 export interface PrometheusAlertmanagerConfigV2 {
@@ -3785,6 +4043,72 @@ export interface EnableSSOCamCheckResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 接收人信息
+ */
+export interface ReceiverInfo {
+  /**
+   * <p>告警时间段开始时间。范围[0,86400)，作为 UNIX 时间戳转成北京时间后去掉日期，例如7200表示&quot;10:0:0&quot;</p>
+   */
+  StartTime: number
+  /**
+   * <p>告警时间段结束时间。含义同StartTime</p>
+   */
+  EndTime: number
+  /**
+   * <p>告警通知方式。可选 &quot;SMS&quot;,&quot;SITE&quot;,&quot;EMAIL&quot;,&quot;CALL&quot;,&quot;WECHAT&quot;</p>
+   */
+  NotifyWay: Array<string>
+  /**
+   * <p>接收人类型。“group” 或 “user”</p>
+   */
+  ReceiverType: string
+  /**
+   * <p>ReceiverId</p>
+   */
+  Id?: number
+  /**
+   * <p>电话告警通知时机。可选&quot;OCCUR&quot;(告警时通知),&quot;RECOVER&quot;(恢复时通知)</p>
+   */
+  SendFor?: Array<string>
+  /**
+   * <p>电话告警接收者 UID</p>
+   */
+  UidList?: Array<number | bigint>
+  /**
+   * <p>电话告警轮数</p>
+   */
+  RoundNumber?: number
+  /**
+   * <p>电话告警对个人间隔（秒）</p>
+   */
+  PersonInterval?: number
+  /**
+   * <p>电话告警每轮间隔（秒）</p>
+   */
+  RoundInterval?: number
+  /**
+   * <p>恢复通知方式。可选&quot;SMS&quot;</p>
+   */
+  RecoverNotify?: Array<string>
+  /**
+   * <p>是否需要电话告警触达提示。0不需要，1需要</p>
+   */
+  NeedSendNotice?: number
+  /**
+   * <p>接收组列表。通过平台接口查询到的接收组 ID 列表</p>
+   */
+  ReceiverGroupList?: Array<number | bigint>
+  /**
+   * <p>接收人列表。通过平台接口查询到的接收人 ID 列表</p>
+   */
+  ReceiverUserList?: Array<number | bigint>
+  /**
+   * <p>告警接收语言，枚举值（zh-CN，en-US）</p>
+   */
+  ReceiveLanguage?: string
 }
 
 /**
@@ -4565,13 +4889,17 @@ export interface IntegrationMetricGroup {
 }
 
 /**
- * UpdateExporterIntegration返回参数结构体
+ * DescribeExternalClusterUninstallCommand请求参数结构体
  */
-export interface UpdateExporterIntegrationResponse {
+export interface DescribeExternalClusterUninstallCommandRequest {
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * 实例 ID
    */
-  RequestId?: string
+  InstanceId: string
+  /**
+   * 集群 ID
+   */
+  ClusterId: string
 }
 
 /**
@@ -5372,6 +5700,76 @@ export interface DescribeGrafanaWhiteListRequest {
 }
 
 /**
+ * ModifyAlarmHistoryShield请求参数结构体
+ */
+export interface ModifyAlarmHistoryShieldRequest {
+  /**
+   * 模块名，这里填“monitor”
+   */
+  Module: string
+  /**
+   * 屏蔽策略的Id
+   */
+  ShieldId: string
+  /**
+   * 屏蔽策略名称
+   */
+  Name: string
+  /**
+   * 监控类型
+   */
+  MonitorType: string
+  /**
+   * 屏蔽时间类型 FOREVER_SHIELD:永久屏蔽 PERIOD_SHIELD:绝对时间范围屏蔽 LOOP_SHIELD:相对时间范围屏蔽
+   */
+  ShieldTimeType: string
+  /**
+   * 需要屏蔽的策略ID
+   */
+  ShieldPolicyId: string
+  /**
+   * 命名空间即策略类型
+   */
+  NameSpace?: string
+  /**
+   * 屏蔽对象
+   */
+  ShieldObject?: Array<string>
+  /**
+   * 指标名称
+   */
+  MetricName?: string
+  /**
+   * 开始时间 相对时间范围:36000 绝对时间范围:1648742400 缺省:0
+   */
+  StartTime?: number
+  /**
+   * 结束时间 相对时间范围:72000 绝对时间范围:1649088000 缺省:0
+   */
+  EndTime?: number
+  /**
+   * 循环开始日期 2022/04/01 缺省:0
+   */
+  LoopStartDate?: number
+  /**
+   * 循环结束日期 2022/04/05 缺省:0
+   */
+  LoopEndDate?: number
+  /**
+   * 需要屏蔽的告警等级
+   */
+  ShieldAlarmLevel?: string
+  /**
+   *  时区，东八区+8，西八区减8，以此类推
+   */
+  TimeZone?: number
+  /**
+   * 告警历史会话ID
+   */
+  SessionId?: string
+}
+
+/**
  * DescribePrometheusConfig请求参数结构体
  */
 export interface DescribePrometheusConfigRequest {
@@ -5509,13 +5907,13 @@ export interface WriteDestination {
 }
 
 /**
- * DescribeAlarmMetrics返回参数结构体
+ * DescribeGrafanaVersions返回参数结构体
  */
-export interface DescribeAlarmMetricsResponse {
+export interface DescribeGrafanaVersionsResponse {
   /**
-   * 告警指标列表
+   * 可选版本
    */
-  Metrics?: Array<Metric>
+  Versions?: Array<GrafanaVersion>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -5571,6 +5969,20 @@ export interface DescribePrometheusTempSyncResponse {
  * CreatePrometheusConfig返回参数结构体
  */
 export interface CreatePrometheusConfigResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * CreatePolicyGroup返回参数结构体
+ */
+export interface CreatePolicyGroupResponse {
+  /**
+   * 创建成功的策略组Id
+   */
+  GroupId?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -6310,6 +6722,16 @@ export interface LogFilterInfo {
 }
 
 /**
+ * ModifyAlarmHistoryShield返回参数结构体
+ */
+export interface ModifyAlarmHistoryShieldResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * BindingPolicyTag返回参数结构体
  */
 export interface BindingPolicyTagResponse {
@@ -7019,13 +7441,21 @@ export interface DescribePhoneAlarmFlowTotalCountResponse {
 }
 
 /**
- * TerminatePrometheusInstances请求参数结构体
+ * CheckAddressByPrometheus请求参数结构体
  */
-export interface TerminatePrometheusInstancesRequest {
+export interface CheckAddressByPrometheusRequest {
   /**
-   * 实例 ID 列表
+   * <p>实例id</p>
    */
-  InstanceIds: Array<string>
+  InstanceId: string
+  /**
+   * <p>探测地址</p>
+   */
+  Target: string
+  /**
+   * <p>探测方式。tcp或http，默认是tcp</p>
+   */
+  ProbeProtocol?: string
 }
 
 /**
@@ -7039,17 +7469,117 @@ export interface UnbindPrometheusManagedGrafanaResponse {
 }
 
 /**
- * 周期内的统计方式
+ * DeleteAlarmHistoryShields返回参数结构体
  */
-export interface PeriodsSt {
+export interface DeleteAlarmHistoryShieldsResponse {
   /**
-   * 周期
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Period: string
+  RequestId?: string
+}
+
+/**
+ * DescribeAlarmHistoryShield返回参数结构体
+ */
+export interface DescribeAlarmHistoryShieldResponse {
   /**
-   * 统计方式
+   * 告警屏蔽规则的ID
    */
-  StatType: Array<string>
+  ShieldId?: string
+  /**
+   * 监控类型
+   */
+  MonitorType?: string
+  /**
+   * 屏蔽策略名称
+   */
+  Name?: string
+  /**
+   * 是否开启 1=开启 0=关闭
+   */
+  Enable?: number
+  /**
+   * 监控类型展示名称
+   */
+  MonitorTypeShowName?: string
+  /**
+   * 命名空间即策略类型
+   */
+  NameSpace?: string
+  /**
+   * 策略类型展示名称
+   */
+  NameSpaceShowName?: string
+  /**
+   * 屏蔽对象
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ShieldObject?: Array<string>
+  /**
+   * 屏蔽指标列表
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ShieldMetric?: Array<ShieldMetric>
+  /**
+   * 屏蔽时间类型 FOREVER_SHIELD:永久屏蔽 PERIOD_SHIELD:绝对时间范围屏蔽 LOOP_SHIELD:相对时间范围屏蔽
+   */
+  ShieldTimeType?: string
+  /**
+   * 开始时间 10:00
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  StartTime?: number
+  /**
+   * 结束时间 20:00
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EndTime?: number
+  /**
+   * 循环开始日期 2022/04/01
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  LoopStartDate?: number
+  /**
+   * 循环结束日期 2022/04/05
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  LoopEndDate?: number
+  /**
+   * NOT_TRIGGERED:未生效 TRIGGERING:生效中 EXPIRED:已过期
+   */
+  CurrentStatus?: string
+  /**
+   * 需要屏蔽的策略ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ShieldPolicyId?: string
+  /**
+   * 需要屏蔽的告警等级
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ShieldAlarmLevel?: Array<string>
+  /**
+   * 屏蔽类型，1为维度屏蔽，0为实例名称屏蔽
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ShieldTag?: string
+  /**
+   * 指标名称
+   */
+  MetricName?: string
+  /**
+   * 时区
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TimeZone?: number
+  /**
+   * 告警历史会话ID
+   */
+  SessionId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -7171,6 +7701,28 @@ export interface CreateAlarmPolicyResponse {
 }
 
 /**
+ * DescribeGrafanaInstances返回参数结构体
+ */
+export interface DescribeGrafanaInstancesResponse {
+  /**
+   * <p>已废弃，请使用 Instances</p>
+   */
+  InstanceSet?: Array<GrafanaInstanceInfo>
+  /**
+   * <p>符合查询条件的实例总数</p>
+   */
+  TotalCount?: number
+  /**
+   * <p>实例列表</p>
+   */
+  Instances?: Array<GrafanaInstanceInfo>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DeleteGrafanaNotificationChannel请求参数结构体
  */
 export interface DeleteGrafanaNotificationChannelRequest {
@@ -7185,120 +7737,37 @@ export interface DeleteGrafanaNotificationChannelRequest {
 }
 
 /**
- * CreatePrometheusAlertGroup请求参数结构体
+ * export 集成配置
  */
-export interface CreatePrometheusAlertGroupRequest {
+export interface IntegrationConfiguration {
   /**
-   * prometheus实例ID
-   */
-  InstanceId?: string
-  /**
-   * 告警分组名称，不能与其他告警分组重名
-   */
-  GroupName?: string
-  /**
-   * 告警分组状态：
-2 -- 启用
-3 -- 禁用
-不为空时会覆盖 `Rules`字段下所有告警规则状态
-
-   */
-  GroupState?: number
-  /**
-   * 腾讯云可观测平台告警通知模板ID列表，形如Consumer-xxxx或notice-xxxx
-   */
-  AMPReceivers?: Array<string>
-  /**
-   * 自定义告警通知模板
-   */
-  CustomReceiver?: PrometheusAlertCustomReceiver
-  /**
-   * 告警通知周期（收敛时间），为空默认1h
-   */
-  RepeatInterval?: string
-  /**
-   * 要创建的告警规则列表
-   */
-  Rules?: Array<PrometheusAlertGroupRuleSet>
-}
-
-/**
- * 告警通知模板详情
- */
-export interface AlarmNotice {
-  /**
-   * <p>告警通知模板 ID</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Id?: string
-  /**
-   * <p>告警通知模板名称</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>名字</p>
    */
   Name?: string
   /**
-   * <p>上次修改时间</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>类型</p>
    */
-  UpdatedAt?: string
+  Kind?: string
   /**
-   * <p>上次修改人</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>内容</p>
    */
-  UpdatedBy?: string
+  Content?: string
   /**
-   * <p>告警通知类型 ALARM=未恢复通知 OK=已恢复通知 ALL=全部通知</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>状态</p>
    */
-  NoticeType?: string
+  Status?: number
   /**
-   * <p>用户通知列表</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>实例类型</p>
    */
-  UserNotices?: Array<UserNotice>
+  Category?: string
   /**
-   * <p>回调通知列表</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>实例描述</p>
    */
-  URLNotices?: Array<URLNotice>
+  InstanceDesc?: string
   /**
-   * <p>是否是系统预设通知模板 0=否 1=是</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>dashboard 的 URL</p>
    */
-  IsPreset?: number
-  /**
-   * <p>通知语言 zh-CN=中文 en-US=英文</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  NoticeLanguage?: string
-  /**
-   * <p>告警通知模板绑定的告警策略ID列表</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  PolicyIds?: Array<string>
-  /**
-   * <p>后台 amp consumer id</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AMPConsumerId?: string
-  /**
-   * <p>推送cls渠道</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  CLSNotices?: Array<CLSNotice>
-  /**
-   * <p>通知模板绑定的标签</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Tags?: Array<Tag>
-  /**
-   * <p>是否免登录，0-否，1-是</p>
-   */
-  IsLoginFree?: number
-  /**
-   * <p>IANA 时区名</p>
-   */
-  TimeZoneName?: string
+  GrafanaDashboardURL?: string
 }
 
 /**
@@ -7363,6 +7832,44 @@ export interface DescribePrometheusInstancesOverviewResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * CreatePrometheusAlertGroup请求参数结构体
+ */
+export interface CreatePrometheusAlertGroupRequest {
+  /**
+   * prometheus实例ID
+   */
+  InstanceId?: string
+  /**
+   * 告警分组名称，不能与其他告警分组重名
+   */
+  GroupName?: string
+  /**
+   * 告警分组状态：
+2 -- 启用
+3 -- 禁用
+不为空时会覆盖 `Rules`字段下所有告警规则状态
+
+   */
+  GroupState?: number
+  /**
+   * 腾讯云可观测平台告警通知模板ID列表，形如Consumer-xxxx或notice-xxxx
+   */
+  AMPReceivers?: Array<string>
+  /**
+   * 自定义告警通知模板
+   */
+  CustomReceiver?: PrometheusAlertCustomReceiver
+  /**
+   * 告警通知周期（收敛时间），为空默认1h
+   */
+  RepeatInterval?: string
+  /**
+   * 要创建的告警规则列表
+   */
+  Rules?: Array<PrometheusAlertGroupRuleSet>
 }
 
 /**
@@ -7609,7 +8116,7 @@ export interface CreateSSOAccountRequest {
    */
   InstanceId: string
   /**
-   * <p>用户账号 ID ，例如：10000000</p>
+   * <p>用户子账号 ID ，例如：10000000</p>
    */
   UserId: string
   /**
@@ -8806,6 +9313,20 @@ export interface ModifyAlarmNoticeResponse {
 }
 
 /**
+ * 周期内的统计方式
+ */
+export interface PeriodsSt {
+  /**
+   * 周期
+   */
+  Period: string
+  /**
+   * 统计方式
+   */
+  StatType: Array<string>
+}
+
+/**
  * prometheus一个job的targets
  */
 export interface PrometheusJobTargets {
@@ -8899,157 +9420,21 @@ export interface CreateOnCallFormResponse {
 }
 
 /**
- * 告警历史数据
+ * DeleteAlarmHistoryShields请求参数结构体
  */
-export interface AlarmHistory {
+export interface DeleteAlarmHistoryShieldsRequest {
   /**
-   * 告警历史Id
+   * 模块名，这里填“monitor”
    */
-  AlarmId?: string
+  Module: string
+  /**
+   * 屏蔽策略Id列表
+   */
+  Shields: Array<string>
   /**
    * 监控类型
    */
   MonitorType?: string
-  /**
-   * 策略类型
-   */
-  Namespace?: string
-  /**
-   * 告警对象
-   */
-  AlarmObject?: string
-  /**
-   * 告警内容
-   */
-  Content?: string
-  /**
-   * 时间戳，首次出现时间
-   */
-  FirstOccurTime?: number
-  /**
-   * 时间戳，最后出现时间
-   */
-  LastOccurTime?: number
-  /**
-   * 告警状态，ALARM=未恢复 OK=已恢复 NO_CONF=已失效 NO_DATA=数据不足
-   */
-  AlarmStatus?: string
-  /**
-   * 告警策略 Id
-   */
-  PolicyId?: string
-  /**
-   * 策略名称
-   */
-  PolicyName?: string
-  /**
-   * 基础产品告警的告警对象所属网络
-   */
-  VPC?: string
-  /**
-   * 项目 Id
-   */
-  ProjectId?: number
-  /**
-   * 项目名字
-   */
-  ProjectName?: string
-  /**
-   * 告警对象所属实例组
-   */
-  InstanceGroup?: Array<InstanceGroups>
-  /**
-   * 接收人列表
-   */
-  ReceiverUids?: Array<number | bigint>
-  /**
-   * 接收组列表
-   */
-  ReceiverGroups?: Array<number | bigint>
-  /**
-   * 告警渠道列表 SMS=短信 EMAIL=邮件 CALL=电话 WECHAT=微信
-   */
-  NoticeWays?: Array<string>
-  /**
-   * 可用于实例、实例组的绑定和解绑接口（[BindingPolicyObject](https://cloud.tencent.com/document/product/248/40421)、[UnBindingAllPolicyObject](https://cloud.tencent.com/document/product/248/40568)、[UnBindingPolicyObject](https://cloud.tencent.com/document/product/248/40567)）的策略 ID
-   */
-  OriginId?: string
-  /**
-   * 告警类型
-   */
-  AlarmType?: string
-  /**
-   * 事件Id
-   */
-  EventId?: number
-  /**
-   * 地域
-   */
-  Region?: string
-  /**
-   * 策略是否存在 0=不存在 1=存在
-   */
-  PolicyExists?: number
-  /**
-   * 指标信息
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  MetricsInfo?: Array<AlarmHistoryMetric>
-  /**
-   * 告警实例的维度信息
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Dimensions?: string
-  /**
-   * 告警等级
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AlarmLevel?: string
-  /**
-   * 是否有配置告警屏蔽规则
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  ShieldFlag?: number
-  /**
-   * 屏蔽类型（英文）
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AlarmShieldingType?: string
-  /**
-   * 屏蔽时间（英文）
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AlarmShieldingTime?: string
-  /**
-   * 屏蔽类型（中文）
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AlarmShieldingShowType?: string
-  /**
-   * 屏蔽时间（中文）
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AlarmShieldingShowTime?: string
-  /**
-   * 屏蔽原因
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AlarmShieldReason?: string
-  /**
-   * 告警实例的维度信息
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  InternalDimensions?: string
-  /**
-   * 指标名称
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  MetricName?: string
-  /**
-   * 策略是否有权限
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  PolicyPermissions?: number
 }
 
 /**
@@ -9057,43 +9442,47 @@ export interface AlarmHistory {
  */
 export interface PrometheusClusterAgentBasic {
   /**
-   * 地域
+   * <p>地域</p>
    */
   Region: string
   /**
-   * 集群类型。可填入tke、eks、tkeedge、tdcc、external，分别代表标准集群、弹性集群、边缘集群、注册集群 和外部集群
+   * <p>集群类型。可填入tke、eks、tkeedge、tdcc、external，分别代表标准集群、弹性集群、边缘集群、注册集群 和外部集群</p>
    */
   ClusterType: string
   /**
-   * 集群 ID
+   * <p>集群 ID</p>
    */
   ClusterId: string
   /**
-   * 是否开启公网 CLB
+   * <p>是否开启公网 CLB</p>
    */
   EnableExternal: boolean
   /**
-   * 集群内部署组件的pod 配置
+   * <p>集群内部署组件的pod 配置</p>
    */
   InClusterPodConfig?: PrometheusClusterAgentPodConfig
   /**
-   * 该集群采集的所有指标都会带上这些labels
+   * <p>该集群采集的所有指标都会带上这些labels</p>
    */
   ExternalLabels?: Array<Label>
   /**
-   * 是否安装默认采集 exporter 和采集配置
+   * <p>是否安装默认采集 exporter 和采集配置</p>
    */
   NotInstallBasicScrape?: boolean
   /**
-   * 是否安装采集配置，true 只安装采集 exporter 不会安装采集配置，false 会同时安装采集配置
+   * <p>是否安装采集配置，true 只安装采集 exporter 不会安装采集配置，false 会同时安装采集配置</p>
    */
   NotScrape?: boolean
   /**
-   * 是否丢弃所有指标，true 代表丢弃所有指标，false 代表采集默认指标
+   * <p>是否丢弃所有指标，true 代表丢弃所有指标，false 代表采集默认指标</p>
    */
   DropAll?: boolean
   /**
-   * 是否开启默认预聚合规则
+   * <p>是否采集全部指标</p><p>枚举值：</p><ul><li>false： 不采集</li><li>true： 采集</li></ul><p>默认值：false</p>
+   */
+  CollectAll?: boolean
+  /**
+   * <p>是否开启默认预聚合规则</p>
    */
   OpenDefaultRecord?: boolean
 }
@@ -9189,6 +9578,16 @@ export interface CreatePrometheusScrapeJobRequest {
 }
 
 /**
+ * TerminatePrometheusInstances请求参数结构体
+ */
+export interface TerminatePrometheusInstancesRequest {
+  /**
+   * 实例 ID 列表
+   */
+  InstanceIds: Array<string>
+}
+
+/**
  * CreatePrometheusTemp返回参数结构体
  */
 export interface CreatePrometheusTempResponse {
@@ -9225,69 +9624,17 @@ export interface DescribePolicyConditionListEventMetric {
 }
 
 /**
- * DescribePolicyGroupList请求参数结构体
+ * DescribeAlarmMetrics返回参数结构体
  */
-export interface DescribePolicyGroupListRequest {
+export interface DescribeAlarmMetricsResponse {
   /**
-   * <p>固定值，为&quot;monitor&quot;</p>
+   * 告警指标列表
    */
-  Module: string
+  Metrics?: Array<Metric>
   /**
-   * <p>分页参数，每页返回的数量，取值1~100</p>
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Limit: number
-  /**
-   * <p>分页参数，页偏移量，从0开始计数</p>
-   */
-  Offset: number
-  /**
-   * <p>按策略名搜索</p>
-   */
-  Like?: string
-  /**
-   * <p>实例分组id</p>
-   */
-  InstanceGroupId?: number
-  /**
-   * <p>按更新时间排序, asc 或者 desc</p>
-   */
-  UpdateTimeOrder?: string
-  /**
-   * <p>项目id列表</p>
-   */
-  ProjectIds?: Array<number | bigint>
-  /**
-   * <p>告警策略类型列表</p>
-   */
-  ViewNames?: Array<string>
-  /**
-   * <p>是否过滤无接收人策略组, 1表示过滤, 0表示不过滤</p>
-   */
-  FilterUnuseReceiver?: number
-  /**
-   * <p>过滤条件, 接收组列表</p>
-   */
-  Receivers?: Array<string>
-  /**
-   * <p>过滤条件, 接收人列表</p>
-   */
-  ReceiverUserList?: Array<string>
-  /**
-   * <p>维度组合字段(json字符串), 例如[[{&quot;name&quot;:&quot;unInstanceId&quot;,&quot;value&quot;:&quot;ins-6e4b2aaa&quot;}]]</p>
-   */
-  Dimensions?: string
-  /**
-   * <p>模板策略组id, 多个id用逗号分隔</p>
-   */
-  ConditionTempGroupId?: string
-  /**
-   * <p>过滤条件, 接收人或者接收组, user表示接收人, group表示接收组</p>
-   */
-  ReceiverType?: string
-  /**
-   * <p>过滤条件，告警策略是否已启动或停止</p>
-   */
-  IsOpen?: boolean
+  RequestId?: string
 }
 
 /**
@@ -9507,69 +9854,69 @@ export interface GetMonitorDataResponse {
 }
 
 /**
- * 接收人信息
+ * DescribePolicyGroupList请求参数结构体
  */
-export interface ReceiverInfo {
+export interface DescribePolicyGroupListRequest {
   /**
-   * <p>告警时间段开始时间。范围[0,86400)，作为 UNIX 时间戳转成北京时间后去掉日期，例如7200表示&quot;10:0:0&quot;</p>
+   * <p>固定值，为&quot;monitor&quot;</p>
    */
-  StartTime: number
+  Module: string
   /**
-   * <p>告警时间段结束时间。含义同StartTime</p>
+   * <p>分页参数，每页返回的数量，取值1~100</p>
    */
-  EndTime: number
+  Limit: number
   /**
-   * <p>告警通知方式。可选 &quot;SMS&quot;,&quot;SITE&quot;,&quot;EMAIL&quot;,&quot;CALL&quot;,&quot;WECHAT&quot;</p>
+   * <p>分页参数，页偏移量，从0开始计数</p>
    */
-  NotifyWay: Array<string>
+  Offset: number
   /**
-   * <p>接收人类型。“group” 或 “user”</p>
+   * <p>按策略名搜索</p>
    */
-  ReceiverType: string
+  Like?: string
   /**
-   * <p>ReceiverId</p>
+   * <p>实例分组id</p>
    */
-  Id?: number
+  InstanceGroupId?: number
   /**
-   * <p>电话告警通知时机。可选&quot;OCCUR&quot;(告警时通知),&quot;RECOVER&quot;(恢复时通知)</p>
+   * <p>按更新时间排序, asc 或者 desc</p>
    */
-  SendFor?: Array<string>
+  UpdateTimeOrder?: string
   /**
-   * <p>电话告警接收者 UID</p>
+   * <p>项目id列表</p>
    */
-  UidList?: Array<number | bigint>
+  ProjectIds?: Array<number | bigint>
   /**
-   * <p>电话告警轮数</p>
+   * <p>告警策略类型列表</p>
    */
-  RoundNumber?: number
+  ViewNames?: Array<string>
   /**
-   * <p>电话告警对个人间隔（秒）</p>
+   * <p>是否过滤无接收人策略组, 1表示过滤, 0表示不过滤</p>
    */
-  PersonInterval?: number
+  FilterUnuseReceiver?: number
   /**
-   * <p>电话告警每轮间隔（秒）</p>
+   * <p>过滤条件, 接收组列表</p>
    */
-  RoundInterval?: number
+  Receivers?: Array<string>
   /**
-   * <p>恢复通知方式。可选&quot;SMS&quot;</p>
+   * <p>过滤条件, 接收人列表</p>
    */
-  RecoverNotify?: Array<string>
+  ReceiverUserList?: Array<string>
   /**
-   * <p>是否需要电话告警触达提示。0不需要，1需要</p>
+   * <p>维度组合字段(json字符串), 例如[[{&quot;name&quot;:&quot;unInstanceId&quot;,&quot;value&quot;:&quot;ins-6e4b2aaa&quot;}]]</p>
    */
-  NeedSendNotice?: number
+  Dimensions?: string
   /**
-   * <p>接收组列表。通过平台接口查询到的接收组 ID 列表</p>
+   * <p>模板策略组id, 多个id用逗号分隔</p>
    */
-  ReceiverGroupList?: Array<number | bigint>
+  ConditionTempGroupId?: string
   /**
-   * <p>接收人列表。通过平台接口查询到的接收人 ID 列表</p>
+   * <p>过滤条件, 接收人或者接收组, user表示接收人, group表示接收组</p>
    */
-  ReceiverUserList?: Array<number | bigint>
+  ReceiverType?: string
   /**
-   * <p>告警接收语言，枚举值（zh-CN，en-US）</p>
+   * <p>过滤条件，告警策略是否已启动或停止</p>
    */
-  ReceiveLanguage?: string
+  IsOpen?: boolean
 }
 
 /**
@@ -9693,6 +10040,20 @@ export interface DescribeInstalledPluginsResponse {
  * UpdateGrafanaConfig返回参数结构体
  */
 export interface UpdateGrafanaConfigResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeClusterAgentCreatingProgress返回参数结构体
+ */
+export interface DescribeClusterAgentCreatingProgressResponse {
+  /**
+   * 绑定状态response
+   */
+  Response?: Array<BindProgressResponse>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -9928,16 +10289,6 @@ export interface DescribeRecordingRulesResponse {
 }
 
 /**
- * DeleteRecordingRules返回参数结构体
- */
-export interface DeleteRecordingRulesResponse {
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
-}
-
-/**
  * UpdateGrafanaWhiteList请求参数结构体
  */
 export interface UpdateGrafanaWhiteListRequest {
@@ -10007,25 +10358,13 @@ export interface UpdatePrometheusAgentStatusRequest {
 }
 
 /**
- * DescribeGrafanaInstances返回参数结构体
+ * DescribeAlarmNoticeCallbacks请求参数结构体
  */
-export interface DescribeGrafanaInstancesResponse {
+export interface DescribeAlarmNoticeCallbacksRequest {
   /**
-   * 已废弃，请使用 Instances
+   * 模块名，这里填“monitor”
    */
-  InstanceSet?: Array<GrafanaInstanceInfo>
-  /**
-   * 符合查询条件的实例总数
-   */
-  TotalCount?: number
-  /**
-   * 实例列表
-   */
-  Instances?: Array<GrafanaInstanceInfo>
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
+  Module: string
 }
 
 /**
@@ -10227,17 +10566,13 @@ export interface EventCondition {
 }
 
 /**
- * DescribeClusterAgentCreatingProgress返回参数结构体
+ * DestroyPrometheusInstance请求参数结构体
  */
-export interface DescribeClusterAgentCreatingProgressResponse {
+export interface DestroyPrometheusInstanceRequest {
   /**
-   * 绑定状态response
+   * 实例 ID，该实例必须先被 terminate
    */
-  Response?: Array<BindProgressResponse>
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
+  InstanceId: string
 }
 
 /**
@@ -10366,20 +10701,6 @@ export interface CreateExternalClusterResponse {
    * 集群 ID
    */
   ClusterId?: string
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
-}
-
-/**
- * DescribeGrafanaVersions返回参数结构体
- */
-export interface DescribeGrafanaVersionsResponse {
-  /**
-   * 可选版本
-   */
-  Versions?: Array<GrafanaVersion>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -11060,17 +11381,17 @@ export interface DescribeBaseMetricsRequest {
 }
 
 /**
- * DescribePhoneAlarmFlowTotalCount请求参数结构体
+ * DescribeOnCallForm返回参数结构体
  */
-export interface DescribePhoneAlarmFlowTotalCountRequest {
+export interface DescribeOnCallFormResponse {
   /**
-   * <p>默认monitor</p>
+   * 值班详情
    */
-  Module: string
+  OnCallForm?: OneOnCallForm
   /**
-   * <p>unix时间戳，单位：s</p>
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  QueryTime: number
+  RequestId?: string
 }
 
 /**
@@ -11776,7 +12097,7 @@ export interface UpdatePrometheusAlertGroupResponse {
  */
 export interface CreateSSOAccountResponse {
   /**
-   * <p>已添加的用户 UIN</p>
+   * <p>已添加的子账号ID</p>
    */
   UserId?: string
   /**
@@ -12015,37 +12336,82 @@ export interface DescribePolicyConditionListConfigManualStatType {
 }
 
 /**
- * export 集成配置
+ * 告警通知模板详情
  */
-export interface IntegrationConfiguration {
+export interface AlarmNotice {
   /**
-   * <p>名字</p>
+   * <p>告警通知模板 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Id?: string
+  /**
+   * <p>告警通知模板名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
   /**
-   * <p>类型</p>
+   * <p>上次修改时间</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Kind?: string
+  UpdatedAt?: string
   /**
-   * <p>内容</p>
+   * <p>上次修改人</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Content?: string
+  UpdatedBy?: string
   /**
-   * <p>状态</p>
+   * <p>告警通知类型 ALARM=未恢复通知 OK=已恢复通知 ALL=全部通知</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Status?: number
+  NoticeType?: string
   /**
-   * <p>实例类型</p>
+   * <p>用户通知列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Category?: string
+  UserNotices?: Array<UserNotice>
   /**
-   * <p>实例描述</p>
+   * <p>回调通知列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  InstanceDesc?: string
+  URLNotices?: Array<URLNotice>
   /**
-   * <p>dashboard 的 URL</p>
+   * <p>是否是系统预设通知模板 0=否 1=是</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  GrafanaDashboardURL?: string
+  IsPreset?: number
+  /**
+   * <p>通知语言 zh-CN=中文 en-US=英文</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  NoticeLanguage?: string
+  /**
+   * <p>告警通知模板绑定的告警策略ID列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PolicyIds?: Array<string>
+  /**
+   * <p>后台 amp consumer id</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AMPConsumerId?: string
+  /**
+   * <p>推送cls渠道</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CLSNotices?: Array<CLSNotice>
+  /**
+   * <p>通知模板绑定的标签</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Tags?: Array<Tag>
+  /**
+   * <p>是否免登录，0-否，1-是</p>
+   */
+  IsLoginFree?: number
+  /**
+   * <p>IANA 时区名</p>
+   */
+  TimeZoneName?: string
 }
 
 /**
@@ -12298,16 +12664,6 @@ export interface GrafanaVersion {
    * 版本
    */
   Version: string
-}
-
-/**
- * DescribeAlarmNoticeCallbacks请求参数结构体
- */
-export interface DescribeAlarmNoticeCallbacksRequest {
-  /**
-   * 模块名，这里填“monitor”
-   */
-  Module: string
 }
 
 /**

@@ -194,6 +194,20 @@ export interface Metadata {
 }
 
 /**
+ * AI网关 Basic Auth 凭证物料配置
+ */
+export interface AIGWBasicCredentialConfig {
+  /**
+   * <p>用户名</p>
+   */
+  Username?: string
+  /**
+   * <p>密码</p>
+   */
+  Password?: string
+}
+
+/**
  * RemoveCloudNativeAPIGatewayConsumerGroupAuth返回参数结构体
  */
 export interface RemoveCloudNativeAPIGatewayConsumerGroupAuthResponse {
@@ -204,17 +218,17 @@ export interface RemoveCloudNativeAPIGatewayConsumerGroupAuthResponse {
 }
 
 /**
- * DescribeUpstreamHealthCheckConfig请求参数结构体
+ * AI 网关Rerank场景最大文档数限制配置
  */
-export interface DescribeUpstreamHealthCheckConfigRequest {
+export interface AIGWRerankMaxDocumentsConfig {
   /**
-   * 网关ID
+   * <p>是否开启最大文档数限制</p><p>枚举值：</p><ul><li>true： 开启最大文档数限制</li><li>false： 关闭最大文档数限制</li></ul>
    */
-  GatewayId: string
+  EnableMaxDocuments: boolean
   /**
-   * 网关服务名称
+   * <p>最大文档数限制</p><p>取值范围：[1, 5000]</p>
    */
-  Name: string
+  MaxDocumentValue?: number
 }
 
 /**
@@ -271,21 +285,29 @@ export interface CreateNativeGatewayServerGroupRequest {
  */
 export interface DescribeCloudNativeAPIGatewayCertificatesRequest {
   /**
-   * 网关ID
+   * <p>网关ID</p>
    */
   GatewayId: string
   /**
-   * 列表数量
+   * <p>列表数量</p>
    */
   Limit?: number
   /**
-   * 列表offset
+   * <p>列表offset</p>
    */
   Offset?: number
   /**
-   * 过滤条件，多个过滤条件之间是与的关系，支持BindDomain ，Name
+   * <p>过滤条件，多个过滤条件之间是与的关系，支持BindDomain ，Name</p>
    */
   Filters?: Array<ListFilter>
+  /**
+   * <p>证书类型</p><p>枚举值：</p><ul><li>SVR： 服务证书</li><li>CA： CA证书</li></ul>
+   */
+  CertType?: string
+  /**
+   * <p>证书用途</p><p>枚举值：</p><ul><li>SERVER： 用作服务端证书</li><li>CLIENT： 用作客户端证书</li></ul>
+   */
+  CertUsage?: string
 }
 
 /**
@@ -339,59 +361,26 @@ export interface CloseWafProtectionRequest {
 }
 
 /**
- * 泳道组
+ * DescribeWafProtection请求参数结构体
  */
-export interface DeleteGovernanceLaneGroup {
+export interface DescribeWafProtectionRequest {
   /**
-   * 泳道名称
-注意：此字段可能返回 null，表示取不到有效值。
+   * 网关ID
    */
-  Name: string
+  GatewayId: string
   /**
-   * 泳道组ID
-注意：此字段可能返回 null，表示取不到有效值。
+   *  防护资源的类型。
+- Global  实例
+- Service  服务
+- Route  路由
+- Object  对象
+   * @deprecated
    */
-  ID?: string
+  Type?: string
   /**
-   * 泳道入口服务列表
-注意：此字段可能返回 null，表示取不到有效值。
+   * 防护资源类型列表，支持查询多个类型（Global、Service、Route、Object）。为空时，默认查询Global类型。
    */
-  TrafficEntries?: Array<LaneTrafficEntry>
-  /**
-   * 泳道服务列表
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Destinations?: Array<GovernanceServiceDestination>
-  /**
-   * 泳道组描述
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Description?: string
-  /**
-   * 规则内容摘要
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Revision?: string
-  /**
-   * 创建时间
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  CreateTime?: string
-  /**
-   * 修改时间
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  ModifyTime?: string
-  /**
-   * 规则一致性状态
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Consistency?: string
-  /**
-   * 泳道规则列表
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  Rules?: Array<GovernanceLaneRule>
+  TypeList?: Array<string>
 }
 
 /**
@@ -538,6 +527,14 @@ export interface ModifyCloudNativeAPIGatewayLLMModelServiceRequest {
    * <p>外部服务来源ID</p>
    */
   ExternalInstanceId?: string
+  /**
+   * <p>自定义供应商名称</p><p>仅当Provider值为&quot;custom&quot;时允许填写</p>
+   */
+  CustomProviderName?: string
+  /**
+   * <p>负载均衡配置</p>
+   */
+  LoadBalanceConfig?: AIGWLoadBalanceConfig
 }
 
 /**
@@ -990,57 +987,65 @@ export interface CreateCloudNativeAPIGatewayLLMModelAPIRequest {
    */
   GatewayId: string
   /**
-   * <p>模型 API 名称，最长 60 字符。同一网关下唯一。</p>
+   * <p>AI 网关 LLM 模型 API 的唯一标识名称，格式规则：2-50 字符，支持中英文大小写、数字及分隔符（“-”、“_”)，不能以数字和分隔符开头，不能以分隔符结尾。</p>
    */
   Name: string
   /**
-   * <p>业务场景。</p><p>枚举值：</p><ul><li>Chat：聊天</li><li>Image：图像（需要网关版本 ≥ 3.9.3）</li></ul>
+   * <p>选择业务场景,  选项：Chat（聊天）。</p>
    */
   SceneType: string
   /**
-   * <p>请求协议（小写）。当前仅支持：</p><ul><li>openai</li></ul>
+   * <p>业务场景对应的请求协议，选项：OpenAI（目前只支持 OpenAI）。</p>
    */
   RequestProtocol: string
   /**
-   * <p>关联的模型服务 ID 列表，长度 1-10。</p><p>注：字段名建议改为 ModelServiceIds，当前保留用于兼容。</p>
+   * <p>初始化关联的模型服务列表。</p>
    */
   ListModelServiceId: Array<string>
   /**
-   * <p>路由列表，至少 1 条。每条包含 Methods/Paths/Hosts 等 Kong 路由属性。</p>
+   * <p>路由列表</p>
    */
   RouteList: Array<DefaultKongRoute>
   /**
-   * <p>统一前缀路径（可选）。例如 /v1/openai。</p>
+   * <p>为API设置统一的前缀，格式：以/开头，支持字母、数字、短横线。</p>
    */
   BasePath?: string
   /**
-   * <p>模型 API 描述。最长 200 字符。</p>
+   * <p>模型 API 的相关描述。</p>
    */
   Description?: string
   /**
-   * <p>多模型服务路由策略。ListModelServiceId 多于 1 项时必填。</p>
+   * <p>模型服务路由策略（是指如何路由到模型服务）</p>
    */
   ModelServiceRoute?: CloudNativeAPIGatewayLLMModelServiceRoute
   /**
-   * <p>Header 路由匹配规则。当前仅支持 Operator=exact。</p>
+   * <p>路由 Header 匹配规则</p>
    */
   MatchHeaders?: Array<AIGWKVMatch>
   /**
-   * <p>是否启用跨服务 Fallback。开启后需提供 CrossServiceFallbackConfig。</p>
+   * <p>跨服务 fallback 开关</p>
    */
   EnableCrossServiceFallback?: boolean
   /**
-   * <p>跨服务 Fallback 配置。EnableCrossServiceFallback=true 时必填。</p>
+   * <p>跨服务 fallback 配置</p>
    */
   CrossServiceFallbackConfig?: AIGWCrossServiceFallbackConfig
   /**
-   * <p>标签过滤策略。需要网关版本 ≥ 3.9.4。</p>
+   * <p>标签</p>
    */
   TagFilter?: AIGWTagFilter
   /**
-   * <p>日志输出配置（请求/响应 payload 落 LLM Log）。需要网关版本 ≥ 3.9.4。</p>
+   * <p>模型 API 日志配置。未传时使用默认日志配置。</p>
    */
   LogConfig?: AIGWLogConfig
+  /**
+   * <p>Rerank场景最大文档数限制</p>
+   */
+  MaxDocumentsConfig?: AIGWRerankMaxDocumentsConfig
+  /**
+   * <p>敏感词路由配置</p>
+   */
+  SensitiveWordRoute?: AIGWSensitiveWordRoute
 }
 
 /**
@@ -1109,13 +1114,17 @@ export interface KongServiceWithRoutes {
  */
 export interface CreateCloudNativeAPIGatewayConsumerRequest {
   /**
-   * 网关实例id
+   * <p>网关实例id</p>
    */
   GatewayId: string
   /**
    * <p>消费者名称，最长 60 字符。同一网关下唯一。</p>
    */
   Name: string
+  /**
+   * <p>消费者优先级，默认medium</p><p>枚举值：</p><ul><li>Low： 低优先级</li><li>Medium： 中优先级</li><li>High： 高优先级</li></ul>
+   */
+  Priority?: string
   /**
    * <p>消费者描述。最长 200 字符。</p>
    */
@@ -1220,6 +1229,22 @@ export interface CloudNativeAPIGatewayLLMModelAPI {
    * <p>转发脱敏规则</p>
    */
   ForwardDesensitizeConfig?: AIGWForwardDesensitizeConfig
+  /**
+   * <p>Rerank场景最大文档数限制配置</p>
+   */
+  MaxDocumentsConfig?: AIGWRerankMaxDocumentsConfig
+  /**
+   * <p>敏感词路由配置</p>
+   */
+  SensitiveWordRoute?: AIGWSensitiveWordRoute
+  /**
+   * <p>消费者组的授权模型范围</p>
+   */
+  ConsumerGroupModelScopes?: Array<AIGWAuthModelScopeItem>
+  /**
+   * <p>继承自消费者组的授权模型范围</p>
+   */
+  ConsumerInheritModelScope?: AIGWConsumerModelScope
 }
 
 /**
@@ -1474,23 +1499,23 @@ export interface DeleteCloudNativeAPIGatewayRouteResponse {
 }
 
 /**
- * AI 网关 B 层日志脱敏配置（写入 LLM Log 前对 payload 掩码）
+ * AI 网关日志脱敏配置
  */
 export interface AIGWLogDesensitizeConfig {
   /**
-   * <p>日志脱敏开关</p>
+   * <p>日志脱敏配置总开关</p>
    */
   Enabled: boolean
   /**
-   * <p>预定义规则类型</p><p>枚举值：</p><ul><li>Phone： 电话号码</li><li>IdCard： 身份证号</li><li>BankCard： 银行卡号</li><li>Email： 邮箱地址</li><li>IP： IP地址</li><li>Name： 姓名</li></ul>
+   * <p>内置规则类型：Phone、IdCard、BankCard、Email、IP、Name</p>
    */
   PredefinedRuleTypes?: Array<string>
   /**
-   * <p>自定义脱敏规则</p>
+   * <p>自定义规则，最多 20 条</p>
    */
   CustomRules?: Array<AIGWCustomDesensitizeRule>
   /**
-   * <p>日志脱敏范围</p><p>枚举值：</p><ul><li>Request： 请求</li><li>Response： 响应</li></ul>
+   * <p>脱敏方向：Request、Response；为空时默认两者</p>
    */
   Scope?: Array<string>
 }
@@ -2103,6 +2128,20 @@ export interface CreateCloudNativeAPIGatewayPublicNetworkResponse {
 }
 
 /**
+ * DescribeUpstreamHealthCheckConfig请求参数结构体
+ */
+export interface DescribeUpstreamHealthCheckConfigRequest {
+  /**
+   * 网关ID
+   */
+  GatewayId: string
+  /**
+   * 网关服务名称
+   */
+  Name: string
+}
+
+/**
  * ModifyGovernanceServices请求参数结构体
  */
 export interface ModifyGovernanceServicesRequest {
@@ -2557,26 +2596,59 @@ export interface DescribeAutoScalerResourceStrategyBindingGroupsRequest {
 }
 
 /**
- * DescribeWafProtection请求参数结构体
+ * 泳道组
  */
-export interface DescribeWafProtectionRequest {
+export interface DeleteGovernanceLaneGroup {
   /**
-   * 网关ID
+   * 泳道名称
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  GatewayId: string
+  Name: string
   /**
-   *  防护资源的类型。
-- Global  实例
-- Service  服务
-- Route  路由
-- Object  对象
-   * @deprecated
+   * 泳道组ID
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Type?: string
+  ID?: string
   /**
-   * 防护资源类型列表，支持查询多个类型（Global、Service、Route、Object）。为空时，默认查询Global类型。
+   * 泳道入口服务列表
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  TypeList?: Array<string>
+  TrafficEntries?: Array<LaneTrafficEntry>
+  /**
+   * 泳道服务列表
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Destinations?: Array<GovernanceServiceDestination>
+  /**
+   * 泳道组描述
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * 规则内容摘要
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Revision?: string
+  /**
+   * 创建时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CreateTime?: string
+  /**
+   * 修改时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ModifyTime?: string
+  /**
+   * 规则一致性状态
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Consistency?: string
+  /**
+   * 泳道规则列表
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Rules?: Array<GovernanceLaneRule>
 }
 
 /**
@@ -3215,27 +3287,27 @@ export interface ModifyNativeGatewayServerGroupRequest {
 }
 
 /**
- * AI 网关 A 层转发脱敏配置（请求转发到 LLM 供应商前对 messages 替换为占位符）
+ * AI 网关转发脱敏配置
  */
 export interface AIGWForwardDesensitizeConfig {
   /**
-   * <p>转发脱敏开关</p>
+   * <p>转发脱敏配置总开关</p>
    */
   Enabled: boolean
   /**
-   * <p>预定义规则类型</p><p>枚举值：</p><ul><li>Phone： 电话号码</li><li>IdCard： 身份证号</li><li>BankCard： 银行卡号</li><li>Email： 电子邮箱地址</li><li>IP： IP地址</li><li>Name： 姓名</li></ul>
+   * <p>内置规则类型：Phone、IdCard、BankCard、Email、IP、Name</p>
    */
   PredefinedRuleTypes?: Array<string>
   /**
-   * <p>自定义脱敏规则</p>
+   * <p>自定义规则，最多 20 条</p>
    */
   CustomRules?: Array<AIGWCustomDesensitizeRule>
   /**
-   * <p>掩码</p>
+   * <p>内置规则占位符格式，最长 32；为空时默认 [{type}]</p>
    */
   PlaceholderFormat?: string
   /**
-   * <p>脱敏异常处理</p><p>枚举值：</p><ul><li>Reject： 拒绝请求</li><li>Skip： 跳过</li></ul>
+   * <p>脱敏失败处理：Reject（拒绝请求）或 Skip（跳过脱敏并转发）</p>
    */
   OnFailure?: string
 }
@@ -4104,6 +4176,42 @@ export interface CNAPIGwSecretKey {
    * <p>secret key provider方</p><p>枚举值：</p><ul><li>Dify： Dify</li></ul>
    */
   Provider?: string
+  /**
+   * <p>AK/SK凭证配置</p>
+   */
+  AKSKCredentialConfig?: AIGWAKSKCredentialConfig
+  /**
+   * <p>CAM凭证配置</p>
+   */
+  CAMCredentialConfig?: AIGWCAMCredentialConfig
+  /**
+   * <p>Bearer Token凭证配置</p>
+   */
+  BearerTokenCredentialConfig?: AIGWBearerTokenCredentialConfig
+  /**
+   * <p>Basic Auth凭证配置</p>
+   */
+  BasicCredentialConfig?: AIGWBasicCredentialConfig
+  /**
+   * <p>自定义Header凭证配置</p>
+   */
+  CustomHeaderCredentialConfig?: AIGWCustomHeaderCredentialConfig
+  /**
+   * <p>自定义Query参数凭证配置</p>
+   */
+  QueryParamCredentialConfig?: AIGWQueryParamCredentialConfig
+  /**
+   * <p>同步状态</p>
+   */
+  SyncStatus?: string
+  /**
+   * <p>来源类型</p>
+   */
+  SourceType?: string
+  /**
+   * <p>已同步版本</p>
+   */
+  SyncedVersion?: string
 }
 
 /**
@@ -4111,7 +4219,7 @@ export interface CNAPIGwSecretKey {
  */
 export interface ModifyCloudNativeAPIGatewayLLMModelAPIResponse {
   /**
-   * <p>是否成功。</p>
+   * <p>是否成功</p>
    */
   Result?: boolean
   /**
@@ -4262,45 +4370,17 @@ export interface UpdateUpstreamTargetsResponse {
 }
 
 /**
- * 服务契约接口定义
+ * AI网关自定义 Header 凭证配置
  */
-export interface GovernanceInterfaceDescription {
+export interface AIGWCustomHeaderCredentialConfig {
   /**
-   * 契约接口ID
+   * <p>Header名</p>
    */
-  ID?: string
+  HeaderName?: string
   /**
-   * 方法名称
+   * <p>Header值</p>
    */
-  Method?: string
-  /**
-   * 路径/接口名称
-   */
-  Path?: string
-  /**
-   * 内容
-   */
-  Content?: string
-  /**
-   * 创建来源
-   */
-  Source?: string
-  /**
-   * 信息摘要
-   */
-  Revision?: string
-  /**
-   * 创建时间
-   */
-  CreateTime?: string
-  /**
-   * 修改时间
-   */
-  ModifyTime?: string
-  /**
-   * 接口名称
-   */
-  Name?: string
+  HeaderValue?: string
 }
 
 /**
@@ -4326,7 +4406,7 @@ export interface DescribeGovernanceServiceContractVersionsRequest {
  */
 export interface DescribeCloudNativeAPIGatewayCertificatesResponse {
   /**
-   * 无
+   * <p>无</p>
    */
   Result?: KongCertificatesList
   /**
@@ -4602,51 +4682,61 @@ export interface DescribeCloudNativeAPIGatewayConsumerResponse {
  */
 export interface KongCertificatesPreview {
   /**
-   * 证书名称
+   * <p>证书名称</p>
    */
   Name?: string
   /**
-   * Id
+   * <p>Id</p>
    */
   Id?: string
   /**
-   * 绑定的域名
+   * <p>绑定的域名</p>
    */
   BindDomains?: Array<string>
   /**
-   * 证书状态：expired(已过期)
-                   active(生效中)
+   * <p>证书状态：expired(已过期)<br>                   active(生效中)</p>
    */
   Status?: string
   /**
-   * 证书pem格式
+   * <p>证书pem格式</p>
    */
   Crt?: string
   /**
-   * 证书私钥
+   * <p>证书私钥</p>
    */
   Key?: string
   /**
-   * 证书过期时间
+   * <p>证书过期时间</p>
    */
   ExpireTime?: string
   /**
-   * 证书上传时间
+   * <p>证书上传时间</p>
    */
   CreateTime?: string
   /**
-   * 证书签发时间
+   * <p>证书签发时间</p>
    */
   IssueTime?: string
   /**
-   * 证书来源：native(kong自定义证书)
-                    ssl(ssl平台证书)
+   * <p>证书来源：native(kong自定义证书)<br>                    ssl(ssl平台证书)</p>
    */
   CertSource?: string
   /**
-   * ssl平台证书Id
+   * <p>ssl平台证书Id</p>
    */
   CertId?: string
+  /**
+   * <p>证书类型</p><p>枚举值：</p><ul><li>SVR： 服务证书</li><li>CA： CA证书</li></ul>
+   */
+  CertType?: string
+  /**
+   * <p>证书用途</p><p>枚举值：</p><ul><li>SERVER： 用作服务端证书</li><li>CLIENT： 用作客户端证书</li></ul>
+   */
+  CertUsage?: string
+  /**
+   * <p>证书被引用的次数</p>
+   */
+  ReferCount?: number
 }
 
 /**
@@ -4853,6 +4943,16 @@ export interface KongRoutePreview {
 }
 
 /**
+ * 负载均衡配置，仅服务来源（ServiceSource，SourceId 非空）场景生效。
+ */
+export interface AIGWLoadBalanceConfig {
+  /**
+   * <p>负载均衡算法</p>
+   */
+  Algorithm?: string
+}
+
+/**
  * 实例地域信息描述
  */
 export interface DescribeInstanceRegionInfo {
@@ -5027,7 +5127,7 @@ export interface ModifyAutoScalerResourceStrategyResponse {
  */
 export interface CreateCloudNativeAPIGatewayCertificateResponse {
   /**
-   * 创建证书结果
+   * <p>创建证书结果</p>
    */
   Result?: CertificateInfo
   /**
@@ -5067,6 +5167,32 @@ export interface DescribeCloudNativeAPIGatewayRouteRateLimitRequest {
 不支持“未命名”
    */
   Id: string
+}
+
+/**
+ * AI网关LLM健康检查配置
+ */
+export interface AIGWLLMHealthCheckSetting {
+  /**
+   * <p>检查间隔</p>
+   */
+  HealthCheckIntervalSecond: number
+  /**
+   * <p>检查超时时间</p>
+   */
+  HealthCheckTimeout: number
+  /**
+   * <p>检查失败阈值</p>
+   */
+  HealthCheckFailThreshold: number
+  /**
+   * <p>检查恢复阈值</p>
+   */
+  HealthCheckRecoverThreshold: number
+  /**
+   * <p>检查路径</p>
+   */
+  HealthCheckPath?: string
 }
 
 /**
@@ -5201,6 +5327,30 @@ export interface CreateCloudNativeAPIGatewaySecretKeyRequest {
    * <p>OIDC凭证配置</p>
    */
   OIDCCredentialConfig?: AIGWOIDCCredentialConfig
+  /**
+   * <p>AK/SK凭证配置</p>
+   */
+  AKSKCredentialConfig?: AIGWAKSKCredentialConfig
+  /**
+   * <p>CAM凭证配置</p>
+   */
+  CAMCredentialConfig?: AIGWCAMCredentialConfig
+  /**
+   * <p>Bearer Token凭证配置</p>
+   */
+  BearerTokenCredentialConfig?: AIGWBearerTokenCredentialConfig
+  /**
+   * <p>自定义Header凭证配置</p>
+   */
+  CustomHeaderCredentialConfig?: AIGWCustomHeaderCredentialConfig
+  /**
+   * <p>自定义Query参数凭证配置</p>
+   */
+  QueryParamCredentialConfig?: AIGWQueryParamCredentialConfig
+  /**
+   * <p>Basic Auth凭证配置</p>
+   */
+  BasicCredentialConfig?: AIGWBasicCredentialConfig
   /**
    * <p>第三方平台类型</p><p>枚举值：</p><ul><li>Dify： Dify平台</li></ul>
    */
@@ -5604,28 +5754,36 @@ export interface DeleteCloudNativeAPIGatewayResponse {
  */
 export interface CreateCloudNativeAPIGatewayCertificateRequest {
   /**
-   * 网关ID
+   * <p>网关ID</p>
    */
   GatewayId: string
   /**
-   * 绑定的域名
-   */
-  BindDomains: Array<string>
-  /**
-   * ssl平台证书 Id
+   * <p>ssl平台证书 Id</p>
    */
   CertId: string
   /**
-   * 证书名称
+   * <p>绑定的域名</p>
+   */
+  BindDomains?: Array<string>
+  /**
+   * <p>证书名称</p>
    */
   Name?: string
   /**
-   * 证书私钥
+   * <p>证书类型</p><p>枚举值：</p><ul><li>SVR： 服务证书</li><li>CA： CA证书</li></ul>
+   */
+  CertType?: string
+  /**
+   * <p>证书用途</p><p>枚举值：</p><ul><li>SERVER： 用作服务端证书</li><li>CLIENT： 用作客户端证书</li></ul>
+   */
+  CertUsage?: string
+  /**
+   * <p>证书私钥</p>
    * @deprecated
    */
   Key?: string
   /**
-   * 证书pem格式
+   * <p>证书pem格式</p>
    * @deprecated
    */
   Crt?: string
@@ -5759,17 +5917,25 @@ export interface RouteWafStatus {
 }
 
 /**
- * ModifyGovernanceNamespaces请求参数结构体
+ * AI网关授权模型访问范围
  */
-export interface ModifyGovernanceNamespacesRequest {
+export interface AIGWAuthModelScopeItem {
   /**
-   * tse实例id。
+   * <p>授权主体 ID，如消费者组、消费者</p>
    */
-  InstanceId: string
+  PrincipalId?: string
   /**
-   * 命名空间信息。
+   * <p>授权主体名称，如消费者组、消费者</p>
    */
-  GovernanceNamespaces: Array<GovernanceNamespaceInput>
+  PrincipalName?: string
+  /**
+   * <p>模型范围原始配置</p>
+   */
+  ModelScope?: AIGWModelScope
+  /**
+   * <p>MAG 已展开、保序去重后的可用模型名称列表</p>
+   */
+  EffectiveModelNames?: Array<string>
 }
 
 /**
@@ -6107,6 +6273,42 @@ export interface CloudNativeAPIGatewayLLMModelService {
    * <p>外部服务来源ID</p>
    */
   ExternalInstanceId?: string
+  /**
+   * <p>负载均衡配置</p>
+   */
+  LoadBalanceConfig?: AIGWLoadBalanceConfig
+  /**
+   * <p>模型服务是否发布到广场</p><p>枚举值：</p><ul><li>Published： 已发布</li><li>Unpublished： 未发布</li></ul>
+   */
+  PublishStatus?: string
+  /**
+   * <p>模型服务是否可以发布</p>
+   */
+  CanPublish?: boolean
+  /**
+   * <p>同步状态</p><p>枚举值：</p><ul><li>Fail： 失败</li><li>Success： 成功</li></ul>
+   */
+  SyncStatus?: string
+  /**
+   * <p>资源类型</p><p>枚举值：</p><ul><li>Public： 公共</li><li>Private： 私有</li><li>SourceDelete： 资源删除</li></ul>
+   */
+  SourceType?: string
+  /**
+   * <p>同步版本</p>
+   */
+  SyncedVersion?: string
+  /**
+   * <p>健康状态</p><p>枚举值：</p><ul><li>Error： 异常</li></ul>
+   */
+  Status?: string
+  /**
+   * <p>是否开启健康检查</p>
+   */
+  EnableHealthCheck?: boolean
+  /**
+   * <p>健康检查配置</p>
+   */
+  HealthCheck?: AIGWLLMHealthCheckSetting
 }
 
 /**
@@ -6164,7 +6366,7 @@ export interface UpdateCloudNativeAPIGatewayCertificateInfoRequest {
   /**
    * 绑定的域名列表
    */
-  BindDomains: Array<string>
+  BindDomains?: Array<string>
   /**
    * 证书名称
    */
@@ -6864,6 +7066,14 @@ export interface AIGWLogConfig {
    * <p>上游原始 payload access log 输出模式</p><p>枚举值：</p><ul><li>raw： access log 中 body 记录客户端原始上游响应</li><li>processed： access log 中 body 记录 AI 网关协议适配、改写、归一化后的 OpenAI-compatible 内容</li></ul>
    */
   ResponseLogPayloadMode?: string
+  /**
+   * <p>请求 Body 大小裁剪策略</p><p>枚举值：</p><ul><li>Bounded： 裁剪大小</li><li>UnBounded： 不裁剪大小</li></ul>
+   */
+  RequestLogPayloadTruncationPolicy?: string
+  /**
+   * <p>响应 Body 大小裁剪策略</p><p>枚举值：</p><ul><li>Bounded： 裁剪大小</li><li>UnBounded： 不裁剪大小</li></ul>
+   */
+  ResponseLogPayloadTruncationPolicy?: string
 }
 
 /**
@@ -7283,34 +7493,46 @@ export interface CloudNativeAPIGatewayLLMModelServiceRoute {
  */
 export interface CNAPIGwConsumerGroup {
   /**
-   * 分组id
+   * <p>分组id</p>
    */
   ConsumerGroupId: string
   /**
-   * 名字
+   * <p>名字</p>
    */
   Name: string
   /**
-   * 状态Disable/Enable
+   * <p>状态Disable/Enable</p>
    */
   Status: string
   /**
-   * 描述
+   * <p>描述</p>
    */
   Description: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
    */
   CreateTime?: string
   /**
-   * 更新时间 yyyy-MM-dd hh:mm:ss
+   * <p>更新时间 yyyy-MM-dd hh:mm:ss</p>
    */
   ModifyTime?: string
   /**
-   * 绑定的消费者数量
+   * <p>绑定的消费者数量</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BindCount?: number
+  /**
+   * <p>同步状态</p><p>枚举值：</p><ul><li>Fail： 失败</li></ul>
+   */
+  SyncStatus?: string
+  /**
+   * <p>资源类型</p><p>枚举值：</p><ul><li>Public： 公有</li></ul>
+   */
+  SourceType?: string
+  /**
+   * <p>同步版本</p>
+   */
+  SyncedVersion?: string
 }
 
 /**
@@ -7603,6 +7825,20 @@ export interface DescribeCloudNativeAPIGatewayServiceRateLimitResponse {
 }
 
 /**
+ * ModifyGovernanceNamespaces请求参数结构体
+ */
+export interface ModifyGovernanceNamespacesRequest {
+  /**
+   * tse实例id。
+   */
+  InstanceId: string
+  /**
+   * 命名空间信息。
+   */
+  GovernanceNamespaces: Array<GovernanceNamespaceInput>
+}
+
+/**
  * ModifyGovernanceAlias返回参数结构体
  */
 export interface ModifyGovernanceAliasResponse {
@@ -7871,6 +8107,20 @@ export interface DescribeOneCloudNativeAPIGatewayServiceRequest {
    * 服务名字，或服务ID
    */
   Name: string
+}
+
+/**
+ * AI网关消费者模型范围
+ */
+export interface AIGWConsumerModelScope {
+  /**
+   * <p>消费者模型生效范围类型</p><p>枚举值：</p><ul><li>INHERIT： 继承所在消费者组的生效模型范围</li><li>ALLOWLIST： 自定义白名单，必须 ⊆ 所在组针对该资源的生效模型集合</li></ul>
+   */
+  ScopeType?: string
+  /**
+   * <p>模型授权白名单列表</p>
+   */
+  AllowList?: Array<string>
 }
 
 /**
@@ -8466,6 +8716,20 @@ export interface ModifyCloudNativeAPIGatewayConsumerGroupRequest {
 }
 
 /**
+ * AI网关 Query Param 凭证物料配置
+ */
+export interface AIGWQueryParamCredentialConfig {
+  /**
+   * <p>参数名</p>
+   */
+  ParamName?: string
+  /**
+   * <p>参数值</p>
+   */
+  ParamValue?: string
+}
+
+/**
  * DescribeCloudNativeAPIGatewayCORS返回参数结构体
  */
 export interface DescribeCloudNativeAPIGatewayCORSResponse {
@@ -8730,25 +8994,33 @@ export interface DescribePublicAddressConfigResponse {
 }
 
 /**
- * 私有网络信息
+ * AI GW Sensitive Word Route
  */
-export interface VpcInfo {
+export interface AIGWSensitiveWordRoute {
   /**
-   * Vpc Id
+   * <p>是否开启敏感词路由</p>
    */
-  VpcId: string
+  Enabled?: boolean
   /**
-   * 子网ID
+   * <p>目标模型服务列表</p>
    */
-  SubnetId: string
+  ModelServiceRefs?: Array<string>
   /**
-   * 内网访问地址
+   * <p>目标模型服务名，查询的时候会填充</p>
    */
-  IntranetAddress?: string
+  ModelServiceNames?: Array<string>
   /**
-   * 负载均衡均衡接入点子网ID
+   * <p>路由方法</p><p>枚举值：</p><ul><li>Weighted： 权重路由</li><li>ModelName： 按模型名称路由</li></ul>
    */
-  LbSubnetId?: string
+  SelectedTypes?: Array<string>
+  /**
+   * <p>权重路由配置</p>
+   */
+  WeightedConfig?: Array<CloudNativeAPIGatewayLLMModelServiceRouteWeightedStrategy>
+  /**
+   * <p>模型名称路由权重</p>
+   */
+  ModelNameConfig?: Array<CloudNativeAPIGatewayLLMModelServiceRouteModelNameStrategy>
 }
 
 /**
@@ -8767,6 +9039,20 @@ export interface PublishConfigFilesRequest {
    * 控制开启校验配置版本是否已经存在
    */
   StrictEnable?: boolean
+}
+
+/**
+ * aksk类型密钥
+ */
+export interface AIGWAKSKCredentialConfig {
+  /**
+   * <p>AccessKeyId</p>
+   */
+  AccessKeyId?: string
+  /**
+   * <p>SecretAccessKey</p>
+   */
+  SecretAccessKey?: string
 }
 
 /**
@@ -9197,6 +9483,10 @@ export interface CNAPIGwConsumer {
    */
   ModifyTime: string
   /**
+   * <p>消费者优先级</p><p>枚举值：</p><ul><li>Low： 低优先级</li><li>Medium： 中优先级</li><li>High： 高优先级</li></ul>
+   */
+  Priority?: string
+  /**
    * <p>描述</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
@@ -9206,6 +9496,18 @@ export interface CNAPIGwConsumer {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ConsumerGroups?: Array<CNAPIGwConsumerGroup>
+  /**
+   * <p>同步状态</p><p>枚举值：</p><ul><li>Success： 成功</li><li>Fail： 失败</li></ul>
+   */
+  SyncStatus?: string
+  /**
+   * <p>资源类型</p><p>枚举值：</p><ul><li>Public： 公共</li><li>Private： 私有</li><li>SourceDeleted： 已删除</li></ul>
+   */
+  SourceType?: string
+  /**
+   * <p>同步版本</p>
+   */
+  SyncedVersion?: string
 }
 
 /**
@@ -9671,6 +9973,10 @@ export interface CreateCloudNativeAPIGatewayLLMModelServiceRequest {
    * <p>外部服务来源ID</p>
    */
   ExternalInstanceId?: string
+  /**
+   * <p>负载均衡配置</p>
+   */
+  LoadBalanceConfig?: AIGWLoadBalanceConfig
 }
 
 /**
@@ -9915,7 +10221,7 @@ export interface InstancePort {
  */
 export interface ModifyCloudNativeAPIGatewayConsumerRequest {
   /**
-   * 网关实例id
+   * <p>网关实例id</p>
    */
   GatewayId: string
   /**
@@ -9926,6 +10232,10 @@ export interface ModifyCloudNativeAPIGatewayConsumerRequest {
    * <p>消费者名称，最长 60 字符。</p>
    */
   Name: string
+  /**
+   * <p>优先级，默认Medium</p><p>枚举值：</p><ul><li>Low： 低优先级</li><li>Medium： 中优先级</li><li>High： 高优先级</li></ul>
+   */
+  Priority?: string
   /**
    * <p>消费者描述。最长 200 字符。</p>
    */
@@ -10174,6 +10484,46 @@ export interface CanaryPriorityRule {
    * 灰度规则配置
    */
   CanaryRule?: CloudNativeAPIGatewayCanaryRule
+}
+
+/**
+ * AI网关模型可用范围
+ */
+export interface AIGWModelScope {
+  /**
+   * <p>范围类型</p><p>枚举值：</p><ul><li>ALL： 允许全部访问</li><li>ALLOWLIST： 允许访问的模型列表</li><li>MAG： 模型访问组</li></ul>
+   */
+  ScopeType?: string
+  /**
+   * <p>允许访问的模型列表，ScopeType=ALLOWLIST时设置</p>
+   */
+  AllowList?: Array<string>
+  /**
+   * <p>模型访问组，ScopeType=MAG时设置</p>
+   */
+  MagRefs?: Array<string>
+}
+
+/**
+ * 私有网络信息
+ */
+export interface VpcInfo {
+  /**
+   * Vpc Id
+   */
+  VpcId: string
+  /**
+   * 子网ID
+   */
+  SubnetId: string
+  /**
+   * 内网访问地址
+   */
+  IntranetAddress?: string
+  /**
+   * 负载均衡均衡接入点子网ID
+   */
+  LbSubnetId?: string
 }
 
 /**
@@ -10427,6 +10777,16 @@ export interface DeleteCloudNativeAPIGatewayServiceRequest {
 }
 
 /**
+ * AI网关 Bearer Token 凭证配置
+ */
+export interface AIGWBearerTokenCredentialConfig {
+  /**
+   * <p>Token凭证</p>
+   */
+  Token?: string
+}
+
+/**
  * 路由规则来源服务的请求规则配置详情
  */
 export interface Argument {
@@ -10618,18 +10978,13 @@ export interface CloseWafProtectionResponse {
 }
 
 /**
- * CreateAutoScalerResourceStrategy返回参数结构体
+ * DescribeCloudNativeAPIGatewaySecretKeyValue返回参数结构体
  */
-export interface CreateAutoScalerResourceStrategyResponse {
+export interface DescribeCloudNativeAPIGatewaySecretKeyValueResponse {
   /**
-   * 是否成功
-   * @deprecated
+   * 密钥值
    */
-  Result?: boolean
-  /**
-   * 策略Id
-   */
-  StrategyId?: string
+  Result?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -11233,23 +11588,23 @@ export interface CreateAutoScalerResourceStrategyRequest {
 }
 
 /**
- * AI 网关自定义脱敏规则（A 层 / B 层共用结构体，MaskFormat 含义随所属层不同）
+ * AI 网关自定义脱敏规则
  */
 export interface AIGWCustomDesensitizeRule {
   /**
-   * <p>自定义脱敏规则名称</p>
+   * <p>规则名称，同一配置内唯一，最长 64</p>
    */
   Name: string
   /**
-   * <p>自定义脱敏规则匹配正则</p>
+   * <p>RE2 兼容的正则表达式</p>
    */
   Pattern: string
   /**
-   * <p>自定义脱敏规则掩码</p>
+   * <p>日志场景为掩码格式，转发场景为占位符；最长 64</p>
    */
   MaskFormat: string
   /**
-   * <p>自定义脱敏规则开关</p>
+   * <p>单条自定义规则是否启用</p>
    */
   Enabled: boolean
 }
@@ -11410,6 +11765,48 @@ export interface DescribeCloudNativeAPIGatewayConsumerRequest {
    * <p>消费者ID</p>
    */
   ConsumerId: string
+}
+
+/**
+ * 服务契约接口定义
+ */
+export interface GovernanceInterfaceDescription {
+  /**
+   * 契约接口ID
+   */
+  ID?: string
+  /**
+   * 方法名称
+   */
+  Method?: string
+  /**
+   * 路径/接口名称
+   */
+  Path?: string
+  /**
+   * 内容
+   */
+  Content?: string
+  /**
+   * 创建来源
+   */
+  Source?: string
+  /**
+   * 信息摘要
+   */
+  Revision?: string
+  /**
+   * 创建时间
+   */
+  CreateTime?: string
+  /**
+   * 修改时间
+   */
+  ModifyTime?: string
+  /**
+   * 接口名称
+   */
+  Name?: string
 }
 
 /**
@@ -11747,13 +12144,18 @@ export interface DescribeGovernanceLaneGroupsRequest {
 }
 
 /**
- * DescribeCloudNativeAPIGatewaySecretKeyValue返回参数结构体
+ * CreateAutoScalerResourceStrategy返回参数结构体
  */
-export interface DescribeCloudNativeAPIGatewaySecretKeyValueResponse {
+export interface CreateAutoScalerResourceStrategyResponse {
   /**
-   * 密钥值
+   * 是否成功
+   * @deprecated
    */
-  Result?: string
+  Result?: boolean
+  /**
+   * 策略Id
+   */
+  StrategyId?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -11941,45 +12343,53 @@ export interface ModifyCloudNativeAPIGatewayLLMModelAPIRequest {
    */
   ModelAPIId: string
   /**
-   * <p>模型 API 名称，最长 60 字符。</p>
+   * <p>修改模型 API 名称</p>
    */
   Name?: string
   /**
-   * <p>统一前缀路径（可选）。例如 /v1/openai。</p>
+   * <p>为API设置统一的前缀，格式：以/开头，支持字母、数字、短横线。</p>
    */
   BasePath?: string
   /**
-   * <p>模型 API 描述。最长 200 字符。</p>
+   * <p>模型 API 的相关描述。</p>
    */
   Description?: string
   /**
-   * <p>关联的模型服务 ID 列表，长度 1-10。</p>
+   * <p>关联的模型服务列表（支持填多个模型服务）</p>
    */
   ListModelServiceId?: Array<string>
   /**
-   * <p>多模型服务路由策略。ListModelServiceId 多于 1 项时必填。</p>
+   * <p>模型服务路由策略（是指如何路由到模型服务）</p>
    */
   ModelServiceRoute?: CloudNativeAPIGatewayLLMModelServiceRoute
   /**
-   * <p>Header 路由匹配规则。当前仅支持 Operator=exact。</p>
+   * <p>headers 路由匹配</p>
    */
   MatchHeaders?: Array<AIGWKVMatch>
   /**
-   * <p>是否启用跨服务 Fallback。</p>
+   * <p>跨服务 fallback</p>
    */
   EnableCrossServiceFallback?: boolean
   /**
-   * <p>跨服务 Fallback 配置。EnableCrossServiceFallback=true 时必填。</p>
+   * <p>跨服务 fallback 配置</p>
    */
   CrossServiceFallbackConfig?: AIGWCrossServiceFallbackConfig
   /**
-   * <p>标签过滤策略。需要网关版本 ≥ 3.9.4。</p>
+   * <p>标签</p>
    */
   TagFilter?: AIGWTagFilter
   /**
-   * <p>日志输出配置。需要网关版本 ≥ 3.9.4。</p>
+   * <p>模型 API 日志配置</p>
    */
   LogConfig?: AIGWLogConfig
+  /**
+   * <p>Rerank场景最大文档数配置</p>
+   */
+  MaxDocumentsConfig?: AIGWRerankMaxDocumentsConfig
+  /**
+   * <p>敏感词路由配置</p>
+   */
+  SensitiveWordRoute?: AIGWSensitiveWordRoute
 }
 
 /**
@@ -12016,6 +12426,20 @@ export interface DescribeWafProtectionResult {
    * 对象防护状态
    */
   ObjectStatus?: string
+}
+
+/**
+ * CAM类型密钥
+ */
+export interface AIGWCAMCredentialConfig {
+  /**
+   * <p>SecretId</p>
+   */
+  SecretId?: string
+  /**
+   * <p>SecretKey</p>
+   */
+  SecretKey?: string
 }
 
 /**

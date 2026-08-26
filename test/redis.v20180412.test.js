@@ -258,9 +258,9 @@ it("redis.v20180412.DescribeSecondLevelBackupInfo", async function () {
     }
 })
 
-it("redis.v20180412.ModifyConnectionConfig", async function () {
+it("redis.v20180412.DisassociateSecurityGroups", async function () {
     try {
-       const data = await client.ModifyConnectionConfig({})
+       const data = await client.DisassociateSecurityGroups({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -568,9 +568,9 @@ it("redis.v20180412.ReleaseWanAddress", async function () {
     }
 })
 
-it("redis.v20180412.DisassociateSecurityGroups", async function () {
+it("redis.v20180412.ModifyConnectionConfig", async function () {
     try {
-       const data = await client.DisassociateSecurityGroups({})
+       const data = await client.ModifyConnectionConfig({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1111,6 +1111,16 @@ it("redis.v20180412.DescribeReplicationGroupInstance", async function () {
 it("redis.v20180412.DescribeProxySlowLog", async function () {
     try {
        const data = await client.DescribeProxySlowLog({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("redis.v20180412.DescribeInstancePasswordPolicy", async function () {
+    try {
+       const data = await client.DescribeInstancePasswordPolicy({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

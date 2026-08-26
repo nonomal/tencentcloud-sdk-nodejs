@@ -20,14 +20,22 @@ import { ClientConfig } from "../../../common/interface"
 import {
   PauseSandboxInstanceResponse,
   PauseSandboxInstanceRequest,
+  StorageMount,
   CosStorageSource,
   StartSandboxInstanceRequest,
-  SandboxInstance,
+  CreateDeploymentRequest,
   CfsStorageSource,
+  AffinityConfiguration,
   StopSandboxInstanceRequest,
+  MetadataVar,
   DescribeSandboxToolListResponse,
+  ComputerConfiguration,
   CreateAPIKeyResponse,
+  AcquireDeploymentTokenRequest,
   DescribeSandboxToolListRequest,
+  NetworkConfiguration,
+  AcquireDeploymentTokenResponse,
+  DescribeDeploymentListResponse,
   CreateSandboxToolRequest,
   HttpGetAction,
   DescribePreCacheImageTaskResponse,
@@ -35,29 +43,36 @@ import {
   DeleteAPIKeyResponse,
   APIKeyInfo,
   UpdateSandboxInstanceResponse,
-  DescribePreCacheImageTaskRequest,
-  StorageSource,
+  Deployment,
+  DeleteDeploymentResponse,
   ResourceConfiguration,
   CreateSandboxToolResponse,
+  DescribeDeploymentResponse,
   CreateAPIKeyRequest,
-  NetworkConfiguration,
+  DescribeAPIKeyListRequest,
+  SandboxInstance,
   DeleteSandboxToolResponse,
   PortConfiguration,
   DNSConfig,
+  ScalingConfiguration,
   SandboxTool,
+  DescribePreCacheImageTaskRequest,
   MountOption,
   Filter,
   StartSandboxInstanceResponse,
   CustomConfiguration,
   ImageStorageSource,
   AcquireSandboxInstanceTokenRequest,
+  WAAConfiguration,
   LogSources,
+  StorageSource,
   DescribeAPIKeyListResponse,
   CreatePreCacheImageTaskResponse,
+  DescribeDeploymentRequest,
   DescribeSandboxInstanceListRequest,
   CustomConfigurationDetail,
-  DescribeAPIKeyListRequest,
-  UpdateSandboxInstanceRequest,
+  CreateDeploymentResponse,
+  ModifyDeploymentRequest,
   DeleteSandboxToolRequest,
   UpdateSandboxToolResponse,
   VPCConfig,
@@ -65,17 +80,20 @@ import {
   DeleteAPIKeyRequest,
   AcquireSandboxInstanceTokenResponse,
   ProbeConfiguration,
+  ModifyDeploymentResponse,
   CreatePreCacheImageTaskRequest,
   CLSConfig,
   LogConfiguration,
-  MetadataVar,
+  DeleteDeploymentRequest,
   Tag,
   UpdateSandboxToolRequest,
   ResumeSandboxInstanceResponse,
-  StorageMount,
+  LifecycleConfiguration,
   EnvVar,
   DescribeSandboxInstanceListResponse,
+  DescribeDeploymentListRequest,
   StopSandboxInstanceResponse,
+  UpdateSandboxInstanceRequest,
 } from "./ags_models"
 
 /**
@@ -98,23 +116,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 更新沙箱实例
+   * 修改 Deployment
    */
-  async UpdateSandboxInstance(
-    req: UpdateSandboxInstanceRequest,
-    cb?: (error: string, rep: UpdateSandboxInstanceResponse) => void
-  ): Promise<UpdateSandboxInstanceResponse> {
-    return this.request("UpdateSandboxInstance", req, cb)
+  async ModifyDeployment(
+    req: ModifyDeploymentRequest,
+    cb?: (error: string, rep: ModifyDeploymentResponse) => void
+  ): Promise<ModifyDeploymentResponse> {
+    return this.request("ModifyDeployment", req, cb)
   }
 
   /**
-   * 启动沙箱实例
+   * 查询 Deployment 列表
    */
-  async StartSandboxInstance(
-    req: StartSandboxInstanceRequest,
-    cb?: (error: string, rep: StartSandboxInstanceResponse) => void
-  ): Promise<StartSandboxInstanceResponse> {
-    return this.request("StartSandboxInstance", req, cb)
+  async DescribeDeploymentList(
+    req: DescribeDeploymentListRequest,
+    cb?: (error: string, rep: DescribeDeploymentListResponse) => void
+  ): Promise<DescribeDeploymentListResponse> {
+    return this.request("DescribeDeploymentList", req, cb)
   }
 
   /**
@@ -129,13 +147,53 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询镜像预热任务信息
+   * 创建新的API密钥，用于调用Agent Sandbox接口。相较于腾讯云Secret ID Secret Key支持调用所有接口使用，仅有部分接口支持使用API密钥调用。
    */
-  async DescribePreCacheImageTask(
-    req: DescribePreCacheImageTaskRequest,
-    cb?: (error: string, rep: DescribePreCacheImageTaskResponse) => void
-  ): Promise<DescribePreCacheImageTaskResponse> {
-    return this.request("DescribePreCacheImageTask", req, cb)
+  async CreateAPIKey(
+    req: CreateAPIKeyRequest,
+    cb?: (error: string, rep: CreateAPIKeyResponse) => void
+  ): Promise<CreateAPIKeyResponse> {
+    return this.request("CreateAPIKey", req, cb)
+  }
+
+  /**
+   * 创建 Deployment
+   */
+  async CreateDeployment(
+    req: CreateDeploymentRequest,
+    cb?: (error: string, rep: CreateDeploymentResponse) => void
+  ): Promise<CreateDeploymentResponse> {
+    return this.request("CreateDeployment", req, cb)
+  }
+
+  /**
+   * 启动沙箱实例
+   */
+  async StartSandboxInstance(
+    req: StartSandboxInstanceRequest,
+    cb?: (error: string, rep: StartSandboxInstanceResponse) => void
+  ): Promise<StartSandboxInstanceResponse> {
+    return this.request("StartSandboxInstance", req, cb)
+  }
+
+  /**
+   * 更新沙箱工具
+   */
+  async UpdateSandboxTool(
+    req: UpdateSandboxToolRequest,
+    cb?: (error: string, rep: UpdateSandboxToolResponse) => void
+  ): Promise<UpdateSandboxToolResponse> {
+    return this.request("UpdateSandboxTool", req, cb)
+  }
+
+  /**
+   * 查询 Deployment 信息
+   */
+  async DescribeDeployment(
+    req: DescribeDeploymentRequest,
+    cb?: (error: string, rep: DescribeDeploymentResponse) => void
+  ): Promise<DescribeDeploymentResponse> {
+    return this.request("DescribeDeployment", req, cb)
   }
 
   /**
@@ -146,6 +204,46 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ResumeSandboxInstanceResponse) => void
   ): Promise<ResumeSandboxInstanceResponse> {
     return this.request("ResumeSandboxInstance", req, cb)
+  }
+
+  /**
+   * 查询沙箱实例列表
+   */
+  async DescribeSandboxInstanceList(
+    req: DescribeSandboxInstanceListRequest,
+    cb?: (error: string, rep: DescribeSandboxInstanceListResponse) => void
+  ): Promise<DescribeSandboxInstanceListResponse> {
+    return this.request("DescribeSandboxInstanceList", req, cb)
+  }
+
+  /**
+   * 暂停沙箱实例
+   */
+  async PauseSandboxInstance(
+    req: PauseSandboxInstanceRequest,
+    cb?: (error: string, rep: PauseSandboxInstanceResponse) => void
+  ): Promise<PauseSandboxInstanceResponse> {
+    return this.request("PauseSandboxInstance", req, cb)
+  }
+
+  /**
+   * 删除 Deployment
+   */
+  async DeleteDeployment(
+    req: DeleteDeploymentRequest,
+    cb?: (error: string, rep: DeleteDeploymentResponse) => void
+  ): Promise<DeleteDeploymentResponse> {
+    return this.request("DeleteDeployment", req, cb)
+  }
+
+  /**
+   * 创建沙箱工具
+   */
+  async CreateSandboxTool(
+    req: CreateSandboxToolRequest,
+    cb?: (error: string, rep: CreateSandboxToolResponse) => void
+  ): Promise<CreateSandboxToolResponse> {
+    return this.request("CreateSandboxTool", req, cb)
   }
 
   /**
@@ -169,26 +267,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询沙箱实例列表
-   */
-  async DescribeSandboxInstanceList(
-    req: DescribeSandboxInstanceListRequest,
-    cb?: (error: string, rep: DescribeSandboxInstanceListResponse) => void
-  ): Promise<DescribeSandboxInstanceListResponse> {
-    return this.request("DescribeSandboxInstanceList", req, cb)
-  }
-
-  /**
-   * 创建新的API密钥，用于调用Agent Sandbox接口。相较于腾讯云Secret ID Secret Key支持调用所有接口使用，仅有部分接口支持使用API密钥调用。
-   */
-  async CreateAPIKey(
-    req: CreateAPIKeyRequest,
-    cb?: (error: string, rep: CreateAPIKeyResponse) => void
-  ): Promise<CreateAPIKeyResponse> {
-    return this.request("CreateAPIKey", req, cb)
-  }
-
-  /**
    * 删除沙箱工具
    */
   async DeleteSandboxTool(
@@ -199,13 +277,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 暂停沙箱实例
+   * 更新沙箱实例
    */
-  async PauseSandboxInstance(
-    req: PauseSandboxInstanceRequest,
-    cb?: (error: string, rep: PauseSandboxInstanceResponse) => void
-  ): Promise<PauseSandboxInstanceResponse> {
-    return this.request("PauseSandboxInstance", req, cb)
+  async UpdateSandboxInstance(
+    req: UpdateSandboxInstanceRequest,
+    cb?: (error: string, rep: UpdateSandboxInstanceResponse) => void
+  ): Promise<UpdateSandboxInstanceResponse> {
+    return this.request("UpdateSandboxInstance", req, cb)
+  }
+
+  /**
+   * 查询镜像预热任务信息
+   */
+  async DescribePreCacheImageTask(
+    req: DescribePreCacheImageTaskRequest,
+    cb?: (error: string, rep: DescribePreCacheImageTaskResponse) => void
+  ): Promise<DescribePreCacheImageTaskResponse> {
+    return this.request("DescribePreCacheImageTask", req, cb)
   }
 
   /**
@@ -229,22 +317,12 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建沙箱工具
+   * 获取 Deployment 访问 Token
    */
-  async CreateSandboxTool(
-    req: CreateSandboxToolRequest,
-    cb?: (error: string, rep: CreateSandboxToolResponse) => void
-  ): Promise<CreateSandboxToolResponse> {
-    return this.request("CreateSandboxTool", req, cb)
-  }
-
-  /**
-   * 更新沙箱工具
-   */
-  async UpdateSandboxTool(
-    req: UpdateSandboxToolRequest,
-    cb?: (error: string, rep: UpdateSandboxToolResponse) => void
-  ): Promise<UpdateSandboxToolResponse> {
-    return this.request("UpdateSandboxTool", req, cb)
+  async AcquireDeploymentToken(
+    req: AcquireDeploymentTokenRequest,
+    cb?: (error: string, rep: AcquireDeploymentTokenResponse) => void
+  ): Promise<AcquireDeploymentTokenResponse> {
+    return this.request("AcquireDeploymentToken", req, cb)
   }
 }

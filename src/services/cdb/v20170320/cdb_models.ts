@@ -5897,8 +5897,7 @@ export interface ModifyNameOrDescByDpIdResponse {
  */
 export interface DescribeClusterInfoRequest {
   /**
-   * 实例 ID。可通过 [DescribeDBInstances](https://cloud.tencent.com/document/product/236/15872) 接口获取。
-说明：仅能输入实例架构为云盘版的实例 ID，对应控制台实例配置显示为“云盘版（云盘）”的实例。
+   * <p>实例 ID。可通过 <a href="https://cloud.tencent.com/document/product/236/15872">DescribeDBInstances</a> 接口获取。<br>说明：仅能输入实例架构为云盘版的实例 ID，对应控制台实例配置显示为“云盘版（云盘）”的实例。</p>
    */
   InstanceId: string
 }
@@ -10236,27 +10235,27 @@ export interface Outbound {
  */
 export interface DescribeClusterInfoResponse {
   /**
-   * 实例名称。
+   * <p>实例名称。</p>
    */
   ClusterName?: string
   /**
-   * 云盘版实例的读写地址信息。
+   * <p>云盘版实例的读写地址信息。</p>
    */
   ReadWriteAddress?: AddressInfo
   /**
-   * 云盘版实例的只读地址信息。
+   * <p>云盘版实例的只读地址信息。</p>
    */
   ReadOnlyAddress?: Array<AddressInfo>
   /**
-   * 云盘版实例的节点列表信息。
+   * <p>云盘版实例的节点列表信息。</p>
    */
   NodeList?: Array<ClusterNodeInfo>
   /**
-   * 只读空间保护阈值,单位GB
+   * <p>只读空间保护阈值,单位GB</p>
    */
   ReadonlyLimit?: number
   /**
-   * 实例节点数。
+   * <p>实例节点数。</p>
    */
   NodeCount?: number
   /**

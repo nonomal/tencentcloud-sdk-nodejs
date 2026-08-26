@@ -91,6 +91,7 @@ import {
   TriggerWorkflowResult,
   CodePermissionsResultItem,
   GetTaskVersionResponse,
+  WorkspaceExt,
   GetOpsWorkflowRequest,
   ListTaskVersionsResponse,
   ProjectBrief,

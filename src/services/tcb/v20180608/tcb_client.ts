@@ -316,6 +316,7 @@ import {
   MessageLocalized,
   DescribeCloudAppVersionRequest,
   OwnershipVerificationDnsInfo,
+  SMSCloudFunctionConfig,
   DescribeTableResponse,
   MetricUsage,
   DescribeCloudBaseRunBuildLogResponse,

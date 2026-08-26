@@ -1767,7 +1767,7 @@ export class Client extends AbstractClient {
    * 本接口（TransferClusterPrepayToPostpay）用于将预付费集群转为后付费集群
    */
   async TransferClusterPrepayToPostpay(
-    req?: TransferClusterPrepayToPostpayRequest,
+    req: TransferClusterPrepayToPostpayRequest,
     cb?: (error: string, rep: TransferClusterPrepayToPostpayResponse) => void
   ): Promise<TransferClusterPrepayToPostpayResponse> {
     return this.request("TransferClusterPrepayToPostpay", req, cb)

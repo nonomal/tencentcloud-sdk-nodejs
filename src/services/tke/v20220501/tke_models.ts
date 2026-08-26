@@ -1358,52 +1358,52 @@ export interface SortBy {
  */
 export interface DataDisk {
   /**
-   * 云盘类型
+   * <p>云盘类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DiskType: string
   /**
-   * 文件系统(ext3/ext4/xfs)
+   * <p>文件系统(ext3/ext4/xfs)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FileSystem: string
   /**
-   * 云盘大小(G）
+   * <p>云盘大小(G）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DiskSize: number
   /**
-   * 是否自动化格式盘并挂载
+   * <p>是否自动化格式盘并挂载</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AutoFormatAndMount: boolean
   /**
-   * 挂载设备名或分区名
+   * <p>挂载设备名或分区名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DiskPartition: string
   /**
-   * 挂载目录
+   * <p>挂载目录</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   MountTarget?: string
   /**
-   * 传入该参数用于创建加密云盘，取值固定为ENCRYPT
+   * <p>传入该参数用于创建加密云盘，取值固定为ENCRYPT</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Encrypt?: string
   /**
-   * 购买加密盘时自定义密钥，当传入该参数时, Encrypt入参不为空
+   * <p>购买加密盘时自定义密钥，当传入该参数时, Encrypt入参不为空</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   KmsKeyId?: string
   /**
-   * 快照ID，如果传入则根据此快照创建云硬盘，快照类型必须为数据盘快照
+   * <p>快照ID，如果传入则根据此快照创建云硬盘，快照类型必须为数据盘快照</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SnapshotId?: string
   /**
-   * 云硬盘性能，单位：MB/s。使用此参数可给云硬盘购买额外的性能
+   * <p>云硬盘性能，单位：MB/s。使用此参数可给云硬盘购买额外的性能</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ThroughputPerformance?: number
@@ -2370,7 +2370,7 @@ export interface UpdateNativeNodePoolParam {
    */
   AutoRepair?: boolean
   /**
-   * <p>计费类型</p><p>枚举值：</p><ul><li>POSTPAID_BY_HOUR： 目标计费类型为按量计费</li><li>PREPAID： 目标计费类型为包年包月计费</li></ul>
+   * <p>计费类型</p><p>枚举值：</p><ul><li>POSTPAID_BY_HOUR： 目标计费类型为按量计费</li><li>PREPAID： 目标计费类型为包年包月计费</li><li>UNDERWRITE： 目标计费类型为包销计费</li></ul>
    */
   InstanceChargeType?: string
   /**

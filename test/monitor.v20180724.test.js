@@ -138,6 +138,16 @@ it("monitor.v20180724.DescribePolicyObjectCount", async function () {
     }
 })
 
+it("monitor.v20180724.CreateAlarmHistoryShield", async function () {
+    try {
+       const data = await client.CreateAlarmHistoryShield({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("monitor.v20180724.ModifyAlarmReceivers", async function () {
     try {
        const data = await client.ModifyAlarmReceivers({})
@@ -578,9 +588,9 @@ it("monitor.v20180724.CreateConditionsTemplate", async function () {
     }
 })
 
-it("monitor.v20180724.DescribeAlarmNoticeCallbacks", async function () {
+it("monitor.v20180724.DescribeExternalClusterUninstallCommand", async function () {
     try {
-       const data = await client.DescribeAlarmNoticeCallbacks({})
+       const data = await client.DescribeExternalClusterUninstallCommand({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -681,6 +691,16 @@ it("monitor.v20180724.DeleteGrafanaIntegration", async function () {
 it("monitor.v20180724.BindPrometheusManagedGrafana", async function () {
     try {
        const data = await client.BindPrometheusManagedGrafana({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20180724.UninstallGrafanaDashboard", async function () {
+    try {
+       const data = await client.UninstallGrafanaDashboard({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -878,9 +898,9 @@ it("monitor.v20180724.SetDefaultAlarmPolicy", async function () {
     }
 })
 
-it("monitor.v20180724.DeleteGrafanaInstance", async function () {
+it("monitor.v20180724.DescribeAlarmHistoryShield", async function () {
     try {
-       const data = await client.DeleteGrafanaInstance({})
+       const data = await client.DescribeAlarmHistoryShield({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -991,6 +1011,16 @@ it("monitor.v20180724.CreatePrometheusTemp", async function () {
 it("monitor.v20180724.DescribeSSOAccount", async function () {
     try {
        const data = await client.DescribeSSOAccount({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20180724.ModifyAlarmHistoryShield", async function () {
+    try {
+       const data = await client.ModifyAlarmHistoryShield({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1508,9 +1538,9 @@ it("monitor.v20180724.CleanGrafanaInstance", async function () {
     }
 })
 
-it("monitor.v20180724.UninstallGrafanaDashboard", async function () {
+it("monitor.v20180724.DeleteAlarmHistoryShields", async function () {
     try {
-       const data = await client.UninstallGrafanaDashboard({})
+       const data = await client.DeleteAlarmHistoryShields({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1688,9 +1718,9 @@ it("monitor.v20180724.DeletePrometheusTemp", async function () {
     }
 })
 
-it("monitor.v20180724.DescribeExternalClusterUninstallCommand", async function () {
+it("monitor.v20180724.DescribeAlarmNoticeCallbacks", async function () {
     try {
-       const data = await client.DescribeExternalClusterUninstallCommand({})
+       const data = await client.DescribeAlarmNoticeCallbacks({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1751,6 +1781,16 @@ it("monitor.v20180724.TerminatePrometheusInstances", async function () {
 it("monitor.v20180724.DescribePrometheusInstancesOverview", async function () {
     try {
        const data = await client.DescribePrometheusInstancesOverview({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20180724.DeleteGrafanaInstance", async function () {
+    try {
+       const data = await client.DeleteGrafanaInstance({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

@@ -564,8 +564,7 @@ export interface DescribeFileDownloadUrlRequest {
  */
 export interface UpgradeDCDBInstanceResponse {
   /**
-   * 长订单号。可以据此调用 DescribeOrders
- 查询订单详细信息，或在支付失败时调用用户账号相关接口进行支付。
+   * <p>长订单号。可以据此调用 DescribeOrders<br> 查询订单详细信息，或在支付失败时调用用户账号相关接口进行支付。</p>
    */
   DealName?: string
   /**
@@ -744,7 +743,7 @@ export interface CreateAccountRequest {
  */
 export interface UpgradeDedicatedDCDBInstanceResponse {
   /**
-   * 异步任务流程ID
+   * <p>异步任务流程ID</p>
    */
   FlowId?: number
   /**
@@ -3274,37 +3273,41 @@ export interface DescribeDCDBRenewalPriceResponse {
  */
 export interface UpgradeDedicatedDCDBInstanceRequest {
   /**
-   * 升级类型，取值为ADD，SPLIT和EXPAND。ADD-添加分片；SPLIT-切分某个分片；EXPAND-垂直扩容某个分片
+   * <p>升级类型，取值为ADD，SPLIT和EXPAND。ADD-添加分片；SPLIT-切分某个分片；EXPAND-垂直扩容某个分片</p>
    */
   UpgradeType: string
   /**
-   * 实例ID，形如 dcdbt-mlfjm74h
+   * <p>实例ID，形如 dcdbt-mlfjm74h</p>
    */
   InstanceId: string
   /**
-   * 当UpgradeType取值为ADD时，添加分片的配置参数
+   * <p>当UpgradeType取值为ADD时，添加分片的配置参数</p>
    */
   AddShardConfig?: AddShardConfig
   /**
-   * 当UpgradeType取值为EXPAND时，垂直扩容分片的配置参数
+   * <p>当UpgradeType取值为EXPAND时，垂直扩容分片的配置参数</p>
    */
   ExpandShardConfig?: ExpandShardConfig
   /**
-   * 当UpgradeType取值为SPLIT时，切分分片的配置参数
+   * <p>当UpgradeType取值为SPLIT时，切分分片的配置参数</p>
    */
   SplitShardConfig?: SplitShardConfig
   /**
-   * 错过切换时间窗口时，是否自动重试一次，0-否，1-是
+   * <p>错过切换时间窗口时，是否自动重试一次，0-否，1-是</p>
    */
   SwitchAutoRetry?: number
   /**
-   * 切换时间窗口开始时间
+   * <p>切换时间窗口开始时间</p>
    */
   SwitchStartTime?: string
   /**
-   * 切换时间窗口结束时间
+   * <p>切换时间窗口结束时间</p>
    */
   SwitchEndTime?: string
+  /**
+   * <p>多个分片同时发起扩容，并发切换中的切换时间间隔，即当前分片切换开始时间和下一个分片的切换开始时间间隔，不传默认为1。</p><p>取值范围：[1, 180]</p><p>单位：秒</p>
+   */
+  SwitchInterval?: number
 }
 
 /**
@@ -4580,44 +4583,45 @@ export interface DatabaseProcedure {
  */
 export interface UpgradeHourDCDBInstanceRequest {
   /**
-   * 待升级的实例ID。形如：dcdbt-ow728lmc，可以通过 DescribeDCDBInstances 查询实例详情获得。
+   * <p>待升级的实例ID。形如：dcdbt-ow728lmc，可以通过 DescribeDCDBInstances 查询实例详情获得。</p>
    */
   InstanceId: string
   /**
-   * 升级类型，取值范围: 
-<li> ADD: 新增分片 </li> 
- <li> EXPAND: 升级实例中的已有分片 </li> 
- <li> SPLIT: 将已有分片中的数据切分到新增分片上</li>
+   * <p>升级类型，取值范围: </p><li> ADD: 新增分片 </li>  <li> EXPAND: 升级实例中的已有分片 </li>  <li> SPLIT: 将已有分片中的数据切分到新增分片上</li>
    */
   UpgradeType: string
   /**
-   * 新增分片配置，当UpgradeType为ADD时生效。
+   * <p>新增分片配置，当UpgradeType为ADD时生效。</p>
    */
   AddShardConfig?: AddShardConfig
   /**
-   * 扩容分片配置，当UpgradeType为EXPAND时生效。
+   * <p>扩容分片配置，当UpgradeType为EXPAND时生效。</p>
    */
   ExpandShardConfig?: ExpandShardConfig
   /**
-   * 切分分片配置，当UpgradeType为SPLIT时生效。
+   * <p>切分分片配置，当UpgradeType为SPLIT时生效。</p>
    */
   SplitShardConfig?: SplitShardConfig
   /**
-   * 切换开始时间，格式如: "2019-12-12 07:00:00"。开始时间必须在当前时间一个小时以后，3天以内。
+   * <p>切换开始时间，格式如: &quot;2019-12-12 07:00:00&quot;。开始时间必须在当前时间一个小时以后，3天以内。</p>
    */
   SwitchStartTime?: string
   /**
-   * 切换结束时间,  格式如: "2019-12-12 07:15:00"，结束时间必须大于开始时间。
+   * <p>切换结束时间,  格式如: &quot;2019-12-12 07:15:00&quot;，结束时间必须大于开始时间。</p>
    */
   SwitchEndTime?: string
   /**
-   * 是否自动重试。 0：不自动重试  1：自动重试
+   * <p>是否自动重试。 0：不自动重试  1：自动重试</p>
    */
   SwitchAutoRetry?: number
   /**
-   * 变更部署时指定的新可用区列表，第1个为主可用区，其余为从可用区
+   * <p>变更部署时指定的新可用区列表，第1个为主可用区，其余为从可用区</p>
    */
   Zones?: Array<string>
+  /**
+   * <p>多个分片同时发起扩容，并发切换中的切换时间间隔，即当前分片切换开始时间和下一个分片的切换开始时间间隔，不传默认为1。</p><p>取值范围：[1, 180]</p><p>单位：秒</p>
+   */
+  SwitchInterval?: number
 }
 
 /**
@@ -4851,52 +4855,53 @@ export interface DescribeDatabaseObjectsRequest {
  */
 export interface UpgradeDCDBInstanceRequest {
   /**
-   * 待升级的实例ID。形如：dcdbt-ow728lmc，可以通过 DescribeDCDBInstances 查询实例详情获得。
+   * <p>待升级的实例ID。形如：dcdbt-ow728lmc，可以通过 DescribeDCDBInstances 查询实例详情获得。</p>
    */
   InstanceId: string
   /**
-   * 升级类型，取值范围: 
-<li> ADD: 新增分片 </li> 
- <li> EXPAND: 升级实例中的已有分片 </li> 
- <li> SPLIT: 将已有分片中的数据切分到新增分片上</li>
+   * <p>升级类型，取值范围: </p><li> ADD: 新增分片 </li>  <li> EXPAND: 升级实例中的已有分片 </li>  <li> SPLIT: 将已有分片中的数据切分到新增分片上</li>
    */
   UpgradeType: string
   /**
-   * 新增分片配置，当UpgradeType为ADD时生效。
+   * <p>新增分片配置，当UpgradeType为ADD时生效。</p>
    */
   AddShardConfig?: AddShardConfig
   /**
-   * 扩容分片配置，当UpgradeType为EXPAND时生效。
+   * <p>扩容分片配置，当UpgradeType为EXPAND时生效。</p>
    */
   ExpandShardConfig?: ExpandShardConfig
   /**
-   * 切分分片配置，当UpgradeType为SPLIT时生效。
+   * <p>切分分片配置，当UpgradeType为SPLIT时生效。</p>
    */
   SplitShardConfig?: SplitShardConfig
   /**
-   * 是否自动使用代金券进行支付，默认不使用。
+   * <p>是否自动使用代金券进行支付，默认不使用。</p>
    */
   AutoVoucher?: boolean
   /**
-   * 代金券ID列表，目前仅支持指定一张代金券。
+   * <p>代金券ID列表，目前仅支持指定一张代金券。</p>
    */
   VoucherIds?: Array<string>
   /**
-   * 变更部署时指定的新可用区列表，第1个为主可用区，其余为从可用区
+   * <p>变更部署时指定的新可用区列表，第1个为主可用区，其余为从可用区</p>
    */
   Zones?: Array<string>
   /**
-   * 切换开始时间，格式如: "2019-12-12 07:00:00"。开始时间必须在当前时间一个小时以后，3天以内。
+   * <p>切换开始时间，格式如: &quot;2019-12-12 07:00:00&quot;。开始时间必须在当前时间一个小时以后，3天以内。</p>
    */
   SwitchStartTime?: string
   /**
-   * 切换结束时间, 格式如: "2019-12-12 07:15:00"，结束时间必须大于开始时间。
+   * <p>切换结束时间, 格式如: &quot;2019-12-12 07:15:00&quot;，结束时间必须大于开始时间。</p>
    */
   SwitchEndTime?: string
   /**
-   * 是否自动重试。 0：不自动重试 1：自动重试
+   * <p>是否自动重试。 0：不自动重试 1：自动重试</p>
    */
   SwitchAutoRetry?: number
+  /**
+   * <p>多个分片同时发起扩容，并发切换中的切换时间间隔，即当前分片切换开始时间和下一个分片的切换开始时间间隔，不传默认为1。</p><p>取值范围：[1, 180]</p><p>单位：秒</p>
+   */
+  SwitchInterval?: number
 }
 
 /**

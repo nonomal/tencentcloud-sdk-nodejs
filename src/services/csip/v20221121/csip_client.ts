@@ -75,15 +75,15 @@ import {
   DescribeNotifySettingAkRequest,
   VPRExplainDimensionItem,
   DeleteImageRegistryScanTaskRequest,
-  ComplianceCheckItemsOverview,
-  DspmIdentifyAssetStatistic,
+  DspmStatisticsItem,
+  CheckImageRegistryInstanceNameDuplicateRequest,
   ImageAssociatedAssetCount,
   DescribeCosAuditDictionaryListRequest,
   DescribeCustomRiskRuleDetailRequest,
   ImageComponent,
   DescribeSkillScanPayInfoResponse,
   DescribeBaselineOverviewRequest,
-  DspmIdentifyRuleItem,
+  DescribeVulViewVulRiskListRequest,
   DescribeRiskRulesRequest,
   DescribeAssetComponentRelatedImageListResponse,
   DescribeCWPExposuresResponse,
@@ -126,7 +126,7 @@ import {
   CreateImageSensitiveWhitelistRequest,
   DescribeCWPOrderListResponse,
   DescribeVulRiskRelateHostRequest,
-  DescribePodContainerListResponse,
+  DescribeBaselineSyncConfResponse,
   DescribeCFGRiskStatisticsResponse,
   DescribeImageVirusWhitelistDetailRequest,
   UebaUserSummaryElement,
@@ -159,6 +159,7 @@ import {
   DescribeTopAttackInfoResponse,
   CreatePublicAssetsExportJobRequest,
   DescribeAssetInfoRequest,
+  TaskCenterWeakPwdRiskInputParam,
   DescribeVulScanTaskListResponse,
   DescribeSecurityScoreRuleResponse,
   PortDetectInfo,
@@ -169,9 +170,11 @@ import {
   DescribeUebaRuleResponse,
   DescribeAssetTreeResponse,
   ModifyBaselineSyncConfRequest,
+  CreateSandboxLLMAuditRuleRequest,
   EdrAlertCategoryCount,
   DescribeEdrAlertThreatTagsResponse,
   DeleteDspmAssetAccountResponse,
+  ModifyDspmCkafkaStopResponse,
   DescribeEdrLogCollectPathsRequest,
   CreateCFGRiskPDFReportExportJobResponse,
   DescribeAssetLastSyncTimeResponse,
@@ -194,7 +197,7 @@ import {
   ModifyVulScanPeriodicRequest,
   DeleteDspmBackupLogListResponse,
   CreateImageAssetListExportJobRequest,
-  DspmAssetAccountIdentify,
+  BaselineOverviewStatistic,
   DescribeCosAlarmTrendDataRequest,
   ModifyDspmWhitelistStrategyRequest,
   ContainerWebServiceItem,
@@ -211,9 +214,10 @@ import {
   DspmRiskStrategy,
   DescribeClusterInstallCommandResponse,
   ImageLayer,
-  DescribeSCFAliasListRequest,
+  CreateDspmAuditFilterStrategyRequest,
   UserCSPMInfo,
   DescribeAssetTagsResponse,
+  UninstallKeySandboxSkillResponse,
   DescribeVulScanTaskDetailResponse,
   AssetViewVULRisk,
   HostInfo,
@@ -224,6 +228,7 @@ import {
   DescribeCosAkAssetRequest,
   ModifyMachineRemarkResponse,
   CreateDspmIdentifyComplianceCategoryRelationRequest,
+  CreateDomainAndIpResponse,
   CosAssetFileIdentifyInfo,
   DescribeImageRegistryAssetOverviewRequest,
   DeleteDspmIdentifyComplianceGroupResponse,
@@ -231,6 +236,7 @@ import {
   ScanEDRTaskAgainResponse,
   DescribeIpInvokeRecordRequest,
   AssetTagTreeNode,
+  TrafficSandboxDLPRuleContentItem,
   FieldStyle,
   CreateCloudFunctionExportJobRequest,
   ModifyOrganizationAccountStatusRequest,
@@ -238,15 +244,16 @@ import {
   CosInvokeDetailInfo,
   DescribeDspmAccessTopologyAssetsResponse,
   DeleteEDRRulesResponse,
+  ModifyDspmCkafkaStartRequest,
   ExportTasksRequest,
   DescribeUebaRuleRequest,
-  AssetProcessItem,
+  DescribeDspmAssetFieldSamplesResponse,
   AssetItem,
   AssetComponent,
   CustomAgentRunModePolicy,
   RiskDetailItem,
   DescribeClbListenerListResponse,
-  ModifyDspmIdentifyLevelGroupRequest,
+  DescribeSandboxDLPRuleListResponse,
   DescribeNatRulesRequest,
   DescribeLighthouseFirewallRulesRequest,
   SCFNamespaceInfo,
@@ -259,17 +266,19 @@ import {
   DescribeImageRegistryTimedScanTaskConfigRequest,
   AddDspmAssetManagerRequest,
   DescribeImageVulListRequest,
+  RouteInfo,
   DescribeImageRegistryScanTaskListResponse,
   DspmUinUser,
   AssetFilters,
   ModifyDspmRiskStrategyResponse,
+  CreateSandboxFileRuleResponse,
   DescribeRiskTrendDataResponse,
   ModifyEdrAlertIsolationRequest,
   HostVulRisk,
   DescribeCallRecordResponse,
   DescribeIaCFileListRequest,
   CosAkSet,
-  DataSearchBug,
+  DescribeDspmIdentifyComplianceGroupDetailRequest,
   AIAgentSkillInfo,
   ClusterNodeListItem,
   DescribeDspmAssetDatabasesRequest,
@@ -280,6 +289,7 @@ import {
   DescribeRiskCenterAssetViewCFGRiskListRequest,
   CreateAssetComponentListExportJobResponse,
   DescribeImageVulSummaryListResponse,
+  DeleteDspmShareUserDataResponse,
   DeleteWebhookPoliciesResponse,
   AiScheduleInfo,
   DescribeBackendScanEngineRegionListRequest,
@@ -293,6 +303,7 @@ import {
   DeleteIaCAccessTokenResponse,
   DescribeCheckConnectivityHostListResponse,
   VulFixItem,
+  InstallKeySandboxSkillResponse,
   ModifyNFSScanConfResponse,
   AccessKeyRisk,
   DBAssetVO,
@@ -309,6 +320,7 @@ import {
   ModifyLoginWhiteRecordResponse,
   DescribeSecurityGroupPolicyResponse,
   AutoTagRuleItem,
+  ModifySandboxACLRuleRequest,
   DescribeAssetRiskListResponse,
   CreateDspmIdentifyCategoryResponse,
   AccessCredentialOutput,
@@ -336,6 +348,7 @@ import {
   LoginWhiteCombinedInfo,
   DescribeDspmAssetAccountsResponse,
   CreatePublicAssetsExportJobResponse,
+  ModifyNotifyAssetConfigRequest,
   DeleteCSIPMalwareScanTaskRequest,
   DescribeDspmAssetIdsResponse,
   ModifyDspmAssetSecurityAnalysisSwitchResponse,
@@ -343,6 +356,7 @@ import {
   ImageVulWhitelist,
   DescribeEdrAlertListResponse,
   RiskTrendItem,
+  ModifyDspmCkafkaStopRequest,
   ModifyDspmAssetAccountResponse,
   DescribeCosActionListRequest,
   CreateAllAssetsExportJobRequest,
@@ -363,6 +377,7 @@ import {
   RuleContentProcessNetwork,
   ModifyDspmApproveStatusResponse,
   DescribeImageAssociatedAssetCountResponse,
+  DeleteSandboxACLRuleRequest,
   DescribeAIAnalysisHistoryResponse,
   ModifyAILinkSettingResponse,
   TrafficSandboxACLRuleContentItem,
@@ -370,6 +385,7 @@ import {
   ModifyDspmIdentifyInfoRequest,
   DescribeBanStatusRequest,
   DescribeAIAgentAssetListRequest,
+  NewAlertKey,
   DescribeAssetFilterViewsRequest,
   CreateScanStatisticExportJobResponse,
   AccessAIAnalysisSMTPResponse,
@@ -387,30 +403,36 @@ import {
   DescribeEdrAlertCountForContainerRequest,
   CreateDynamicAssetsExportJobRequest,
   ImageAssociatedContainer,
+  DescribeDspmSessionListRequest,
   DeleteSandboxLLMAuditRuleResponse,
   StatisticalFilter,
   DspmIdentifyCategoryItem,
+  DescribeSandboxDLPRuleListRequest,
   DescribeRiskCenterAssetViewVULRiskListResponse,
   OsName,
   ModifyRiskCenterRiskStatusRequest,
-  NewAlertKey,
+  DescribeAccessKeyWhiteListResponse,
   DescribeLoginTypeGlobalConfResponse,
   DescribeDspmAssetLoginCredentialResponse,
   DescribeCosPolicyResponse,
   CreateExposuresExportJobResponse,
   DescribeExportJobManageListResponse,
   DescribeCosRiskActionListRequest,
+  DescribeDspmAuditFilterStrategyResponse,
   DeleteVulWhitelistRequest,
   ScoreRuleItem,
   DescribeAbnormalCallRecordRequest,
   DescribeExposureTrendResponse,
   ModifyCosAuditBucketMonitorStatusRequest,
   CreateClusterAssetSyncTaskRequest,
+  ModifyDspmIdentifyComplianceRuleLevelInfoResponse,
   AssetHeaderItem,
+  CreateSandboxLLMAuditRuleResponse,
   ImageRegistryExportJobInfo,
   InquireInfo,
   DescribeBruteAttackRulesResponse,
-  CheckImageRegistryInstanceNameDuplicateRequest,
+  DspmIdentifyAssetStatistic,
+  LogDeliveryCkafkaConfig,
   DescribeClusterSuperNodeInfoResponse,
   DescribeComplianceOverviewResponse,
   DescribeClusterServiceListRequest,
@@ -452,9 +474,10 @@ import {
   CreateDspmApplyOrderRequest,
   CreateAssetComponentListExportJobRequest,
   DescribeDspmAssetDatabaseListResponse,
+  TrafficSandboxLLMAuditRuleRef,
   DspmAccessRecordId,
   DescribeAssetTagTreeResponse,
-  DescribeVulViewVulRiskListRequest,
+  DspmIdentifyRuleItem,
   DescribeVulRiskListRequest,
   DescribeVULListResponse,
   ImageRegistryDetectionHostParam,
@@ -466,15 +489,20 @@ import {
   OperateRiskRequest,
   DescribeDspmRiskStrategyRequest,
   UninstallClusterAgentRequest,
+  ModifySandboxFileRuleResponse,
   CreateAIScheduleResponse,
   CreateVulScanManualResponse,
+  ModifyNotifySettingAlertRequest,
   StandardModeConfig,
+  ModifyDspmAuditFilterStrategyResponse,
   DescribeRiskDetailListResponse,
   DescribeUebaUserSummaryResponse,
   DescribeRiskCenterCFGViewCFGRiskListResponse,
   DescribeComplianceStatisticsRequest,
   DescribeDspmIdentifyRuleTestResultResponse,
+  InstallKeySandboxSkillRequest,
   VPRRatingStage,
+  CreateSandboxFileRuleRequest,
   RegionInfo,
   DescribePolicyHitDataResponse,
   DescribeRiskTrendDataRequest,
@@ -485,9 +513,12 @@ import {
   DescribeImageVulWhitelistRequest,
   WebhookPolicy,
   DescribeCSIPMalwareScanTaskProgressRequest,
+  ModifyDspmCkafkaSaveResponse,
   DescribeBaselinePolicyCategoryListRequest,
   DescribeVulViewVulRiskListResponse,
+  CreateHostImageListExportJobRequest,
   DeleteImageVulWhitelistRequest,
+  ModifySandboxDLPRuleResponse,
   EdrAlertTargetForIgnore,
   DescribeTaskLogListRequest,
   DspmAssetAccessTopologyItem,
@@ -527,6 +558,7 @@ import {
   DescribeAssetOverviewResponse,
   TrafficSandboxACLURLRule,
   CreateAccessKeyCheckTaskResponse,
+  DeleteDspmCkafkaConfigRequest,
   DescribeRaspLicenseListRequest,
   EdrAlertTarget,
   DescribeDspmRiskResponse,
@@ -536,6 +568,7 @@ import {
   ContainerPortItem,
   DescribeBucketInvokeIpListRequest,
   OrganizationInfo,
+  TrafficSandboxLLMAuditAlertInfo,
   CreateClusterNodeListExportJobResponse,
   CreateImageSensitiveInfoListExportJobResponse,
   ScanBaselinePolicyListRequest,
@@ -576,6 +609,7 @@ import {
   AssetTagModifyAssetItem,
   DescribeGatewayAssetsResponse,
   DescribeDspmApproveOrderListRequest,
+  StopCSIPManualMalwareScanResponse,
   CreateImageRegistryScanTaskRequest,
   SkillScanRuleHit,
   ModifyImageVirusWhitelistRequest,
@@ -593,9 +627,10 @@ import {
   DeleteImageSensitiveWhitelistResponse,
   CosOverview,
   DescribeCosIdentifyFileListRequest,
+  DescribeCSCPayInfoRequest,
   DescribeHostVulItemVPRInfoResponse,
   NetworkSegment,
-  DescribeLoginTypeHostResponse,
+  CreateSandboxDLPRuleResponse,
   DescribePreventUninstallHostRequest,
   CreateDspmAccessExportJobRequest,
   CreateClusterAssetSyncTaskResponse,
@@ -605,7 +640,8 @@ import {
   CreateExposureAutoTagRuleRequest,
   StopCSIPManualMalwareScanRequest,
   DescribeRiskCenterServerRiskListResponse,
-  UpdateClusterOwnerRequest,
+  DescribeCSCPayInfoResponse,
+  TrafficSandboxDLPUserRuleInfo,
   TrafficSandboxAssetScope,
   DescribeVulComponentRelateHostRequest,
   DescribeSandboxACLSystemRuleListResponse,
@@ -628,6 +664,7 @@ import {
   HostAutoScaleConfig,
   CreateBaselineFixRecordExportJobRequest,
   ExportClientSettingHostListResponse,
+  DeleteSandboxDLPRuleRequest,
   DescribeBaselineAggregatedItemListRequest,
   STSCredentialOutput,
   DescribeDspmExportTaskResponse,
@@ -639,6 +676,7 @@ import {
   DescribeVULRiskAdvanceCFGListRequest,
   DescribeCosAssetSyncTaskResponse,
   DescribeImageExportJobListRequest,
+  TopicInfo,
   ModifyCspmShardConfigResponse,
   CreateSkillScanResponse,
   DescribeDspmPayInfoRequest,
@@ -670,7 +708,7 @@ import {
   CreateCFGRiskPDFReportExportJobRequest,
   ModifyDspmIdentifyInfoResponse,
   ModifyDspmIdentifyComplianceGroupRequest,
-  DescribeBaselineSyncConfResponse,
+  DescribePodContainerListResponse,
   DescribeDspmIdentifyIdListResponse,
   AIRecommendAction,
   VulScanTask,
@@ -682,6 +720,7 @@ import {
   DescribeDspmIdentifyComplianceCategoryRuleListRequest,
   DspmAssetAccount,
   DeleteAIScheduleRequest,
+  SendDspmCkafkaTestResponse,
   ConnectivityDetectConfig,
   DspmRisk,
   CosActionInfo,
@@ -732,9 +771,10 @@ import {
   ModifyAgentConfigSettingRequest,
   ModifyBruteAttackRulesRequest,
   DspmIdentifyLevelItem,
+  ModifyDspmAuditFilterStrategyRequest,
   Filter,
   ModifyCSIPRaspLicenseUnBindsResponse,
-  ModifyNotifySettingAlertRequest,
+  DescribeDspmUserCkafkaInstanceListResponse,
   AssetCluster,
   ExportTask,
   CheckIsUltimateVersionResponse,
@@ -742,6 +782,7 @@ import {
   CreateDspmPersonalIdentifyRequest,
   CreateCosPolicyRequest,
   StandardItem,
+  DescribeSandboxLLMAuditSystemRuleListResponse,
   DescribeVulFixableMachineListResponse,
   DescribeAssetLastSyncTimeRequest,
   DescribeImageSensitiveWhitelistResponse,
@@ -764,9 +805,11 @@ import {
   DescribeAIScheduleListResponse,
   DescribeCSIPLicenseBindScheduleRequest,
   DescribeProcessDaemonHostResponse,
+  ModifySandboxDLPRuleStatusRequest,
   ModifyDspmIdentifyComplianceGroupStatusResponse,
   TrafficSandboxACLRuleInfo,
   DescribeAssetProcessListRequest,
+  ModifyClusterDefendStatusRequest,
   CosRiskAlarmInfo,
   DescribeDspmAssetAccountPresetPrivilegesRequest,
   ModifyDspmIdentifyCategoryRequest,
@@ -801,15 +844,17 @@ import {
   StartOrModifyProcessDaemonResponse,
   BaselineFixRecord,
   DescribeCosSourceIpRequest,
-  StopCSIPManualMalwareScanResponse,
+  DescribeUserAKInfoListResponse,
   DescribeEdrExcludeNetworkSegmentsResponse,
   DescribeCVMAssetInfoRequest,
   CreateImageLayerVulListExportJobRequest,
+  WebsiteRisk,
   DspmRiskCount,
   DescribeClusterContainerProcessListRequest,
   DescribeDspmAssetAccountRecycledPrivilegesResponse,
   DescribeAIAgentCredentialListResponse,
   ModifyBaselinePolicyResponse,
+  DescribeDspmCkafkaTopicListResponse,
   CreateAssetFilterViewRequest,
   DescribeClusterPodAssetsRequest,
   ModifyBaselineUserWeakPasswordConfRequest,
@@ -823,6 +868,7 @@ import {
   CheckConnectivityHostInfo,
   DeleteImageRegistryScanTaskResponse,
   DescribeClusterContainerDetailResponse,
+  Vpc,
   ModifyDspmIpInfoResponse,
   DescribeVulRiskListResponse,
   TcrRegistry,
@@ -850,6 +896,7 @@ import {
   DescribeDspmSyncUsersStatusRequest,
   DescribeLighthouseFirewallRulesResponse,
   NotifyAssetConfigItem,
+  ModifyMachinesLoginTypeRequest,
   CredentialEffectScope,
   AIAgentCredentialLocation,
   DescribeTaskLogListResponse,
@@ -858,14 +905,17 @@ import {
   DescribeCustomRiskRulesRequest,
   DescribeNotifySettingAlertResponse,
   CosPermissionInfo,
-  DescribeDspmDictionaryListResponse,
+  DomainInfo,
   DescribeMalwareTimingScanSettingResponse,
   Tag,
   DescribeCSIPMalwareScanTaskDetailResponse,
+  DescribeDspmAuditFilterStrategy,
   DescribeCFGRiskStatisticsRequest,
   DescribeDspmAssetSecurityAnalyseStatusResponse,
+  ModifySandboxFileRuleRequest,
   ImageIDWithAppIdItem,
   MultiAttackStageItem,
+  DescribeDspmLogTypeConfigListResponse,
   ImageVirus,
   DescribeImageVulWhitelistResponse,
   DescribeBaselineAggregatedItemListResponse,
@@ -882,7 +932,7 @@ import {
   ModifyBaselineUserOtherConfResponse,
   ModifyWebhookPolicyStatusRequest,
   DownloadDspmExportLogResponse,
-  CreateBaselineMainTaskExportJobResponse,
+  DescribeSourceIPDetailResponse,
   DescribeBaselineAggregatedPolicyListRequest,
   DescribeCheckViewRisksRequest,
   DescribeDspmAssetFieldListRequest,
@@ -893,20 +943,26 @@ import {
   CreateAssetProcessExportJobResponse,
   ProjectInfo,
   DescribeClusterContainerDetailRequest,
+  DescribeSecurityRiskTrendResponse,
   DescribeVULRiskDetailResponse,
   ModifyRiskCenterScanTaskResponse,
   DescribeImageRegistryNamespaceListRequest,
   DescribeCWPTaskDurationRequest,
   RiskRuleItem,
+  DescribeDspmLogTypeConfigListRequest,
   EDRExportJobItem,
   DescribeEdrExportJobListResponse,
+  DescribeUserAKInfoListRequest,
   DspmAssetIdentifyInfo,
   ModifyBanModeResponse,
+  DescribeSandboxLLMAuditRuleListRequest,
   DescribeDspmAssetAccountIdentifyRequest,
+  CreateDspmAuditFilterStrategyResponse,
   RiskRuleInfo,
   DeleteMachineClearHistoryResponse,
   DescribeDspmApplyHistoryRequest,
   CreateAssetSyncTaskResponse,
+  DescribeDspmCkafkaRouteListRequest,
   LogFullTextInfo,
   AssetInfoDetail,
   CSIPMachineExtraInfo,
@@ -961,13 +1017,16 @@ import {
   DescribeDspmRiskRequest,
   EDRRule,
   ModifySandboxLLMAuditRuleStatusResponse,
+  DescribeDspmLogDeliveryTypeResponse,
   ModifyExposureAutoTagRuleStatusResponse,
   ModifyAssetTagRequest,
   DspmDatabasePrivilege,
   ImageRegistryScanSubTaskInfo,
+  DeleteSandboxFileRuleResponse,
   DescribeScanTaskRecordListResponse,
   CreateRiskDetailExportJobRequest,
   DescribeClusterPodDetailRequest,
+  UninstallKeySandboxSkillRequest,
   DescribeDspmPersonalIdentifyListRequest,
   EDRScanTaskHostItem,
   VulScanTaskDetail,
@@ -1013,6 +1072,7 @@ import {
   HostLoginWhiteObj,
   ImageVirusWhitelistDetail,
   DescribePortDetectListResponse,
+  TrafficSandboxDLPRuleInfo,
   KeyValue,
   ModifyAssetCoreAttributeRequest,
   OperateRiskRulePolicyRequest,
@@ -1029,10 +1089,12 @@ import {
   DspmAssetIdentifyTaskStatus,
   ModifyDspmApproveStatusRequest,
   BaselineAggregatedCategory,
+  DeleteDspmRiskStrategyResponse,
   DescribeMachineClearHistoryRequest,
   DescribeRiskRulesResponse,
   DescribeTaskPredictCostQuotaResponse,
   DescribeScanTaskListRequest,
+  ModifyDspmCkafkaStartResponse,
   NodeInfo,
   DescribeScfCustomDomainEndpointsRequest,
   DescribeOrganizationInfoRequest,
@@ -1043,9 +1105,10 @@ import {
   ModifyDspmWhitelistStrategyResponse,
   DescribeKeySandboxCredentialRequest,
   DspmApproverStep,
-  DescribeDspmIdentifyComplianceGroupDetailRequest,
+  DeleteSandboxFileRuleRequest,
   CreateImageRegistryConnectivityTaskRequest,
   CreateAssetTagResponse,
+  TrafficSandboxLLMAuditRuleInfo,
   ModifyExposureAutoTagRuleResponse,
   DescribeSCFAliasListResponse,
   DescribeCloudFunctionListRequest,
@@ -1061,12 +1124,15 @@ import {
   CreateImageVirusListExportJobResponse,
   DescribeAgentConfigSettingResponse,
   BaselineItem,
+  ModifyDspmCkafkaSaveRequest,
   CosRiskActionInfo,
   ClusterPodListItem,
-  DescribeDspmIdentifyRuleListResponse,
+  DspmPersonIdentifyItem,
   DescribeImageAssetListRequest,
-  ModifyDspmIdentifyComplianceRuleLevelInfoResponse,
+  DescribeSandboxDLPAlertListRequest,
   RegionConfig,
+  ModifySandboxLLMAuditRuleResponse,
+  ModifySandboxACLRuleStatusRequest,
   DescribeUserDspmInfoListRequest,
   DescribeCosAlarmListRequest,
   DescribeVulItemListRequest,
@@ -1093,6 +1159,7 @@ import {
   DescribeDspmAssetTableListRequest,
   ModifyAssetTagsRequest,
   CreateDspmIdentifyComplianceRuleRelationRequest,
+  LogDeliveryType,
   DescribePolicyHitDataRequest,
   DescribeSandboxDLPSystemRuleListRequest,
   LevelOption,
@@ -1104,6 +1171,8 @@ import {
   DescribeAssetTagAttributesRequest,
   DspmIpCount,
   DescribeClusterPodDetailResponse,
+  DescribeCSPMPayInfoResponse,
+  UserAKInfo,
   MachineDetail,
   DescribeProcessDaemonHostRequest,
   ModifyNetAttackSettingResponse,
@@ -1124,21 +1193,21 @@ import {
   DescribeBaselinePolicyListResponse,
   ModifyRaspLicenseBindsResponse,
   DescribeEDRScanRecordListResponse,
-  BaselineOverviewStatistic,
+  DspmAssetAccountIdentify,
   CreateDspmIdentifyInfoListExportJobRequest,
   CreateVulFixTaskRequest,
   BaselineAggregatedPolicy,
   BruteAttackRuleList,
-  Vpc,
+  ModifyDspmLogDeliveryTypeResponse,
   CreateIaCAccessTokenRequest,
   SyncImageRegistryResponse,
-  ModifyMachinesLoginTypeRequest,
+  CosIdentifyLevelDetail,
   ModifySandboxLLMAuditRuleStatusRequest,
-  DomainInfo,
+  DescribeDspmDictionaryListResponse,
   DescribeAgentRunPolicyRequest,
   DescribeIaCFileListResponse,
   DescribeBaselineAggregatedPolicyListResponse,
-  DescribeSecurityRiskTrendResponse,
+  DescribeAccessKeyWhiteListRequest,
   DescribeLoginTypeGlobalConfRequest,
   ComponentDetailItem,
   DescribeCLSLogIndexV3Request,
@@ -1196,10 +1265,12 @@ import {
   DescribeCWPMachinesRequest,
   BatchModifyBaselinePolicyRequest,
   DspmIdentifyComplianceRuleRelation,
+  OrderQuotaInfo,
   LogSearchInfos,
   CreateAssetViewRisksExportJobRequest,
   DescribeSandboxFileRuleListRequest,
   DescribeWebhookReceiverListResponse,
+  DescribeDspmUserCkafkaInstanceListRequest,
   DescribeDspmAssetAccessTopologyRequest,
   ModifyBaselinePolicyEnableResponse,
   ContainerProcessItem,
@@ -1220,18 +1291,21 @@ import {
   DescribeAccessKeyRiskDetailRequest,
   AddImageRegistryRequest,
   DescribeEdrExcludeNetworkSegmentsRequest,
+  DeleteSandboxACLRuleResponse,
   DescribeCosIpInvokeLogResponse,
-  ModifyExposureTagRequest,
+  DeleteDspmShareUserDataRequest,
   DescribeImageAssetDetailRequest,
   CreatePodServiceListExportJobRequest,
   DescribeImageRegistryListRequest,
   CreatePodServiceListExportJobResponse,
   BaselinePolicySystemCategoryConf,
   ModifyDspmIdentifyRuleStatusRequest,
+  CkafkaInstance,
   CreateComplianceRiskExportJobRequest,
   VulInfoListItem,
   CosAssetDataScanDetail,
   DescribeImageVirusListResponse,
+  DescribeSCFAliasListRequest,
   ImageScanRegistryFilter,
   ComplianceCheckTypeItem,
   DeleteImageVulWhitelistResponse,
@@ -1261,9 +1335,9 @@ import {
   CreateEdrLessAlertExportJobResponse,
   BaselineSystemCategory,
   DeleteEdrLogCollectPathsResponse,
-  TaskCenterWeakPwdRiskInputParam,
+  DspmAuditSessionInfo,
   DescribeDspmAssetSupportedPrivilegesResponse,
-  ImageRegistryInfo,
+  CreateDspmResourceRequest,
   DescribeDomainAssetsRequest,
   BatchModifyImageSensitiveWhitelistResponse,
   DescribeNICAssetsRequest,
@@ -1290,7 +1364,9 @@ import {
   DescribeVulLabelListResponse,
   DeleteDspmIdentifyComplianceRuleRelationRequest,
   LogItem,
+  TrafficSandboxLLMAuditSystemRuleItem,
   CreateDspmWhitelistStrategyRequest,
+  TrafficSandboxDLPTrafficRuleItem,
   DescribeExportJobDownloadURLRequest,
   DescribeDspmAssetDatabaseListRequest,
   DescribeIaCTokenListRequest,
@@ -1300,6 +1376,7 @@ import {
   CheckRiskResponse,
   DescribeDspmAssetAccountIdentifyResponse,
   CreateVulFixedExportJobResponse,
+  DescribeDspmResourceRequest,
   LogIndexRuleInfo,
   DescribeDspmIdentifyDistributionStatisticsResponse,
   DescribePublicIpAssetsRequest,
@@ -1310,6 +1387,7 @@ import {
   DescribeImageVirusListRequest,
   AIAnalysisSession,
   DeleteDspmRestoreLogListResponse,
+  CreateHostImageListExportJobResponse,
   DspmAssetInstance,
   CreateDspmIdentifyInfoListExportJobResponse,
   TaskCenterVulRiskInputParam,
@@ -1319,6 +1397,7 @@ import {
   DescribeUserInfoResponse,
   Tags,
   DescribeAssetComponentListRequest,
+  ModifyShareUserAKRequest,
   DescribeAbTestUserRequest,
   ProtectionConfigItem,
   DescribeCosRiskActionListResponse,
@@ -1336,7 +1415,7 @@ import {
   ModifyDspmRestoreLogTaskResponse,
   DescribeClusterContainerAppListResponse,
   ConditionMatch,
-  DspmStatisticsItem,
+  ComplianceCheckItemsOverview,
   ModifyProtectionSetting,
   DeleteIaCFileRequest,
   DescribeClusterListV2Request,
@@ -1363,7 +1442,7 @@ import {
   DescribeImageRegistryConnectivityTaskResultRequest,
   DescribeAssetComponentRelatedImageListRequest,
   DescribeAbnormalCallRecordResponse,
-  CreateDomainAndIpResponse,
+  DeleteDspmAuditFilterStrategyRequest,
   DescribeAISchedulePlanListRequest,
   DescribeClusterDetailResponse,
   DescribeSubUserInfoRequest,
@@ -1384,16 +1463,20 @@ import {
   DescribeVulRiskRelateComponentResponse,
   CosIdentifyCategoryDetail,
   VulComponentSummary,
+  DeleteDspmAuditFilterStrategyResponse,
   DeleteDspmPersonalIdentifyResponse,
   DescribeHostVulOverviewResponse,
   DescribeVulFixedHostDetailRequest,
+  ModifyExposureTagRequest,
   DescribeConfigCheckRulesRequest,
   CreateBaselineMainTaskExportJobRequest,
   KBDetail,
+  DescribeDspmSessionListResponse,
   VulWhitelist,
   ModifyAlarmRiskStatusRequest,
   DescribeCosObjectScanTaskRequest,
   ModifyPayConfigRequest,
+  ModifySandboxACLRuleResponse,
   TableField,
   AgentRunModePolicy,
   RoleInfo,
@@ -1405,9 +1488,12 @@ import {
   AssetTypeCount,
   DescribeCspmShardConfigResponse,
   DspmIdentifyInfoItem,
-  DescribeDspmAssetFieldSamplesResponse,
+  DescribeDspmCkafkaTopicListRequest,
+  AssetProcessItem,
   SubnetAsset,
   ContainerEnvInfo,
+  ModifySandboxAlertStatusRequest,
+  ModifySandboxACLRuleStatusResponse,
   DescribeExportJobDownloadURLResponse,
   VULRiskAdvanceCFGList,
   ContainerAppItem,
@@ -1421,6 +1507,7 @@ import {
   DescribeAIAnalysisFileDownloadURLResponse,
   DescribeVulFixedListRequest,
   DescribeVulFixTaskListResponse,
+  ModifyClusterDefendStatusResponse,
   DescribeMachineLoginTypeResponse,
   AssetRiskItem,
   DeleteDspmAssetAccountRequest,
@@ -1441,6 +1528,7 @@ import {
   DescribeVulFixTaskListRequest,
   DescribeNotifyAssetConfigRequest,
   StopPreventUninstallResponse,
+  ModifyDspmIdentifyLevelGroupRequest,
   ModifyDspmApplyingIdentifyComplianceGroupResponse,
   DescribeDspmExportTaskRequest,
   DescribeVulScanTaskListRequest,
@@ -1459,11 +1547,14 @@ import {
   DescribeSubUserInfoResponse,
   DescribeDomainAssetsResponse,
   DescribeNICAssetsResponse,
+  DeleteDspmRiskStrategyRequest,
   ModifyCosAuditObjectIdentifyStatusRequest,
   DeleteExposureAutoTagRuleRequest,
+  DescribeDspmCkafkaRouteListResponse,
   LogSearchErrors,
   ContainerComponentItem,
   DescribeImageRegistryScanTaskListRequest,
+  SendDspmCkafkaTestRequest,
   ModifyDspmIdentifyRuleStatusResponse,
   DescribeListenerListRequest,
   DescribeRegistryRegionListRequest,
@@ -1535,13 +1626,17 @@ import {
   SendDspmAssetLoginSmsCodeResponse,
   DescribeRiskCenterAssetViewCFGRiskListResponse,
   DeleteAssetTagRequest,
+  DescribeDspmLogDeliveryTypeRequest,
   CreateImageRegistryListExportJobResponse,
   DescribeBaselineMainTaskItemListResponse,
   IPIntelInfo,
   ProviderNode,
+  ImageRegistryInfo,
   DescribeCWPMachineOsListResponse,
+  InstallSandboxPluginResponse,
   DescribeCosAccessPermissionsResponse,
   DescribeClusterContainerListResponse,
+  LogDeliveryInfo,
   ModifyDspmIdentifyRuleRequest,
   AssetRiskContent,
   CreateImageVulSummaryListExportJobRequest,
@@ -1552,20 +1647,27 @@ import {
   RepositoryImageVO,
   UpdateClusterOwnerResponse,
   DeleteDomainAndIpResponse,
+  DescribeSandboxDLPAlertListResponse,
   ModifyCosAuditObjectSampleRateRequest,
+  DataSearchBug,
+  TrafficSandboxDLPFileSizeRange,
   DescribeScanStatisticResponse,
   DescribeExposuresRequest,
   DeleteCosAkAssetResponse,
   DescribeDspmApproveOrderListResponse,
   CreateDomainAndIpRequest,
+  CreateDspmResourceResponse,
   LicenseBindFailedItem,
   CustomRiskRuleItem,
   DescribeDspmAssetSupportedPrivilegesRequest,
+  ModifySandboxDLPRuleStatusResponse,
+  TrafficSandboxDLPURLRuleItem,
   DescribeEdrAlertCountForAssetResponse,
   ModifyImageRegistryResponse,
   DescribeAIAnalysisHistoryRequest,
   ModifyAssetCoreAttributeResponse,
   CreateDspmAssetsExportJobRequest,
+  ModifyDspmLogDeliveryTypeRequest,
   DescribeGatewayAssetsRequest,
   DeleteAssetFilterViewResponse,
   DescribeRiskCallRecordRequest,
@@ -1583,7 +1685,9 @@ import {
   DescribeEDRScanRecordListRequest,
   DescribeOrganizationUserInfoRequest,
   ModifyDspmAssetAccountPrivilegesRequest,
+  DescribeLoginTypeHostResponse,
   FilterDataObject,
+  DspmIdentifyLevelGroupItem,
   UpdateAccessKeyRemarkResponse,
   CreateCosRiskScanTaskResponse,
   DescribeNatRulesResponse,
@@ -1593,9 +1697,11 @@ import {
   WebhookReceiverBrief,
   DescribeClusterInstallCommandRequest,
   DescribeVpcAssetsResponse,
+  CreateSandboxACLRuleResponse,
   DescribeClusterContainerWebServiceListResponse,
   DescribeImageVirusWhitelistRequest,
   ExportClientSettingHostListRequest,
+  DescribeSourceIPDetailRequest,
   ModifyCSIPRaspLicenseBindsRequest,
   DescribeImageAssociatedHostListRequest,
   LogAppCollectPath,
@@ -1607,12 +1713,14 @@ import {
   CreateIaCAccessTokenResponse,
   DspmAssetTypeCount,
   DeleteWebhookReceiversRequest,
+  ModifySandboxAlertStatusResponse,
   DescribeLoginTypeHostRequest,
   DescribeDspmApproveHistoryRequest,
   DescribeClusterAssetListResponse,
   DescribeDspmAssetFieldSamplesRequest,
   DescribeAIScheduleTaskListRequest,
   DspmPersonApplyHistoryItem,
+  CreateDspmRiskStrategyRequest,
   DescribeIaCFileReportRequest,
   DeleteAssetTagResponse,
   DescribeAIScheduleTaskListResponse,
@@ -1626,11 +1734,13 @@ import {
   DescribeVdbAndPocInfoResponse,
   TrafficSandboxEffectScope,
   DescribeBaselineMainTaskItemListRequest,
+  DescribeSandboxLLMAuditAlertListResponse,
   DescribeNotifySettingAlertRequest,
   DescribeDspmLogListRequest,
   DescribeImageRegistryTimedScanTaskPreviewRequest,
   DescribeDspmAccessRecordResponse,
   DescribeBaselineCalculatingStatisticsPolicyIDListResponse,
+  DeleteDspmCkafkaConfigResponse,
   DescribeCosAuditAppIdListRequest,
   ModifyDspmIdentifyLevelItemResponse,
   DescribeImageExportJobListResponse,
@@ -1638,6 +1748,7 @@ import {
   CreateImageVirusWhitelistResponse,
   CreateCosObjectScanTaskRequest,
   ScanBaselinePolicyListResponse,
+  UpdateClusterOwnerRequest,
   DescribeScanTaskListResponse,
   LicenseUnbindFailedItem,
   DeleteDspmApplyOrderResponse,
@@ -1670,11 +1781,12 @@ import {
   TaskLogInfo,
   LogColumn,
   DescribeTaskLogURLResponse,
-  ModifyNotifyAssetConfigRequest,
+  DeleteSandboxDLPRuleResponse,
   StopImageRegistryScanTaskResponse,
   Machine,
   DescribeCosAuditDictionaryListResponse,
   DeleteAIAnalysisSMTPAccessRequest,
+  ModifySandboxFileRuleStatusRequest,
   DescribeComplianceStandardTermTreeRequest,
   CreateClusterNamespaceListExportJobResponse,
   EdrAlertDetail,
@@ -1689,7 +1801,7 @@ import {
   DescribeTagRuleAssetsRequest,
   DescribeBaselineSyncConfRequest,
   ModifyUebaRuleSwitchRequest,
-  CreatePodContainerListExportJobRequest,
+  CreateBaselineMainTaskExportJobResponse,
   DescribeScanStatisticRequest,
   DescribeCFGRiskReportStatisticsRequest,
   ModifyNotifySettingAlertResponse,
@@ -1713,6 +1825,7 @@ import {
   VulImpactComponentInfo,
   CVMAssetVO,
   VULBaseInfo,
+  DescribeCSPMPayInfoRequest,
   ModifyEDRRulesActionRequest,
   CreateImageAssetListExportJobResponse,
   NatSnatRuleItem,
@@ -1745,21 +1858,25 @@ import {
   DescribeDspmRiskDetailResponse,
   DescribeCosRiskScanTaskRequest,
   DescribeEdrAlertMultiAttackStagesRequest,
+  ModifySandboxFileRuleStatusResponse,
   DeleteCosPolicyResponse,
   SkillScanEngineResult,
   DescribeMultiCloudAssetCountRequest,
-  WebsiteRisk,
+  ModifySandboxDLPRuleRequest,
   DescribeClusterServiceListResponse,
   RiskCenterOverviewTrendAnalysis,
   VULViewVULRisk,
   DescribeCVMAssetsResponse,
+  ModifyShareUserAKResponse,
   CreateAllAssetsExportJobResponse,
   DescribeDspmBackupSettingRequest,
+  DescribeSandboxLLMAuditAlertListRequest,
   BatchModifyImageVirusWhitelistRequest,
   CosSourceIpInfo,
   ServiceSupport,
   RetryDspmExportLogRequest,
   ModifyAILinkSettingRequest,
+  ModifyShareUserDspmResponse,
   CosBucketId,
   DescribeNotifySettingResponse,
   CreateDspmExportTaskResponse,
@@ -1769,6 +1886,7 @@ import {
   DescribeUserCallRecordRequest,
   AlertInfo,
   DspmWhitelistStrategy,
+  TrafficSandboxDLPAlertInfo,
   CreateDspmIdentifyLevelGroupRequest,
   CreateVulRisksExportJobResponse,
   TrafficRuleState,
@@ -1789,7 +1907,7 @@ import {
   DescribeBruteAttackRulesRequest,
   DescribeDspmIdentifyRuleDetailResponse,
   ModifyBruteAttackRulesResponse,
-  DspmPersonIdentifyItem,
+  DescribeDspmIdentifyRuleListResponse,
   MachineExtraInfo,
   ScanTaskInfoList,
   ModifyDspmAssetDataScanTaskStatusResponse,
@@ -1808,7 +1926,9 @@ import {
   DescribeOtherCloudAssetsRequest,
   DescribeAILinkSettingResponse,
   DescribeSecurityRiskTrendRequest,
+  ModifySandboxLLMAuditRuleRequest,
   CosAlarmRiskIdInfo,
+  DescribeClusterAssetsResponse,
   CreateImageVulListExportJobRequest,
   CreateAssetComponentRelatedImageListExportJobResponse,
   DescribeImageVirusWhitelistResponse,
@@ -1821,12 +1941,14 @@ import {
   CreateImageVirusListExportJobRequest,
   DescribeExposeRisksRequest,
   ExportTasksResponse,
+  DescribeVoucherEligibilityRequest,
   DescribeDbAssetInfoResponse,
   BugInfoDetail,
   DescribeAIScheduleTaskDetailRequest,
   CosInvokeIpVpcInfo,
   CreateCFGRisksExportJobRequest,
   ClbListenerItem,
+  DescribeSandboxLLMAuditSystemRuleListRequest,
   VulFixTaskDetailItem,
   ModifyVulWhitelistConfigResponse,
   WebhookAssetScope,
@@ -1844,8 +1966,11 @@ import {
   CreateCheckViewRisksExportJobResponse,
   ModifyDspmAccessRecordRequest,
   DescribeMachineLoginTypeRequest,
+  CreateDspmRiskStrategyResponse,
   DescribeCosAkInvokeIpListRequest,
   DescribeCosBucketRiskResponse,
+  DescribeVoucherEligibilityResponse,
+  DescribeDspmResourceResponse,
   DescribeCosRoleAccessPermissionsRequest,
   DeleteEDRScanTaskRequest,
   LogTopicIndexInfo,
@@ -1853,6 +1978,7 @@ import {
   DescribeComplianceStatisticsResponse,
   ModifyMachineAutoClearConfigResponse,
   VulFixStatusItem,
+  ModifyShareUserDspmRequest,
   DescribeDspmIdentifyComplianceCategoryRuleListResponse,
   DescribeRiskDetailListRequest,
   DescribeUebaUserSummaryRequest,
@@ -1893,6 +2019,7 @@ import {
   CreateDspmIdentifyCategoryRequest,
   DescribeDspmAccessRecordRequest,
   DescribeClusterContainerComponentListRequest,
+  InstallSandboxPluginRequest,
   DescribeVulScanPeriodicResponse,
   DescribeAgentRunModeRequest,
   DescribeRiskCenterVULViewVULRiskListResponse,
@@ -1909,7 +2036,8 @@ import {
   StopImageRegistryScanTaskRequest,
   DescribeCosBucketListRequest,
   DeleteBaselineSelfDefinedPolicyListRequest,
-  DspmIdentifyLevelGroupItem,
+  CreateSandboxACLRuleRequest,
+  CreatePodContainerListExportJobRequest,
   DeleteCSIPMalwareScanTaskResponse,
   ServerRiskSuggestion,
   DescribeAssetSyncTaskStatusRequest,
@@ -1924,6 +2052,7 @@ import {
   CreateScanStatisticExportJobRequest,
   BaselineUserOtherConf,
   DescribeVulFixedHostDetailResponse,
+  DescribeSandboxLLMAuditRuleListResponse,
   DescribeHostKBRiskListRequest,
   DescribeBaselinePolicyItemListResponse,
   AssetFilterOptions,
@@ -1931,15 +2060,17 @@ import {
   DeleteDspmIdentifyRuleResponse,
   ModifyDspmRiskInfoResponse,
   BindClusterOwnerResponse,
-  DescribeClusterAssetsResponse,
+  DescribeDspmAuditFilterStrategyRequest,
   DownloadDspmExportLogRequest,
   DisableAIScheduleRequest,
   DescribeLastScanTaskInfoResponse,
   DeleteDspmIdentifyComplianceCategoryRelationResponse,
   DescribeCSIPRiskStatisticsRequest,
   ModifyAssetFilterViewResponse,
+  CreateSandboxDLPRuleRequest,
   DescribeReverseShellSystemPolicyConfigRequest,
   DescribeAIAgentSkillListRequest,
+  AccessKeyWhiteList,
   ModifySecurityScoreRuleResponse,
   DescribeIaCFileOverviewRequest,
   CreateAssetComponentRelatedImageListExportJobRequest,
@@ -2073,6 +2204,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeImageSensitiveInfoListResponse) => void
   ): Promise<DescribeImageSensitiveInfoListResponse> {
     return this.request("DescribeImageSensitiveInfoList", req, cb)
+  }
+
+  /**
+   * 修改已有的 LLM 审计用户规则。未传字段保持原值，支持部分字段更新
+   */
+  async ModifySandboxLLMAuditRule(
+    req: ModifySandboxLLMAuditRuleRequest,
+    cb?: (error: string, rep: ModifySandboxLLMAuditRuleResponse) => void
+  ): Promise<ModifySandboxLLMAuditRuleResponse> {
+    return this.request("ModifySandboxLLMAuditRule", req, cb)
   }
 
   /**
@@ -2316,6 +2457,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询租户ckafka实例列表
+   */
+  async DescribeDspmUserCkafkaInstanceList(
+    req: DescribeDspmUserCkafkaInstanceListRequest,
+    cb?: (error: string, rep: DescribeDspmUserCkafkaInstanceListResponse) => void
+  ): Promise<DescribeDspmUserCkafkaInstanceListResponse> {
+    return this.request("DescribeDspmUserCkafkaInstanceList", req, cb)
+  }
+
+  /**
    * 查询dspm资产字段样本值
    */
   async DescribeDspmAssetFieldSamples(
@@ -2413,6 +2564,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeSCFNamespaceListResponse) => void
   ): Promise<DescribeSCFNamespaceListResponse> {
     return this.request("DescribeSCFNamespaceList", req, cb)
+  }
+
+  /**
+   * 修改安全评分规则，必须传入完整规则集
+   */
+  async ModifySecurityScoreRule(
+    req: ModifySecurityScoreRuleRequest,
+    cb?: (error: string, rep: ModifySecurityScoreRuleResponse) => void
+  ): Promise<ModifySecurityScoreRuleResponse> {
+    return this.request("ModifySecurityScoreRule", req, cb)
   }
 
   /**
@@ -2546,6 +2707,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 新增或修改一条通知策略。ID > 0 表示修改；ID = 0 或不传表示新增。MemberAppIds 配置为空时，策略仅作用于当前主账号事件；非空时同时作用于自身账号 + 所列成员账号。
+   */
+  async ModifyWebhookPolicy(
+    req: ModifyWebhookPolicyRequest,
+    cb?: (error: string, rep: ModifyWebhookPolicyResponse) => void
+  ): Promise<ModifyWebhookPolicyResponse> {
+    return this.request("ModifyWebhookPolicy", req, cb)
+  }
+
+  /**
    * 分页查询漏洞修复任务记录列表，支持按修复状态、时间范围等条件筛选，展示每个修复任务的概要信息。
    */
   async DescribeVulFixTaskList(
@@ -2553,6 +2724,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeVulFixTaskListResponse) => void
   ): Promise<DescribeVulFixTaskListResponse> {
     return this.request("DescribeVulFixTaskList", req, cb)
+  }
+
+  /**
+   * 获取账号AK信息
+   */
+  async DescribeUserAKInfoList(
+    req: DescribeUserAKInfoListRequest,
+    cb?: (error: string, rep: DescribeUserAKInfoListResponse) => void
+  ): Promise<DescribeUserAKInfoListResponse> {
+    return this.request("DescribeUserAKInfoList", req, cb)
   }
 
   /**
@@ -2573,6 +2754,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateVulFixedExportJobResponse) => void
   ): Promise<CreateVulFixedExportJobResponse> {
     return this.request("CreateVulFixedExportJob", req, cb)
+  }
+
+  /**
+   * 检查当前用户是否有资格领取指定活动的代金券。
+   */
+  async DescribeVoucherEligibility(
+    req: DescribeVoucherEligibilityRequest,
+    cb?: (error: string, rep: DescribeVoucherEligibilityResponse) => void
+  ): Promise<DescribeVoucherEligibilityResponse> {
+    return this.request("DescribeVoucherEligibility", req, cb)
   }
 
   /**
@@ -2818,6 +3009,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询Dspm实例
+   */
+  async DescribeDspmResource(
+    req?: DescribeDspmResourceRequest,
+    cb?: (error: string, rep: DescribeDspmResourceResponse) => void
+  ): Promise<DescribeDspmResourceResponse> {
+    return this.request("DescribeDspmResource", req, cb)
+  }
+
+  /**
    * 更新当前账号（管理员）的基线同步配置。AutoSync=true 时 TargetAppidList 不可为空，且元素不可为 0。
    */
   async ModifyBaselineSyncConf(
@@ -2825,6 +3026,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyBaselineSyncConfResponse) => void
   ): Promise<ModifyBaselineSyncConfResponse> {
     return this.request("ModifyBaselineSyncConf", req, cb)
+  }
+
+  /**
+   * 批量更新流量沙箱告警（覆盖 ACL / DLP / LLM 审计三类）。通过 AlertType + BelongAssetType 定位告警来源。Status 支持 HANDLED / IGNORE 修改状态，以及 DELETE 删除。任一告警 ID 不存在或属于其他租户时整体返回错误。注：加白（PASS）不经本接口，由 Create/Modify***Rule 通过 AlertID 回写触发
+   */
+  async ModifySandboxAlertStatus(
+    req: ModifySandboxAlertStatusRequest,
+    cb?: (error: string, rep: ModifySandboxAlertStatusResponse) => void
+  ): Promise<ModifySandboxAlertStatusResponse> {
+    return this.request("ModifySandboxAlertStatus", req, cb)
   }
 
   /**
@@ -2905,6 +3116,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeCustomAssetTagCountResponse) => void
   ): Promise<DescribeCustomAssetTagCountResponse> {
     return this.request("DescribeCustomAssetTagCount", req, cb)
+  }
+
+  /**
+   * 获取用户访问密钥资产列表（源IP视角）
+   */
+  async DescribeSourceIPDetail(
+    req: DescribeSourceIPDetailRequest,
+    cb?: (error: string, rep: DescribeSourceIPDetailResponse) => void
+  ): Promise<DescribeSourceIPDetailResponse> {
+    return this.request("DescribeSourceIPDetail", req, cb)
   }
 
   /**
@@ -3048,13 +3269,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 绑定 RASP / 旗舰版授权到指定订单。异步执行，返回TaskId供查询进度。LicenseType=rasp 绑 RASP，LicenseType=enterprise_hp 绑旗舰版主机授权；AssetType 区分主机/容器节点/EKS。
+   * 创建命令沙箱文件访问规则
    */
-  async ModifyCSIPRaspLicenseBinds(
-    req: ModifyCSIPRaspLicenseBindsRequest,
-    cb?: (error: string, rep: ModifyCSIPRaspLicenseBindsResponse) => void
-  ): Promise<ModifyCSIPRaspLicenseBindsResponse> {
-    return this.request("ModifyCSIPRaspLicenseBinds", req, cb)
+  async CreateSandboxFileRule(
+    req: CreateSandboxFileRuleRequest,
+    cb?: (error: string, rep: CreateSandboxFileRuleResponse) => void
+  ): Promise<CreateSandboxFileRuleResponse> {
+    return this.request("CreateSandboxFileRule", req, cb)
   }
 
   /**
@@ -3137,6 +3358,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeVulScanTaskDetailResponse) => void
   ): Promise<DescribeVulScanTaskDetailResponse> {
     return this.request("DescribeVulScanTaskDetail", req, cb)
+  }
+
+  /**
+   * 从指定的机器实例上卸载密钥沙箱SKILL。支持批量操作，一次可传入多个实例ID。卸载后，目标机器上的AI Agent将无法再通过密钥沙箱代理访问凭据。未安装的实例重复调用不会报错（幂等），直接视为成功。
+   */
+  async UninstallKeySandboxSkill(
+    req: UninstallKeySandboxSkillRequest,
+    cb?: (error: string, rep: UninstallKeySandboxSkillResponse) => void
+  ): Promise<UninstallKeySandboxSkillResponse> {
+    return this.request("UninstallKeySandboxSkill", req, cb)
   }
 
   /**
@@ -3330,13 +3561,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 新增或修改一条通知策略。ID > 0 表示修改；ID = 0 或不传表示新增。MemberAppIds 配置为空时，策略仅作用于当前主账号事件；非空时同时作用于自身账号 + 所列成员账号。
+   * 创建一条 ACL 用户访问控制规则。可选择引用若干条系统规则，亦可自定义规则，两者至少提供其一
    */
-  async ModifyWebhookPolicy(
-    req: ModifyWebhookPolicyRequest,
-    cb?: (error: string, rep: ModifyWebhookPolicyResponse) => void
-  ): Promise<ModifyWebhookPolicyResponse> {
-    return this.request("ModifyWebhookPolicy", req, cb)
+  async CreateSandboxACLRule(
+    req: CreateSandboxACLRuleRequest,
+    cb?: (error: string, rep: CreateSandboxACLRuleResponse) => void
+  ): Promise<CreateSandboxACLRuleResponse> {
+    return this.request("CreateSandboxACLRule", req, cb)
   }
 
   /**
@@ -3420,13 +3651,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询dspm数据识别模板列表
+   * 创建/修改SMTP邮箱接入请求
    */
-  async DescribeDspmIdentifyComplianceGroupList(
-    req: DescribeDspmIdentifyComplianceGroupListRequest,
-    cb?: (error: string, rep: DescribeDspmIdentifyComplianceGroupListResponse) => void
-  ): Promise<DescribeDspmIdentifyComplianceGroupListResponse> {
-    return this.request("DescribeDspmIdentifyComplianceGroupList", req, cb)
+  async AccessAIAnalysisSMTP(
+    req: AccessAIAnalysisSMTPRequest,
+    cb?: (error: string, rep: AccessAIAnalysisSMTPResponse) => void
+  ): Promise<AccessAIAnalysisSMTPResponse> {
+    return this.request("AccessAIAnalysisSMTP", req, cb)
   }
 
   /**
@@ -3437,6 +3668,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribePolicyHitDataResponse) => void
   ): Promise<DescribePolicyHitDataResponse> {
     return this.request("DescribePolicyHitData", req, cb)
+  }
+
+  /**
+   * 租户Ckafka配置保存
+   */
+  async ModifyDspmCkafkaSave(
+    req: ModifyDspmCkafkaSaveRequest,
+    cb?: (error: string, rep: ModifyDspmCkafkaSaveResponse) => void
+  ): Promise<ModifyDspmCkafkaSaveResponse> {
+    return this.request("ModifyDspmCkafkaSave", req, cb)
   }
 
   /**
@@ -3510,6 +3751,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 分页查询 LLM 审计告警日志列表。支持按 Filter.Name=ID 精确过滤单条告警用于详情页场景
+   */
+  async DescribeSandboxLLMAuditAlertList(
+    req: DescribeSandboxLLMAuditAlertListRequest,
+    cb?: (error: string, rep: DescribeSandboxLLMAuditAlertListResponse) => void
+  ): Promise<DescribeSandboxLLMAuditAlertListResponse> {
+    return this.request("DescribeSandboxLLMAuditAlertList", req, cb)
+  }
+
+  /**
    * 更新周期扫描计划
    */
   async ModifyRiskScanCronConfig(
@@ -3527,6 +3778,26 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeRiskCenterPortViewPortRiskListResponse) => void
   ): Promise<DescribeRiskCenterPortViewPortRiskListResponse> {
     return this.request("DescribeRiskCenterPortViewPortRiskList", req, cb)
+  }
+
+  /**
+   * 删除Dspm审计过滤策略
+   */
+  async DeleteDspmAuditFilterStrategy(
+    req: DeleteDspmAuditFilterStrategyRequest,
+    cb?: (error: string, rep: DeleteDspmAuditFilterStrategyResponse) => void
+  ): Promise<DeleteDspmAuditFilterStrategyResponse> {
+    return this.request("DeleteDspmAuditFilterStrategy", req, cb)
+  }
+
+  /**
+   * 获取已购CSPM订单信息
+   */
+  async DescribeCSPMPayInfo(
+    req: DescribeCSPMPayInfoRequest,
+    cb?: (error: string, rep: DescribeCSPMPayInfoResponse) => void
+  ): Promise<DescribeCSPMPayInfoResponse> {
+    return this.request("DescribeCSPMPayInfo", req, cb)
   }
 
   /**
@@ -3874,6 +4145,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 创建Dspm实例
+   */
+  async CreateDspmResource(
+    req?: CreateDspmResourceRequest,
+    cb?: (error: string, rep: CreateDspmResourceResponse) => void
+  ): Promise<CreateDspmResourceResponse> {
+    return this.request("CreateDspmResource", req, cb)
+  }
+
+  /**
    * 创建镜像仓库组件关联镜像列表导出任务
    */
   async CreateAssetComponentRelatedImageListExportJob(
@@ -3921,6 +4202,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeNotifyAssetConfigResponse) => void
   ): Promise<DescribeNotifyAssetConfigResponse> {
     return this.request("DescribeNotifyAssetConfig", req, cb)
+  }
+
+  /**
+   * 查询实例的主题列表
+   */
+  async DescribeDspmCkafkaTopicList(
+    req: DescribeDspmCkafkaTopicListRequest,
+    cb?: (error: string, rep: DescribeDspmCkafkaTopicListResponse) => void
+  ): Promise<DescribeDspmCkafkaTopicListResponse> {
+    return this.request("DescribeDspmCkafkaTopicList", req, cb)
   }
 
   /**
@@ -4044,13 +4335,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建/修改SMTP邮箱接入请求
+   * 查询dspm数据识别模板列表
    */
-  async AccessAIAnalysisSMTP(
-    req: AccessAIAnalysisSMTPRequest,
-    cb?: (error: string, rep: AccessAIAnalysisSMTPResponse) => void
-  ): Promise<AccessAIAnalysisSMTPResponse> {
-    return this.request("AccessAIAnalysisSMTP", req, cb)
+  async DescribeDspmIdentifyComplianceGroupList(
+    req: DescribeDspmIdentifyComplianceGroupListRequest,
+    cb?: (error: string, rep: DescribeDspmIdentifyComplianceGroupListResponse) => void
+  ): Promise<DescribeDspmIdentifyComplianceGroupListResponse> {
+    return this.request("DescribeDspmIdentifyComplianceGroupList", req, cb)
   }
 
   /**
@@ -4081,6 +4372,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeCosAccessPermissionsResponse) => void
   ): Promise<DescribeCosAccessPermissionsResponse> {
     return this.request("DescribeCosAccessPermissions", req, cb)
+  }
+
+  /**
+   * 修改集群防护状态
+   */
+  async ModifyClusterDefendStatus(
+    req: ModifyClusterDefendStatusRequest,
+    cb?: (error: string, rep: ModifyClusterDefendStatusResponse) => void
+  ): Promise<ModifyClusterDefendStatusResponse> {
+    return this.request("ModifyClusterDefendStatus", req, cb)
   }
 
   /**
@@ -4164,6 +4465,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询当前账号的合并版计费信息，包括订单状态、付费模式以及配额等详细信息。
+   */
+  async DescribeCSCPayInfo(
+    req?: DescribeCSCPayInfoRequest,
+    cb?: (error: string, rep: DescribeCSCPayInfoResponse) => void
+  ): Promise<DescribeCSCPayInfoResponse> {
+    return this.request("DescribeCSCPayInfo", req, cb)
+  }
+
+  /**
    * 创建镜像仓库列表导出任务
    */
   async CreateImageRegistryListExportJob(
@@ -4181,6 +4492,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: AddNewBindRoleUserResponse) => void
   ): Promise<AddNewBindRoleUserResponse> {
     return this.request("AddNewBindRoleUser", req, cb)
+  }
+
+  /**
+   * 查询日志投递的日志类型
+   */
+  async DescribeDspmLogDeliveryType(
+    req: DescribeDspmLogDeliveryTypeRequest,
+    cb?: (error: string, rep: DescribeDspmLogDeliveryTypeResponse) => void
+  ): Promise<DescribeDspmLogDeliveryTypeResponse> {
+    return this.request("DescribeDspmLogDeliveryType", req, cb)
   }
 
   /**
@@ -4504,6 +4825,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 触发将流量沙箱插件安装到指定范围内的 AI Agent 资产。通过 BelongAssetType 区分主机/容器维度，通过 EffectScope 指定安装目标（INCLUDE=仅安装到指定资产，EXCLUDE=全部资产减去指定资产）。接口仅触发下发动作，不等待完成
+   */
+  async InstallSandboxPlugin(
+    req: InstallSandboxPluginRequest,
+    cb?: (error: string, rep: InstallSandboxPluginResponse) => void
+  ): Promise<InstallSandboxPluginResponse> {
+    return this.request("InstallSandboxPlugin", req, cb)
+  }
+
+  /**
    * 查看cos资产列表
    */
   async DescribeCosAsset(
@@ -4627,6 +4958,16 @@ capi 层处理流程：
     cb?: (error: string, rep: InstallClusterAgentResponse) => void
   ): Promise<InstallClusterAgentResponse> {
     return this.request("InstallClusterAgent", req, cb)
+  }
+
+  /**
+   * 创建本地镜像列表导出任务。导出字段包含镜像ID、镜像名、镜像版本、关联容器数、关联主机数、创建时间、所属账号昵称，以及扫描状态/漏洞/木马/敏感信息等风险字段。支持Filter过滤。导出通过异步任务实现，返回JobId后前端轮询查询导出任务状态。单账号模式下自动排除NickName字段。
+   */
+  async CreateHostImageListExportJob(
+    req: CreateHostImageListExportJobRequest,
+    cb?: (error: string, rep: CreateHostImageListExportJobResponse) => void
+  ): Promise<CreateHostImageListExportJobResponse> {
+    return this.request("CreateHostImageListExportJob", req, cb)
   }
 
   /**
@@ -4992,6 +5333,16 @@ capi 层处理流程：
   }
 
   /**
+   * 修改日志投递配置信息
+   */
+  async ModifyDspmLogDeliveryType(
+    req: ModifyDspmLogDeliveryTypeRequest,
+    cb?: (error: string, rep: ModifyDspmLogDeliveryTypeResponse) => void
+  ): Promise<ModifyDspmLogDeliveryTypeResponse> {
+    return this.request("ModifyDspmLogDeliveryType", req, cb)
+  }
+
+  /**
    * 查询应用防护授权列表
    */
   async DescribeRaspLicenseList(
@@ -4999,6 +5350,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeRaspLicenseListResponse) => void
   ): Promise<DescribeRaspLicenseListResponse> {
     return this.request("DescribeRaspLicenseList", req, cb)
+  }
+
+  /**
+   * 删除dspmg共享账号数据
+   */
+  async DeleteDspmShareUserData(
+    req: DeleteDspmShareUserDataRequest,
+    cb?: (error: string, rep: DeleteDspmShareUserDataResponse) => void
+  ): Promise<DeleteDspmShareUserDataResponse> {
+    return this.request("DeleteDspmShareUserData", req, cb)
   }
 
   /**
@@ -5029,6 +5390,16 @@ capi 层处理流程：
     cb?: (error: string, rep: ModifyDspmAssetDataScanTaskResponse) => void
   ): Promise<ModifyDspmAssetDataScanTaskResponse> {
     return this.request("ModifyDspmAssetDataScanTask", req, cb)
+  }
+
+  /**
+   * 在指定的机器实例上安装密钥沙箱SKILL。支持批量操作，一次可传入多个实例ID。安装后，目标机器上的AI Agent即可通过密钥沙箱代理访问凭据，无需接触明文密钥。已安装的实例重复调用不会报错（幂等），直接视为成功。
+   */
+  async InstallKeySandboxSkill(
+    req: InstallKeySandboxSkillRequest,
+    cb?: (error: string, rep: InstallKeySandboxSkillResponse) => void
+  ): Promise<InstallKeySandboxSkillResponse> {
+    return this.request("InstallKeySandboxSkill", req, cb)
   }
 
   /**
@@ -5162,6 +5533,16 @@ capi 层处理流程：
   }
 
   /**
+   * 查询当前租户的 LLM 审计用户规则列表。LLM 审计规则不支持用户自定义内容，只能引用系统规则组合。传入 Filter.Name=RuleID 可精确查询单条规则（用于详情页面场景）
+   */
+  async DescribeSandboxLLMAuditRuleList(
+    req: DescribeSandboxLLMAuditRuleListRequest,
+    cb?: (error: string, rep: DescribeSandboxLLMAuditRuleListResponse) => void
+  ): Promise<DescribeSandboxLLMAuditRuleListResponse> {
+    return this.request("DescribeSandboxLLMAuditRuleList", req, cb)
+  }
+
+  /**
    * 检查视角下云资源配置风险列表
    */
   async DescribeCheckViewRisks(
@@ -5259,6 +5640,16 @@ capi 层处理流程：
     cb?: (error: string, rep: ModifyMachineAutoClearConfigResponse) => void
   ): Promise<ModifyMachineAutoClearConfigResponse> {
     return this.request("ModifyMachineAutoClearConfig", req, cb)
+  }
+
+  /**
+   * 批量删除 DLP 用户规则。任一 ID 不存在或属于其他租户时整体返回错误
+   */
+  async DeleteSandboxDLPRule(
+    req: DeleteSandboxDLPRuleRequest,
+    cb?: (error: string, rep: DeleteSandboxDLPRuleResponse) => void
+  ): Promise<DeleteSandboxDLPRuleResponse> {
+    return this.request("DeleteSandboxDLPRule", req, cb)
   }
 
   /**
@@ -5402,13 +5793,13 @@ capi 层处理流程：
   }
 
   /**
-   * 查询Dspm资产支持的权限
+   * 删除Dspm申请单
    */
-  async DescribeDspmAssetSupportedPrivileges(
-    req: DescribeDspmAssetSupportedPrivilegesRequest,
-    cb?: (error: string, rep: DescribeDspmAssetSupportedPrivilegesResponse) => void
-  ): Promise<DescribeDspmAssetSupportedPrivilegesResponse> {
-    return this.request("DescribeDspmAssetSupportedPrivileges", req, cb)
+  async DeleteDspmApplyOrder(
+    req: DeleteDspmApplyOrderRequest,
+    cb?: (error: string, rep: DeleteDspmApplyOrderResponse) => void
+  ): Promise<DeleteDspmApplyOrderResponse> {
+    return this.request("DeleteDspmApplyOrder", req, cb)
   }
 
   /**
@@ -5642,6 +6033,16 @@ capi 层处理流程：
   }
 
   /**
+   * 日志类型投递关闭
+   */
+  async ModifyDspmCkafkaStop(
+    req: ModifyDspmCkafkaStopRequest,
+    cb?: (error: string, rep: ModifyDspmCkafkaStopResponse) => void
+  ): Promise<ModifyDspmCkafkaStopResponse> {
+    return this.request("ModifyDspmCkafkaStop", req, cb)
+  }
+
+  /**
    * 查看调用记录关联的文件信息
    */
   async DescribeCosInvokeUa(
@@ -5792,6 +6193,16 @@ capi 层处理流程：
   }
 
   /**
+   * 创建一条 LLM 审计用户规则。必须引用至少一条系统规则，不支持用户自定义规则内容
+   */
+  async CreateSandboxLLMAuditRule(
+    req: CreateSandboxLLMAuditRuleRequest,
+    cb?: (error: string, rep: CreateSandboxLLMAuditRuleResponse) => void
+  ): Promise<CreateSandboxLLMAuditRuleResponse> {
+    return this.request("CreateSandboxLLMAuditRule", req, cb)
+  }
+
+  /**
    * 查询镜像关联主机资产列表
    */
   async DescribeImageAssociatedHostList(
@@ -5819,6 +6230,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeDspmSupportedAssetTypeResponse) => void
   ): Promise<DescribeDspmSupportedAssetTypeResponse> {
     return this.request("DescribeDspmSupportedAssetType", req, cb)
+  }
+
+  /**
+   * 创建Dspm自定义风险策略
+   */
+  async CreateDspmRiskStrategy(
+    req: CreateDspmRiskStrategyRequest,
+    cb?: (error: string, rep: CreateDspmRiskStrategyResponse) => void
+  ): Promise<CreateDspmRiskStrategyResponse> {
+    return this.request("CreateDspmRiskStrategy", req, cb)
   }
 
   /**
@@ -5984,6 +6405,16 @@ capi 层处理流程：
   }
 
   /**
+   * 批量删除 ACL 用户规则。删除后规则不再返回到列表查询，并不再对流量生效。任一 ID 不存在或属于其他租户时整体返回错误
+   */
+  async DeleteSandboxACLRule(
+    req: DeleteSandboxACLRuleRequest,
+    cb?: (error: string, rep: DeleteSandboxACLRuleResponse) => void
+  ): Promise<DeleteSandboxACLRuleResponse> {
+    return this.request("DeleteSandboxACLRule", req, cb)
+  }
+
+  /**
    * 查询Dspm同步资产状态
    */
   async DescribeDspmSyncAssetsStatus(
@@ -6044,6 +6475,16 @@ capi 层处理流程：
   }
 
   /**
+   * 分页查询 DLP 数据泄露告警日志列表。支持按 Filter.Name=ID 精确过滤单条告警用于详情页场景
+   */
+  async DescribeSandboxDLPAlertList(
+    req: DescribeSandboxDLPAlertListRequest,
+    cb?: (error: string, rep: DescribeSandboxDLPAlertListResponse) => void
+  ): Promise<DescribeSandboxDLPAlertListResponse> {
+    return this.request("DescribeSandboxDLPAlertList", req, cb)
+  }
+
+  /**
    * 修改镜像仓库信息
    */
   async ModifyImageRegistry(
@@ -6071,6 +6512,16 @@ capi 层处理流程：
     cb?: (error: string, rep: CreateImageAssociatedHostListExportJobResponse) => void
   ): Promise<CreateImageAssociatedHostListExportJobResponse> {
     return this.request("CreateImageAssociatedHostListExportJob", req, cb)
+  }
+
+  /**
+   * 创建一条 DLP 用户规则。可引用若干系统规则（SystemRuleIDList），亦可自定义规则（UserRuleContent，名称 + 正则），两者至少提供其一；UserRuleInfo 为新增可选的结构化入参，与 UserRuleContent 同时传入时以 UserRuleInfo 为准
+   */
+  async CreateSandboxDLPRule(
+    req: CreateSandboxDLPRuleRequest,
+    cb?: (error: string, rep: CreateSandboxDLPRuleResponse) => void
+  ): Promise<CreateSandboxDLPRuleResponse> {
+    return this.request("CreateSandboxDLPRule", req, cb)
   }
 
   /**
@@ -6161,6 +6612,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeAgentRunModeResponse) => void
   ): Promise<DescribeAgentRunModeResponse> {
     return this.request("DescribeAgentRunMode", req, cb)
+  }
+
+  /**
+   * 编辑ak监测账号
+   */
+  async ModifyShareUserAK(
+    req: ModifyShareUserAKRequest,
+    cb?: (error: string, rep: ModifyShareUserAKResponse) => void
+  ): Promise<ModifyShareUserAKResponse> {
+    return this.request("ModifyShareUserAK", req, cb)
   }
 
   /**
@@ -6384,13 +6845,13 @@ capi 层处理流程：
   }
 
   /**
-   * 分页查询当前租户下的通知策略列表，对应「通知中心 - 机器人通知 - 通知策略配置」Tab 的表格。返回的字段为「行展示」所需的精简信息。完整配置在编辑场景下使用 DescribeWebhookPolicy。每租户最多 100 个通知策略
+   * 访问密钥告警记录列表
    */
-  async DescribeWebhookPolicyList(
-    req: DescribeWebhookPolicyListRequest,
-    cb?: (error: string, rep: DescribeWebhookPolicyListResponse) => void
-  ): Promise<DescribeWebhookPolicyListResponse> {
-    return this.request("DescribeWebhookPolicyList", req, cb)
+  async DescribeAccessKeyWhiteList(
+    req: DescribeAccessKeyWhiteListRequest,
+    cb?: (error: string, rep: DescribeAccessKeyWhiteListResponse) => void
+  ): Promise<DescribeAccessKeyWhiteListResponse> {
+    return this.request("DescribeAccessKeyWhiteList", req, cb)
   }
 
   /**
@@ -6471,6 +6932,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeAssetOverviewResponse) => void
   ): Promise<DescribeAssetOverviewResponse> {
     return this.request("DescribeAssetOverview", req, cb)
+  }
+
+  /**
+   * 批量切换 ACL 用户规则的启禁用状态。任一规则不存在、属于其他租户或已删除时整体返回错误
+   */
+  async ModifySandboxACLRuleStatus(
+    req: ModifySandboxACLRuleStatusRequest,
+    cb?: (error: string, rep: ModifySandboxACLRuleStatusResponse) => void
+  ): Promise<ModifySandboxACLRuleStatusResponse> {
+    return this.request("ModifySandboxACLRuleStatus", req, cb)
   }
 
   /**
@@ -6728,6 +7199,16 @@ capi 层处理流程：
   }
 
   /**
+   * 批量切换 DLP 用户规则的启禁用状态。任一规则不存在、属于其他租户或已删除时整体返回错误
+   */
+  async ModifySandboxDLPRuleStatus(
+    req: ModifySandboxDLPRuleStatusRequest,
+    cb?: (error: string, rep: ModifySandboxDLPRuleStatusResponse) => void
+  ): Promise<ModifySandboxDLPRuleStatusResponse> {
+    return this.request("ModifySandboxDLPRuleStatus", req, cb)
+  }
+
+  /**
    * 修改对象存储识别开关
    */
   async ModifyCosAuditObjectIdentifyStatus(
@@ -6858,6 +7339,16 @@ capi 层处理流程：
   }
 
   /**
+   * 查询当前租户的 DLP 用户规则列表。传入 Filter.Name=RuleID 可精确查询单条规则（用于详情页面场景）
+   */
+  async DescribeSandboxDLPRuleList(
+    req: DescribeSandboxDLPRuleListRequest,
+    cb?: (error: string, rep: DescribeSandboxDLPRuleListResponse) => void
+  ): Promise<DescribeSandboxDLPRuleListResponse> {
+    return this.request("DescribeSandboxDLPRuleList", req, cb)
+  }
+
+  /**
      * 修改自动扩容配置（多模块可扩展，本期仅主机安全模块）。
 
 「自动扩容」为面向用户的对外概念，等价于底层自动加购(auto_repurchase)：当账号有新增资产时，自动加购所需授权。
@@ -6897,6 +7388,16 @@ capi 层处理流程：
   }
 
   /**
+   * 分页查询当前租户下的通知策略列表，对应「通知中心 - 机器人通知 - 通知策略配置」Tab 的表格。返回的字段为「行展示」所需的精简信息。完整配置在编辑场景下使用 DescribeWebhookPolicy。每租户最多 100 个通知策略
+   */
+  async DescribeWebhookPolicyList(
+    req: DescribeWebhookPolicyListRequest,
+    cb?: (error: string, rep: DescribeWebhookPolicyListResponse) => void
+  ): Promise<DescribeWebhookPolicyListResponse> {
+    return this.request("DescribeWebhookPolicyList", req, cb)
+  }
+
+  /**
    * 查询Dspm统计信息
    */
   async DescribeDspmStatistics(
@@ -6904,6 +7405,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeDspmStatisticsResponse) => void
   ): Promise<DescribeDspmStatisticsResponse> {
     return this.request("DescribeDspmStatistics", req, cb)
+  }
+
+  /**
+   * 编辑dspm监测账号
+   */
+  async ModifyShareUserDspm(
+    req: ModifyShareUserDspmRequest,
+    cb?: (error: string, rep: ModifyShareUserDspmResponse) => void
+  ): Promise<ModifyShareUserDspmResponse> {
+    return this.request("ModifyShareUserDspm", req, cb)
   }
 
   /**
@@ -6994,6 +7505,16 @@ capi 层处理流程：
     cb?: (error: string, rep: ModifyRiskCenterScanTaskResponse) => void
   ): Promise<ModifyRiskCenterScanTaskResponse> {
     return this.request("ModifyRiskCenterScanTask", req, cb)
+  }
+
+  /**
+   * 租户Ckafka联通性测试
+   */
+  async SendDspmCkafkaTest(
+    req: SendDspmCkafkaTestRequest,
+    cb?: (error: string, rep: SendDspmCkafkaTestResponse) => void
+  ): Promise<SendDspmCkafkaTestResponse> {
+    return this.request("SendDspmCkafkaTest", req, cb)
   }
 
   /**
@@ -7137,6 +7658,16 @@ capi 层处理流程：
   }
 
   /**
+   * 查询dspm审计过滤策略
+   */
+  async DescribeDspmAuditFilterStrategy(
+    req: DescribeDspmAuditFilterStrategyRequest,
+    cb?: (error: string, rep: DescribeDspmAuditFilterStrategyResponse) => void
+  ): Promise<DescribeDspmAuditFilterStrategyResponse> {
+    return this.request("DescribeDspmAuditFilterStrategy", req, cb)
+  }
+
+  /**
    * 查询dspm数据识别数据项验证结果
    */
   async DescribeDspmIdentifyRuleTestResult(
@@ -7234,6 +7765,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeSandboxACLAlertListResponse) => void
   ): Promise<DescribeSandboxACLAlertListResponse> {
     return this.request("DescribeSandboxACLAlertList", req, cb)
+  }
+
+  /**
+   * 修改Dspm审计过滤策略
+   */
+  async ModifyDspmAuditFilterStrategy(
+    req: ModifyDspmAuditFilterStrategyRequest,
+    cb?: (error: string, rep: ModifyDspmAuditFilterStrategyResponse) => void
+  ): Promise<ModifyDspmAuditFilterStrategyResponse> {
+    return this.request("ModifyDspmAuditFilterStrategy", req, cb)
   }
 
   /**
@@ -7377,6 +7918,16 @@ capi 层处理流程：
   }
 
   /**
+   * 查询租户日志投递配置
+   */
+  async DescribeDspmLogTypeConfigList(
+    req: DescribeDspmLogTypeConfigListRequest,
+    cb?: (error: string, rep: DescribeDspmLogTypeConfigListResponse) => void
+  ): Promise<DescribeDspmLogTypeConfigListResponse> {
+    return this.request("DescribeDspmLogTypeConfigList", req, cb)
+  }
+
+  /**
    * CSIP 手动扫描任务删除接口
    */
   async DeleteCSIPMalwareScanTask(
@@ -7467,6 +8018,16 @@ capi 层处理流程：
   }
 
   /**
+   * 查询审计会话列表信息
+   */
+  async DescribeDspmSessionList(
+    req: DescribeDspmSessionListRequest,
+    cb?: (error: string, rep: DescribeDspmSessionListResponse) => void
+  ): Promise<DescribeDspmSessionListResponse> {
+    return this.request("DescribeDspmSessionList", req, cb)
+  }
+
+  /**
    * 查询指定 SCF 函数下的版本列表。
    */
   async DescribeSCFFunctionVersionList(
@@ -7474,6 +8035,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeSCFFunctionVersionListResponse) => void
   ): Promise<DescribeSCFFunctionVersionListResponse> {
     return this.request("DescribeSCFFunctionVersionList", req, cb)
+  }
+
+  /**
+   * 获取风险调用记录列表
+   */
+  async DescribeRiskCallRecord(
+    req: DescribeRiskCallRecordRequest,
+    cb?: (error: string, rep: DescribeRiskCallRecordResponse) => void
+  ): Promise<DescribeRiskCallRecordResponse> {
+    return this.request("DescribeRiskCallRecord", req, cb)
   }
 
   /**
@@ -7697,13 +8268,13 @@ capi 层处理流程：
   }
 
   /**
-   * 创建镜像扫描任务
+   * 创建镜像资产中组件列表导出任务
    */
-  async CreateImageRegistryScanTask(
-    req: CreateImageRegistryScanTaskRequest,
-    cb?: (error: string, rep: CreateImageRegistryScanTaskResponse) => void
-  ): Promise<CreateImageRegistryScanTaskResponse> {
-    return this.request("CreateImageRegistryScanTask", req, cb)
+  async CreateAssetComponentListExportJob(
+    req: CreateAssetComponentListExportJobRequest,
+    cb?: (error: string, rep: CreateAssetComponentListExportJobResponse) => void
+  ): Promise<CreateAssetComponentListExportJobResponse> {
+    return this.request("CreateAssetComponentListExportJob", req, cb)
   }
 
   /**
@@ -7799,13 +8370,13 @@ capi 层处理流程：
   }
 
   /**
-   * 获取系统内置基线分类树（父分类 → 子分类 → 内置检测项 ID 列表），用于策略编辑页选择基线检测项。
+   * 创建命令沙箱文件访问规则
    */
-  async DescribeBaselineSystemCategoryList(
-    req?: DescribeBaselineSystemCategoryListRequest,
-    cb?: (error: string, rep: DescribeBaselineSystemCategoryListResponse) => void
-  ): Promise<DescribeBaselineSystemCategoryListResponse> {
-    return this.request("DescribeBaselineSystemCategoryList", req, cb)
+  async DeleteSandboxFileRule(
+    req: DeleteSandboxFileRuleRequest,
+    cb?: (error: string, rep: DeleteSandboxFileRuleResponse) => void
+  ): Promise<DeleteSandboxFileRuleResponse> {
+    return this.request("DeleteSandboxFileRule", req, cb)
   }
 
   /**
@@ -7879,13 +8450,13 @@ capi 层处理流程：
   }
 
   /**
-   * 创建镜像资产中组件列表导出任务
+   * 创建镜像扫描任务
    */
-  async CreateAssetComponentListExportJob(
-    req: CreateAssetComponentListExportJobRequest,
-    cb?: (error: string, rep: CreateAssetComponentListExportJobResponse) => void
-  ): Promise<CreateAssetComponentListExportJobResponse> {
-    return this.request("CreateAssetComponentListExportJob", req, cb)
+  async CreateImageRegistryScanTask(
+    req: CreateImageRegistryScanTaskRequest,
+    cb?: (error: string, rep: CreateImageRegistryScanTaskResponse) => void
+  ): Promise<CreateImageRegistryScanTaskResponse> {
+    return this.request("CreateImageRegistryScanTask", req, cb)
   }
 
   /**
@@ -7919,6 +8490,16 @@ capi 层处理流程：
   }
 
   /**
+   * 修改命令沙箱文件访问规则
+   */
+  async ModifySandboxFileRule(
+    req: ModifySandboxFileRuleRequest,
+    cb?: (error: string, rep: ModifySandboxFileRuleResponse) => void
+  ): Promise<ModifySandboxFileRuleResponse> {
+    return this.request("ModifySandboxFileRule", req, cb)
+  }
+
+  /**
    * 查看调用记录关联的文件信息
    */
   async DescribeCosIpInvokeRecordFile(
@@ -7946,6 +8527,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeDspmIdentifyIdListResponse) => void
   ): Promise<DescribeDspmIdentifyIdListResponse> {
     return this.request("DescribeDspmIdentifyIdList", req, cb)
+  }
+
+  /**
+   * 绑定 RASP / 旗舰版授权到指定订单。异步执行，返回TaskId供查询进度。LicenseType=rasp 绑 RASP，LicenseType=enterprise_hp 绑旗舰版主机授权；AssetType 区分主机/容器节点/EKS。
+   */
+  async ModifyCSIPRaspLicenseBinds(
+    req: ModifyCSIPRaspLicenseBindsRequest,
+    cb?: (error: string, rep: ModifyCSIPRaspLicenseBindsResponse) => void
+  ): Promise<ModifyCSIPRaspLicenseBindsResponse> {
+    return this.request("ModifyCSIPRaspLicenseBinds", req, cb)
   }
 
   /**
@@ -8016,6 +8607,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeNFSScanHostResponse) => void
   ): Promise<DescribeNFSScanHostResponse> {
     return this.request("DescribeNFSScanHost", req, cb)
+  }
+
+  /**
+   * 查询Ckafka实例的路由信息
+   */
+  async DescribeDspmCkafkaRouteList(
+    req: DescribeDspmCkafkaRouteListRequest,
+    cb?: (error: string, rep: DescribeDspmCkafkaRouteListResponse) => void
+  ): Promise<DescribeDspmCkafkaRouteListResponse> {
+    return this.request("DescribeDspmCkafkaRouteList", req, cb)
   }
 
   /**
@@ -8169,6 +8770,16 @@ capi 层处理流程：
   }
 
   /**
+   * 修改已有的 ACL 用户规则。未传字段保持原值，支持部分字段更新
+   */
+  async ModifySandboxACLRule(
+    req: ModifySandboxACLRuleRequest,
+    cb?: (error: string, rep: ModifySandboxACLRuleResponse) => void
+  ): Promise<ModifySandboxACLRuleResponse> {
+    return this.request("ModifySandboxACLRule", req, cb)
+  }
+
+  /**
    * 创建容器镜像敏感信息白名单
    */
   async CreateImageSensitiveWhitelist(
@@ -8239,6 +8850,16 @@ capi 层处理流程：
   }
 
   /**
+   * 日志投递开启
+   */
+  async ModifyDspmCkafkaStart(
+    req: ModifyDspmCkafkaStartRequest,
+    cb?: (error: string, rep: ModifyDspmCkafkaStartResponse) => void
+  ): Promise<ModifyDspmCkafkaStartResponse> {
+    return this.request("ModifyDspmCkafkaStart", req, cb)
+  }
+
+  /**
    * 对修复失败的漏洞修复任务进行重试，仅针对原任务中修复失败的主机重新下发修复指令。仅当任务状态为部分修复失败或全部修复失败时允许重试。
    */
   async CreateVulFixRetryTask(
@@ -8286,6 +8907,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DeleteIaCAccessTokenResponse) => void
   ): Promise<DeleteIaCAccessTokenResponse> {
     return this.request("DeleteIaCAccessToken", req, cb)
+  }
+
+  /**
+   * 批量启用或禁用命令沙箱文件访问规则
+   */
+  async ModifySandboxFileRuleStatus(
+    req: ModifySandboxFileRuleStatusRequest,
+    cb?: (error: string, rep: ModifySandboxFileRuleStatusResponse) => void
+  ): Promise<ModifySandboxFileRuleStatusResponse> {
+    return this.request("ModifySandboxFileRuleStatus", req, cb)
   }
 
   /**
@@ -8469,6 +9100,16 @@ capi 层处理流程：
   }
 
   /**
+   * 取消日志投递配置
+   */
+  async DeleteDspmCkafkaConfig(
+    req: DeleteDspmCkafkaConfigRequest,
+    cb?: (error: string, rep: DeleteDspmCkafkaConfigResponse) => void
+  ): Promise<DeleteDspmCkafkaConfigResponse> {
+    return this.request("DeleteDspmCkafkaConfig", req, cb)
+  }
+
+  /**
    * 查询漏洞风险高级配置
    */
   async DescribeVULRiskAdvanceCFGList(
@@ -8528,6 +9169,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeKBDetailResponse) => void
   ): Promise<DescribeKBDetailResponse> {
     return this.request("DescribeKBDetail", req, cb)
+  }
+
+  /**
+   * 获取系统内置基线分类树（父分类 → 子分类 → 内置检测项 ID 列表），用于策略编辑页选择基线检测项。
+   */
+  async DescribeBaselineSystemCategoryList(
+    req?: DescribeBaselineSystemCategoryListRequest,
+    cb?: (error: string, rep: DescribeBaselineSystemCategoryListResponse) => void
+  ): Promise<DescribeBaselineSystemCategoryListResponse> {
+    return this.request("DescribeBaselineSystemCategoryList", req, cb)
   }
 
   /**
@@ -8601,13 +9252,23 @@ capi 层处理流程：
   }
 
   /**
-   * 修改安全评分规则，必须传入完整规则集
+   * 查询 LLM 审计系统规则列表，系统规则由 CSIP 平台内置（来源于 LLM 审计系统规则库），按 LLM 推理防护 / ToolCall 防护拆分为两个扁平规则数组返回，可被用户规则引用
    */
-  async ModifySecurityScoreRule(
-    req: ModifySecurityScoreRuleRequest,
-    cb?: (error: string, rep: ModifySecurityScoreRuleResponse) => void
-  ): Promise<ModifySecurityScoreRuleResponse> {
-    return this.request("ModifySecurityScoreRule", req, cb)
+  async DescribeSandboxLLMAuditSystemRuleList(
+    req?: DescribeSandboxLLMAuditSystemRuleListRequest,
+    cb?: (error: string, rep: DescribeSandboxLLMAuditSystemRuleListResponse) => void
+  ): Promise<DescribeSandboxLLMAuditSystemRuleListResponse> {
+    return this.request("DescribeSandboxLLMAuditSystemRuleList", req, cb)
+  }
+
+  /**
+   * 删除Dspm自定义风险策略。仅支持删除自定义策略（rule_source=custom）；内置策略不可删除，请通过 ModifyDspmRiskStrategy 的 IsEnabled 禁用。
+   */
+  async DeleteDspmRiskStrategy(
+    req: DeleteDspmRiskStrategyRequest,
+    cb?: (error: string, rep: DeleteDspmRiskStrategyResponse) => void
+  ): Promise<DeleteDspmRiskStrategyResponse> {
+    return this.request("DeleteDspmRiskStrategy", req, cb)
   }
 
   /**
@@ -8671,13 +9332,13 @@ capi 层处理流程：
   }
 
   /**
-   * 删除Dspm申请单
+   * 查询Dspm资产支持的权限
    */
-  async DeleteDspmApplyOrder(
-    req: DeleteDspmApplyOrderRequest,
-    cb?: (error: string, rep: DeleteDspmApplyOrderResponse) => void
-  ): Promise<DeleteDspmApplyOrderResponse> {
-    return this.request("DeleteDspmApplyOrder", req, cb)
+  async DescribeDspmAssetSupportedPrivileges(
+    req: DescribeDspmAssetSupportedPrivilegesRequest,
+    cb?: (error: string, rep: DescribeDspmAssetSupportedPrivilegesResponse) => void
+  ): Promise<DescribeDspmAssetSupportedPrivilegesResponse> {
+    return this.request("DescribeDspmAssetSupportedPrivileges", req, cb)
   }
 
   /**
@@ -8758,6 +9419,16 @@ capi 层处理流程：
     cb?: (error: string, rep: DescribeIpInvokeRecordResponse) => void
   ): Promise<DescribeIpInvokeRecordResponse> {
     return this.request("DescribeIpInvokeRecord", req, cb)
+  }
+
+  /**
+   * 修改已存在的 DLP 用户规则。未传字段保持原值，支持部分字段更新；不支持修改 BelongAssetType
+   */
+  async ModifySandboxDLPRule(
+    req: ModifySandboxDLPRuleRequest,
+    cb?: (error: string, rep: ModifySandboxDLPRuleResponse) => void
+  ): Promise<ModifySandboxDLPRuleResponse> {
+    return this.request("ModifySandboxDLPRule", req, cb)
   }
 
   /**
@@ -8943,13 +9614,13 @@ capi 层处理流程：
   }
 
   /**
-   * 获取风险调用记录列表
+   * 创建Dspm审计过滤策略
    */
-  async DescribeRiskCallRecord(
-    req: DescribeRiskCallRecordRequest,
-    cb?: (error: string, rep: DescribeRiskCallRecordResponse) => void
-  ): Promise<DescribeRiskCallRecordResponse> {
-    return this.request("DescribeRiskCallRecord", req, cb)
+  async CreateDspmAuditFilterStrategy(
+    req: CreateDspmAuditFilterStrategyRequest,
+    cb?: (error: string, rep: CreateDspmAuditFilterStrategyResponse) => void
+  ): Promise<CreateDspmAuditFilterStrategyResponse> {
+    return this.request("CreateDspmAuditFilterStrategy", req, cb)
   }
 
   /**

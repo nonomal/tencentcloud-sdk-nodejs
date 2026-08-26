@@ -16,40 +16,6 @@
  */
 
 /**
- * DescribeAlarmNotifyHistories请求参数结构体
- */
-export interface DescribeAlarmNotifyHistoriesRequest {
-  /**
-   * 监控类型
-   */
-  MonitorType: string
-  /**
-   * 起始时间点，unix秒级时间戳
-   */
-  QueryBaseTime: number
-  /**
-   * 从 QueryBaseTime 开始，需要查询往前多久的时间，单位秒
-   */
-  QueryBeforeSeconds: number
-  /**
-   * 分页参数
-   */
-  PageParams: PageByNoParams
-  /**
-   * 当监控类型为 MT_QCE 时候需要填写，归属的命名空间
-   */
-  Namespace?: string
-  /**
-   * 当监控类型为 MT_QCE 时候需要填写， 告警策略类型
-   */
-  ModelName?: string
-  /**
-   * 查询某个策略的通知历史
-   */
-  PolicyId?: string
-}
-
-/**
  * 告警通知自定义Webhook内容模板
  */
 export interface WebhookNoticeTmpl {
@@ -85,34 +51,37 @@ Trigger 告警触发; Recovery 告警恢复
 }
 
 /**
- * 分页结果参数
+ * ListAIWorkbenchMCPs请求参数结构体
  */
-export interface PageByNoResult {
+export interface ListAIWorkbenchMCPsRequest {
   /**
-   * 总共有多少数据
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>每页数量</p>
    */
-  TotalCount?: number
+  PerPage?: number
   /**
-   * 总共有多少个分页
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>页码</p>
    */
-  TotalPage?: number
+  PageNo?: number
   /**
-   * 当前的分页号
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>按传输协议筛选</p>
    */
-  CurrentPageNo?: number
+  Transport?: string
   /**
-   * 【已弃用】是否遍历到末尾
-注意：此字段可能返回 null，表示取不到有效值。
-   * @deprecated
+   * <p>搜索关键词</p>
    */
-  IsEnd?: boolean
+  Keyword?: string
   /**
-   * 是否遍历到末尾
+   * <p>是否启用筛选</p>
    */
-  End?: boolean
+  Enabled?: boolean
+  /**
+   * <p>关联的mcp</p>
+   */
+  MCPIds?: Array<string>
+  /**
+   * <p>MCP类型（内置/私有）</p><p>枚举值：</p><ul><li>builtin： 平台内置</li><li>private： 用户自定义</li></ul>
+   */
+  Type?: string
 }
 
 /**
@@ -128,54 +97,6 @@ Trigger 告警触发; Recovery 告警恢复
    * 模板配置
    */
   Template: FeiShuRobotNoticeTmpl
-}
-
-/**
- * DeleteNoticeContentTmpls请求参数结构体
- */
-export interface DeleteNoticeContentTmplsRequest {
-  /**
-   * <p>要删除的模板id</p>
-   */
-  TmplIDs?: Array<string>
-}
-
-/**
- * 分页请求参数
- */
-export interface PageByNoParams {
-  /**
-   * 每个分页的数量是多少
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  PerPage?: number
-  /**
-   * 第几个分页，从1开始
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  PageNo?: string
-}
-
-/**
- * 官网通知内容模板元素
- */
-export interface QCloudYeheWeChatNoticeTmplItem {
-  /**
-   * 告警内容模板
-   */
-  AlarmContentTmpl?: string
-  /**
-   * 告警对象模板
-   */
-  AlarmObjectTmpl?: string
-  /**
-   * 告警地域模板
-   */
-  AlarmRegionTmpl?: string
-  /**
-   * 告警时间模板
-   */
-  AlarmTimeTmpl?: string
 }
 
 /**
@@ -209,70 +130,36 @@ export interface AIWorkbenchSREDigitalTwinTask {
 }
 
 /**
- * 接受人详情信息
+ * TriggerAIWorkbenchTask返回参数结构体
  */
-export interface ChannelsReceivers {
+export interface TriggerAIWorkbenchTaskResponse {
   /**
-   * 通知渠道名称
+   * <p>执行 ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  ChannelName?: string
+  ExecutionId?: string
   /**
-   * 接收者
-注意：此字段可能返回 null，表示取不到有效值。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Receivers?: Array<string>
-  /**
-   * 发送结果,0-无效,1-成功,2-失败,3-无需发送
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  SendStatus?: string
+  RequestId?: string
 }
 
 /**
- * DescribeAIWorkbenchSREDigitalTwinTaskList请求参数结构体
+ * AI工作台SRE数字分身工作日志详细信息
  */
-export interface DescribeAIWorkbenchSREDigitalTwinTaskListRequest {
+export interface AIWorkbenchSREDigitalTwinWorkLogDetail {
   /**
-   * 数字分身ID
+   * 工作日志详细内容
    */
-  TwinID: number
+  Content?: string
   /**
-   * 偏移量
+   * 工作日志任务类型
    */
-  Offset?: number
+  TaskType?: string
   /**
-   * 数量限制
+   * 工作日志相关对话ID
    */
-  Limit?: number
-}
-
-/**
- * AI工作台SRE数字分身工作日志列表
- */
-export interface AIWorkbenchSREDigitalTwinWorkLogList {
-  /**
-   * 工作日志列表
-   */
-  WorkLogs?: Array<AIWorkbenchSREDigitalTwinWorkLog>
-  /**
-   * 总数
-   */
-  Total?: number
-}
-
-/**
- * 通知历史中关联的通知模板信息
- */
-export interface NotifyRelatedNotice {
-  /**
-   * 通知模板ID
-   */
-  NoticeId?: string
-  /**
-   * 通知模板的名称
-   */
-  NoticeName?: string
+  DialogID?: number
 }
 
 /**
@@ -329,17 +216,85 @@ export interface NoticeContentTmplItem {
 }
 
 /**
- * 官网通知内容模板元素
+ * 资源地图实体
  */
-export interface QCloudYeheNoticeTmplItem {
+export interface ResourceMapInfo {
   /**
-   * 内容模板
+   * <p>资源地图 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  ContentTmpl: string
+  ResourceMapId?: string
   /**
-   * 标题
+   * <p>资源地图名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  TitleTmpl?: string
+  Name?: string
+  /**
+   * <p>资源地图描述</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * <p>总实例数</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  InstanceCount?: number
+}
+
+/**
+ * Agent 信息
+ */
+export interface AgentInfo {
+  /**
+   * <p>Agent ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AgentId?: string
+  /**
+   * <p>Agent 名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Name?: string
+  /**
+   * <p>Agent 描述</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * <p>Agent 分类</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Category?: string
+  /**
+   * <p>状态: draft/configured/running/standby/disabled</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: string
+  /**
+   * <p>关联技能 ID 列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SkillIds?: Array<string>
+  /**
+   * <p>关联的资源地图 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceMapId?: string
+  /**
+   * <p>关联的mcp id</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MCPIds?: Array<string>
+  /**
+   * <p>资源标签</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CamTags?: Array<Tag>
+  /**
+   * <p>agent运行时所需环境变量</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EnvVars?: Array<EnvVar>
 }
 
 /**
@@ -354,52 +309,6 @@ export interface CreateNoticeContentTmplResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
-}
-
-/**
- * Microsoft Teams 工作流内容模板配置
- */
-export interface TeamsWorkflowRobotNoticeTmpl {
-  /**
-   * <p>内容模板</p>
-   */
-  ContentTmpl: string
-  /**
-   * <p>区分 TeamsWorkflow 是自定义内容还是自定义 POST BODY</p><p>枚举值：</p><ul><li>WorkflowText： 自定义内容</li><li>WorkflowJson： 自定义 POST BODY</li></ul>
-   */
-  Version: string
-  /**
-   * <p>标题模版</p>
-   */
-  TitleTmpl?: string
-}
-
-/**
- * 通知内容模板绑定告警策略数量
- */
-export interface NoticeContentTmplBindPolicyCount {
-  /**
-   * 通知内容模板ID
-   */
-  NoticeContentTmplID?: string
-  /**
-   * 绑定告警策略数量
-   */
-  BindCount?: number
-}
-
-/**
- * 告警中的Label
- */
-export interface AlarmLable {
-  /**
-   * label name
-   */
-  Name?: string
-  /**
-   * label value
-   */
-  Value?: string
 }
 
 /**
@@ -445,49 +354,13 @@ export interface AIWorkbenchSREDigitalTwinWorkLog {
 }
 
 /**
- * TriggerAIWorkbenchSREDigitalTwinTask请求参数结构体
+ * DeleteAIWorkbenchTask请求参数结构体
  */
-export interface TriggerAIWorkbenchSREDigitalTwinTaskRequest {
+export interface DeleteAIWorkbenchTaskRequest {
   /**
-   * 数字分身任务ID
+   * <p>任务 ID</p>
    */
-  TaskID: number
-}
-
-/**
- * TriggerAIWorkbenchSREDigitalTwinTask返回参数结构体
- */
-export interface TriggerAIWorkbenchSREDigitalTwinTaskResponse {
-  /**
-   * Json序列化路径
-   */
-  JSONStrPaths?: Array<string>
-  /**
-   * 数字分身任务信息
-   */
-  Data?: TriggerDigitalTwinTaskResp
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
-}
-
-/**
- * DescribeAIWorkbenchSREDigitalTwinWorkLogList返回参数结构体
- */
-export interface DescribeAIWorkbenchSREDigitalTwinWorkLogListResponse {
-  /**
-   * Json序列化路径
-   */
-  JSONStrPaths?: Array<string>
-  /**
-   * 数字分身工作日志列表
-   */
-  Data?: AIWorkbenchSREDigitalTwinWorkLogList
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
+  TaskId?: string
 }
 
 /**
@@ -501,58 +374,53 @@ export interface TriggerDigitalTwinTaskResp {
 }
 
 /**
- * Microsoft Teams 工作流通知模板的匹配器
+ * DescribeAIWorkbenchArtifact请求参数结构体
  */
-export interface TeamsWorkflowRobotNoticeTmplMatcher {
+export interface DescribeAIWorkbenchArtifactRequest {
   /**
-   * <p>匹配状态 Invalid; Trigger 告警触发; Recovery 告警恢复</p><p>枚举值：</p><ul><li>Trigger： 告警触发</li><li>Recovery： 告警恢复</li></ul>
+   * <p>产物 ID</p>
    */
-  MatchingStatus: Array<string>
+  ArtifactId: string
   /**
-   * <p>模板配置</p>
+   * <p>是否需要下载 URL</p><p><code>1</code> = 需要，<code>0</code> 或不传 = 不需要</p>
    */
-  Template: TeamsWorkflowRobotNoticeTmpl
+  NeedDownloadURL?: number
 }
 
 /**
- * ModifyNoticeContentTmpl返回参数结构体
+ * 企业微信机器人内容模板配置
  */
-export interface ModifyNoticeContentTmplResponse {
+export interface SlackRobotNoticeTmpl {
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>内容模板</p>
    */
-  RequestId?: string
+  ContentTmpl: string
 }
 
 /**
- * DescribeNoticeContentTmpl返回参数结构体
+ * ListAIWorkbenchSessions请求参数结构体
  */
-export interface DescribeNoticeContentTmplResponse {
+export interface ListAIWorkbenchSessionsRequest {
   /**
-   * 自定义通知内容模板
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>每页数量</p>
    */
-  NoticeContentTmpls?: Array<NoticeContentTmpl>
+  PerPage?: number
   /**
-   * 通知内容模板绑定的告警策略数量
+   * <p>页码</p>
    */
-  NoticeContentTmplBindPolicyCounts?: Array<NoticeContentTmplBindPolicyCount>
+  PageNo?: number
   /**
-   * 分页数
+   * <p>按 Agent 筛选</p>
    */
-  PageNumber?: number
+  AgentId?: string
   /**
-   * 分页大小
+   * <p>搜索关键词</p>
    */
-  PageSize?: number
+  Keyword?: string
   /**
-   * 结果总数
+   * <p>会话 ID 列表筛选</p>
    */
-  TotalCount?: number
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
+  SessionIds?: Array<string>
 }
 
 /**
@@ -566,31 +434,19 @@ export interface DescribeAIWorkbenchSREDigitalTwinWorkLogDetailRequest {
 }
 
 /**
- * 告警通知自定义PagerDutyRobot模板中的请求体头部描述
+ * ListAIWorkbenchAgents返回参数结构体
  */
-export interface PagerDutyRobotNoticeTmplHeader {
+export interface ListAIWorkbenchAgentsResponse {
   /**
-   * http请求中header的key
+   * <p>Agent 列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Key: string
+  Agents?: Array<AgentInfo>
   /**
-   * http请求中header的value
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Values: Array<string>
-}
-
-/**
- * DescribeAlarmNotifyHistories返回参数结构体
- */
-export interface DescribeAlarmNotifyHistoriesResponse {
-  /**
-   * 告警历史
-   */
-  AlarmNotifyHistoryList?: Array<AlarmNotifyHistory>
-  /**
-   * 分页情况
-   */
-  PageResult?: PageByNoResult
+  PageResult?: PageByNumResult
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -598,112 +454,33 @@ export interface DescribeAlarmNotifyHistoriesResponse {
 }
 
 /**
- * 企业微信机器人内容模板配置
+ * ListAIWorkbenchSkills请求参数结构体
  */
-export interface TeamsRobotNoticeTmpl {
+export interface ListAIWorkbenchSkillsRequest {
   /**
-   * 内容模板
+   * <p>每页数量</p>
    */
-  ContentTmpl: string
-}
-
-/**
- * Google Chat 机器人内容模板配置
- */
-export interface GoogleChatRobotNoticeTmpl {
+  PerPage?: number
   /**
-   * 内容模板
+   * <p>页码</p>
    */
-  ContentTmpl: string
-}
-
-/**
- * 钉钉机器人内容模板配置
- */
-export interface DingDingRobotNoticeTmpl {
+  PageNo?: number
   /**
-   * 内容模板
+   * <p>按类型筛选</p>
    */
-  ContentTmpl: string
+  Type?: string
   /**
-   * 标题模板
+   * <p>搜索关键词</p>
    */
-  TitleTmpl?: string
-}
-
-/**
- * 告警通知自定义PagerDutyRobot的通知内容模板匹配器
- */
-export interface PagerDutyRobotNoticeTmplMatcher {
+  Keyword?: string
   /**
-   * 匹配状态 Invalid; Trigger 告警触发; Recovery 告警恢复
+   * <p>是否启用筛选</p>
    */
-  MatchingStatus?: Array<string>
+  Enabled?: boolean
   /**
-   * 自定义PagerDutyRobot内容模板
+   * <p>技能 ID 列表筛选</p>
    */
-  Template?: PagerDutyRobotNoticeTmpl
-}
-
-/**
- * 告警通知自定义Webhook模板中的请求体头部描述
- */
-export interface WebhookNoticeTmplHeader {
-  /**
-   * http请求中header的key
-   */
-  Key: string
-  /**
-   * http请求中header的value
-   */
-  Values: Array<string>
-}
-
-/**
- * DescribeAIWorkbenchSREDigitalTwinTaskList返回参数结构体
- */
-export interface DescribeAIWorkbenchSREDigitalTwinTaskListResponse {
-  /**
-   * Json序列化路径
-   */
-  JSONStrPaths?: Array<string>
-  /**
-   * 数字分身任务列表
-   */
-  Data?: AIWorkbenchSREDigitalTwinTaskList
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
-}
-
-/**
- * 飞书机器人内容模板配置
- */
-export interface FeiShuRobotNoticeTmpl {
-  /**
-   * 内容模板
-   */
-  ContentTmpl: string
-  /**
-   * 标题模板
-   */
-  TitleTmpl?: string
-}
-
-/**
- * 钉钉机器人通知模板的匹配器
- */
-export interface DingDingRobotNoticeTmplMatcher {
-  /**
-   * 匹配状态 Invalid;
-Trigger 告警触发; Recovery 告警恢复
-   */
-  MatchingStatus: Array<string>
-  /**
-   * 模板配置
-   */
-  Template: DingDingRobotNoticeTmpl
+  SkillIds?: Array<string>
 }
 
 /**
@@ -721,27 +498,65 @@ export interface SlackRobotNoticeTmplMatcher {
 }
 
 /**
- * AI工作台SRE数字分身工作日志详细信息
+ * 钉钉机器人内容模板配置
  */
-export interface AIWorkbenchSREDigitalTwinWorkLogDetail {
+export interface DingDingRobotNoticeTmpl {
   /**
-   * 工作日志详细内容
+   * 内容模板
    */
-  Content?: string
+  ContentTmpl: string
   /**
-   * 工作日志任务类型
+   * 标题模板
    */
-  TaskType?: string
-  /**
-   * 工作日志相关对话ID
-   */
-  DialogID?: number
+  TitleTmpl?: string
 }
 
 /**
- * 企业微信机器人通知模板的匹配器
+ * 告警通知自定义Webhook模板中的请求体头部描述
  */
-export interface WeWorkRobotNoticeTmplMatcher {
+export interface WebhookNoticeTmplHeader {
+  /**
+   * http请求中header的key
+   */
+  Key: string
+  /**
+   * http请求中header的value
+   */
+  Values: Array<string>
+}
+
+/**
+ * 按第几页进行分页的入参
+ */
+export interface PageByNumParams {
+  /**
+   * <p>每个分页的数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>第几个分页，从1开始</p>
+   */
+  PageNo?: number
+}
+
+/**
+ * GetAIWorkbenchArtifactDownloadURL请求参数结构体
+ */
+export interface GetAIWorkbenchArtifactDownloadURLRequest {
+  /**
+   * <p>会话ID</p>
+   */
+  SessionId: string
+  /**
+   * <p>制品ID</p>
+   */
+  ArtifactId?: string
+}
+
+/**
+ * 钉钉机器人通知模板的匹配器
+ */
+export interface DingDingRobotNoticeTmplMatcher {
   /**
    * 匹配状态 Invalid;
 Trigger 告警触发; Recovery 告警恢复
@@ -750,7 +565,7 @@ Trigger 告警触发; Recovery 告警恢复
   /**
    * 模板配置
    */
-  Template: WeWorkRobotNoticeTmpl
+  Template: DingDingRobotNoticeTmpl
 }
 
 /**
@@ -829,83 +644,108 @@ export interface AlarmNotifyHistory {
 }
 
 /**
- * 企业微信机器人内容模板配置
+ * DescribeAIWorkbenchSession请求参数结构体
  */
-export interface WeWorkRobotNoticeTmpl {
+export interface DescribeAIWorkbenchSessionRequest {
   /**
-   * 内容模板
+   * <p>会话 ID</p>
    */
-  ContentTmpl: string
+  SessionId?: string
 }
 
 /**
- * 官网内容通知模板的匹配器
+ * ListAIWorkbenchSessions返回参数结构体
  */
-export interface QCloudYeheNoticeTmplMatcher {
+export interface ListAIWorkbenchSessionsResponse {
   /**
-   * 匹配状态 Invalid;
-Trigger 告警触发; Recovery 告警恢复
+   * <p>会话列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  MatchingStatus: Array<string>
+  Sessions?: Array<SessionInfo>
   /**
-   * 模板配置
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Template: QCloudYeheNoticeTmpl
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
- * Google Chat 机器人通知模板的匹配器
+ * ListAIWorkbenchTasks返回参数结构体
  */
-export interface GoogleChatRobotNoticeTmplMatcher {
+export interface ListAIWorkbenchTasksResponse {
   /**
-   * 匹配状态 Invalid;
-Trigger 告警触发; Recovery 告警恢复
+   * <p>任务列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  MatchingStatus: Array<string>
+  Tasks?: Array<TaskInfo>
   /**
-   * 模板配置
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Template: GoogleChatRobotNoticeTmpl
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
- * 官网通知内容模板
+ * DescribeAIWorkbenchExecution返回参数结构体
  */
-export interface QCloudYeheNoticeTmpl {
+export interface DescribeAIWorkbenchExecutionResponse {
   /**
-   * 邮件通知渠道
+   * <p>执行记录</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Email?: QCloudYeheNoticeTmplItem
+  Execution?: ExecutionInfo
   /**
-   * 企业微信通知渠道
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  QYWX?: QCloudYeheNoticeTmplItem
-  /**
-   * 短信通知渠道
-   */
-  SMS?: QCloudYeheNoticeTmplItem
-  /**
-   * 语音通知渠道
-   */
-  Voice?: QCloudYeheNoticeTmplItem
-  /**
-   * 微信通知渠道
-   */
-  WeChat?: QCloudYeheWeChatNoticeTmplItem
-  /**
-   * 站内信通知渠道
-   */
-  Site?: QCloudYeheNoticeTmplItem
-  /**
-   * 安灯通知渠道
-   */
-  Andon?: QCloudYeheNoticeTmplItem
+  RequestId?: string
 }
 
 /**
- * DeleteNoticeContentTmpls返回参数结构体
+ * 资源实例
  */
-export interface DeleteNoticeContentTmplsResponse {
+export interface ResourceInstance {
+  /**
+   * <p>实例 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Id?: string
+  /**
+   * <p>服务名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Service?: string
+  /**
+   * <p>地域</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Region?: string
+  /**
+   * <p>是否就绪</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IsReady?: boolean
+}
+
+/**
+ * TriggerAIWorkbenchSREDigitalTwinTask返回参数结构体
+ */
+export interface TriggerAIWorkbenchSREDigitalTwinTaskResponse {
+  /**
+   * Json序列化路径
+   */
+  JSONStrPaths?: Array<string>
+  /**
+   * 数字分身任务信息
+   */
+  Data?: TriggerDigitalTwinTaskResp
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -932,101 +772,27 @@ export interface PagerDutyRobotNoticeTmpl {
 }
 
 /**
- * 企业微信机器人内容模板配置
+ * 标签
  */
-export interface SlackRobotNoticeTmpl {
+export interface Tag {
   /**
-   * <p>内容模板</p>
+   * 标签key
    */
-  ContentTmpl: string
+  Key: string
+  /**
+   * 标签value
+   */
+  Value: string
 }
 
 /**
- * AI工作台SRE数字分身任务列表
+ * DeleteAIWorkbenchAgent返回参数结构体
  */
-export interface AIWorkbenchSREDigitalTwinTaskList {
+export interface DeleteAIWorkbenchAgentResponse {
   /**
-   * 任务列表
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Tasks?: Array<AIWorkbenchSREDigitalTwinTask>
-  /**
-   * 任务总数
-   */
-  Total?: number
-}
-
-/**
- * DescribeNoticeContentTmpl请求参数结构体
- */
-export interface DescribeNoticeContentTmplRequest {
-  /**
-   * 分页数
-   */
-  PageNumber: number
-  /**
-   * 分页大小
-   */
-  PageSize: number
-  /**
-   * 指定模板ID查询，查询参数都为空则默认查询账号下所有模板
-   */
-  TmplIDs?: Array<string>
-  /**
-   * 指定模板名称查询，查询参数都为空则默认查询账号下所有模板
-   */
-  TmplName?: string
-  /**
-   * 指定通知模板ID查询，查询参数都为空则默认查询账号下所有模板
-   */
-  NoticeID?: string
-  /**
-   * 模板语言 en/zh 缺省不过滤
-   */
-  TmplLanguage?: string
-  /**
-   * 监控类型
-   */
-  MonitorType?: string
-}
-
-/**
- * ModifyNoticeContentTmpl请求参数结构体
- */
-export interface ModifyNoticeContentTmplRequest {
-  /**
-   * 模板名称
-   */
-  TmplName: string
-  /**
-   * 模板内容
-   */
-  TmplContents: NoticeContentTmplItem
-  /**
-   * 需要修改的模板ID
-   */
-  TmplID: string
-}
-
-/**
- * CreateNoticeContentTmpl请求参数结构体
- */
-export interface CreateNoticeContentTmplRequest {
-  /**
-   * <p>模板名称</p>
-   */
-  TmplName: string
-  /**
-   * <p>监控类型</p>
-   */
-  MonitorType: string
-  /**
-   * <p>模板内容</p>
-   */
-  TmplContents: NoticeContentTmplItem
-  /**
-   * <p>模板语言 en/zh</p>
-   */
-  TmplLanguage: string
+  RequestId?: string
 }
 
 /**
@@ -1048,35 +814,94 @@ export interface DescribeAIWorkbenchSREDigitalTwinWorkLogListRequest {
 }
 
 /**
- * 告警通知自定义Webhook的通知内容模板匹配器
+ * 官网通知内容模板元素
  */
-export interface WebhookNoticeTmplMatcher {
+export interface QCloudYeheWeChatNoticeTmplItem {
   /**
-   * 匹配状态 Invalid; Trigger 告警触发; Recovery 告警恢复
+   * 告警内容模板
    */
-  MatchingStatus?: Array<string>
+  AlarmContentTmpl?: string
   /**
-   * 自定义Webhook内容模板
+   * 告警对象模板
    */
-  Template?: WebhookNoticeTmpl
+  AlarmObjectTmpl?: string
+  /**
+   * 告警地域模板
+   */
+  AlarmRegionTmpl?: string
+  /**
+   * 告警时间模板
+   */
+  AlarmTimeTmpl?: string
 }
 
 /**
- * DescribeAIWorkbenchSREDigitalTwinWorkLogDetail返回参数结构体
+ * DescribeAlarmNotifyHistories请求参数结构体
  */
-export interface DescribeAIWorkbenchSREDigitalTwinWorkLogDetailResponse {
+export interface DescribeAlarmNotifyHistoriesRequest {
   /**
-   * Json序列化路径
+   * 监控类型
    */
-  JSONStrPaths?: Array<string>
+  MonitorType: string
   /**
-   * 数字分身详细信息
+   * 起始时间点，unix秒级时间戳
    */
-  Data?: AIWorkbenchSREDigitalTwinWorkLogDetail
+  QueryBaseTime: number
+  /**
+   * 从 QueryBaseTime 开始，需要查询往前多久的时间，单位秒
+   */
+  QueryBeforeSeconds: number
+  /**
+   * 分页参数
+   */
+  PageParams: PageByNoParams
+  /**
+   * 当监控类型为 MT_QCE 时候需要填写，归属的命名空间
+   */
+  Namespace?: string
+  /**
+   * 当监控类型为 MT_QCE 时候需要填写， 告警策略类型
+   */
+  ModelName?: string
+  /**
+   * 查询某个策略的通知历史
+   */
+  PolicyId?: string
+}
+
+/**
+ * UpdateAIWorkbenchAgent返回参数结构体
+ */
+export interface UpdateAIWorkbenchAgentResponse {
+  /**
+   * <p>更新后的 Agent 信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Agent?: AgentInfo
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 企业微信机器人内容模板配置
+ */
+export interface TeamsRobotNoticeTmpl {
+  /**
+   * 内容模板
+   */
+  ContentTmpl: string
+}
+
+/**
+ * DeleteAIWorkbenchAgent请求参数结构体
+ */
+export interface DeleteAIWorkbenchAgentRequest {
+  /**
+   * <p>Agent ID</p>
+   */
+  AgentId?: string
 }
 
 /**
@@ -1126,4 +951,1700 @@ export interface NoticeContentTmpl {
    * <p>模板语言 en/zh</p>
    */
   TmplLanguage?: string
+}
+
+/**
+ * 会话实体
+ */
+export interface SessionInfo {
+  /**
+   * <p>会话 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SessionId?: string
+  /**
+   * <p>Agent ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AgentId?: string
+  /**
+   * <p>会话标题</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Title?: string
+  /**
+   * <p>状态: active / archived / deleted</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: string
+  /**
+   * <p>如果该会话由任务触发，则携带触发其会话的任务ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: string
+}
+
+/**
+ * 分页结果参数
+ */
+export interface PageByNoResult {
+  /**
+   * 总共有多少数据
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TotalCount?: number
+  /**
+   * 总共有多少个分页
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TotalPage?: number
+  /**
+   * 当前的分页号
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CurrentPageNo?: number
+  /**
+   * 【已弃用】是否遍历到末尾
+注意：此字段可能返回 null，表示取不到有效值。
+   * @deprecated
+   */
+  IsEnd?: boolean
+  /**
+   * 是否遍历到末尾
+   */
+  End?: boolean
+}
+
+/**
+ * Microsoft Teams 工作流内容模板配置
+ */
+export interface TeamsWorkflowRobotNoticeTmpl {
+  /**
+   * <p>内容模板</p>
+   */
+  ContentTmpl: string
+  /**
+   * <p>区分 TeamsWorkflow 是自定义内容还是自定义 POST BODY</p><p>枚举值：</p><ul><li>WorkflowText： 自定义内容</li><li>WorkflowJson： 自定义 POST BODY</li></ul>
+   */
+  Version: string
+  /**
+   * <p>标题模版</p>
+   */
+  TitleTmpl?: string
+}
+
+/**
+ * ListAIWorkbenchMCPs返回参数结构体
+ */
+export interface ListAIWorkbenchMCPsResponse {
+  /**
+   * <p>MCP 列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MCPs?: Array<MCPInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 技能实体
+ */
+export interface SkillInfo {
+  /**
+   * <p>技能 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SkillId?: string
+  /**
+   * <p>技能名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Name?: string
+  /**
+   * <p>技能描述</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * <p>是否启用</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Enabled?: boolean
+}
+
+/**
+ * ListAIWorkbenchSkills返回参数结构体
+ */
+export interface ListAIWorkbenchSkillsResponse {
+  /**
+   * <p>技能列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Skills?: Array<SkillInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * Microsoft Teams 工作流通知模板的匹配器
+ */
+export interface TeamsWorkflowRobotNoticeTmplMatcher {
+  /**
+   * <p>匹配状态 Invalid; Trigger 告警触发; Recovery 告警恢复</p><p>枚举值：</p><ul><li>Trigger： 告警触发</li><li>Recovery： 告警恢复</li></ul>
+   */
+  MatchingStatus: Array<string>
+  /**
+   * <p>模板配置</p>
+   */
+  Template: TeamsWorkflowRobotNoticeTmpl
+}
+
+/**
+ * DescribeNoticeContentTmpl返回参数结构体
+ */
+export interface DescribeNoticeContentTmplResponse {
+  /**
+   * 自定义通知内容模板
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  NoticeContentTmpls?: Array<NoticeContentTmpl>
+  /**
+   * 通知内容模板绑定的告警策略数量
+   */
+  NoticeContentTmplBindPolicyCounts?: Array<NoticeContentTmplBindPolicyCount>
+  /**
+   * 分页数
+   */
+  PageNumber?: number
+  /**
+   * 分页大小
+   */
+  PageSize?: number
+  /**
+   * 结果总数
+   */
+  TotalCount?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * ListAIWorkbenchResourceMaps请求参数结构体
+ */
+export interface ListAIWorkbenchResourceMapsRequest {
+  /**
+   * <p>每页数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>页码</p>
+   */
+  PageNo?: number
+  /**
+   * <p>按名称搜索</p>
+   */
+  Keyword?: string
+}
+
+/**
+ * ListAIWorkbenchArtifacts返回参数结构体
+ */
+export interface ListAIWorkbenchArtifactsResponse {
+  /**
+   * <p>产物列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Artifacts?: Array<ArtifactInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * CancelAIWorkbenchChat请求参数结构体
+ */
+export interface CancelAIWorkbenchChatRequest {
+  /**
+   * <p>会话id</p>
+   */
+  SessionId?: string
+}
+
+/**
+ * DescribeAlarmNotifyHistories返回参数结构体
+ */
+export interface DescribeAlarmNotifyHistoriesResponse {
+  /**
+   * 告警历史
+   */
+  AlarmNotifyHistoryList?: Array<AlarmNotifyHistory>
+  /**
+   * 分页情况
+   */
+  PageResult?: PageByNoResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 分身提示词配置
+ */
+export interface InstructionConfig {
+  /**
+   * <p>角色定义</p>
+   */
+  RolePosition?: string
+  /**
+   * <p>核心职责</p>
+   */
+  CoreDuty?: string
+  /**
+   * <p>核心原则</p>
+   */
+  CoreTruths?: string
+  /**
+   * <p>风格约束</p>
+   */
+  Vibe?: string
+  /**
+   * <p>注意事项</p>
+   */
+  Boundaries?: string
+}
+
+/**
+ * DeleteAIWorkbenchTask返回参数结构体
+ */
+export interface DeleteAIWorkbenchTaskResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeAIWorkbenchSREDigitalTwinTaskList返回参数结构体
+ */
+export interface DescribeAIWorkbenchSREDigitalTwinTaskListResponse {
+  /**
+   * Json序列化路径
+   */
+  JSONStrPaths?: Array<string>
+  /**
+   * 数字分身任务列表
+   */
+  Data?: AIWorkbenchSREDigitalTwinTaskList
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeAIWorkbenchSession返回参数结构体
+ */
+export interface DescribeAIWorkbenchSessionResponse {
+  /**
+   * <p>会话信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Session?: SessionInfo
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 企业微信机器人内容模板配置
+ */
+export interface WeWorkRobotNoticeTmpl {
+  /**
+   * 内容模板
+   */
+  ContentTmpl: string
+}
+
+/**
+ * TriggerAIWorkbenchTask请求参数结构体
+ */
+export interface TriggerAIWorkbenchTaskRequest {
+  /**
+   * <p>任务 ID</p>
+   */
+  TaskId?: string
+}
+
+/**
+ * DescribeNoticeContentTmpl请求参数结构体
+ */
+export interface DescribeNoticeContentTmplRequest {
+  /**
+   * 分页数
+   */
+  PageNumber: number
+  /**
+   * 分页大小
+   */
+  PageSize: number
+  /**
+   * 指定模板ID查询，查询参数都为空则默认查询账号下所有模板
+   */
+  TmplIDs?: Array<string>
+  /**
+   * 指定模板名称查询，查询参数都为空则默认查询账号下所有模板
+   */
+  TmplName?: string
+  /**
+   * 指定通知模板ID查询，查询参数都为空则默认查询账号下所有模板
+   */
+  NoticeID?: string
+  /**
+   * 模板语言 en/zh 缺省不过滤
+   */
+  TmplLanguage?: string
+  /**
+   * 监控类型
+   */
+  MonitorType?: string
+}
+
+/**
+ * ListAIWorkbenchMessages返回参数结构体
+ */
+export interface ListAIWorkbenchMessagesResponse {
+  /**
+   * <p>消息列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Messages?: Array<MessageInfo>
+  /**
+   * <p>下一个游标</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  NextCursor?: string
+  /**
+   * <p>还有后续吗</p>
+   */
+  HasMore?: boolean
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 任务实体
+ */
+export interface TaskInfo {
+  /**
+   * <p>任务 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: string
+  /**
+   * <p>任务名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Name?: string
+  /**
+   * <p>任务描述</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * <p>关联 Agent ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AgentId?: string
+  /**
+   * <p>提示词模板</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PromptTemplate?: string
+  /**
+   * <p>输出格式: markdown / json</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  OutputFormat?: string
+  /**
+   * <p>触发类型: manual / cron / webhook</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TriggerType?: string
+  /**
+   * <p>Cron 表达式</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CronExpr?: string
+  /**
+   * <p>Cron 时区</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CronTimezone?: string
+  /**
+   * <p>关联技能 ID 列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SkillIds?: Array<string>
+  /**
+   * <p>关联 MCP 端点 ID 列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  McpEndpointIds?: Array<string>
+  /**
+   * <p>超时时间(秒)</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TimeoutSec?: number
+  /**
+   * <p>重试次数</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RetryCount?: number
+  /**
+   * <p>通知id</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  NotifyIds?: Array<string>
+  /**
+   * <p>是否启用</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Enabled?: boolean
+}
+
+/**
+ * ListAIWorkbenchArtifacts请求参数结构体
+ */
+export interface ListAIWorkbenchArtifactsRequest {
+  /**
+   * <p>每页数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>页码</p>
+   */
+  PageNo?: number
+  /**
+   * <p>会话ID</p>
+   */
+  SessionIds?: Array<string>
+  /**
+   * <p>消息内容类型</p>
+   */
+  MimeTypes?: Array<string>
+  /**
+   * <p>排序</p><p>枚举值：</p><ul><li>ASC： 正序</li><li>DESC： 倒序</li></ul>
+   */
+  OrderDirection?: string
+}
+
+/**
+ * CreateAIWorkbenchAgent返回参数结构体
+ */
+export interface CreateAIWorkbenchAgentResponse {
+  /**
+   * <p>Agent ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AgentId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DeleteNoticeContentTmpls请求参数结构体
+ */
+export interface DeleteNoticeContentTmplsRequest {
+  /**
+   * <p>要删除的模板id</p>
+   */
+  TmplIDs?: Array<string>
+}
+
+/**
+ * 分页请求参数
+ */
+export interface PageByNoParams {
+  /**
+   * 每个分页的数量是多少
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PerPage?: number
+  /**
+   * 第几个分页，从1开始
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageNo?: string
+}
+
+/**
+ * ListAIWorkbenchResourceInstances请求参数结构体
+ */
+export interface ListAIWorkbenchResourceInstancesRequest {
+  /**
+   * <p>资源地图 ID</p>
+   */
+  ResourceMapId?: string
+  /**
+   * <p>分页参数</p>
+   */
+  PageParams?: PageByNumParams
+}
+
+/**
+ * 接受人详情信息
+ */
+export interface ChannelsReceivers {
+  /**
+   * 通知渠道名称
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ChannelName?: string
+  /**
+   * 接收者
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Receivers?: Array<string>
+  /**
+   * 发送结果,0-无效,1-成功,2-失败,3-无需发送
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SendStatus?: string
+}
+
+/**
+ * CreateAIWorkbenchTask返回参数结构体
+ */
+export interface CreateAIWorkbenchTaskResponse {
+  /**
+   * <p>任务 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeAIWorkbenchExecution请求参数结构体
+ */
+export interface DescribeAIWorkbenchExecutionRequest {
+  /**
+   * <p>执行 ID</p>
+   */
+  ExecutionId?: string
+}
+
+/**
+ * DescribeAIWorkbenchSREDigitalTwinTaskList请求参数结构体
+ */
+export interface DescribeAIWorkbenchSREDigitalTwinTaskListRequest {
+  /**
+   * 数字分身ID
+   */
+  TwinID: number
+  /**
+   * 偏移量
+   */
+  Offset?: number
+  /**
+   * 数量限制
+   */
+  Limit?: number
+}
+
+/**
+ * AI工作台SRE数字分身工作日志列表
+ */
+export interface AIWorkbenchSREDigitalTwinWorkLogList {
+  /**
+   * 工作日志列表
+   */
+  WorkLogs?: Array<AIWorkbenchSREDigitalTwinWorkLog>
+  /**
+   * 总数
+   */
+  Total?: number
+}
+
+/**
+ * ListAIWorkbenchExecutions请求参数结构体
+ */
+export interface ListAIWorkbenchExecutionsRequest {
+  /**
+   * <p>每页数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>页码</p>
+   */
+  PageNo?: number
+  /**
+   * <p>按 Agent 筛选</p>
+   */
+  AgentId?: string
+  /**
+   * <p>按状态筛选</p>
+   */
+  Status?: string
+  /**
+   * <p>执行 ID 列表筛选</p>
+   */
+  ExecutionIds?: Array<string>
+  /**
+   * <p>任务id</p>
+   */
+  TaskIds?: Array<string>
+  /**
+   * <p>触发方式</p>
+   */
+  TriggerType?: string
+  /**
+   * <p>关键值</p>
+   */
+  Keyword?: string
+  /**
+   * <p>是否启用</p>
+   */
+  Enabled?: boolean
+}
+
+/**
+ * DescribeAIWorkbenchSkill返回参数结构体
+ */
+export interface DescribeAIWorkbenchSkillResponse {
+  /**
+   * <p>技能信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Skill?: SkillInfo
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 告警中的Label
+ */
+export interface AlarmLable {
+  /**
+   * label name
+   */
+  Name?: string
+  /**
+   * label value
+   */
+  Value?: string
+}
+
+/**
+ * 分页结果参数
+ */
+export interface PageByNumResult {
+  /**
+   * <p>总共有多少数据</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TotalCount?: number
+  /**
+   * <p>总共有多少个分页</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TotalPage?: number
+  /**
+   * <p>当前的分页号</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CurrentPageNo?: number
+}
+
+/**
+ * CreateAIWorkbenchAgent请求参数结构体
+ */
+export interface CreateAIWorkbenchAgentRequest {
+  /**
+   * <p>Agent 名称</p>
+   */
+  Name?: string
+  /**
+   * <p>Agent 描述</p>
+   */
+  Description?: string
+  /**
+   * <p>Agent 分类</p>
+   */
+  Category?: string
+  /**
+   * <p>Agent 标签</p>
+   */
+  Tags?: Array<string>
+  /**
+   * <p>Agent 提示词</p>
+   */
+  Instruction?: InstructionConfig
+  /**
+   * <p>关联技能 ID 列表</p>
+   */
+  SkillIds?: Array<string>
+  /**
+   * <p>来源: builtin / custom</p>
+   */
+  Source?: string
+  /**
+   * <p>关联的资源地图 ID</p>
+   */
+  ResourceMapId?: string
+  /**
+   * <p>关联的mcp工具</p>
+   */
+  MCPIds?: Array<string>
+  /**
+   * <p>资源标签</p>
+   */
+  CamTags?: Array<Tag>
+  /**
+   * <p>agent运行时环境变量</p>
+   */
+  EnvVars?: Array<EnvVar>
+}
+
+/**
+ * 环境变量entry
+ */
+export interface EnvEntry {
+  /**
+   * <p>环境变量value</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Value?: string
+  /**
+   * <p>是否脱敏</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Sensitive?: boolean
+}
+
+/**
+ * ListAIWorkbenchResourceMaps返回参数结构体
+ */
+export interface ListAIWorkbenchResourceMapsResponse {
+  /**
+   * <p>资源地图列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceMaps?: Array<ResourceMapInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 官网内容通知模板的匹配器
+ */
+export interface QCloudYeheNoticeTmplMatcher {
+  /**
+   * 匹配状态 Invalid;
+Trigger 告警触发; Recovery 告警恢复
+   */
+  MatchingStatus: Array<string>
+  /**
+   * 模板配置
+   */
+  Template: QCloudYeheNoticeTmpl
+}
+
+/**
+ * ListAIWorkbenchMessages请求参数结构体
+ */
+export interface ListAIWorkbenchMessagesRequest {
+  /**
+   * <p>会话 ID</p>
+   */
+  SessionId?: string
+  /**
+   * <p>游标分页的定位标记</p>
+   */
+  Cursor?: string
+  /**
+   * <p>窗口大小</p>
+   */
+  Limit?: number
+  /**
+   * <p>拉取顺序</p>
+   */
+  Direction?: string
+}
+
+/**
+ * 官网通知内容模板元素
+ */
+export interface QCloudYeheNoticeTmplItem {
+  /**
+   * 内容模板
+   */
+  ContentTmpl: string
+  /**
+   * 标题
+   */
+  TitleTmpl?: string
+}
+
+/**
+ * ListAIWorkbenchExecutions返回参数结构体
+ */
+export interface ListAIWorkbenchExecutionsResponse {
+  /**
+   * <p>执行列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Executions?: Array<ExecutionInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeAIWorkbenchAgent请求参数结构体
+ */
+export interface DescribeAIWorkbenchAgentRequest {
+  /**
+   * <p>Agent ID</p>
+   */
+  AgentId?: string
+}
+
+/**
+ * Google Chat 机器人内容模板配置
+ */
+export interface GoogleChatRobotNoticeTmpl {
+  /**
+   * 内容模板
+   */
+  ContentTmpl: string
+}
+
+/**
+ * 产物实体
+ */
+export interface ArtifactInfo {
+  /**
+   * <p>产物 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ArtifactId?: string
+  /**
+   * <p>产物名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Name?: string
+  /**
+   * <p>物理类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MimeType?: string
+  /**
+   * <p>文件大小(字节)</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SizeBytes?: number
+  /**
+   * <p>是否公共</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IsGlobal?: boolean
+  /**
+   * <p>创建时间 Unix 秒时间戳</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CreatedAt?: number
+  /**
+   * <p>修改时间</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  UpdatedAt?: number
+  /**
+   * <p>产生该制品的 Agent ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AgentId?: string
+  /**
+   * <p>产生该制品的 Skill ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SkillId?: string
+  /**
+   * <p>用于解析调用下载接口</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  StoragePath?: string
+}
+
+/**
+ * ListAIWorkbenchResourceInstances返回参数结构体
+ */
+export interface ListAIWorkbenchResourceInstancesResponse {
+  /**
+   * <p>资源实例列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Instances?: Array<ResourceInstance>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 通知历史中关联的通知模板信息
+ */
+export interface NotifyRelatedNotice {
+  /**
+   * 通知模板ID
+   */
+  NoticeId?: string
+  /**
+   * 通知模板的名称
+   */
+  NoticeName?: string
+}
+
+/**
+ * DescribeAIWorkbenchSkill请求参数结构体
+ */
+export interface DescribeAIWorkbenchSkillRequest {
+  /**
+   * <p>技能 ID</p>
+   */
+  SkillId?: string
+}
+
+/**
+ * Google Chat 机器人通知模板的匹配器
+ */
+export interface GoogleChatRobotNoticeTmplMatcher {
+  /**
+   * 匹配状态 Invalid;
+Trigger 告警触发; Recovery 告警恢复
+   */
+  MatchingStatus: Array<string>
+  /**
+   * 模板配置
+   */
+  Template: GoogleChatRobotNoticeTmpl
+}
+
+/**
+ * 消息实体
+ */
+export interface MessageInfo {
+  /**
+   * <p>实体id</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EntryId?: string
+  /**
+   * <p>会话 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SessionId?: string
+  /**
+   * <p>角色: user / assistant</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Role?: string
+  /**
+   * <p>消息内容</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Content?: string
+  /**
+   * <p>状态</p>
+   */
+  Status?: string
+  /**
+   * <p>块内容</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ContentBlocks?: Array<ContentBlockInfo>
+}
+
+/**
+ * 官网通知内容模板
+ */
+export interface QCloudYeheNoticeTmpl {
+  /**
+   * 邮件通知渠道
+   */
+  Email?: QCloudYeheNoticeTmplItem
+  /**
+   * 企业微信通知渠道
+   */
+  QYWX?: QCloudYeheNoticeTmplItem
+  /**
+   * 短信通知渠道
+   */
+  SMS?: QCloudYeheNoticeTmplItem
+  /**
+   * 语音通知渠道
+   */
+  Voice?: QCloudYeheNoticeTmplItem
+  /**
+   * 微信通知渠道
+   */
+  WeChat?: QCloudYeheWeChatNoticeTmplItem
+  /**
+   * 站内信通知渠道
+   */
+  Site?: QCloudYeheNoticeTmplItem
+  /**
+   * 安灯通知渠道
+   */
+  Andon?: QCloudYeheNoticeTmplItem
+}
+
+/**
+ * MCP 实体
+ */
+export interface MCPInfo {
+  /**
+   * <p>mcp的ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MCPId?: string
+  /**
+   * <p>MCP 名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Name?: string
+  /**
+   * <p>MCP 描述</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * <p>MCP URL</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Url?: string
+  /**
+   * <p>传输协议: sse / streamable_http / stdio</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Transport?: string
+  /**
+   * <p>认证类型: none / bearer / basic / api_key</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AuthType?: string
+  /**
+   * <p>认证密钥(响应时脱敏)</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AuthSecret?: string
+  /**
+   * <p>超时时间(秒)</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Timeout?: number
+  /**
+   * <p>重试次数</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RetryCount?: number
+  /**
+   * <p>请求头 JSON</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Headers?: string
+  /**
+   * <p>是否启用</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Enabled?: boolean
+}
+
+/**
+ * CreateNoticeContentTmpl请求参数结构体
+ */
+export interface CreateNoticeContentTmplRequest {
+  /**
+   * <p>模板名称</p>
+   */
+  TmplName: string
+  /**
+   * <p>监控类型</p>
+   */
+  MonitorType: string
+  /**
+   * <p>模板内容</p>
+   */
+  TmplContents: NoticeContentTmplItem
+  /**
+   * <p>模板语言 en/zh</p>
+   */
+  TmplLanguage: string
+}
+
+/**
+ * ListAIWorkbenchTasks请求参数结构体
+ */
+export interface ListAIWorkbenchTasksRequest {
+  /**
+   * <p>每页数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>页码</p>
+   */
+  PageNo?: number
+  /**
+   * <p>按 Agent 筛选</p>
+   */
+  AgentId?: string
+  /**
+   * <p>按触发类型筛选</p>
+   */
+  TriggerType?: string
+  /**
+   * <p>搜索关键词</p>
+   */
+  Keyword?: string
+  /**
+   * <p>任务 ID 列表筛选</p>
+   */
+  TaskIds?: Array<string>
+  /**
+   * <p>是否启用筛选</p>
+   */
+  Enabled?: boolean
+}
+
+/**
+ * 告警通知自定义Webhook的通知内容模板匹配器
+ */
+export interface WebhookNoticeTmplMatcher {
+  /**
+   * 匹配状态 Invalid; Trigger 告警触发; Recovery 告警恢复
+   */
+  MatchingStatus?: Array<string>
+  /**
+   * 自定义Webhook内容模板
+   */
+  Template?: WebhookNoticeTmpl
+}
+
+/**
+ * DescribeAIWorkbenchSREDigitalTwinWorkLogDetail返回参数结构体
+ */
+export interface DescribeAIWorkbenchSREDigitalTwinWorkLogDetailResponse {
+  /**
+   * Json序列化路径
+   */
+  JSONStrPaths?: Array<string>
+  /**
+   * 数字分身详细信息
+   */
+  Data?: AIWorkbenchSREDigitalTwinWorkLogDetail
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeAIWorkbenchAgent返回参数结构体
+ */
+export interface DescribeAIWorkbenchAgentResponse {
+  /**
+   * <p>Agent 信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Agent?: AgentInfo
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 执行记录实体
+ */
+export interface ExecutionInfo {
+  /**
+   * <p>任务名</p>
+   */
+  Name?: string
+  /**
+   * <p>任务 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: string
+  /**
+   * <p>执行 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ExecutionId?: string
+  /**
+   * <p>Agent ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AgentId?: string
+  /**
+   * <p>会话 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SessionId?: string
+  /**
+   * <p>触发类型: manual / cron / webhook</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TriggerType?: string
+  /**
+   * <p>状态: pending/running/completed/failed/timeout/cancelled</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: string
+  /**
+   * <p>执行摘要</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Summary?: string
+  /**
+   * <p>执行耗时(毫秒)</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DurationMs?: number
+}
+
+/**
+ * GetAIWorkbenchArtifactDownloadURL返回参数结构体
+ */
+export interface GetAIWorkbenchArtifactDownloadURLResponse {
+  /**
+   * <p>COS 预签名 HTTPS 下载 URL</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DownloadURL?: string
+  /**
+   * <p>URL 过期时间（RFC3339 格式）</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ExpiredAt?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 告警通知自定义PagerDutyRobot模板中的请求体头部描述
+ */
+export interface PagerDutyRobotNoticeTmplHeader {
+  /**
+   * http请求中header的key
+   */
+  Key: string
+  /**
+   * http请求中header的value
+   */
+  Values: Array<string>
+}
+
+/**
+ * 通知内容模板绑定告警策略数量
+ */
+export interface NoticeContentTmplBindPolicyCount {
+  /**
+   * 通知内容模板ID
+   */
+  NoticeContentTmplID?: string
+  /**
+   * 绑定告警策略数量
+   */
+  BindCount?: number
+}
+
+/**
+ * TriggerAIWorkbenchSREDigitalTwinTask请求参数结构体
+ */
+export interface TriggerAIWorkbenchSREDigitalTwinTaskRequest {
+  /**
+   * 数字分身任务ID
+   */
+  TaskID: number
+}
+
+/**
+ * DescribeAIWorkbenchSREDigitalTwinWorkLogList返回参数结构体
+ */
+export interface DescribeAIWorkbenchSREDigitalTwinWorkLogListResponse {
+  /**
+   * Json序列化路径
+   */
+  JSONStrPaths?: Array<string>
+  /**
+   * 数字分身工作日志列表
+   */
+  Data?: AIWorkbenchSREDigitalTwinWorkLogList
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * CreateAIWorkbenchTask请求参数结构体
+ */
+export interface CreateAIWorkbenchTaskRequest {
+  /**
+   * <p>任务名称</p>
+   */
+  Name?: string
+  /**
+   * <p>任务描述</p>
+   */
+  Description?: string
+  /**
+   * <p>关联 Agent ID</p>
+   */
+  AgentId?: string
+  /**
+   * <p>提示词模板</p>
+   */
+  PromptTemplate?: string
+  /**
+   * <p>输出格式: markdown / json</p>
+   */
+  OutputFormat?: string
+  /**
+   * <p>触发类型: manual / cron / webhook</p>
+   */
+  TriggerType?: string
+  /**
+   * <p>Cron 表达式</p>
+   */
+  CronExpr?: string
+  /**
+   * <p>Cron 时区</p>
+   */
+  CronTimezone?: string
+  /**
+   * <p>关联资源地图 ID</p>
+   */
+  ResourceMapId?: string
+  /**
+   * <p>技能 ID 列表</p>
+   */
+  SkillIds?: Array<string>
+  /**
+   * <p>MCP 端点 ID 列表</p>
+   */
+  McpEndpointIds?: Array<string>
+  /**
+   * <p>超时时间(秒)</p>
+   */
+  TimeoutSec?: number
+  /**
+   * <p>重试次数</p>
+   */
+  RetryCount?: number
+  /**
+   * <p>是否启用</p>
+   */
+  Enabled?: boolean
+}
+
+/**
+ * DescribeAIWorkbenchArtifact返回参数结构体
+ */
+export interface DescribeAIWorkbenchArtifactResponse {
+  /**
+   * <p>产物信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Artifact?: ArtifactInfo
+  /**
+   * <p>COS 预签名下载 URL</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DownloadURL?: string
+  /**
+   * <p>下载 URL 过期时间（RFC3339 格式）</p>
+   */
+  DownloadURLExpiredAt?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * CancelAIWorkbenchChat返回参数结构体
+ */
+export interface CancelAIWorkbenchChatResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * ModifyNoticeContentTmpl返回参数结构体
+ */
+export interface ModifyNoticeContentTmplResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * 企业微信机器人通知模板的匹配器
+ */
+export interface WeWorkRobotNoticeTmplMatcher {
+  /**
+   * 匹配状态 Invalid;
+Trigger 告警触发; Recovery 告警恢复
+   */
+  MatchingStatus: Array<string>
+  /**
+   * 模板配置
+   */
+  Template: WeWorkRobotNoticeTmpl
+}
+
+/**
+ * 每个 ContentBlockInfo 对应下游 ContentBlock 转换而来的一个 AGUI 事件。
+ */
+export interface ContentBlockInfo {
+  /**
+   * <p>类型</p>
+   */
+  Type?: string
+  /**
+   * <p>数据内容</p>
+   */
+  Data?: string
+}
+
+/**
+ * 告警通知自定义PagerDutyRobot的通知内容模板匹配器
+ */
+export interface PagerDutyRobotNoticeTmplMatcher {
+  /**
+   * 匹配状态 Invalid; Trigger 告警触发; Recovery 告警恢复
+   */
+  MatchingStatus?: Array<string>
+  /**
+   * 自定义PagerDutyRobot内容模板
+   */
+  Template?: PagerDutyRobotNoticeTmpl
+}
+
+/**
+ * 飞书机器人内容模板配置
+ */
+export interface FeiShuRobotNoticeTmpl {
+  /**
+   * 内容模板
+   */
+  ContentTmpl: string
+  /**
+   * 标题模板
+   */
+  TitleTmpl?: string
+}
+
+/**
+ * ListAIWorkbenchAgents请求参数结构体
+ */
+export interface ListAIWorkbenchAgentsRequest {
+  /**
+   * <p>每页数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>页码</p>
+   */
+  PageNo?: number
+  /**
+   * <p>状态筛选</p>
+   */
+  Status?: string
+  /**
+   * <p>分类筛选</p>
+   */
+  Category?: string
+  /**
+   * <p>搜索关键词</p>
+   */
+  Keyword?: string
+  /**
+   * <p>来源筛选</p>
+   */
+  Source?: string
+  /**
+   * <p>Agent ID 列表筛选</p>
+   */
+  AgentIds?: Array<string>
+}
+
+/**
+ * DeleteNoticeContentTmpls返回参数结构体
+ */
+export interface DeleteNoticeContentTmplsResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * AI工作台SRE数字分身任务列表
+ */
+export interface AIWorkbenchSREDigitalTwinTaskList {
+  /**
+   * 任务列表
+   */
+  Tasks?: Array<AIWorkbenchSREDigitalTwinTask>
+  /**
+   * 任务总数
+   */
+  Total?: number
+}
+
+/**
+ * UpdateAIWorkbenchAgent请求参数结构体
+ */
+export interface UpdateAIWorkbenchAgentRequest {
+  /**
+   * <p>Agent ID</p>
+   */
+  AgentId?: string
+  /**
+   * <p>Agent 名称</p>
+   */
+  Name?: string
+  /**
+   * <p>Agent 描述</p>
+   */
+  Description?: string
+  /**
+   * <p>Agent 分类</p>
+   */
+  Category?: string
+  /**
+   * <p>Agent 标签</p>
+   */
+  Tags?: Array<string>
+  /**
+   * <p>Agent 提示词</p>
+   */
+  Instruction?: InstructionConfig
+  /**
+   * <p>关联技能 ID 列表</p>
+   */
+  SkillIds?: Array<string>
+  /**
+   * <p>来源</p>
+   */
+  Source?: string
+  /**
+   * <p>状态</p>
+   */
+  Status?: string
+  /**
+   * <p>关联的资源地图 ID</p>
+   */
+  ResourceMapId?: string
+  /**
+   * <p>关联的mcp</p>
+   */
+  MCPIds?: Array<string>
+  /**
+   * <p>agent运行时环境变量</p>
+   */
+  EnvVars?: Array<EnvVar>
+}
+
+/**
+ * ModifyNoticeContentTmpl请求参数结构体
+ */
+export interface ModifyNoticeContentTmplRequest {
+  /**
+   * 模板名称
+   */
+  TmplName: string
+  /**
+   * 模板内容
+   */
+  TmplContents: NoticeContentTmplItem
+  /**
+   * 需要修改的模板ID
+   */
+  TmplID: string
+}
+
+/**
+ * agent运行时所需环境变量
+ */
+export interface EnvVar {
+  /**
+   * <p>环境变量key</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Key?: string
+  /**
+   * <p>环境变量value</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Value?: EnvEntry
 }
