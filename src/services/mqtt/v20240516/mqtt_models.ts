@@ -2686,33 +2686,41 @@ export interface DeleteInsPublicEndpointResponse {
  */
 export interface MQTTEndpointItem {
   /**
-   * 类型
+   * <p>类型</p>
    */
   Type?: string
   /**
-   * 接入点
+   * <p>接入点</p>
    */
   Url?: string
   /**
-   * vpc信息
+   * <p>vpc信息</p>
    */
   VpcId?: string
   /**
-   * 子网信息
+   * <p>子网信息</p>
    */
   SubnetId?: string
   /**
-   * 主机
+   * <p>主机</p>
    */
   Host?: string
   /**
-   * 端口
+   * <p>端口</p>
    */
   Port?: number
   /**
-   * 接入点ip
+   * <p>接入点ip</p>
    */
   Ip?: string
+  /**
+   * <p>端口是否打开</p>
+   */
+  PortEnable?: boolean
+  /**
+   * <p>vpce唯一id</p>
+   */
+  VpcEndpointId?: string
 }
 
 /**

@@ -321,88 +321,104 @@ export interface DescribeVpcAclRulesResponse {
  */
 export interface OrganMemberItem {
   /**
-   * 成员 ID
+   * <p>成员 ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   MemberId?: string
   /**
-   * 成员账号 AppId
+   * <p>成员账号 AppId</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AppId?: string
   /**
-   * 账号Uin
+   * <p>账号Uin</p>
    */
   Uin?: string
   /**
-   * 账号名称
+   * <p>账号名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Nickname?: string
   /**
-   * 子账号数量
+   * <p>子账号数量</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SubAccountCount?: number
   /**
-   * 所属组织架构节点名称
+   * <p>所属组织架构节点名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   NodeName?: string
   /**
-   * 成员身份：admin-管理员，delegatedAdmin-委派管理员，member-普通成员
+   * <p>成员身份：admin-管理员，delegatedAdmin-委派管理员，member-普通成员</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Role?: string
   /**
-   * 成员身份显示名称（前端展示用）
+   * <p>成员身份显示名称（前端展示用）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RoleDisplay?: string
   /**
-   * 所属账户组 
+   * <p>所属账户组</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AccountGroup?: AccountGroupInfo
   /**
-   * 云防火墙纳管状态：0-未纳管，1-已纳管
+   * <p>云防火墙纳管状态：0-未纳管，1-已纳管</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CfwManaged?: number
   /**
-   * 云防火墙共享角色：sharer-共享者，user-使用者，none-未设置
+   * <p>云防火墙共享角色：sharer-共享者，user-使用者，none-未设置</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CfwShareRole?: string
   /**
-   * 云防火墙共享角色显示名称（前端展示用）
+   * <p>云防火墙共享角色显示名称（前端展示用）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CfwShareRoleDisplay?: string
   /**
-   * 云防火墙共享者 AppId，成员角色为使用者时有值
+   * <p>云防火墙共享者 AppId，成员角色为使用者时有值</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CfwSharerAppId?: string
   /**
-   * 云防火墙计费实例 ID，非空表示已购买云防火墙
+   * <p>云防火墙计费实例 ID，非空表示已购买云防火墙</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CfwInstanceId?: string
   /**
-   * 策略分析权限：0-关闭，1-开启
+   * <p>策略分析权限：0-关闭，1-开启</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PolicyAnalysisEnabled?: number
   /**
-   * 成员加入集团时间
+   * <p>成员加入集团时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   MemberCreateTime?: string
   /**
-   * 账号加入方式
+   * <p>账号加入方式</p>
    */
   JoinType?: string
+  /**
+   * <p>云防火墙套餐状态</p><p>枚举值：</p><ul><li>0： 未购买</li><li>2： 已购买</li><li>3： 试用中</li><li>4： 已过期</li></ul>
+   */
+  CfwPayStatus?: number
+  /**
+   * <p>是否具备云防火墙使用能力</p>
+   */
+  CfwCapable?: number
+  /**
+   * <p>私有安全组纳管开关， 0:未纳管，1:已纳管</p>
+   */
+  SgManaged?: number
+  /**
+   * <p>是否是后付费云防版本</p><p>枚举值：</p><ul><li>1： 后付费</li><li>0： 非后付费</li><li>-1： 未知</li></ul>
+   */
+  IsCfwPostPay?: number
 }
 
 /**
@@ -1157,17 +1173,17 @@ export interface VpcAclRule {
  */
 export interface CommonFilter {
   /**
-   * <p>筛选字段名。支持：SecurityGroupId、FwGroupId、IP（IP地址模糊搜索）、InstanceName（实例名称模糊搜索）、VpcId（VPC ID精确搜索）</p>
+   * 筛选字段名
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
   /**
-   * <p>筛选值列表</p>
+   * 筛选值列表
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Values?: Array<string>
   /**
-   * <p>操作类型。1=等于，7=in，9=模糊匹配</p>
+   * 操作类型：1-精确匹配 9-模糊匹配
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OperatorType?: number
@@ -1372,21 +1388,25 @@ export interface DescribeRiskCategoryStatsResponse {
  */
 export interface MemberInfo {
   /**
-   * 成员AppId
+   * <p>成员AppId</p>
    */
   AppId?: string
   /**
-   * 成员Uin
+   * <p>成员Uin</p>
    */
   Uin?: string
   /**
-   * 成员昵称
+   * <p>成员昵称</p>
    */
   Nickname?: string
   /**
-   * 成员Id
+   * <p>成员Id</p>
    */
   MemberId?: string
+  /**
+   * <p>所属部门</p>
+   */
+  NodeName?: string
 }
 
 /**
@@ -2751,7 +2771,7 @@ export interface DeleteSecurityGroupRuleRequest {
  */
 export interface CreateEdgeAclRuleGroupResponse {
   /**
-   * 创建的规则组ID
+   * <p>创建的规则组ID</p>
    */
   GroupId?: string
   /**
@@ -3125,15 +3145,15 @@ export interface DeleteRuleGroupRequest {
  */
 export interface CreateEdgeAclRuleGroupRequest {
   /**
-   * 规则组名称，长度1-50字符
+   * <p>规则组名称，长度1-50字符</p>
    */
   GroupName?: string
   /**
-   * 产品类型，固定为 cfw_edge_acl
+   * <p>产品类型，固定为 cfw_edge_acl</p>
    */
   Product?: string
   /**
-   * 规则列表
+   * <p>规则列表</p>
    */
   Rules?: Array<EdgeAclRuleInfo>
 }

@@ -1601,7 +1601,65 @@ export interface DescribeTableStatusRequest {
 /**
  * IPS规则展示字段相关结构
  */
-export type IpsRuleDetailNew = null
+export interface IpsRuleDetailNew {
+  /**
+   * <p>规则ID</p>
+   */
+  RuleID?: string
+  /**
+   * <p>规则名称</p>
+   */
+  EventName?: string
+  /**
+   * <p>规则描述</p>
+   */
+  EventNameDesc?: string
+  /**
+   * <p>规则类型</p>
+   */
+  Category?: string
+  /**
+   * <p>置信度</p>
+   */
+  Confidence?: string
+  /**
+   * <p>自增id</p>
+   */
+  Id?: number
+  /**
+   * <p>漏洞对象</p>
+   */
+  VulTarget?: string
+  /**
+   * <p>漏洞编号</p>
+   */
+  Cve?: string
+  /**
+   * <p>状态 0 关闭 1打开</p>
+   */
+  Status?: number
+  /**
+   * <p>0观察, 1阻断</p>
+   */
+  Action?: number
+  /**
+   * <p>默认策略</p>
+   */
+  DefaultAction?: number
+  /**
+   * <p>基础防御/虚拟补丁</p>
+   */
+  RuleType?: number
+  /**
+   * <p>危险等级</p>
+   */
+  Level?: string
+  /**
+   * <p>FwType字段 1 border 2 nat 4 vpc</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  FwType?: number
+}
 
 /**
  * ModifyAddressTemplate返回参数结构体
@@ -4672,37 +4730,41 @@ export interface DescribeNatFwClusterRegionStatusRequest {
  */
 export interface DescribeAddressTemplateListRequest {
   /**
-   * 偏移量，分页用
+   * <p>偏移量，分页用</p>
    */
   Offset?: number
   /**
-   * 条数，分页用
+   * <p>条数，分页用</p>
    */
   Limit?: number
   /**
-   * 排序字段，取值：UpdateTime最近更新时间，RulesNum关联规则数
+   * <p>排序字段，取值：UpdateTime最近更新时间，RulesNum关联规则数</p>
    */
   By?: string
   /**
-   * 排序，取值 ：asc正序，desc逆序
+   * <p>排序，取值 ：asc正序，desc逆序</p>
    */
   Order?: string
   /**
-   * 搜索值
+   * <p>搜索值</p>
    */
   SearchValue?: string
   /**
-   * 检索地址模板唯一id
+   * <p>检索地址模板唯一id</p>
    */
   Uuid?: string
   /**
-   * 模板类型，取值：1：ip模板，5：域名模板，6：协议端口模板
+   * <p>模板类型，取值：1：ip模板，5：域名模板，6：协议端口模板</p>
    */
   TemplateType?: string
   /**
-   * 模板Id
+   * <p>模板Id</p>
    */
   TemplateId?: string
+  /**
+   * <p>模板来源</p>
+   */
+  SourceType?: string
 }
 
 /**
@@ -5747,37 +5809,41 @@ export interface StorageHistogram {
  */
 export interface DescribeAddressTemplateListResponse {
   /**
-   * 模板总数
+   * <p>模板总数</p>
    */
   Total?: number
   /**
-   * 模板列表数据
+   * <p>模板列表数据</p>
    */
   Data?: Array<TemplateListInfo>
   /**
-   * 模板名称列表
+   * <p>模板名称列表</p>
    */
   NameList?: Array<string>
   /**
-   * Ip地址模板数量
+   * <p>Ip地址模板数量</p>
    */
   IpTemplateCount?: number
   /**
-   * 域名地址模板数量
+   * <p>域名地址模板数量</p>
    */
   DomainTemplateCount?: number
   /**
-   * 协议端口模板数量
+   * <p>协议端口模板数量</p>
    */
   PortTemplateCount?: number
   /**
-   * 已使用的地址模板数
+   * <p>已使用的地址模板数</p>
    */
   UsedTemplateCount?: number
   /**
-   * 地址模板配额数量
+   * <p>地址模板配额数量</p>
    */
   TemplateQuotaCount?: number
+  /**
+   * <p>容器服务地址模板数量</p>
+   */
+  TkeTemplateCount?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -7774,51 +7840,51 @@ export interface CreateDatabaseWhiteListRulesRequest {
  */
 export interface TemplateListInfo {
   /**
-   * 模板ID
+   * <p>模板ID</p>
    */
   Uuid?: string
   /**
-   * 模板名称
+   * <p>模板名称</p>
    */
   Name?: string
   /**
-   * 描述
+   * <p>描述</p>
    */
   Detail?: string
   /**
-   * IP模板
+   * <p>IP模板</p>
    */
   IpString?: string
   /**
-   * 插入时间
+   * <p>插入时间</p>
    */
   InsertTime?: string
   /**
-   * 修改时间
+   * <p>修改时间</p>
    */
   UpdateTime?: string
   /**
-   * 模板类型
+   * <p>模板类型</p>
    */
   Type?: number
   /**
-   * 关联规则条数
+   * <p>关联规则条数</p>
    */
   RulesNum?: number
   /**
-   * 模板Id
+   * <p>模板Id</p>
    */
   TemplateId?: string
   /**
-   * 协议端口模板，协议类型，4:4层协议，7:7层协议
+   * <p>协议端口模板，协议类型，4:4层协议，7:7层协议</p>
    */
   ProtocolType?: string
   /**
-   * 模板包含地址数量
+   * <p>模板包含地址数量</p>
    */
   IPNum?: number
   /**
-   * IP版本,0,IPv4;1,IPv6
+   * <p>IP版本,0,IPv4;1,IPv6</p>
    */
   IpVersion?: number
 }
@@ -8562,26 +8628,26 @@ export interface DescribeIpsModeSwitchResponse {
  */
 export interface DescribeIpsRuleListNewResponse {
   /**
-   * 总条数
+   * <p>总条数</p>
    */
-  Total: number
+  Total?: number
   /**
-   * 规则详情
+   * <p>规则详情</p>
    */
-  Data: Array<IpsRuleDetailNew>
+  Data?: Array<IpsRuleDetailNew>
   /**
-   * 返回状态码 0 成功 非0不成功
+   * <p>返回状态码 0 成功 非0不成功</p>
    */
-  ReturnCode: number
+  ReturnCode?: number
   /**
-   * 返回信息  success 成功 其他 不成功
+   * <p>返回信息  success 成功 其他 不成功</p>
    */
-  ReturnMsg: string
+  ReturnMsg?: string
   /**
-   * 字段类型
+   * <p>字段类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  Category: Array<string>
+  Category?: Array<string>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -8593,27 +8659,27 @@ export interface DescribeIpsRuleListNewResponse {
  */
 export interface DescribeIpsRuleListNewRequest {
   /**
-   * 每页条数
+   * <p>每页条数</p>
    */
   Limit: number
   /**
-   * 偏移值
+   * <p>偏移值</p>
    */
   Offset: number
   /**
-   * 需要查询的索引，特定场景使用，可不填
+   * <p>需要查询的索引，特定场景使用，可不填</p>
    */
   Index?: string
   /**
-   * 过滤条件组合
+   * <p>过滤条件组合</p>
    */
   Filters?: Array<CommonFilter>
   /**
-   * desc：降序；asc：升序。根据By字段的值进行排序，这里传参的话则By也必须有值
+   * <p>desc：降序；asc：升序。根据By字段的值进行排序，这里传参的话则By也必须有值</p>
    */
   Order?: string
   /**
-   * 排序所用到的字段
+   * <p>排序所用到的字段</p>
    */
   By?: string
 }

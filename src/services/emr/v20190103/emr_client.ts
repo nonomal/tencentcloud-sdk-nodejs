@@ -52,6 +52,7 @@ import {
   InquiryPriceCreateInstanceResponse,
   DescribeHDFSStorageInfoRequest,
   JobFlowResourceSpec,
+  DescribeMetaDBInfoResponse,
   WebUIInfo,
   PrePaySetting,
   DescribeGlobalConfigResponse,
@@ -272,6 +273,7 @@ import {
   ModifyBootScriptRequest,
   FlowParamsDesc,
   ModifyYarnDeployResponse,
+  DescribeMetaDBInfoRequest,
   UserManagerUserBriefInfo,
   Placement,
   ComponentDeployInfo,
@@ -1335,6 +1337,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeClusterFlowStatusDetailResponse) => void
   ): Promise<DescribeClusterFlowStatusDetailResponse> {
     return this.request("DescribeClusterFlowStatusDetail", req, cb)
+  }
+
+  /**
+   * 集群metadb数据
+   */
+  async DescribeMetaDBInfo(
+    req: DescribeMetaDBInfoRequest,
+    cb?: (error: string, rep: DescribeMetaDBInfoResponse) => void
+  ): Promise<DescribeMetaDBInfoResponse> {
+    return this.request("DescribeMetaDBInfo", req, cb)
   }
 
   /**

@@ -585,13 +585,17 @@ export interface ModifyRepositoryRequest {
 }
 
 /**
- * ModifyReplication返回参数结构体
+ * ManageImageLifecycleGlobalPersonal请求参数结构体
  */
-export interface ModifyReplicationResponse {
+export interface ManageImageLifecycleGlobalPersonalRequest {
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * global_keep_last_days:全局保留最近几天的数据;global_keep_last_nums:全局保留最近多少个
    */
-  RequestId?: string
+  Type: string
+  /**
+   * 策略值
+   */
+  Val: number
 }
 
 /**
@@ -2078,14 +2082,18 @@ export interface ModifyInstanceStorageRequest {
 }
 
 /**
- * DescribeSecurityPolicies返回参数结构体
+ * DescribeReplicationExecutions返回参数结构体
  */
-export interface DescribeSecurityPoliciesResponse {
+export interface DescribeReplicationExecutionsResponse {
   /**
-   * 实例安全策略组
+   * 镜像分发执行记录列表
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  SecurityPolicySet: Array<SecurityPolicy>
+  ReplicationExecutionList?: Array<ReplicationExecution>
+  /**
+   * 执行记录总数
+   */
+  TotalCount?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -3002,6 +3010,20 @@ export interface DescribeApplicationTriggerLogPersonalResp {
 }
 
 /**
+ * 云标签
+ */
+export interface TagSpecification {
+  /**
+   * 默认值为instance
+   */
+  ResourceType: string
+  /**
+   * 云标签数组
+   */
+  Tags: Array<Tag>
+}
+
+/**
  * DeleteImagePersonal请求参数结构体
  */
 export interface DeleteImagePersonalRequest {
@@ -3153,6 +3175,28 @@ export interface NamespaceInfoResp {
    * 命名空间信息
    */
   NamespaceInfo?: Array<NamespaceInfo>
+}
+
+/**
+ * DescribeReplicationTasks请求参数结构体
+ */
+export interface DescribeReplicationTasksRequest {
+  /**
+   * 实例ID
+   */
+  RegistryId: string
+  /**
+   * 执行记录ID
+   */
+  ExecutionId: number
+  /**
+   * 页数，默认为1
+   */
+  Page?: number
+  /**
+   * 每页展示个数，默认为100
+   */
+  PageSize?: number
 }
 
 /**
@@ -3444,17 +3488,18 @@ export interface ModifyRepositoryAccessPersonalRequest {
 }
 
 /**
- * 云标签
+ * DescribeSecurityPolicies返回参数结构体
  */
-export interface TagSpecification {
+export interface DescribeSecurityPoliciesResponse {
   /**
-   * 默认值为instance
+   * 实例安全策略组
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  ResourceType: string
+  SecurityPolicySet: Array<SecurityPolicy>
   /**
-   * 云标签数组
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Tags: Array<Tag>
+  RequestId?: string
 }
 
 /**
@@ -4055,6 +4100,16 @@ export interface DescribeInstancesRequest {
 }
 
 /**
+ * ValidateNamespaceExistPersonal请求参数结构体
+ */
+export interface ValidateNamespaceExistPersonalRequest {
+  /**
+   * 命名空间名称
+   */
+  Namespace: string
+}
+
+/**
  * ListAIModelVersions请求参数结构体
  */
 export interface ListAIModelVersionsRequest {
@@ -4156,6 +4211,47 @@ export interface Filter {
    * 属性值, 若同一个Filter存在多个Values，同一Filter下Values间的关系为逻辑或（OR）关系。
    */
   Values: Array<string>
+}
+
+/**
+ * 策略执行记录
+ */
+export interface ReplicationExecution {
+  /**
+   * 执行记录ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ExecutionID?: number
+  /**
+   * 策略ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PolicyID?: number
+  /**
+   * 执行状态
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: string
+  /**
+   * 执行任务总数
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Total?: number
+  /**
+   * 执行任务成功数
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Succeed?: number
+  /**
+   * 开始时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  StartTime?: string
+  /**
+   * 结束时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EndTime?: string
 }
 
 /**
@@ -4269,17 +4365,29 @@ export interface RepoInfo {
 }
 
 /**
- * ManageImageLifecycleGlobalPersonal请求参数结构体
+ * DescribeReplicationExecutions请求参数结构体
  */
-export interface ManageImageLifecycleGlobalPersonalRequest {
+export interface DescribeReplicationExecutionsRequest {
   /**
-   * global_keep_last_days:全局保留最近几天的数据;global_keep_last_nums:全局保留最近多少个
+   * 实例ID
    */
-  Type: string
+  RegistryId: string
   /**
-   * 策略值
+   * 策略ID
    */
-  Val: number
+  PolicyId?: number
+  /**
+   * 复制实例ID
+   */
+  ReplicationInstanceId?: string
+  /**
+   * 页数，默认为1
+   */
+  Page?: number
+  /**
+   * 每页展示个数，默认为100
+   */
+  PageSize?: number
 }
 
 /**
@@ -5413,6 +5521,47 @@ export interface DescribeImagesRequest {
 }
 
 /**
+ * 实例同步/实例复制任务列表
+ */
+export interface ReplicationTask {
+  /**
+   * 资源类型
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceType?: string
+  /**
+   * 源资源
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SrcResource?: string
+  /**
+   * 目的资源
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DstResource?: string
+  /**
+   * Job任务ID
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  JobID?: string
+  /**
+   * 任务执行状态
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Status?: string
+  /**
+   * 开始时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  StartTime?: string
+  /**
+   * 结束时间
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EndTime?: string
+}
+
+/**
  * 修改同步规则参数，用于 ModifyReplication 接口更新已有的实例同步规则配置。
  */
 export interface ModifyReplicationRule {
@@ -5767,6 +5916,25 @@ export interface DeleteTagRetentionRuleRequest {
 }
 
 /**
+ * DescribeReplicationTasks返回参数结构体
+ */
+export interface DescribeReplicationTasksResponse {
+  /**
+   * 任务列表
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ReplicationTaskList?: Array<ReplicationTask>
+  /**
+   * 任务列表总数
+   */
+  TotalCount?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 同步规则过滤器
  */
 export interface ReplicationFilter {
@@ -6043,13 +6211,13 @@ export interface DescribeInstanceAllNamespacesResponse {
 }
 
 /**
- * ValidateNamespaceExistPersonal请求参数结构体
+ * ModifyReplication返回参数结构体
  */
-export interface ValidateNamespaceExistPersonalRequest {
+export interface ModifyReplicationResponse {
   /**
-   * 命名空间名称
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Namespace: string
+  RequestId?: string
 }
 
 /**

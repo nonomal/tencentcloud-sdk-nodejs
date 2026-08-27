@@ -790,11 +790,11 @@ export interface AgentSpec {
    */
   Profile?: AgentProfile
   /**
-   * 系统提示词
+   * <p>系统提示词</p>
    */
   Instructions?: string
   /**
-   * 主模型配置
+   * <p>主模型配置</p>
    */
   Model?: AgentModelConfig
   /**
@@ -810,9 +810,13 @@ export interface AgentSpec {
    */
   SkillList?: Array<AgentSkillConfig>
   /**
-   * 高级设置
+   * <p>高级设置</p>
    */
   AdvancedConfig?: AgentAdvancedConfig
+  /**
+   * <p>调用方执行的 Function Tool 列表</p><p>入参限制：仅在 C 端用户态 Agent 场景可用，B 端配置态 Agent  忽略该字段与</p>
+   */
+  ExternalToolList?: Array<AgentExternalToolConfig>
 }
 
 /**
@@ -4938,6 +4942,28 @@ export interface CreateConversationRequest {
 }
 
 /**
+ * 调用方执行的 Function Tool 配置
+ */
+export interface AgentExternalToolConfig {
+  /**
+   * <p>工具类型</p><p>入参限制：目前仅支持 &quot;function&quot;</p>
+   */
+  Type?: string
+  /**
+   * <p>工具名称</p>
+   */
+  Name?: string
+  /**
+   * <p>工具描述</p>
+   */
+  Description?: string
+  /**
+   * <p>工具入参定义</p>
+   */
+  Parameters?: Array<RequestParam>
+}
+
+/**
  * DescribeMsgRecordCategoryList请求参数结构体
  */
 export interface DescribeMsgRecordCategoryListRequest {
@@ -6843,6 +6869,10 @@ export interface AgentDetail {
    * <p>高级配置</p>
    */
   AdvancedConfig?: AgentAdvancedConfig
+  /**
+   * <p>调用方执行的 Function Tool 列表</p><p>入参限制：仅在 C 端用户态 Agent 场景可用，B 端配置态 Agent 忽略该字段与</p>
+   */
+  ExternalToolList?: Array<AgentExternalToolConfig>
 }
 
 /**

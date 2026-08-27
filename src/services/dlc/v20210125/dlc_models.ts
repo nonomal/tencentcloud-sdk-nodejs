@@ -2942,11 +2942,11 @@ export interface ModifySparkAppResponse {
  */
 export interface CreatePartitionRequest {
   /**
-   * <p>交易类型：purchase-新购，renew-续费，modify-变配</p>
+   * <p>交易类型：purchase-新购</p>
    */
   ActionType: string
   /**
-   * <p>付费模式：0-后付费，1-预付费</p>
+   * <p>付费模式：1-预付费</p>
    */
   PayMode: number
   /**
@@ -2954,11 +2954,11 @@ export interface CreatePartitionRequest {
    */
   ResourceQuotaList: Array<ResourceQuota>
   /**
-   * <p>时间大小，预付费时为购买月数，后付费时为3600</p>
+   * <p>时间大小，预付费时为购买月数</p>
    */
   TimeSpan: number
   /**
-   * <p>时间单位，预付费为m（月），后付费为s（秒）</p>
+   * <p>时间单位，预付费为m（月）</p>
    */
   TimeUnit: string
   /**
@@ -2970,7 +2970,7 @@ export interface CreatePartitionRequest {
    */
   Name?: string
   /**
-   * <p>队列描述</p>
+   * <p>资源包描述</p>
    */
   Description?: string
 }

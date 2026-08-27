@@ -778,6 +778,16 @@ it("ess.v20201111.CreateBatchInitOrganizationUrl", async function () {
     }
 })
 
+it("ess.v20201111.CreateRequestWithEncryption", async function () {
+    try {
+       const data = await client.CreateRequestWithEncryption({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("ess.v20201111.CancelUserAutoSignEnableUrl", async function () {
     try {
        const data = await client.CancelUserAutoSignEnableUrl({})

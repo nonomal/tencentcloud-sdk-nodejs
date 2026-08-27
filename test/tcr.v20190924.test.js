@@ -868,6 +868,16 @@ it("tcr.v20190924.CreateInternalEndpointDns", async function () {
     }
 })
 
+it("tcr.v20190924.DescribeReplicationExecutions", async function () {
+    try {
+       const data = await client.DescribeReplicationExecutions({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("tcr.v20190924.ModifyInstanceToken", async function () {
     try {
        const data = await client.ModifyInstanceToken({})
@@ -1181,6 +1191,16 @@ it("tcr.v20190924.ListAIModelVersions", async function () {
 it("tcr.v20190924.DescribeInstanceStatus", async function () {
     try {
        const data = await client.DescribeInstanceStatus({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tcr.v20190924.DescribeReplicationTasks", async function () {
+    try {
+       const data = await client.DescribeReplicationTasks({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

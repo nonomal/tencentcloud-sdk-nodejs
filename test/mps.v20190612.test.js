@@ -358,9 +358,9 @@ it("mps.v20190612.EnableWorkflow", async function () {
     }
 })
 
-it("mps.v20190612.RecognizeMediaForZhiXue", async function () {
+it("mps.v20190612.ChangeVoice", async function () {
     try {
-       const data = await client.RecognizeMediaForZhiXue({})
+       const data = await client.ChangeVoice({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -741,6 +741,16 @@ it("mps.v20190612.DescribeMediaMetaData", async function () {
 it("mps.v20190612.DescribeVideoSearchTaskDetail", async function () {
     try {
        const data = await client.DescribeVideoSearchTaskDetail({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("mps.v20190612.RecognizeMediaForZhiXue", async function () {
+    try {
+       const data = await client.RecognizeMediaForZhiXue({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

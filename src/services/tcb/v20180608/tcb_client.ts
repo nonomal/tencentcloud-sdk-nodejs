@@ -35,6 +35,7 @@ import {
   AddProviderRequest,
   ModifyClsTopicResponse,
   DeleteProviderResponse,
+  HTTPServiceRuleCondition,
   CreateIndex,
   ClusterDetail,
   DbInstance,
@@ -42,6 +43,7 @@ import {
   ModifyStorageSourceResponse,
   SMSProviderTemplateConfig,
   CloudAppVersionItem,
+  HTTPServiceCacheKeyParams,
   CreateVmInstanceRequest,
   DescribeEnvsRequest,
   ModifyUserResponse,
@@ -79,6 +81,8 @@ import {
   DescribeLoginConfigRequest,
   CreateHTTPServiceRouteRequest,
   CreateHostingDomainRequest,
+  HTTPServiceDomainParam,
+  HTTPServiceCacheParams,
   SMSTemplateParams,
   UnbindStorageSourceResponse,
   DescribeCloudAppInfoRequest,
@@ -125,7 +129,7 @@ import {
   DescribeCloudAppVersionListResponse,
   CreateStaticStoreRequest,
   HTTPServiceExtension,
-  LocalizedTemplate,
+  HTTPServiceCacheSet,
   DescribeBillingInfoResponse,
   CreateAuthDomainResponse,
   ModifyDatabaseACLRequest,
@@ -252,6 +256,7 @@ import {
   DescribeStaticStoreResponse,
   ValueDetail,
   DescribeResourcePermissionRequest,
+  HTTPServiceCacheAction,
   ResourcePermission,
   Variable,
   ModifyHTTPServiceRouteResponse,
@@ -292,12 +297,13 @@ import {
   SearchClsLogRequest,
   InquireVmPriceRequest,
   CheckTcbServiceRequest,
-  HTTPServiceDomainParam,
+  HTTPServiceCacheRule,
   PermissionInfo,
   DescribeManagedAIModelListResponse,
   DeleteVmInstanceResponse,
   PlanInfo,
   StaticEnvironment,
+  LocalizedTemplate,
   Tag,
   CreateEnvRequest,
   DeleteHTTPServiceRouteRequest,
@@ -771,7 +777,7 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
-   * 本接口DescribeHTTPServiceRoute用于查询环境下HTTP访问服务路由信息。可通过Filters过滤。如果不存在不会返回错误。HTTP访问服务提供了默认域名，通过本接口可直接获取默认域名。
+   * 本接口DescribeHTTPServiceRoute用于查询环境下HTTP访问服务路由信息。可通过Filters过滤。如果不存在不会返回错误。HTTP访问服务提供了默认域名，通过本接口可直接获取默认域名。前置需已开通 HTTP 访问服务；调用CreateHTTPServiceRoute或者ModifyHTTPServiceRoute后可使用本接口查询创建或者修改结果
    */
   async DescribeHTTPServiceRoute(
     req: DescribeHTTPServiceRouteRequest,

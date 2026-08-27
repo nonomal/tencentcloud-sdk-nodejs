@@ -48,7 +48,7 @@ import {
   DeleteInstanceTokenRequest,
   TaskDetail,
   ModifyRepositoryRequest,
-  ModifyReplicationResponse,
+  ManageImageLifecycleGlobalPersonalRequest,
   ListAIModelsRequest,
   DescribeInternalEndpointDnsStatusRequest,
   CreateApplicationTriggerPersonalRequest,
@@ -128,7 +128,7 @@ import {
   Permission,
   ModifySecurityPolicyRequest,
   ModifyInstanceStorageRequest,
-  DescribeSecurityPoliciesResponse,
+  DescribeReplicationExecutionsResponse,
   CreateSignatureResponse,
   DeleteRepositoryTagsRequest,
   RepoIsExistResp,
@@ -178,6 +178,7 @@ import {
   CreateInstanceTokenResponse,
   DeleteReplicationRuleRequest,
   DescribeApplicationTriggerLogPersonalResp,
+  TagSpecification,
   DeleteImagePersonalRequest,
   DeleteModelItem,
   SkillList,
@@ -185,6 +186,7 @@ import {
   RetentionTask,
   DescribeImageAccelerateServiceResponse,
   NamespaceInfoResp,
+  DescribeReplicationTasksRequest,
   CreateRepositoryPersonalRequest,
   ModifyServiceAccountPasswordRequest,
   DescribeImageFilterPersonalResponse,
@@ -201,7 +203,7 @@ import {
   ModifyNamespaceRequest,
   DeleteImageRequest,
   ModifyRepositoryAccessPersonalRequest,
-  TagSpecification,
+  DescribeSecurityPoliciesResponse,
   CreateMultipleSecurityPolicyRequest,
   KeyValueString,
   DescribeNamespacesRequest,
@@ -227,17 +229,19 @@ import {
   NamespaceIsExistsResp,
   RepositoryInfoResp,
   DescribeInstancesRequest,
+  ValidateNamespaceExistPersonalRequest,
   ListAIModelVersionsRequest,
   CreateInternalEndpointDnsRequest,
   TriggerInvokeCondition,
   DescribeImmutableTagRulesRequest,
   Filter,
+  ReplicationExecution,
   RetentionExecution,
   DuplicateImageResponse,
   DescribeReplicationInstanceCreateTasksRequest,
   ModifyWebhookTriggerResponse,
   RepoInfo,
-  ManageImageLifecycleGlobalPersonalRequest,
+  DescribeReplicationExecutionsRequest,
   DescribeUserQuotaPersonalResponse,
   RegistryCondition,
   DescribeImagePersonalRequest,
@@ -302,6 +306,7 @@ import {
   DeleteNamespaceRequest,
   BatchDeleteImagePersonalRequest,
   DescribeImagesRequest,
+  ReplicationTask,
   ModifyReplicationRule,
   DescribeGCJobsRequest,
   Tag,
@@ -323,6 +328,7 @@ import {
   CreateSignaturePolicyRequest,
   ListSkillsResponse,
   DeleteTagRetentionRuleRequest,
+  DescribeReplicationTasksResponse,
   ReplicationFilter,
   TcrRepositoryInfo,
   TcrInstanceToken,
@@ -337,7 +343,7 @@ import {
   ListAIModelsResponse,
   ReplicationLog,
   DescribeInstanceAllNamespacesResponse,
-  ValidateNamespaceExistPersonalRequest,
+  ModifyReplicationResponse,
   ModifyServiceAccountPasswordResponse,
   CreateApplicationTriggerPersonalResponse,
   Limit,
@@ -1209,6 +1215,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 实例同步/实例复制策略执行记录列表
+   */
+  async DescribeReplicationExecutions(
+    req: DescribeReplicationExecutionsRequest,
+    cb?: (error: string, rep: DescribeReplicationExecutionsResponse) => void
+  ): Promise<DescribeReplicationExecutionsResponse> {
+    return this.request("DescribeReplicationExecutions", req, cb)
+  }
+
+  /**
    * 更新实例内指定长期访问凭证的启用状态
    */
   async ModifyInstanceToken(
@@ -1526,6 +1542,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeInstanceStatusResponse) => void
   ): Promise<DescribeInstanceStatusResponse> {
     return this.request("DescribeInstanceStatus", req, cb)
+  }
+
+  /**
+   * 实例同步/实例复制执行任务列表
+   */
+  async DescribeReplicationTasks(
+    req: DescribeReplicationTasksRequest,
+    cb?: (error: string, rep: DescribeReplicationTasksResponse) => void
+  ): Promise<DescribeReplicationTasksResponse> {
+    return this.request("DescribeReplicationTasks", req, cb)
   }
 
   /**

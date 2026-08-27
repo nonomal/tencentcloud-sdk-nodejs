@@ -2555,6 +2555,28 @@ export interface PrepareFlowsResponse {
 }
 
 /**
+ * CreateRequestWithEncryption返回参数结构体
+ */
+export interface CreateRequestWithEncryptionResponse {
+  /**
+   * <p>加密算法使用的初始化向量。固定为 16 字节，将 IV 原始字节使用标准 Base64 编码后传入。</p>
+   */
+  IV?: string
+  /**
+   * <p>使用 AES-CBC 或 SM4-CBC 加密返回内容得到的密文。加密前返回内容采用 PKCS#7 Padding；将密文原始字节使用标准 Base64 编码后传入。</p>
+   */
+  EncryptedData?: string
+  /**
+   * <p>用于校验请求数据完整性。对 IV 原始字节和密文原始字节直接拼接（不加拼接符）后计算 HMAC-SHA256，再将计算结果使用标准 Base64 编码后传入。</p>
+   */
+  EncryptionSignature?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 流程签署二维码的签署信息，适用于客户系统整合二维码功能。 通过链接，用户可直接访问电子签名小程序并签署合同。
  */
 export interface SignUrl {
@@ -4237,6 +4259,32 @@ export interface ChannelCreateUserAutoSignEnableUrlRequest {
    * <p>要跳转的链接类型<ul><li> <strong>HTTP</strong>：跳转电子签小程序或者H5的http_url, 短信通知或者H5跳转适合此类型  ，此时返回长链</li><li><strong>HTTP_SHORT_URL</strong>：跳转电子签小程序或者H5的http_url, 短信通知或者H5跳转适合此类型，此时返回短链</li><li><strong>APP</strong>： 第三方APP或小程序跳转电子签小程序的path,  APP或者小程序跳转适合此类型，注意：仅UrlType为空，即获取小程序端开通链接时有效</li></ul></p>
    */
   EndPoint?: string
+}
+
+/**
+ * CreateRequestWithEncryption请求参数结构体
+ */
+export interface CreateRequestWithEncryptionRequest {
+  /**
+   * <p>操作的接口名称。取值参考接口文档输入参数章节关于公共参数 Action 的说明。</p>
+   */
+  RequestAction: string
+  /**
+   * <p>第三方应用的唯一标识，对应通用参数 Agent.AppId。</p>
+   */
+  ApplicationId: string
+  /**
+   * <p>加密算法使用的初始化向量。固定为 16 字节，将 IV 原始字节使用标准 Base64 编码后传入。</p>
+   */
+  IV: string
+  /**
+   * <p>使用 AES-CBC 或 SM4-CBC 加密请求内容得到的密文。加密前请求内容采用 PKCS#7 Padding；将密文原始字节使用标准 Base64 编码后传入。</p>
+   */
+  EncryptedData: string
+  /**
+   * <p>用于校验请求数据完整性。对 IV 原始字节和密文原始字节直接拼接（不加拼接符）后计算 HMAC-SHA256，再将计算结果使用标准 Base64 编码后传入。</p>
+   */
+  EncryptionSignature?: string
 }
 
 /**

@@ -544,6 +544,22 @@ export interface CreateDataRepositoryTaskRequest {
    * <p>自定义目的路径（预热任务表示本地路径，沉降任务表示COS桶前缀）</p>
    */
   CustomDestPath?: string
+  /**
+   * <p>输出的COS桶，用于存放任务执行的相关结果（当前用于存放任务失败时的失败文件列表）</p>
+   */
+  OutputBucket?: string
+  /**
+   * <p>输出的COS桶的前缀，用于存放任务执行的相关结果（当前用于存放任务失败时的失败文件列表）</p>
+   */
+  OutputPrefix?: string
+  /**
+   * <p>是否支持自定义数据源路径(暂时仅支持清单过滤使用)</p>
+   */
+  EnableCustomSrcPath?: boolean
+  /**
+   * <p>自定义数据源路径(暂时仅支持清单过滤使用)</p>
+   */
+  CustomSrcPath?: string
 }
 
 /**
@@ -1015,7 +1031,7 @@ export interface BatchAddClientNodesRequest {
  */
 export interface BuildClientNodeMountCommandResponse {
   /**
-   * 挂载命令
+   * <p>挂载命令</p>
    */
   Command?: string
   /**
@@ -1566,15 +1582,15 @@ export interface AttachFileSystemBucketResponse {
  */
 export interface BuildClientNodeMountCommandRequest {
   /**
-   * 文件系统ID
+   * <p>文件系统ID</p>
    */
   FileSystemId: string
   /**
-   * 自定义挂载目录的绝对路径, 如果未指定, 则会使用默认值, 格式/goosefsx/${fs_id}-proxy. 比如/goosefsx/x-c60-a2b3d4-proxy
+   * <p>自定义挂载目录的绝对路径, 如果未指定, 则会使用默认值, 格式/goosefsx/${fs_id}-proxy. 比如/goosefsx/x-c60-a2b3d4-proxy</p>
    */
   CustomMountDir?: string
   /**
-   * 客户端集群ID
+   * <p>客户端集群ID</p>
    */
   ClusterId?: string
 }

@@ -456,6 +456,24 @@ export interface DeleteProviderResponse {
 }
 
 /**
+ * HTTPService缓存规则匹配条件（必填）
+ */
+export interface HTTPServiceRuleCondition {
+  /**
+   * <p>Target 匹配对象</p><p>枚举值：</p><ul><li>url_path： 请求 URI 路径（不含查询串），例：/static/logo.jpg</li><li>file_extension： 请求文件扩展名（EO 从 path 中解析），例：jpg</li><li>full_uri： 完整 URI（路径 + 查询串），例：/download?type=hd</li></ul>
+   */
+  Target?: string
+  /**
+   * <p>MatchType 字符串匹配类型</p><p>枚举值：</p><ul><li>prefix：  前缀匹配</li><li>suffix： 后缀匹配</li><li>contains： 包含匹配</li><li>exact： 精确匹配</li></ul>
+   */
+  MatchType?: string
+  /**
+   * <p>Values 匹配值集合，Values 内任一命中即认为条件成立（OR 语义）</p><p>入参限制：单项 1~1024 字节，最多 100 条</p>
+   */
+  Values?: Array<string>
+}
+
+/**
  * 本类型用于UpdateTable接口中描述待创建索引信息
  */
 export interface CreateIndex {
@@ -660,6 +678,32 @@ export interface CloudAppVersionItem {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Steps?: Array<BuildStepStatus>
+}
+
+/**
+ * 自定义缓存键参数。约束：FullURLCache=on 与 QueryStringSwitch=on 互斥
+使用示例：
+- 整 URL 参与缓存键：{FullURLCache: "on", QueryStringSwitch: "off"}
+- URL 路径 + 仅保留 x/y：{FullURLCache: "off", QueryStringSwitch: "on", QueryStringAction: "includeCustom", QueryStringValues: ["x", "y"]}
+- URL 路径 + 忽略 debug：{FullURLCache: "off", QueryStringSwitch: "on", QueryStringAction: "excludeCustom", QueryStringValues: ["debug"]}
+ */
+export interface HTTPServiceCacheKeyParams {
+  /**
+   * <p>全 URL 缓存开关</p><p>枚举值：</p><ul><li>on： 开启</li><li>off： 关闭</li></ul>
+   */
+  FullURLCache?: string
+  /**
+   * <p>查询参数是否参与缓存键</p><p>枚举值：</p><ul><li>on： 开启</li><li>off： 关闭</li></ul>
+   */
+  QueryStringSwitch?: string
+  /**
+   * <p>QueryStringSwitch=on 时必填</p><p>枚举值：</p><ul><li>includeCustom： 白名单</li><li>excludeCustom： 黑名单</li></ul>
+   */
+  QueryStringAction?: string
+  /**
+   * <p>参数名列表</p><p>入参限制：最多 100 项，单项 1~128 字节</p>
+   */
+  QueryStringValues?: Array<string>
 }
 
 /**
@@ -1483,6 +1527,70 @@ export interface CreateHostingDomainRequest {
    * 证书ID
    */
   CertId: string
+}
+
+/**
+ * 创建或修改HTTP访问服务输入的域名信息，修改HTTP访问服务域名时对应字段不传参数表示不需要修改。
+ */
+export interface HTTPServiceDomainParam {
+  /**
+   * <p>域名。全局唯一。如果域名在其他环境下占用或者腾讯云CDN占用，可能会导致创建失败</p>
+   */
+  Domain: string
+  /**
+   * <p>绑定类型</p><p>枚举值：</p><ul><li>DIRECT： 直连到HTTP访问服务</li><li>CDN： 接入云开发CDN（即将下线）</li><li>CUSTOM： 自定义接入类型（CDN、EO、WAF等接入）</li><li>EO： 接入云开发EdgeOne</li></ul><p>默认值：DIRECT</p>
+   */
+  AccessType?: string
+  /**
+   * <p>证书ID。当前账户下SSL平台的证书ID，无证书无法使用https访问</p>
+   */
+  CertId?: string
+  /**
+   * <p>协议类型</p><p>枚举值：</p><ul><li>HTTP： 仅开启http</li><li>HTTPS： 仅开启https</li><li>HTTP_AND_HTTPS： 同时开启http和https，默认</li><li>HTTP_TO_HTTPS： http重定向成https，需配置证书</li><li>HTTPS_TO_HTTP： https重定向成http，需配置证书</li></ul><p>默认值：HTTP_AND_HTTPS</p>
+   */
+  Protocol?: string
+  /**
+   * <p>自定义CNAME。对应AccessType: Custom</p>
+   */
+  CustomCname?: string
+  /**
+   * <p>域名开启状态，不传默认开启</p>
+   */
+  Enable?: boolean
+  /**
+   * <p>创建/修改的HTTP访问服务路由列表。如果不传，仅创建或修改域名信息。列表最大支持传入20个</p>
+   */
+  Routes?: Array<HTTPServiceRouteParam>
+  /**
+   * <p>扩展字段，内部包含headers处理等</p>
+   */
+  Extension?: HTTPServiceExtension
+}
+
+/**
+ * HTTPService 缓存参数（节点缓存 + 浏览器缓存共用行为模式）。
+FollowOrigin / NoCache / (CacheTime||MaxAgeTime) 三者互斥，必须开启其一：
+- FollowOrigin=true：节点与浏览器缓存均遵循源站；
+- NoCache=true：节点与浏览器缓存均不缓存（Cache-Control: no-cache）；
+- CacheTime>0 或 MaxAgeTime>0：至少设置其一，分别控制节点、浏览器缓存秒数，可独立设置。
+ */
+export interface HTTPServiceCacheParams {
+  /**
+   * <p>遵循源站</p>
+   */
+  FollowOrigin?: boolean
+  /**
+   * <p>不缓存</p>
+   */
+  NoCache?: boolean
+  /**
+   * <p>自定义缓存时间（秒）</p><p>取值范围：[0, 31536000]</p><p>单位：秒</p>
+   */
+  CacheTime?: number
+  /**
+   * <p>浏览器缓存秒数（对应 max-age）</p><p>取值范围：[0, 31536000]</p><p>单位：秒</p>
+   */
+  MaxAgeTime?: number
 }
 
 /**
@@ -2690,29 +2798,27 @@ export interface CreateStaticStoreRequest {
 }
 
 /**
- * HTTP访问服务路由扩展字段
+ * HTTPService 路由扩展字段
  */
 export interface HTTPServiceExtension {
   /**
-   * 添加请求头列表
+   * <p>添加请求头列表</p>
    */
   HeadersHandler?: HTTPServiceHeadersHandler
+  /**
+   * <p>HTTPService 缓存配置，包含Cache 节点缓存 / MaxAge 浏览器缓存 / CacheKey 自定义缓存键</p>
+   */
+  Cache?: HTTPServiceCacheSet
 }
 
 /**
- * 多语言模板
+ * HTTPService 缓存配置（域名维度）
  */
-export interface LocalizedTemplate {
+export interface HTTPServiceCacheSet {
   /**
-   * <p>中文</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>HTTPService 缓存配置列表。Rules 按数组顺序为优先级顺序，Rules[n-1] 优先级最高</p>
    */
-  ZhCN?: string
-  /**
-   * <p>英文</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  EnUS?: string
+  Rules?: Array<HTTPServiceCacheRule>
 }
 
 /**
@@ -5590,6 +5696,24 @@ export interface DescribeResourcePermissionRequest {
 }
 
 /**
+ * HTTPService缓存动作（Type + 具体子字段的标签联合，Type 与被设置的子字段必须一一对应）
+ */
+export interface HTTPServiceCacheAction {
+  /**
+   * <p>HTTPService 缓存动作类型</p><p>枚举值：</p><ul><li>Cache： 节点缓存 + 浏览器缓存统一动作（节点秒数 CacheTime、浏览器秒数 MaxAgeTime）</li><li>CacheKey： 仅开启EO边缘加速通道下发</li></ul>
+   */
+  Type?: string
+  /**
+   * <p>节点缓存配置。Type=Cache 时必填</p>
+   */
+  Cache?: HTTPServiceCacheParams
+  /**
+   * <p>自定义缓存键。Type=CacheKey 时必填</p>
+   */
+  CacheKey?: HTTPServiceCacheKeyParams
+}
+
+/**
  * 资源权限
  */
 export interface ResourcePermission {
@@ -6490,41 +6614,25 @@ CVM = 云服务器
 export type CheckTcbServiceRequest = null
 
 /**
- * 创建或修改HTTP访问服务输入的域名信息，修改HTTP访问服务域名时对应字段不传参数表示不需要修改。
+ * HTTPService 缓存规则条目
  */
-export interface HTTPServiceDomainParam {
+export interface HTTPServiceCacheRule {
   /**
-   * <p>域名。全局唯一。如果域名在其他环境下占用或者腾讯云CDN占用，可能会导致创建失败</p>
+   * <p>自定义描述，最多 128 字节</p>
    */
-  Domain: string
+  Description?: string
   /**
-   * <p>绑定类型</p><p>枚举值：</p><ul><li>DIRECT： 直连到HTTP访问服务</li><li>CDN： 接入云开发CDN（即将下线）</li><li>CUSTOM： 自定义接入类型（CDN、EO、WAF等接入）</li><li>EO： 接入云开发EdgeOne</li></ul><p>默认值：DIRECT</p>
-   */
-  AccessType?: string
-  /**
-   * <p>证书ID。当前账户下SSL平台的证书ID，无证书无法使用https访问</p>
-   */
-  CertId?: string
-  /**
-   * <p>协议类型</p><p>枚举值：</p><ul><li>HTTP： 仅开启http</li><li>HTTPS： 仅开启https</li><li>HTTP_AND_HTTPS： 同时开启http和https，默认</li><li>HTTP_TO_HTTPS： http重定向成https，需配置证书</li><li>HTTPS_TO_HTTP： https重定向成http，需配置证书</li></ul><p>默认值：HTTP_AND_HTTPS</p>
-   */
-  Protocol?: string
-  /**
-   * <p>自定义CNAME。对应AccessType: Custom</p>
-   */
-  CustomCname?: string
-  /**
-   * <p>域名开启状态，不传默认开启</p>
+   * <p>规则开关：nil/true 启用，false 禁用</p>
    */
   Enable?: boolean
   /**
-   * <p>创建/修改的HTTP访问服务路由列表。如果不传，仅创建或修改域名信息。列表最大支持传入20个</p>
+   * <p>HTTPService 规则匹配条件（必填）</p>
    */
-  Routes?: Array<HTTPServiceRouteParam>
+  Condition?: HTTPServiceRuleCondition
   /**
-   * <p>扩展字段，内部包含headers处理等</p>
+   * <p>HTTPService 缓存动作列表，同一规则内相同 Type 至多一个</p>
    */
-  Extension?: HTTPServiceExtension
+  Actions?: Array<HTTPServiceCacheAction>
 }
 
 /**
@@ -6613,6 +6721,22 @@ export interface StaticEnvironment {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Variables?: Array<Variable>
+}
+
+/**
+ * 多语言模板
+ */
+export interface LocalizedTemplate {
+  /**
+   * <p>中文</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ZhCN?: string
+  /**
+   * <p>英文</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EnUS?: string
 }
 
 /**

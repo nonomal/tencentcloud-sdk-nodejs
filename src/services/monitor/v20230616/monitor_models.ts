@@ -145,21 +145,17 @@ export interface TriggerAIWorkbenchTaskResponse {
 }
 
 /**
- * AI工作台SRE数字分身工作日志详细信息
+ * 通知历史中关联的通知模板信息
  */
-export interface AIWorkbenchSREDigitalTwinWorkLogDetail {
+export interface NotifyRelatedNotice {
   /**
-   * 工作日志详细内容
+   * 通知模板ID
    */
-  Content?: string
+  NoticeId?: string
   /**
-   * 工作日志任务类型
+   * 通知模板的名称
    */
-  TaskType?: string
-  /**
-   * 工作日志相关对话ID
-   */
-  DialogID?: number
+  NoticeName?: string
 }
 
 /**
@@ -398,6 +394,20 @@ export interface SlackRobotNoticeTmpl {
 }
 
 /**
+ * ModifyDispenseExternalRuleStatus请求参数结构体
+ */
+export interface ModifyDispenseExternalRuleStatusRequest {
+  /**
+   * 规则id列表
+   */
+  RuleIdList: Array<number | bigint>
+  /**
+   * 状态
+   */
+  Status: number
+}
+
+/**
  * ListAIWorkbenchSessions请求参数结构体
  */
 export interface ListAIWorkbenchSessionsRequest {
@@ -509,6 +519,24 @@ export interface DingDingRobotNoticeTmpl {
    * 标题模板
    */
   TitleTmpl?: string
+}
+
+/**
+ * 过滤表
+ */
+export interface DispenseFilter {
+  /**
+   * 维度名称
+   */
+  Key?: string
+  /**
+   * 维度值列表
+   */
+  Values?: Array<string>
+  /**
+   * 表示式
+   */
+  Expression?: string
 }
 
 /**
@@ -674,19 +702,69 @@ export interface ListAIWorkbenchSessionsResponse {
 }
 
 /**
- * ListAIWorkbenchTasks返回参数结构体
+ * 转发目标对象信息
  */
-export interface ListAIWorkbenchTasksResponse {
+export interface Producer {
   /**
-   * <p>任务列表</p>
+   * 转发协议类型，0-stormRetPb, 1-tcbDispensePb, 2-stormRetJson, 3-ADPPb(废弃)，4-中台pb
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  Tasks?: Array<TaskInfo>
+  ProtocolType: number
   /**
-   * <p>分页结果</p>
+   * 目标类型
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  PageResult?: PageByNumResult
+  Type: string
+  /**
+   * 转发kafka地址
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Brokers: string
+  /**
+   * 转发kafka topic
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Topic: string
+  /**
+   * 是否合并指标,默认是1，合并
+   */
+  Merge?: number
+  /**
+   * 全局维度组
+   */
+  GlobalTags?: Array<DispenseGlobalTag>
+  /**
+   * 默认维度组，只提供维度即可
+   */
+  DefaultTags?: Array<string>
+  /**
+   * Kafka用户名
+   */
+  Username?: string
+  /**
+   * Kafka密码
+   */
+  Password?: string
+}
+
+/**
+ * DeleteDispenseExternalRule请求参数结构体
+ */
+export interface DeleteDispenseExternalRuleRequest {
+  /**
+   * 需要删除的规则Id
+   */
+  RuleIdList: Array<number | bigint>
+}
+
+/**
+ * DescribeExtNamespace返回参数结构体
+ */
+export interface DescribeExtNamespaceResponse {
+  /**
+   * 对外命名空间列表
+   */
+  ExtNamespaceList?: Array<string>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -772,6 +850,26 @@ export interface PagerDutyRobotNoticeTmpl {
 }
 
 /**
+ * ListAIWorkbenchTasks返回参数结构体
+ */
+export interface ListAIWorkbenchTasksResponse {
+  /**
+   * <p>任务列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Tasks?: Array<TaskInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 标签
  */
 export interface Tag {
@@ -796,6 +894,28 @@ export interface DeleteAIWorkbenchAgentResponse {
 }
 
 /**
+ * 转发地域信息
+ */
+export interface DispenseRegion {
+  /**
+   * 地域缩写
+   */
+  Region?: string
+  /**
+   * 地域中文名
+   */
+  RegionCnName?: string
+  /**
+   * 地域英文名
+   */
+  RegionEnName?: string
+  /**
+   * 规则数量
+   */
+  RuleNumber?: number
+}
+
+/**
  * DescribeAIWorkbenchSREDigitalTwinWorkLogList请求参数结构体
  */
 export interface DescribeAIWorkbenchSREDigitalTwinWorkLogListRequest {
@@ -814,25 +934,52 @@ export interface DescribeAIWorkbenchSREDigitalTwinWorkLogListRequest {
 }
 
 /**
- * 官网通知内容模板元素
+ * 对外指标
  */
-export interface QCloudYeheWeChatNoticeTmplItem {
+export interface ExtMetric {
   /**
-   * 告警内容模板
+   * 指标名
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  AlarmContentTmpl?: string
+  MetricName?: string
   /**
-   * 告警对象模板
+   * 中文指标名
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  AlarmObjectTmpl?: string
+  MetricCName?: string
   /**
-   * 告警地域模板
+   * 中文含义
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  AlarmRegionTmpl?: string
+  CNMeaning?: string
   /**
-   * 告警时间模板
+   * 英文含义
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  AlarmTimeTmpl?: string
+  EnMeaning?: string
+  /**
+   * 单位
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Unit?: string
+  /**
+   * 是否配置对外维度
+   */
+  DimensionFlag?: boolean
+}
+
+/**
+ * DescribeKafka返回参数结构体
+ */
+export interface DescribeKafkaResponse {
+  /**
+   * 连通性列表
+   */
+  KafkaConnectivityList?: Array<KafkaConnectivity>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -1016,6 +1163,36 @@ export interface PageByNoResult {
 }
 
 /**
+ * ListAIWorkbenchResourceMaps返回参数结构体
+ */
+export interface ListAIWorkbenchResourceMapsResponse {
+  /**
+   * <p>资源地图列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceMaps?: Array<ResourceMapInfo>
+  /**
+   * <p>分页结果</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PageResult?: PageByNumResult
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeExtMetric请求参数结构体
+ */
+export interface DescribeExtMetricRequest {
+  /**
+   * 对外命名空间
+   */
+  ExtNamespace: string
+}
+
+/**
  * Microsoft Teams 工作流内容模板配置
  */
 export interface TeamsWorkflowRobotNoticeTmpl {
@@ -1193,6 +1370,44 @@ export interface CancelAIWorkbenchChatRequest {
 }
 
 /**
+ * ModifyDispenseExternalRule请求参数结构体
+ */
+export interface ModifyDispenseExternalRuleRequest {
+  /**
+   * 规则名称
+   */
+  Name: string
+  /**
+   * 云监控对外命名空间
+   */
+  ExtNamespace: string
+  /**
+   * 转发目标消信息
+   */
+  Producer: Producer
+  /**
+   * 规则ID
+   */
+  RuleId: number
+  /**
+   * 转发部署地域列表
+   */
+  DispenseRegions?: Array<string>
+  /**
+   * 云监控对外指标
+   */
+  ExtMetrics?: Array<string>
+  /**
+   * 指标统计周期
+   */
+  Period?: Array<number | bigint>
+  /**
+   * 转发过滤信息
+   */
+  DispenseConditions?: Array<DispenseCondition>
+}
+
+/**
  * DescribeAlarmNotifyHistories返回参数结构体
  */
 export interface DescribeAlarmNotifyHistoriesResponse {
@@ -1280,6 +1495,40 @@ export interface DescribeAIWorkbenchSessionResponse {
 }
 
 /**
+ * ListAIWorkbenchTasks请求参数结构体
+ */
+export interface ListAIWorkbenchTasksRequest {
+  /**
+   * <p>每页数量</p>
+   */
+  PerPage?: number
+  /**
+   * <p>页码</p>
+   */
+  PageNo?: number
+  /**
+   * <p>按 Agent 筛选</p>
+   */
+  AgentId?: string
+  /**
+   * <p>按触发类型筛选</p>
+   */
+  TriggerType?: string
+  /**
+   * <p>搜索关键词</p>
+   */
+  Keyword?: string
+  /**
+   * <p>任务 ID 列表筛选</p>
+   */
+  TaskIds?: Array<string>
+  /**
+   * <p>是否启用筛选</p>
+   */
+  Enabled?: boolean
+}
+
+/**
  * 企业微信机器人内容模板配置
  */
 export interface WeWorkRobotNoticeTmpl {
@@ -1287,6 +1536,24 @@ export interface WeWorkRobotNoticeTmpl {
    * 内容模板
    */
   ContentTmpl: string
+}
+
+/**
+ * DescribeAIWorkbenchSREDigitalTwinWorkLogDetail返回参数结构体
+ */
+export interface DescribeAIWorkbenchSREDigitalTwinWorkLogDetailResponse {
+  /**
+   * Json序列化路径
+   */
+  JSONStrPaths?: Array<string>
+  /**
+   * 数字分身详细信息
+   */
+  Data?: AIWorkbenchSREDigitalTwinWorkLogDetail
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -1439,6 +1706,30 @@ export interface TaskInfo {
 }
 
 /**
+ * DescribeDispenseExternalRule请求参数结构体
+ */
+export interface DescribeDispenseExternalRuleRequest {
+  /**
+   * 规则id
+   */
+  RuleId: number
+}
+
+/**
+ * DescribeKafka请求参数结构体
+ */
+export interface DescribeKafkaRequest {
+  /**
+   * kafka地址
+   */
+  Brokers: string
+  /**
+   * 转发部署地域列表
+   */
+  DispenseRegions?: Array<string>
+}
+
+/**
  * ListAIWorkbenchArtifacts请求参数结构体
  */
 export interface ListAIWorkbenchArtifactsRequest {
@@ -1506,6 +1797,40 @@ export interface PageByNoParams {
 }
 
 /**
+ * CreateDispenseExternalRule请求参数结构体
+ */
+export interface CreateDispenseExternalRuleRequest {
+  /**
+   * 规则名称
+   */
+  Name: string
+  /**
+   * 云监控对外命名空间
+   */
+  ExtNamespace: string
+  /**
+   * 转发目标消信息
+   */
+  Producer: Producer
+  /**
+   * 转发部署地域列表
+   */
+  DispenseRegions?: Array<string>
+  /**
+   * 云监控对外指标
+   */
+  ExtMetrics?: Array<string>
+  /**
+   * 指标统计周期
+   */
+  Period?: Array<number | bigint>
+  /**
+   * 转发过滤条件信息
+   */
+  DispenseConditions?: Array<DispenseCondition>
+}
+
+/**
  * ListAIWorkbenchResourceInstances请求参数结构体
  */
 export interface ListAIWorkbenchResourceInstancesRequest {
@@ -1549,6 +1874,20 @@ export interface CreateAIWorkbenchTaskResponse {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeDispenseExternalRule返回参数结构体
+ */
+export interface DescribeDispenseExternalRuleResponse {
+  /**
+   * 规则
+   */
+  Rule?: Rule
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -1756,23 +2095,17 @@ export interface EnvEntry {
 }
 
 /**
- * ListAIWorkbenchResourceMaps返回参数结构体
+ * kafka连通性
  */
-export interface ListAIWorkbenchResourceMapsResponse {
+export interface KafkaConnectivity {
   /**
-   * <p>资源地图列表</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 地域
    */
-  ResourceMaps?: Array<ResourceMapInfo>
+  Region?: string
   /**
-   * <p>分页结果</p>
-注意：此字段可能返回 null，表示取不到有效值。
+   * 连通
    */
-  PageResult?: PageByNumResult
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
+  Result?: boolean
 }
 
 /**
@@ -1867,6 +2200,54 @@ export interface GoogleChatRobotNoticeTmpl {
 }
 
 /**
+ * 转发规则
+ */
+export interface Rule {
+  /**
+   * 规则Id
+   */
+  RuleId?: number
+  /**
+   * 规则名称
+   */
+  Name?: string
+  /**
+   * 对外namespace
+   */
+  ExtNamespace?: string
+  /**
+   * 对外指标列表
+   */
+  ExtMetric?: Array<ExtMetric>
+  /**
+   * 输出信息
+   */
+  Producer?: Producer
+  /**
+   * 更新时间
+   */
+  UpdateTime?: number
+  /**
+   * 规则触发状态
+   */
+  Status?: number
+  /**
+   * 指标粒度周期
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Period?: Array<number | bigint>
+  /**
+   * 转发过滤条件
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DispenseConditions?: Array<DispenseCondition>
+  /**
+   * 转发地域列表
+   */
+  DispenseRegions?: Array<string>
+}
+
+/**
  * 产物实体
  */
 export interface ArtifactInfo {
@@ -1943,17 +2324,21 @@ export interface ListAIWorkbenchResourceInstancesResponse {
 }
 
 /**
- * 通知历史中关联的通知模板信息
+ * AI工作台SRE数字分身工作日志详细信息
  */
-export interface NotifyRelatedNotice {
+export interface AIWorkbenchSREDigitalTwinWorkLogDetail {
   /**
-   * 通知模板ID
+   * 工作日志详细内容
    */
-  NoticeId?: string
+  Content?: string
   /**
-   * 通知模板的名称
+   * 工作日志任务类型
    */
-  NoticeName?: string
+  TaskType?: string
+  /**
+   * 工作日志相关对话ID
+   */
+  DialogID?: number
 }
 
 /**
@@ -1979,6 +2364,26 @@ Trigger 告警触发; Recovery 告警恢复
    * 模板配置
    */
   Template: GoogleChatRobotNoticeTmpl
+}
+
+/**
+ * DescribeDispenseExternalRuleList返回参数结构体
+ */
+export interface DescribeDispenseExternalRuleListResponse {
+  /**
+   * 指标列表
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RuleList?: Array<Rule>
+  /**
+   * 列表大小
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TotalCount?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -2112,6 +2517,20 @@ export interface MCPInfo {
 }
 
 /**
+ * CreateDispenseExternalRule返回参数结构体
+ */
+export interface CreateDispenseExternalRuleResponse {
+  /**
+   * 转发规则Id
+   */
+  RuleId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * CreateNoticeContentTmpl请求参数结构体
  */
 export interface CreateNoticeContentTmplRequest {
@@ -2134,38 +2553,31 @@ export interface CreateNoticeContentTmplRequest {
 }
 
 /**
- * ListAIWorkbenchTasks请求参数结构体
+ * 官网通知内容模板元素
  */
-export interface ListAIWorkbenchTasksRequest {
+export interface QCloudYeheWeChatNoticeTmplItem {
   /**
-   * <p>每页数量</p>
+   * 告警内容模板
    */
-  PerPage?: number
+  AlarmContentTmpl?: string
   /**
-   * <p>页码</p>
+   * 告警对象模板
    */
-  PageNo?: number
+  AlarmObjectTmpl?: string
   /**
-   * <p>按 Agent 筛选</p>
+   * 告警地域模板
    */
-  AgentId?: string
+  AlarmRegionTmpl?: string
   /**
-   * <p>按触发类型筛选</p>
+   * 告警时间模板
    */
-  TriggerType?: string
-  /**
-   * <p>搜索关键词</p>
-   */
-  Keyword?: string
-  /**
-   * <p>任务 ID 列表筛选</p>
-   */
-  TaskIds?: Array<string>
-  /**
-   * <p>是否启用筛选</p>
-   */
-  Enabled?: boolean
+  AlarmTimeTmpl?: string
 }
+
+/**
+ * DescribeExtNamespace请求参数结构体
+ */
+export type DescribeExtNamespaceRequest = null
 
 /**
  * 告警通知自定义Webhook的通知内容模板匹配器
@@ -2182,21 +2594,21 @@ export interface WebhookNoticeTmplMatcher {
 }
 
 /**
- * DescribeAIWorkbenchSREDigitalTwinWorkLogDetail返回参数结构体
+ * 转发过滤条件信息
  */
-export interface DescribeAIWorkbenchSREDigitalTwinWorkLogDetailResponse {
+export interface DispenseCondition {
   /**
-   * Json序列化路径
+   * 对外指标名
    */
-  JSONStrPaths?: Array<string>
+  ExtMetric?: string
   /**
-   * 数字分身详细信息
+   * 过滤条件表
    */
-  Data?: AIWorkbenchSREDigitalTwinWorkLogDetail
+  DispenseFilters?: Array<DispenseFilter>
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * 过滤条件id
    */
-  RequestId?: string
+  ConditionId?: number
 }
 
 /**
@@ -2310,6 +2722,33 @@ export interface NoticeContentTmplBindPolicyCount {
    * 绑定告警策略数量
    */
   BindCount?: number
+}
+
+/**
+ * DescribeDispenseRegion请求参数结构体
+ */
+export type DescribeDispenseRegionRequest = null
+
+/**
+ * DescribeDispenseExternalRuleList请求参数结构体
+ */
+export interface DescribeDispenseExternalRuleListRequest {
+  /**
+   * 页数
+   */
+  Page: number
+  /**
+   * 页面大小
+   */
+  PageSize: number
+  /**
+   * 转发部署地域
+   */
+  DispenseRegions?: Array<string>
+  /**
+   * 关键字搜索规则名
+   */
+  Keyword?: string
 }
 
 /**
@@ -2447,6 +2886,16 @@ export interface ModifyNoticeContentTmplResponse {
 }
 
 /**
+ * ModifyDispenseExternalRuleStatus返回参数结构体
+ */
+export interface ModifyDispenseExternalRuleStatusResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 企业微信机器人通知模板的匹配器
  */
 export interface WeWorkRobotNoticeTmplMatcher {
@@ -2490,6 +2939,16 @@ export interface PagerDutyRobotNoticeTmplMatcher {
 }
 
 /**
+ * DeleteDispenseExternalRule返回参数结构体
+ */
+export interface DeleteDispenseExternalRuleResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 飞书机器人内容模板配置
  */
 export interface FeiShuRobotNoticeTmpl {
@@ -2501,6 +2960,20 @@ export interface FeiShuRobotNoticeTmpl {
    * 标题模板
    */
   TitleTmpl?: string
+}
+
+/**
+ * 全局维度
+ */
+export interface DispenseGlobalTag {
+  /**
+   * 维度key
+   */
+  Key?: string
+  /**
+   * 维度值
+   */
+  Value?: string
 }
 
 /**
@@ -2535,6 +3008,20 @@ export interface ListAIWorkbenchAgentsRequest {
    * <p>Agent ID 列表筛选</p>
    */
   AgentIds?: Array<string>
+}
+
+/**
+ * DescribeDispenseRegion返回参数结构体
+ */
+export interface DescribeDispenseRegionResponse {
+  /**
+   * 转发地域列表
+   */
+  RegionList?: Array<DispenseRegion>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -2634,6 +3121,20 @@ export interface ModifyNoticeContentTmplRequest {
 }
 
 /**
+ * DescribeExtMetric返回参数结构体
+ */
+export interface DescribeExtMetricResponse {
+  /**
+   * 对外指标
+   */
+  ExtMetricList?: Array<ExtMetric>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * agent运行时所需环境变量
  */
 export interface EnvVar {
@@ -2647,4 +3148,14 @@ export interface EnvVar {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Value?: EnvEntry
+}
+
+/**
+ * ModifyDispenseExternalRule返回参数结构体
+ */
+export interface ModifyDispenseExternalRuleResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }

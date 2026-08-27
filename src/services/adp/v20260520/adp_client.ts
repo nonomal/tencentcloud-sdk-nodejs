@@ -233,6 +233,7 @@ import {
   PromptRewriteModel,
   ViewScope,
   CreateConversationRequest,
+  AgentExternalToolConfig,
   DescribeMsgRecordCategoryListRequest,
   CallSource,
   ConsumptionUsage,

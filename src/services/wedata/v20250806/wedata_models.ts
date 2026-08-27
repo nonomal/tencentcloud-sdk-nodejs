@@ -895,6 +895,11 @@ export interface TriggerTaskRunBrief {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScheduleRunType?: string
+  /**
+   * <p>权限</p><p>枚举值：</p><ul><li>CAN_MANAGE： 可管理</li><li>CAN_VIEW： 可见</li><li>NO_PERMISSION： 无权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -7172,6 +7177,11 @@ export interface TriggerWorkflowRunBrief {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ParentTaskExecutionName?: string
+  /**
+   * <p>权限</p><p>枚举值：</p><ul><li>CAN_MANAGE： 可管理</li><li>CAN_VIEW： 可见</li><li>NO_PERMISSION： 无权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -14000,34 +14010,38 @@ export interface DissociateResourceGroupFromProjectResponse {
  */
 export interface AlarmGroup {
   /**
-   * 告警升级人ID列表
-若告警接收人或上级升级人未在告警间隔时间内确认告警，则会发送告警给下一级升级人。
+   * <p>告警升级人ID列表<br>若告警接收人或上级升级人未在告警间隔时间内确认告警，则会发送告警给下一级升级人。</p>
    */
   AlarmEscalationRecipientIds?: Array<string>
   /**
-   * 告警升级间隔
+   * <p>告警升级间隔</p>
    */
   AlarmEscalationInterval?: number
   /**
-   * 告警通知疲劳配置
+   * <p>告警通知疲劳配置</p>
    */
   NotificationFatigue?: NotificationFatigue
   /**
-   * 告警渠道 1.邮件，2.短信，3.微信，4.语音，5.企业微信，6.Http，7.企业微信群 8 飞书群 9 钉钉群 10 Slack群 11 Teams群（默认1.邮件） 7.企业微信群 8 飞书群 9 钉钉群 10 Slack群 11 Teams群 只能选择一个渠道
+   * <p>告警渠道 1.邮件，2.短信，3.微信，4.语音，5.企业微信，6.Http，7.企业微信群 8 飞书群 9 钉钉群 10 Slack群 11 Teams群（默认1.邮件） 7.企业微信群 8 飞书群 9 钉钉群 10 Slack群 11 Teams群 只能选择一个渠道</p>
    */
   AlarmWays?: Array<string>
   /**
-   * 企业微信群/飞书群/钉钉群 /Slack群/Teams群的webhook地址列表
+   * <p>企业微信群/飞书群/钉钉群 /Slack群/Teams群的webhook地址列表</p>
    */
   WebHooks?: Array<AlarmWayWebHook>
   /**
-   * 告警接收人类型：1.指定人员，2.任务责任人，3.值班表（默认1.指定人员）
+   * <p>告警接收人类型：1.指定人员，2.任务责任人，3.值班表（默认1.指定人员）</p>
    */
   AlarmRecipientType?: number
   /**
-   * 根据AlarmRecipientType的类型该列表具有不同的业务id 1（指定人员）: 告警接收人id列表 2（任务责任人）：无需配置 3（值班表）：值班表id列表
+   * <p>根据AlarmRecipientType的类型该列表具有不同的业务id 1（指定人员）: 告警接收人id列表 2（任务责任人）：无需配置 3（值班表）：值班表id列表</p>
    */
   AlarmRecipientIds?: Array<string>
+  /**
+   * <p>自定义邮箱列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CustomEmails?: Array<string>
 }
 
 /**
@@ -15117,45 +15131,50 @@ export interface GetTaskRequest {
  */
 export interface AlarmMessage {
   /**
-   * 告警消息Id
+   * <p>告警消息Id</p>
    */
   AlarmMessageId?: number
   /**
-   * 告警时间，同一条告警可能发送多次，只显示最新的告警时间
+   * <p>告警时间，同一条告警可能发送多次，只显示最新的告警时间</p>
    */
   AlarmTime?: string
   /**
-   * 任务名称
+   * <p>任务名称</p>
    */
   TaskName?: string
   /**
-   * 任务Id
+   * <p>任务Id</p>
    */
   TaskId?: string
   /**
-   * 任务的实例数据时间
+   * <p>任务的实例数据时间</p>
    */
   CurRunDate?: string
   /**
-   * 告警原因
+   * <p>告警原因</p>
    */
   AlarmReason?: string
   /**
-   * 告警级别，1.普通， 2.重要，3.紧急
+   * <p>告警级别，1.普通， 2.重要，3.紧急</p>
    */
   AlarmLevel?: number
   /**
-   * 告警规则Id
+   * <p>告警规则Id</p>
    */
   AlarmRuleId?: string
   /**
-   * 告警渠道 1.邮件，2.短信，3.微信，4.语音，5.企业微信，6.Http，7.企业微信群， 8.飞书群，9.钉钉群，10.Slack群,11.Teams群（默认1.邮件），7.企业微信群，8.飞书群，9.钉钉群，10.Slack群，11.Teams群
+   * <p>告警渠道 1.邮件，2.短信，3.微信，4.语音，5.企业微信，6.Http，7.企业微信群， 8.飞书群，9.钉钉群，10.Slack群,11.Teams群（默认1.邮件），7.企业微信群，8.飞书群，9.钉钉群，10.Slack群，11.Teams群</p>
    */
   AlarmWays?: Array<string>
   /**
-   * 告警接收人
+   * <p>告警接收人</p>
    */
   AlarmRecipients?: Array<string>
+  /**
+   * <p>自定义邮箱列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CustomEmails?: Array<string>
 }
 
 /**
@@ -17906,12 +17925,22 @@ export interface WorkflowTriggerConfig {
    */
   Recursive?: number
   /**
-   * <p>文件到达模式下    触发最短间隔时间</p><p>单位：秒</p>
+   * <p>文件到达模式下 最小触发间隔</p><p>取值范围：[1, 1440]</p><p>单位：分钟</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TriggerMinimumInterval?: number
+  /**
+   * <p>文件到达模式下 文件批次等待时间</p><p>取值范围：[1, 60]</p><p>单位：分钟</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TriggerWaitTime?: number
+  /**
+   * <p>文件到达模式下    触发最短间隔时间</p><p>单位：秒</p><p>后续废弃 勿用</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TriggerMinimumIntervalSecond?: number
   /**
-   * <p>文件到达模式下    触发等待时间</p><p>单位：秒</p>
+   * <p>文件到达模式下    触发等待时间</p><p>单位：秒</p><p>后续废弃 勿用</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TriggerWaitTimeSecond?: number

@@ -24,7 +24,7 @@ import {
   FeiShuRobotNoticeTmplMatcher,
   AIWorkbenchSREDigitalTwinTask,
   TriggerAIWorkbenchTaskResponse,
-  AIWorkbenchSREDigitalTwinWorkLogDetail,
+  NotifyRelatedNotice,
   NoticeContentTmplItem,
   ResourceMapInfo,
   AgentInfo,
@@ -34,12 +34,14 @@ import {
   TriggerDigitalTwinTaskResp,
   DescribeAIWorkbenchArtifactRequest,
   SlackRobotNoticeTmpl,
+  ModifyDispenseExternalRuleStatusRequest,
   ListAIWorkbenchSessionsRequest,
   DescribeAIWorkbenchSREDigitalTwinWorkLogDetailRequest,
   ListAIWorkbenchAgentsResponse,
   ListAIWorkbenchSkillsRequest,
   SlackRobotNoticeTmplMatcher,
   DingDingRobotNoticeTmpl,
+  DispenseFilter,
   WebhookNoticeTmplHeader,
   PageByNumParams,
   GetAIWorkbenchArtifactDownloadURLRequest,
@@ -47,15 +49,20 @@ import {
   AlarmNotifyHistory,
   DescribeAIWorkbenchSessionRequest,
   ListAIWorkbenchSessionsResponse,
-  ListAIWorkbenchTasksResponse,
+  Producer,
+  DeleteDispenseExternalRuleRequest,
+  DescribeExtNamespaceResponse,
   DescribeAIWorkbenchExecutionResponse,
   ResourceInstance,
   TriggerAIWorkbenchSREDigitalTwinTaskResponse,
   PagerDutyRobotNoticeTmpl,
+  ListAIWorkbenchTasksResponse,
   Tag,
   DeleteAIWorkbenchAgentResponse,
+  DispenseRegion,
   DescribeAIWorkbenchSREDigitalTwinWorkLogListRequest,
-  QCloudYeheWeChatNoticeTmplItem,
+  ExtMetric,
+  DescribeKafkaResponse,
   DescribeAlarmNotifyHistoriesRequest,
   UpdateAIWorkbenchAgentResponse,
   TeamsRobotNoticeTmpl,
@@ -63,6 +70,8 @@ import {
   NoticeContentTmpl,
   SessionInfo,
   PageByNoResult,
+  ListAIWorkbenchResourceMapsResponse,
+  DescribeExtMetricRequest,
   TeamsWorkflowRobotNoticeTmpl,
   ListAIWorkbenchMCPsResponse,
   SkillInfo,
@@ -72,23 +81,30 @@ import {
   ListAIWorkbenchResourceMapsRequest,
   ListAIWorkbenchArtifactsResponse,
   CancelAIWorkbenchChatRequest,
+  ModifyDispenseExternalRuleRequest,
   DescribeAlarmNotifyHistoriesResponse,
   InstructionConfig,
   DeleteAIWorkbenchTaskResponse,
   DescribeAIWorkbenchSREDigitalTwinTaskListResponse,
   DescribeAIWorkbenchSessionResponse,
+  ListAIWorkbenchTasksRequest,
   WeWorkRobotNoticeTmpl,
+  DescribeAIWorkbenchSREDigitalTwinWorkLogDetailResponse,
   TriggerAIWorkbenchTaskRequest,
   DescribeNoticeContentTmplRequest,
   ListAIWorkbenchMessagesResponse,
   TaskInfo,
+  DescribeDispenseExternalRuleRequest,
+  DescribeKafkaRequest,
   ListAIWorkbenchArtifactsRequest,
   CreateAIWorkbenchAgentResponse,
   DeleteNoticeContentTmplsRequest,
   PageByNoParams,
+  CreateDispenseExternalRuleRequest,
   ListAIWorkbenchResourceInstancesRequest,
   ChannelsReceivers,
   CreateAIWorkbenchTaskResponse,
+  DescribeDispenseExternalRuleResponse,
   DescribeAIWorkbenchExecutionRequest,
   DescribeAIWorkbenchSREDigitalTwinTaskListRequest,
   AIWorkbenchSREDigitalTwinWorkLogList,
@@ -98,46 +114,58 @@ import {
   PageByNumResult,
   CreateAIWorkbenchAgentRequest,
   EnvEntry,
-  ListAIWorkbenchResourceMapsResponse,
+  KafkaConnectivity,
   QCloudYeheNoticeTmplMatcher,
   ListAIWorkbenchMessagesRequest,
   QCloudYeheNoticeTmplItem,
   ListAIWorkbenchExecutionsResponse,
   DescribeAIWorkbenchAgentRequest,
   GoogleChatRobotNoticeTmpl,
+  Rule,
   ArtifactInfo,
   ListAIWorkbenchResourceInstancesResponse,
-  NotifyRelatedNotice,
+  AIWorkbenchSREDigitalTwinWorkLogDetail,
   DescribeAIWorkbenchSkillRequest,
   GoogleChatRobotNoticeTmplMatcher,
+  DescribeDispenseExternalRuleListResponse,
   MessageInfo,
   QCloudYeheNoticeTmpl,
   MCPInfo,
+  CreateDispenseExternalRuleResponse,
   CreateNoticeContentTmplRequest,
-  ListAIWorkbenchTasksRequest,
+  QCloudYeheWeChatNoticeTmplItem,
+  DescribeExtNamespaceRequest,
   WebhookNoticeTmplMatcher,
-  DescribeAIWorkbenchSREDigitalTwinWorkLogDetailResponse,
+  DispenseCondition,
   DescribeAIWorkbenchAgentResponse,
   ExecutionInfo,
   GetAIWorkbenchArtifactDownloadURLResponse,
   PagerDutyRobotNoticeTmplHeader,
   NoticeContentTmplBindPolicyCount,
+  DescribeDispenseRegionRequest,
+  DescribeDispenseExternalRuleListRequest,
   TriggerAIWorkbenchSREDigitalTwinTaskRequest,
   DescribeAIWorkbenchSREDigitalTwinWorkLogListResponse,
   CreateAIWorkbenchTaskRequest,
   DescribeAIWorkbenchArtifactResponse,
   CancelAIWorkbenchChatResponse,
   ModifyNoticeContentTmplResponse,
+  ModifyDispenseExternalRuleStatusResponse,
   WeWorkRobotNoticeTmplMatcher,
   ContentBlockInfo,
   PagerDutyRobotNoticeTmplMatcher,
+  DeleteDispenseExternalRuleResponse,
   FeiShuRobotNoticeTmpl,
+  DispenseGlobalTag,
   ListAIWorkbenchAgentsRequest,
+  DescribeDispenseRegionResponse,
   DeleteNoticeContentTmplsResponse,
   AIWorkbenchSREDigitalTwinTaskList,
   UpdateAIWorkbenchAgentRequest,
   ModifyNoticeContentTmplRequest,
+  DescribeExtMetricResponse,
   EnvVar,
+  ModifyDispenseExternalRuleResponse,
 } from "./monitor_models"
 
 /**
@@ -190,13 +218,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询任务列表
+   * 转发查询对外命名空间接口
    */
-  async ListAIWorkbenchTasks(
-    req: ListAIWorkbenchTasksRequest,
-    cb?: (error: string, rep: ListAIWorkbenchTasksResponse) => void
-  ): Promise<ListAIWorkbenchTasksResponse> {
-    return this.request("ListAIWorkbenchTasks", req, cb)
+  async DescribeExtNamespace(
+    req?: DescribeExtNamespaceRequest,
+    cb?: (error: string, rep: DescribeExtNamespaceResponse) => void
+  ): Promise<DescribeExtNamespaceResponse> {
+    return this.request("DescribeExtNamespace", req, cb)
   }
 
   /**
@@ -350,6 +378,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 转发接口：创建转发规则
+   */
+  async CreateDispenseExternalRule(
+    req: CreateDispenseExternalRuleRequest,
+    cb?: (error: string, rep: CreateDispenseExternalRuleResponse) => void
+  ): Promise<CreateDispenseExternalRuleResponse> {
+    return this.request("CreateDispenseExternalRule", req, cb)
+  }
+
+  /**
    * 手动触发任务
    */
   async TriggerAIWorkbenchTask(
@@ -390,6 +428,26 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 转发规则查询接口
+   */
+  async DescribeDispenseExternalRule(
+    req: DescribeDispenseExternalRuleRequest,
+    cb?: (error: string, rep: DescribeDispenseExternalRuleResponse) => void
+  ): Promise<DescribeDispenseExternalRuleResponse> {
+    return this.request("DescribeDispenseExternalRule", req, cb)
+  }
+
+  /**
+   * 转发地域列表查询接口
+   */
+  async DescribeDispenseRegion(
+    req?: DescribeDispenseRegionRequest,
+    cb?: (error: string, rep: DescribeDispenseRegionResponse) => void
+  ): Promise<DescribeDispenseRegionResponse> {
+    return this.request("DescribeDispenseRegion", req, cb)
+  }
+
+  /**
    * 查询AI工作台SRE数字分身任务列表
    */
   async DescribeAIWorkbenchSREDigitalTwinTaskList(
@@ -397,6 +455,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeAIWorkbenchSREDigitalTwinTaskListResponse) => void
   ): Promise<DescribeAIWorkbenchSREDigitalTwinTaskListResponse> {
     return this.request("DescribeAIWorkbenchSREDigitalTwinTaskList", req, cb)
+  }
+
+  /**
+   * 转发规则更新接口
+   */
+  async ModifyDispenseExternalRule(
+    req: ModifyDispenseExternalRuleRequest,
+    cb?: (error: string, rep: ModifyDispenseExternalRuleResponse) => void
+  ): Promise<ModifyDispenseExternalRuleResponse> {
+    return this.request("ModifyDispenseExternalRule", req, cb)
   }
 
   /**
@@ -420,6 +488,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询任务列表
+   */
+  async ListAIWorkbenchTasks(
+    req: ListAIWorkbenchTasksRequest,
+    cb?: (error: string, rep: ListAIWorkbenchTasksResponse) => void
+  ): Promise<ListAIWorkbenchTasksResponse> {
+    return this.request("ListAIWorkbenchTasks", req, cb)
+  }
+
+  /**
    * 更新 Agent
    */
   async UpdateAIWorkbenchAgent(
@@ -427,6 +505,36 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: UpdateAIWorkbenchAgentResponse) => void
   ): Promise<UpdateAIWorkbenchAgentResponse> {
     return this.request("UpdateAIWorkbenchAgent", req, cb)
+  }
+
+  /**
+   * 新增规则开启关闭接口
+   */
+  async ModifyDispenseExternalRuleStatus(
+    req: ModifyDispenseExternalRuleStatusRequest,
+    cb?: (error: string, rep: ModifyDispenseExternalRuleStatusResponse) => void
+  ): Promise<ModifyDispenseExternalRuleStatusResponse> {
+    return this.request("ModifyDispenseExternalRuleStatus", req, cb)
+  }
+
+  /**
+   * 规则删除接口
+   */
+  async DeleteDispenseExternalRule(
+    req: DeleteDispenseExternalRuleRequest,
+    cb?: (error: string, rep: DeleteDispenseExternalRuleResponse) => void
+  ): Promise<DeleteDispenseExternalRuleResponse> {
+    return this.request("DeleteDispenseExternalRule", req, cb)
+  }
+
+  /**
+   * 查询所有列表
+   */
+  async DescribeDispenseExternalRuleList(
+    req: DescribeDispenseExternalRuleListRequest,
+    cb?: (error: string, rep: DescribeDispenseExternalRuleListResponse) => void
+  ): Promise<DescribeDispenseExternalRuleListResponse> {
+    return this.request("DescribeDispenseExternalRuleList", req, cb)
   }
 
   /**
@@ -457,6 +565,26 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyNoticeContentTmplResponse) => void
   ): Promise<ModifyNoticeContentTmplResponse> {
     return this.request("ModifyNoticeContentTmpl", req, cb)
+  }
+
+  /**
+   * 转发kafka连通性测试
+   */
+  async DescribeKafka(
+    req: DescribeKafkaRequest,
+    cb?: (error: string, rep: DescribeKafkaResponse) => void
+  ): Promise<DescribeKafkaResponse> {
+    return this.request("DescribeKafka", req, cb)
+  }
+
+  /**
+   * 查询对外指标
+   */
+  async DescribeExtMetric(
+    req: DescribeExtMetricRequest,
+    cb?: (error: string, rep: DescribeExtMetricResponse) => void
+  ): Promise<DescribeExtMetricResponse> {
+    return this.request("DescribeExtMetric", req, cb)
   }
 
   /**

@@ -458,9 +458,9 @@ it("essbasic.v20210526.CreateBatchInitOrganizationUrl", async function () {
     }
 })
 
-it("essbasic.v20210526.ChannelDescribeAccountBillDetail", async function () {
+it("essbasic.v20210526.CreateRequestWithEncryption", async function () {
     try {
-       const data = await client.ChannelDescribeAccountBillDetail({})
+       const data = await client.CreateRequestWithEncryption({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -751,6 +751,16 @@ it("essbasic.v20210526.ChannelDescribeBillUsageDetail", async function () {
 it("essbasic.v20210526.DeleteOrganizationAuthorizations", async function () {
     try {
        const data = await client.DeleteOrganizationAuthorizations({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("essbasic.v20210526.ChannelDescribeAccountBillDetail", async function () {
+    try {
+       const data = await client.ChannelDescribeAccountBillDetail({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

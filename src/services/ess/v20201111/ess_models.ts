@@ -1162,6 +1162,28 @@ export interface AuthRecord {
 }
 
 /**
+ * CreateRequestWithEncryption请求参数结构体
+ */
+export interface CreateRequestWithEncryptionRequest {
+  /**
+   * <p>操作的接口名称。取值参考接口文档输入参数章节关于公共参数 Action 的说明。</p>
+   */
+  RequestAction: string
+  /**
+   * <p>加密算法使用的初始化向量。固定为 16 字节，将 IV 原始字节使用标准 Base64 编码后传入。</p>
+   */
+  IV: string
+  /**
+   * <p>使用 AES-CBC 或 SM4-CBC 加密请求内容得到的密文。加密前请求内容采用 PKCS#7 Padding；将密文原始字节使用标准 Base64 编码后传入。</p>
+   */
+  EncryptedData: string
+  /**
+   * <p>用于校验请求数据完整性。对 IV 原始字节和密文原始字节直接拼接（不加拼接符）后计算 HMAC-SHA256，再将计算结果使用标准 Base64 编码后传入。</p>
+   */
+  EncryptionSignature?: string
+}
+
+/**
  * UnbindEmployeeUserIdWithClientOpenId请求参数结构体
  */
 export interface UnbindEmployeeUserIdWithClientOpenIdRequest {
@@ -11279,6 +11301,28 @@ export interface CancelFailureFlow {
  * OperateFlowRemarks返回参数结构体
  */
 export interface OperateFlowRemarksResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * CreateRequestWithEncryption返回参数结构体
+ */
+export interface CreateRequestWithEncryptionResponse {
+  /**
+   * <p>加密算法使用的初始化向量。固定为 16 字节，将 IV 原始字节使用标准 Base64 编码后传入。</p>
+   */
+  IV?: string
+  /**
+   * <p>使用 AES-CBC 或 SM4-CBC 加密返回内容得到的密文。加密前返回内容采用 PKCS#7 Padding；将密文原始字节使用标准 Base64 编码后传入。</p>
+   */
+  EncryptedData?: string
+  /**
+   * <p>用于校验请求数据完整性。对 IV 原始字节和密文原始字节直接拼接（不加拼接符）后计算 HMAC-SHA256，再将计算结果使用标准 Base64 编码后传入。</p>
+   */
+  EncryptionSignature?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

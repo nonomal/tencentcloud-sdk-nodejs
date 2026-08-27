@@ -58,9 +58,9 @@ it("monitor.v20230616.ListAIWorkbenchSessions", async function () {
     }
 })
 
-it("monitor.v20230616.ListAIWorkbenchTasks", async function () {
+it("monitor.v20230616.DescribeExtNamespace", async function () {
     try {
-       const data = await client.ListAIWorkbenchTasks({})
+       const data = await client.DescribeExtNamespace({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -218,6 +218,16 @@ it("monitor.v20230616.ListAIWorkbenchArtifacts", async function () {
     }
 })
 
+it("monitor.v20230616.CreateDispenseExternalRule", async function () {
+    try {
+       const data = await client.CreateDispenseExternalRule({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("monitor.v20230616.TriggerAIWorkbenchTask", async function () {
     try {
        const data = await client.TriggerAIWorkbenchTask({})
@@ -258,9 +268,39 @@ it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinWorkLogList", async funct
     }
 })
 
+it("monitor.v20230616.DescribeDispenseExternalRule", async function () {
+    try {
+       const data = await client.DescribeDispenseExternalRule({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeDispenseRegion", async function () {
+    try {
+       const data = await client.DescribeDispenseRegion({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinTaskList", async function () {
     try {
        const data = await client.DescribeAIWorkbenchSREDigitalTwinTaskList({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ModifyDispenseExternalRule", async function () {
+    try {
+       const data = await client.ModifyDispenseExternalRule({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -288,9 +328,49 @@ it("monitor.v20230616.DescribeAIWorkbenchSREDigitalTwinWorkLogDetail", async fun
     }
 })
 
+it("monitor.v20230616.ListAIWorkbenchTasks", async function () {
+    try {
+       const data = await client.ListAIWorkbenchTasks({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("monitor.v20230616.UpdateAIWorkbenchAgent", async function () {
     try {
        const data = await client.UpdateAIWorkbenchAgent({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.ModifyDispenseExternalRuleStatus", async function () {
+    try {
+       const data = await client.ModifyDispenseExternalRuleStatus({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DeleteDispenseExternalRule", async function () {
+    try {
+       const data = await client.DeleteDispenseExternalRule({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeDispenseExternalRuleList", async function () {
+    try {
+       const data = await client.DescribeDispenseExternalRuleList({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -321,6 +401,26 @@ it("monitor.v20230616.ListAIWorkbenchResourceMaps", async function () {
 it("monitor.v20230616.ModifyNoticeContentTmpl", async function () {
     try {
        const data = await client.ModifyNoticeContentTmpl({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeKafka", async function () {
+    try {
+       const data = await client.DescribeKafka({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("monitor.v20230616.DescribeExtMetric", async function () {
+    try {
+       const data = await client.DescribeExtMetric({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

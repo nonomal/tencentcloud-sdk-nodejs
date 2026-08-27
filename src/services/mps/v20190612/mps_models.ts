@@ -2480,6 +2480,32 @@ export interface CreateInputHLSPullSettings {
 }
 
 /**
+ * ChangeVoice返回参数结构体
+ */
+export interface ChangeVoiceResponse {
+  /**
+   * <p>错误码，成功时返回0</p>
+   */
+  ErrorCode?: number
+  /**
+   * <p>错误信息，成功时返回success</p>
+   */
+  Msg?: string
+  /**
+   * <p>结果音频的base64编码，默认mp3格式</p>
+   */
+  AudioData?: string
+  /**
+   * <p>结果音频url，有效期24小时</p>
+   */
+  AudioUrl?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DeleteStreamLinkSecurityGroup请求参数结构体
  */
 export interface DeleteStreamLinkSecurityGroupRequest {
@@ -3941,17 +3967,29 @@ export interface LLMDetectionResultItem {
 }
 
 /**
- * CreateProcessImageTemplate返回参数结构体
+ * ChangeVoice请求参数结构体
  */
-export interface CreateProcessImageTemplateResponse {
+export interface ChangeVoiceRequest {
   /**
-   * 图片处理模板唯一标识
+   * <p>待转换音频base64编码</p>
    */
-  Definition?: number
+  AudioData?: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>待转换音频Url，AudioData为空时有效</p>
    */
-  RequestId?: string
+  AudioUrl?: string
+  /**
+   * <p>音色ID</p>
+   */
+  VoiceId?: string
+  /**
+   * <p>输出相关参数</p>
+   */
+  Output?: SyncDubbingOutputOption
+  /**
+   * <p>扩展参数，json字符串</p>
+   */
+  ExtParam?: string
 }
 
 /**
@@ -20536,6 +20574,24 @@ export interface ModifySmartEraseTemplateRequest {
 }
 
 /**
+ * 描述 URL 的完整信息
+ */
+export interface StreamUrlDetail {
+  /**
+   * 会描述运营商信息等
+   */
+  Label?: string
+  /**
+   * URL
+   */
+  Url?: string
+  /**
+   * Playback: 拉流播放地址； RelayDestination：转推目的地址；SourceCaptureUrl：回源拉流地址；IngestEndpoint：推流地址
+   */
+  Type?: string
+}
+
+/**
  * ModifyStreamLinkInput返回参数结构体
  */
 export interface ModifyStreamLinkInputResponse {
@@ -20915,21 +20971,17 @@ RTMP的推流地址拼接规则为：rtmp://Ip:1935/AppName/StreamKey
 }
 
 /**
- * 描述 URL 的完整信息
+ * CreateProcessImageTemplate返回参数结构体
  */
-export interface StreamUrlDetail {
+export interface CreateProcessImageTemplateResponse {
   /**
-   * 会描述运营商信息等
+   * 图片处理模板唯一标识
    */
-  Label?: string
+  Definition?: number
   /**
-   * URL
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Url?: string
-  /**
-   * Playback: 拉流播放地址； RelayDestination：转推目的地址；SourceCaptureUrl：回源拉流地址；IngestEndpoint：推流地址
-   */
-  Type?: string
+  RequestId?: string
 }
 
 /**

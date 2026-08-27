@@ -113,6 +113,7 @@ import {
   DeleteStreamPackageSSAIChannelRequest,
   UserDefineFaceReviewTemplateInfo,
   CreateInputHLSPullSettings,
+  ChangeVoiceResponse,
   DeleteStreamLinkSecurityGroupRequest,
   ContentReviewTemplateItem,
   ModifySmartEraseTemplateResponse,
@@ -170,7 +171,7 @@ import {
   CustomModel,
   CreateAdaptiveDynamicStreamingTemplateRequest,
   LLMDetectionResultItem,
-  CreateProcessImageTemplateResponse,
+  ChangeVoiceRequest,
   CreateInputRTMPPullSettings,
   TerrorismImgReviewTemplateInfoForUpdate,
   FailOverOption,
@@ -834,6 +835,7 @@ import {
   DescribeStreamLinkRegionsRequest,
   ImageTransformConfig,
   ModifySmartEraseTemplateRequest,
+  StreamUrlDetail,
   ModifyStreamLinkInputResponse,
   VODOutputStorage,
   HeadTailParameter,
@@ -847,7 +849,7 @@ import {
   AiSampleFailFaceInfo,
   UserDefineFaceReviewTemplateInfoForUpdate,
   DescribeInputRTMPSettings,
-  StreamUrlDetail,
+  CreateProcessImageTemplateResponse,
   CloneViralPersona,
   AigcVideoReferenceAudioInfo,
   DeleteProcessImageTemplateResponse,
@@ -1486,13 +1488,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 智能媒体识别，包含表情和动作识别。仅用于智学，其他调用无效。
+   * 同步音色转换，根据输入音频和指定音色将输入音频转换为指定音色
    */
-  async RecognizeMediaForZhiXue(
-    req: RecognizeMediaForZhiXueRequest,
-    cb?: (error: string, rep: RecognizeMediaForZhiXueResponse) => void
-  ): Promise<RecognizeMediaForZhiXueResponse> {
-    return this.request("RecognizeMediaForZhiXue", req, cb)
+  async ChangeVoice(
+    req: ChangeVoiceRequest,
+    cb?: (error: string, rep: ChangeVoiceResponse) => void
+  ): Promise<ChangeVoiceResponse> {
+    return this.request("ChangeVoice", req, cb)
   }
 
   /**
@@ -1878,6 +1880,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeVideoSearchTaskDetailResponse) => void
   ): Promise<DescribeVideoSearchTaskDetailResponse> {
     return this.request("DescribeVideoSearchTaskDetail", req, cb)
+  }
+
+  /**
+   * 智能媒体识别，包含表情和动作识别。仅用于智学，其他调用无效。
+   */
+  async RecognizeMediaForZhiXue(
+    req: RecognizeMediaForZhiXueRequest,
+    cb?: (error: string, rep: RecognizeMediaForZhiXueResponse) => void
+  ): Promise<RecognizeMediaForZhiXueResponse> {
+    return this.request("RecognizeMediaForZhiXue", req, cb)
   }
 
   /**

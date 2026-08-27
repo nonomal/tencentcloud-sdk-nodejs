@@ -139,11 +139,11 @@ export type ModifyPrometheusInstanceAccessPointsRequest = null
  */
 export interface DescribeOnCallFormRequest {
   /**
-   * 固定值，为"monitor"
+   * <p>固定值，为&quot;monitor&quot;</p>
    */
   Module: string
   /**
-   * 值班id
+   * <p>值班id</p>
    */
   OnCallFormID: string
 }
@@ -2320,47 +2320,47 @@ export interface DescribeExporterIntegrationsResponse {
  */
 export interface CreateOnCallFormRequest {
   /**
-   * 固定值，为"monitor"
+   * <p>固定值，为&quot;monitor&quot;</p>
    */
   Module: string
   /**
-   * 值班表名称
+   * <p>值班表名称</p>
    */
   OnCallFormName: string
   /**
-   * 值班人员id组
+   * <p>值班人员id组</p>
    */
   StaffInfos: Array<StaffInfo>
   /**
-   * 轮转类型
+   * <p>轮转类型</p>
    */
   RotationType: string
   /**
-   * 换班时间
+   * <p>换班时间</p>
    */
   ShiftTime: string
   /**
-   * 有效期开始时间，单位s
+   * <p>有效期开始时间，单位s</p>
    */
   EffectiveStartTime: number
   /**
-   * 有效期结束时间，单位s
+   * <p>有效期结束时间，单位s</p>
    */
   EffectiveEndTime: number
   /**
-   * 时区(-12 - 12)
+   * <p>时区(-12 - 12)</p>
    */
   TimeZone: number
   /**
-   * 值班表描述
+   * <p>值班表描述</p>
    */
   OnCallFormDesc?: string
   /**
-   * 轮班信息
+   * <p>轮班信息</p>
    */
   CoverStaffInfos?: Array<CoverStaffInfo>
   /**
-   * 模板绑定的标签
+   * <p>模板绑定的标签</p>
    */
   Tags?: Array<Tag>
 }
@@ -4355,7 +4355,7 @@ export interface ModifyPrometheusInstanceAttributesResponse {
  */
 export interface UpdateOnCallFormResponse {
   /**
-   * 值班表id
+   * <p>值班表id</p>
    */
   OnCallFormID?: string
   /**
@@ -5194,11 +5194,11 @@ export interface CreateGrafanaNotificationChannelRequest {
  */
 export interface DeleteOnCallFormsResponse {
   /**
-   * 失败删除的排班id
+   * <p>失败删除的排班id</p>
    */
   FailedOnCallFormIDs?: Array<string>
   /**
-   * 成功删除的排班id
+   * <p>成功删除的排班id</p>
    */
   SuccessOnCallFormIDs?: Array<string>
   /**
@@ -9410,7 +9410,7 @@ export interface DescribeGrafanaIntegrationsRequest {
  */
 export interface CreateOnCallFormResponse {
   /**
-   * 值班表id
+   * <p>值班表id</p>
    */
   OnCallFormID?: string
   /**
@@ -9546,11 +9546,11 @@ export interface CreatePolicyGroupRequest {
  */
 export interface DescribeOnCallFormsResponse {
   /**
-   * 排班信息
+   * <p>排班信息</p>
    */
   OnCallForms?: Array<OnCallForm>
   /**
-   * 总数
+   * <p>总数</p>
    */
   TotalCount?: number
   /**
@@ -9954,11 +9954,11 @@ export interface DescribeRecordingRulesRequest {
  */
 export interface DeleteOnCallFormsRequest {
   /**
-   * 固定值，为"monitor"
+   * <p>固定值，为&quot;monitor&quot;</p>
    */
   Module: string
   /**
-   * 要删除的值班表id
+   * <p>要删除的值班表id</p>
    */
   OnCallFormIDs: Array<string>
 }
@@ -11187,31 +11187,31 @@ export type DescribePluginOverviewsRequest = null
  */
 export interface DescribeOnCallFormsRequest {
   /**
-   * 固定值，为"monitor"
+   * <p>固定值，为&quot;monitor&quot;</p>
    */
   Module: string
   /**
-   * 分页查询起始位
+   * <p>分页查询起始位</p>
    */
   Offset: number
   /**
-   * 分页查询页数
+   * <p>分页查询页数</p>
    */
   Limit: number
   /**
-   * 支持userId进行检索
+   * <p>支持userId进行检索</p>
    */
   OnCallFormStaffIDs?: Array<string>
   /**
-   * 值班类型
+   * <p>值班类型</p>
    */
   RotationType?: string
   /**
-   * 排序方式
+   * <p>排序方式</p>
    */
   Order?: string
   /**
-   * 支持id、name进行检索
+   * <p>支持id、name进行检索</p>
    */
   OnCallFormName?: string
 }
@@ -11385,7 +11385,7 @@ export interface DescribeBaseMetricsRequest {
  */
 export interface DescribeOnCallFormResponse {
   /**
-   * 值班详情
+   * <p>值班详情</p>
    */
   OnCallForm?: OneOnCallForm
   /**
@@ -11670,47 +11670,47 @@ export interface UpdateServiceDiscoveryResponse {
  */
 export interface UpdateOnCallFormRequest {
   /**
-   * 固定值，为"monitor"
+   * <p>固定值，为&quot;monitor&quot;</p>
    */
   Module: string
   /**
-   * 值班表id
+   * <p>值班表id</p>
    */
   OnCallFormID: string
   /**
-   * 值班表名称
+   * <p>值班表名称</p>
    */
   OnCallFormName: string
   /**
-   * 值班人员id组
+   * <p>值班人员id组</p>
    */
   StaffInfos: Array<StaffInfo>
   /**
-   * 轮转类型
+   * <p>轮转类型</p>
    */
   RotationType: string
   /**
-   * 换班时间
+   * <p>换班时间</p>
    */
   ShiftTime: string
   /**
-   * 有效期开始时间，单位s
+   * <p>有效期开始时间，单位s</p>
    */
   EffectiveStartTime: number
   /**
-   * 有效期结束时间，单位s
+   * <p>有效期结束时间，单位s</p>
    */
   EffectiveEndTime: number
   /**
-   * 时区(-12 - 12)
+   * <p>时区(-12 - 12)</p>
    */
   TimeZone: number
   /**
-   * 值班表描述
+   * <p>值班表描述</p>
    */
   OnCallFormDesc?: string
   /**
-   * 轮班信息
+   * <p>轮班信息</p>
    */
   CoverStaffInfos?: Array<CoverStaffInfo>
 }

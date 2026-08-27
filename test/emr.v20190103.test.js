@@ -898,6 +898,16 @@ it("emr.v20190103.DescribeClusterFlowStatusDetail", async function () {
     }
 })
 
+it("emr.v20190103.DescribeMetaDBInfo", async function () {
+    try {
+       const data = await client.DescribeMetaDBInfo({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("emr.v20190103.DescribeInstances", async function () {
     try {
        const data = await client.DescribeInstances({})

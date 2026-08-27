@@ -4350,6 +4350,11 @@ export interface InstanceOpsDto {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProxyTaskType?: TaskTypeOpsDto
+  /**
+   * <p>权限</p><p>枚举值：</p><ul><li>CAN_MANAGE： 可管理</li><li>CAN_VIEW： 可见</li><li>NO_PERMISSIONS： 无权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -7759,6 +7764,11 @@ export interface WorkflowExtOpsDto {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   NestedBySpTaskIds?: Array<string>
+  /**
+   * <p>权限</p><p>枚举值：</p><ul><li>CAN_MANAGE： 可管理</li><li>CAN_VIEW： 可见</li><li>NO_PERMISSION： 无权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -8016,119 +8026,115 @@ export interface DeleteDataSourcesResponse {
  */
 export interface DescribeBatchOperateTaskDTO {
   /**
-   * 任务ID
+   * <p>任务ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskId?: string
   /**
-   * 任务名
+   * <p>任务名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskName?: string
   /**
-   * 工作流Id
+   * <p>工作流Id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowId?: string
   /**
-   * 工作流名
+   * <p>工作流名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowName?: string
   /**
-   * 状态
+   * <p>状态</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Status?: string
   /**
-   * 任务ID
+   * <p>任务ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskTypeId?: number
   /**
-   * 任务类型
+   * <p>任务类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskTypeDesc?: string
   /**
-   * 文件夹名
+   * <p>文件夹名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FolderName?: string
   /**
-   * 文件夹ID
+   * <p>文件夹ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FolderId?: string
   /**
-   * 负责人
+   * <p>负责人</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InCharge?: string
   /**
-   * 是否提交
+   * <p>是否提交</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Submit?: number
   /**
-   * 引擎：
-presto\SparkJob\SparkSql
+   * <p>引擎：<br>presto\SparkJob\SparkSql</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DataEngine?: string
   /**
-   * 更新时间
+   * <p>更新时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdateTime?: string
   /**
-   * 创造时间
+   * <p>创造时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreateTime?: string
   /**
-   * 周期类型D天周期
-H小时
-Ccrontab类型
-I分钟
-O一次性
-Y年
-R用户驱动
-W周
-M月
+   * <p>周期类型D天周期<br>H小时<br>Ccrontab类型<br>I分钟<br>O一次性<br>Y年<br>R用户驱动<br>W周<br>M月</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CycleUnit?: string
   /**
-   * 调度计划
+   * <p>调度计划</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScheduleDesc?: string
   /**
-   * 数据源ID
+   * <p>数据源ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DatasourceId?: string
   /**
-   * 数据源类型
+   * <p>数据源类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DatasourceType?: string
   /**
-   * 引擎名称
+   * <p>引擎名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ComputeResource?: string
   /**
-   * dlc地域
+   * <p>dlc地域</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DlcRegion?: string
   /**
-   * 资源组或自定义
+   * <p>资源组或自定义</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   IsInherit?: string
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -11662,6 +11668,11 @@ export interface ManualTriggerRecordOpsDto {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScheduleTimeList?: Array<string>
+  /**
+   * <p>对象权限</p><p>枚举值：</p><ul><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li><li>NO_PERMISSIONS： 无权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -13340,130 +13351,135 @@ export interface DescribeTaskInstancesStatusResponse {
  */
 export interface WorkflowScheduleDtoDs {
   /**
-   * 项目ID
+   * <p>项目ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectId?: string
   /**
-   * 工作流ID
+   * <p>工作流ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowId?: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreateTime?: string
   /**
-   * 创建人
+   * <p>创建人</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Creater?: string
   /**
-   * 修改时间
+   * <p>修改时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ModifyTime?: string
   /**
-   * 延迟时间
+   * <p>延迟时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DelayTime?: number
   /**
-   * 启动时间
+   * <p>启动时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StartupTime?: number
   /**
-   * 任务依赖
+   * <p>任务依赖</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SelfDepend?: string
   /**
-   * 开始时间
+   * <p>开始时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StartTime?: string
   /**
-   * 结束时间
+   * <p>结束时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   EndTime?: string
   /**
-   * 指定运行时间
+   * <p>指定运行时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskAction?: string
   /**
-   * 调度周期时间单位
+   * <p>调度周期时间单位</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CycleType?: string
   /**
-   * 调度周期
+   * <p>调度周期</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CycleStep?: number
   /**
-   * Cron表达式
+   * <p>Cron表达式</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CrontabExpression?: string
   /**
-   * 执行时间左闭区间
+   * <p>执行时间左闭区间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExecutionStartTime?: string
   /**
-   * 执行时间右闭区间
+   * <p>执行时间右闭区间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExecutionEndTime?: string
   /**
-   * 实例初始化策略
+   * <p>实例初始化策略</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InstanceInitStrategy?: string
   /**
-   * 工作流依赖
+   * <p>工作流依赖</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DependencyWorkflow?: string
   /**
-   * 调度计划
+   * <p>调度计划</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SchedulerDesc?: string
   /**
-   * 工作流首次提交时间
+   * <p>工作流首次提交时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FirstSubmitTime?: string
   /**
-   * 工作流最近提交时间
+   * <p>工作流最近提交时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LatestSubmitTime?: string
   /**
-   * 日历调度是否开启
+   * <p>日历调度是否开启</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CalendarOpen?: string
   /**
-   * 日历调度名称
+   * <p>日历调度名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CalendarName?: string
   /**
-   * 日历调度id
+   * <p>日历调度id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CalendarId?: string
   /**
-   * 时区配置
+   * <p>时区配置</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScheduleTimeZone?: string
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -14515,78 +14531,55 @@ export interface BatchRerunIntegrationTaskInstancesResponse {
  */
 export interface DescribePendingSubmitTaskInfo {
   /**
-   * 任务编号
+   * <p>任务编号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskId?: string
   /**
-   * 任务名称
+   * <p>任务名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskName?: string
   /**
-   * 修改类型
+   * <p>修改类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ModifyType?: string
   /**
-   * 任务状态
+   * <p>任务状态</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskStatus?: string
   /**
-   * 提交预检查（Y/N）
+   * <p>提交预检查（Y/N）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SubmitPreCheck?: string
   /**
-   * 提交预检查提交可能会失败的原因
+   * <p>提交预检查提交可能会失败的原因</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SubmitPreCheckDetailList?: Array<TaskSubmitPreCheckDetailInfo>
   /**
-   * 资源组编号
+   * <p>资源组编号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExecutorGroupId?: string
   /**
-   * 资源组名称
+   * <p>资源组名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExecutorGroupName?: string
   /**
-   * <p>任务类型id，取值范围：</p>
-<ul>
-<li>26 离线集成任务</li>
-<li>30 Python任务</li>
-<li>31 PySpark任务</li>
-<li>34 HiveSQL任务</li>
-<li>35 Shell任务</li>
-<li>36 SparkSQL任务</li>
-<li>21 JdbcSQL任务</li>
-<li>23 TDSQL-PostgreSQL任务</li>
-<li>32 DLCSQL任务</li>
-<li>33 Impala任务</li>
-<li>41 Kettle任务</li>
-<li>42 Tchouse-X任务</li>
-<li>43 TCHouse-X SQL任务</li>
-<li>46 DLCSpark任务</li>
-<li>50 DLC-PySpark任务</li>
-<li>47 TiOne任务</li>
-<li>48 Trino任务</li>
-<li>39 Spark任务</li>
-<li>92 MapReduce任务</li>
-<li>38 Shell表单模式任务</li>
-<li>130 BranchNode任务</li>
-<li>131 MergeNode任务</li>
-<li>132 Notebook任务</li>
-<li>133 SSH任务</li>
-<li>134 StarRocks任务</li>
-<li>137 For-each任务</li>
-</ul>
+   * <p>任务类型id，取值范围：</p><ul><li>26 离线集成任务</li><li>30 Python任务</li><li>31 PySpark任务</li><li>34 HiveSQL任务</li><li>35 Shell任务</li><li>36 SparkSQL任务</li><li>21 JdbcSQL任务</li><li>23 TDSQL-PostgreSQL任务</li><li>32 DLCSQL任务</li><li>33 Impala任务</li><li>41 Kettle任务</li><li>42 Tchouse-X任务</li><li>43 TCHouse-X SQL任务</li><li>46 DLCSpark任务</li><li>50 DLC-PySpark任务</li><li>47 TiOne任务</li><li>48 Trino任务</li><li>39 Spark任务</li><li>92 MapReduce任务</li><li>38 Shell表单模式任务</li><li>130 BranchNode任务</li><li>131 MergeNode任务</li><li>132 Notebook任务</li><li>133 SSH任务</li><li>134 StarRocks任务</li><li>137 For-each任务</li></ul>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskTypeId?: number
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -16079,6 +16072,11 @@ export interface MakePlanOpsDto {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RunScheduleRangeWeekDays?: Array<number | bigint>
+  /**
+   * <p>资源权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 可见</li><li>CAN_MANAGE： 可管理</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -17688,95 +17686,100 @@ export interface CreateTaskNewRequest {
  */
 export interface CodeTemplateDetail {
   /**
-   * 项目id
+   * <p>项目id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectId?: string
   /**
-   * 模版名称
+   * <p>模版名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CodeTemplateName?: string
   /**
-   * 任务类型
+   * <p>任务类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskType?: number
   /**
-   * 代码模版描述
+   * <p>代码模版描述</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CodeTemplateDesc?: string
   /**
-   * 文件夹id
+   * <p>文件夹id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FolderId?: string
   /**
-   * 文件夹名称
+   * <p>文件夹名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FolderName?: string
   /**
-   * 责任人名称
+   * <p>责任人名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InCharge?: string
   /**
-   * 责任人id
+   * <p>责任人id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InChargeId?: string
   /**
-   * 扩展信息
+   * <p>扩展信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Ext?: TaskExtDsVO
   /**
-   * 模版id
+   * <p>模版id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CodeTemplateId?: string
   /**
-   * 最后更新时间
+   * <p>最后更新时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LastUpdateTime?: string
   /**
-   * 更新人名称
+   * <p>更新人名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdateUser?: string
   /**
-   * 更新人id
+   * <p>更新人id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdateUserId?: string
   /**
-   * 执行ip
+   * <p>执行ip</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BrokerIp?: string
   /**
-   * 资源组id
+   * <p>资源组id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ResourceGroup?: string
   /**
-   * 是否提交
+   * <p>是否提交</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Submit?: boolean
   /**
-   * 模版脚本是否发生变化
+   * <p>模版脚本是否发生变化</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScriptChange?: boolean
   /**
-   * 代码模版脚本，base64编码返回
+   * <p>代码模版脚本，base64编码返回</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Content?: string
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -23476,60 +23479,65 @@ export interface CommonIdOpsDto {
  */
 export interface FolderDsDto {
   /**
-   * 文件夹id
+   * <p>文件夹id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Id?: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreateTime?: string
   /**
-   * 文件夹名称
+   * <p>文件夹名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
   /**
-   * 所属项目id
+   * <p>所属项目id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectId?: string
   /**
-   * 更新时间
+   * <p>更新时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdateTime?: string
   /**
-   * 父文件夹id
+   * <p>父文件夹id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ParentsFolderId?: string
   /**
-   * 工作流总数
+   * <p>工作流总数</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Total?: number
   /**
-   * 工作流列表
+   * <p>工作流列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Workflows?: Array<WorkflowCanvasOpsDto>
   /**
-   * 子文件夹总数
+   * <p>子文件夹总数</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TotalFolders?: number
   /**
-   * 子文件夹列表
+   * <p>子文件夹列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Folders?: Array<FolderDsDto>
   /**
-   * 搜索类型
+   * <p>搜索类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FindType?: string
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -27071,6 +27079,11 @@ export interface TaskDsDTO {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LastUpdateTimestamp?: number
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -30329,80 +30342,85 @@ export interface StrToStrMap {
  */
 export interface WorkflowCanvasOpsDto {
   /**
-   * 工作流id
+   * <p>工作流id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowId?: string
   /**
-   * 工作流详情描述
+   * <p>工作流详情描述</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowDesc?: string
   /**
-   * 工作流名称
+   * <p>工作流名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowName?: string
   /**
-   * 所属文件夹id
+   * <p>所属文件夹id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FolderId?: string
   /**
-   * 所属文件夹ids
+   * <p>所属文件夹ids</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FolderIds?: Array<string>
   /**
-   * 任务列表
+   * <p>任务列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Tasks?: Array<TaskOpsDto>
   /**
-   * 任务依赖边列表
+   * <p>任务依赖边列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Links?: Array<LinkOpsDto>
   /**
-   * 工作流所属用户分组id,若有多个分号隔开: a;b;c
+   * <p>工作流所属用户分组id,若有多个分号隔开: a;b;c</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserGroupId?: string
   /**
-   * 工作流所属用户分组名称,若有多个分号隔开: a;b;c
+   * <p>工作流所属用户分组名称,若有多个分号隔开: a;b;c</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserGroupName?: string
   /**
-   * 项目id
+   * <p>项目id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectId?: string
   /**
-   * 项目标识
+   * <p>项目标识</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectIdent?: string
   /**
-   * 项目名称
+   * <p>项目名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProjectName?: string
   /**
-   * 责任人
+   * <p>责任人</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Owner?: string
   /**
-   * 责任人UserId
+   * <p>责任人UserId</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OwnerId?: string
   /**
-   * 工作流类型，周期cycle，手动manual
+   * <p>工作流类型，周期cycle，手动manual</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowType?: string
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -31396,6 +31414,11 @@ export interface TaskOpsDto {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ProxyTaskTypeId?: number
+  /**
+   * <p>对象权限</p><p>枚举值：</p><ul><li>CAN_MANAGE： 管理权限</li><li>CAN_VIEW： 只读权限</li><li>NO_PERMISSIONS： 无权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**
@@ -35404,6 +35427,11 @@ export interface WorkflowDsDTO {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ExecuteUserName?: string
+  /**
+   * <p>用户对该资源的最高权限</p><p>枚举值：</p><ul><li>NO_PERMISSIONS： 无权限</li><li>CAN_VIEW： 只读权限</li><li>CAN_MANAGE： 管理权限</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Privilege?: string
 }
 
 /**

@@ -1041,6 +1041,20 @@ export interface JobFlowResourceSpec {
 }
 
 /**
+ * DescribeMetaDBInfo返回参数结构体
+ */
+export interface DescribeMetaDBInfoResponse {
+  /**
+   * <p>自定义db数据</p>
+   */
+  MetaDBGroupInfo?: Array<CustomMetaDBInfo>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * WebUI访问信息
  */
 export interface WebUIInfo {
@@ -4606,6 +4620,10 @@ export interface CreateClusterRequest {
    * <p>系统盘是否加密</p>
    */
   EnableCbsSysEncryptFlag?: boolean
+  /**
+   * <p>自定义metadb数据</p>
+   */
+  MetaDBGroupInfo?: Array<CustomMetaDBInfo>
 }
 
 /**
@@ -7580,6 +7598,16 @@ export interface ModifyYarnDeployResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * DescribeMetaDBInfo请求参数结构体
+ */
+export interface DescribeMetaDBInfoRequest {
+  /**
+   * <p>集群id</p>
+   */
+  InstanceId: string
 }
 
 /**
