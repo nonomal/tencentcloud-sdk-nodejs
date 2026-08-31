@@ -287,6 +287,7 @@ import {
   DescribeClusterStorageAutoExpandRequest,
   DescribeBackupOverviewResponse,
   ReplayInstanceAuditLogRequest,
+  ModifyClusterLevelRequest,
   MigrateDBItem,
   RegionInstanceSpecInfo,
   TransferClusterPrepayToPostpayRequest,
@@ -462,6 +463,7 @@ import {
   DescribeBinlogConfigRequest,
   IsolateLibraDBClusterRequest,
   CreateAuditRuleTemplateRequest,
+  ModifyClusterLevelResponse,
   PauseServerlessRequest,
   DescribeBinlogListByVaultResponse,
   CynosdbCluster,
@@ -2111,6 +2113,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeInstanceCLSLogDeliveryResponse) => void
   ): Promise<DescribeInstanceCLSLogDeliveryResponse> {
     return this.request("DescribeInstanceCLSLogDelivery", req, cb)
+  }
+
+  /**
+   * 修改集群级别
+   */
+  async ModifyClusterLevel(
+    req: ModifyClusterLevelRequest,
+    cb?: (error: string, rep: ModifyClusterLevelResponse) => void
+  ): Promise<ModifyClusterLevelResponse> {
+    return this.request("ModifyClusterLevel", req, cb)
   }
 
   /**

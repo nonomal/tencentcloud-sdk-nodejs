@@ -206,6 +206,7 @@ import {
   CustomLogConfig,
   DescribeApiKeyListRequest,
   Pager,
+  ModifyEnvExtraResponse,
   MgoIndexKeys,
   DescribeStaticStoreRequest,
   OwnershipVerificationInfo,
@@ -287,6 +288,7 @@ import {
   DescribeHostingDomainTaskResponse,
   DeleteAuthDomainRequest,
   CreateHTTPServiceRouteResponse,
+  ModifyEnvExtraRequest,
   CreateCustomLoginKeyResponse,
   ListTablesResponse,
   ModifyClientRequest,
@@ -797,6 +799,16 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
+   * 修改环境额外配置
+   */
+  async ModifyEnvExtra(
+    req: ModifyEnvExtraRequest,
+    cb?: (error: string, rep: ModifyEnvExtraResponse) => void
+  ): Promise<ModifyEnvExtraResponse> {
+    return this.request("ModifyEnvExtra", req, cb)
+  }
+
+  /**
    * 本接口ModifyHTTPServiceRoute用于修改HTTP访问服务路由。支持增量修改，对应字段不传参数则不修改
    */
   async ModifyHTTPServiceRoute(
@@ -1089,14 +1101,13 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
-     * 修改指定云开发环境的登录策略配置。支持开启或关闭手机号短信登录、邮箱登录、用户名密码登录和匿名登录，同时可配置短信验证码发送通道、MFA 多因子认证和密码更新策略。
-修改后立即生效，影响该环境下所有终端用户的登录行为。
-     */
-  async ModifyLoginConfig(
-    req: ModifyLoginConfigRequest,
-    cb?: (error: string, rep: ModifyLoginConfigResponse) => void
-  ): Promise<ModifyLoginConfigResponse> {
-    return this.request("ModifyLoginConfig", req, cb)
+   * 查询云应用服务版本列表信息
+   */
+  async DescribeCloudAppVersionList(
+    req: DescribeCloudAppVersionListRequest,
+    cb?: (error: string, rep: DescribeCloudAppVersionListResponse) => void
+  ): Promise<DescribeCloudAppVersionListResponse> {
+    return this.request("DescribeCloudAppVersionList", req, cb)
   }
 
   /**
@@ -1321,6 +1332,17 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
+     * 修改指定云开发环境的登录策略配置。支持开启或关闭手机号短信登录、邮箱登录、用户名密码登录和匿名登录，同时可配置短信验证码发送通道、MFA 多因子认证和密码更新策略。
+修改后立即生效，影响该环境下所有终端用户的登录行为。
+     */
+  async ModifyLoginConfig(
+    req: ModifyLoginConfigRequest,
+    cb?: (error: string, rep: ModifyLoginConfigResponse) => void
+  ): Promise<ModifyLoginConfigResponse> {
+    return this.request("ModifyLoginConfig", req, cb)
+  }
+
+  /**
      * 本接口（DescribeMySQLClusterDetail）查询Mysql集群信息。
 
 调用该接口前需要先查询Mysql是否开通，可通过 [DescribeCreateMySQLResult ](https://cloud.tencent.com/document/api/876/128185) 查询，只有已开通的才能查到集群信息，Mysql开通成功后，可通过接口设置数据库账号相关功能包括但不限于【创建账号、删除账号、查询可授权权限列表、查询账号已有权限、修改主机、修改配置、修改账号库表权限】、集群操作相关【查询集群参数、修改集群参数】，连接设置相关【关闭外网、开通外网、查询集群信息】，备份回档相关【创建手动回档、删除手动回档、修改自动备份配置信息、查询备份文件列表、集群回档、查询任务列表、获取table列表、获取集群数据库列表、查询备份下载地址】，相关功能接口文档：[TDSQL-C MySQL API文档](https://cloud.tencent.com/document/product/1003/48106)，可以通过 [RunSql](https://cloud.tencent.com/document/api/876/127880) 接口来执行 MySql 命令，比如创建表格、插入数据、删除表格等 MySql 命令。
@@ -1383,16 +1405,6 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
     cb?: (error: string, rep: DescribeDatabaseACLResponse) => void
   ): Promise<DescribeDatabaseACLResponse> {
     return this.request("DescribeDatabaseACL", req, cb)
-  }
-
-  /**
-   * 在Postgres数据库上执行SQL
-   */
-  async ExecutePGSql(
-    req: ExecutePGSqlRequest,
-    cb?: (error: string, rep: ExecutePGSqlResponse) => void
-  ): Promise<ExecutePGSqlResponse> {
-    return this.request("ExecutePGSql", req, cb)
   }
 
   /**
@@ -1545,12 +1557,12 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
-   * 查询云应用服务版本列表信息
+   * 在Postgres数据库上执行SQL
    */
-  async DescribeCloudAppVersionList(
-    req: DescribeCloudAppVersionListRequest,
-    cb?: (error: string, rep: DescribeCloudAppVersionListResponse) => void
-  ): Promise<DescribeCloudAppVersionListResponse> {
-    return this.request("DescribeCloudAppVersionList", req, cb)
+  async ExecutePGSql(
+    req: ExecutePGSqlRequest,
+    cb?: (error: string, rep: ExecutePGSqlResponse) => void
+  ): Promise<ExecutePGSqlResponse> {
+    return this.request("ExecutePGSql", req, cb)
   }
 }

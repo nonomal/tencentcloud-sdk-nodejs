@@ -3882,7 +3882,7 @@ export interface DescribeUserDomainInfoResponse {
  */
 export interface QueryBypassAllStatusResponse {
   /**
-   * 该用户是否被加入了全局的bypass列表
+   * <p>该用户是否被加入了全局的bypass列表</p>
    */
   Result: boolean
   /**

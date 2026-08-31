@@ -237,11 +237,11 @@ export interface DescribeLibrarySecretResponse {
   /**
    * 查询的媒体库 ID
    */
-  LibraryId: string
+  LibraryId?: string
   /**
    * 查询到的媒体库密钥
    */
-  LibrarySecret: string
+  LibrarySecret?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -332,6 +332,10 @@ export interface DescribeLibrariesRequest {
    * 单次列出的数量限制，不超过100.
    */
   Limit?: number
+  /**
+   *
+   */
+  TagFilters?: Array<TagFilter>
 }
 
 /**
@@ -466,6 +470,10 @@ export interface ModifyLibraryRequest {
    * <p>媒体库配置项，部分参数在新建后不可更改，且仅修改传入的参数。如不传该参数则不修改任何配置项。</p>
    */
   LibraryExtension?: LibraryExtension
+  /**
+   * <p>媒体库标签列表。</p>
+   */
+  Tags?: Array<ResourceTag>
 }
 
 /**
@@ -481,6 +489,20 @@ export interface DeleteLibraryResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 标签过滤条件
+ */
+export interface TagFilter {
+  /**
+   * <p>用于筛选媒体库的标签键。</p>
+   */
+  TagKey: string
+  /**
+   * <p>用于筛选媒体库的标签值列表。</p>
+   */
+  TagValue?: Array<string>
 }
 
 /**
@@ -550,49 +572,53 @@ export interface CreateLibraryResponse {
  */
 export interface Library {
   /**
-   * 媒体库 ID
+   * <p>媒体库 ID</p>
    */
   LibraryId?: string
   /**
-   * 媒体库友好名称
+   * <p>媒体库友好名称</p>
    */
   Name?: string
   /**
-   * 备注
+   * <p>备注</p>
    */
   Remark?: string
   /**
-   * 媒体库绑定的 COS 存储桶
+   * <p>媒体库绑定的 COS 存储桶</p>
    */
   BucketName?: string
   /**
-   * 媒体库绑定的 COS 存储桶所在的地域
+   * <p>媒体库绑定的 COS 存储桶所在的地域</p>
    */
   BucketRegion?: string
   /**
-   * 该媒体库的业务 API 访问域名
+   * <p>该媒体库的业务 API 访问域名</p>
    */
   AccessDomain?: string
   /**
-   * 媒体库创建时间
+   * <p>媒体库创建时间</p>
    */
   CreationTime?: string
   /**
-   * 媒体库配置项
+   * <p>媒体库配置项</p>
    */
   LibraryExtension?: LibraryExtension
   /**
-   * 媒体库用量，单位为 Bytes，由于数字类型精度限制，该字段为 String 类型。
+   * <p>媒体库用量，单位为 Bytes，由于数字类型精度限制，该字段为 String 类型。</p>
    */
   Size?: string
   /**
-   * 媒体库目录数，由于数字类型精度限制，该字段为 String 类型。
+   * <p>媒体库目录数，由于数字类型精度限制，该字段为 String 类型。</p>
    */
   DirNum?: string
   /**
-   * 媒体库文件数，由于数字类型精度限制，该字段为 String 类型。
+   * <p>媒体库文件数，由于数字类型精度限制，该字段为 String 类型。</p>
    */
   FileNum?: string
+  /**
+   * <p>媒体库关联的标签列表。</p>
+   */
+  Tags?: Array<ResourceTag>
 }
 
 /**
@@ -619,6 +645,10 @@ export interface CreateLibraryRequest {
    * <p>媒体库配置项，部分参数新建后不可更改</p>
    */
   LibraryExtension?: LibraryExtension
+  /**
+   * <p>媒体库标签列表。</p>
+   */
+  Tags?: Array<ResourceTag>
 }
 
 /**
@@ -645,4 +675,18 @@ export interface DescribeOfficialOverviewResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 资源标签的键和值
+ */
+export interface ResourceTag {
+  /**
+   * <p>标签键。</p>
+   */
+  TagKey: string
+  /**
+   * <p>标签值。</p>
+   */
+  TagValue: string
 }

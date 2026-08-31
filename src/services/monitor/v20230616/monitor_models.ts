@@ -2095,6 +2095,24 @@ export interface EnvEntry {
 }
 
 /**
+ * 告警通知内容模版自定义标题颜色 key-value 匹配规则
+ */
+export interface RobotNoticeTitleColorRules {
+  /**
+   * <p>通知内容模版自定义颜色 Label 匹配的 Key</p>
+   */
+  Key: string
+  /**
+   * <p>通知内容模版自定义颜色 Label 匹配的 Value</p>
+   */
+  Value: string
+  /**
+   * <p>通知内容模版自定义颜色</p>
+   */
+  Color: string
+}
+
+/**
  * kafka连通性
  */
 export interface KafkaConnectivity {
@@ -2514,6 +2532,20 @@ export interface MCPInfo {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Enabled?: boolean
+}
+
+/**
+ * 告警通知内容模版自定义标题颜色
+ */
+export interface RobotNoticeTitleColor {
+  /**
+   * <p>通知内容模版自定义标题颜色默认颜色</p>
+   */
+  Default?: string
+  /**
+   * <p>通知内容模版自定义标题颜色规则，label 匹配设置颜色</p>
+   */
+  Rules?: Array<RobotNoticeTitleColorRules>
 }
 
 /**
@@ -2953,13 +2985,17 @@ export interface DeleteDispenseExternalRuleResponse {
  */
 export interface FeiShuRobotNoticeTmpl {
   /**
-   * 内容模板
+   * <p>内容模板</p>
    */
   ContentTmpl: string
   /**
-   * 标题模板
+   * <p>标题模板</p>
    */
   TitleTmpl?: string
+  /**
+   * <p>通知内容模版标题自定义颜色</p>
+   */
+  TitleColor?: RobotNoticeTitleColor
 }
 
 /**

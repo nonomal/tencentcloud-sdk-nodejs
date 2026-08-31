@@ -244,11 +244,11 @@ export interface CreateStreamPackageSSAIChannelRequest {
  */
 export interface DescribeInputRTPSettings {
   /**
-   * 是否FEC。
+   * <p>是否FEC。</p>
    */
   FEC: string
   /**
-   * 空闲超时时间。
+   * <p>空闲超时时间。</p>
    */
   IdleTimeout: number
 }
@@ -1332,17 +1332,13 @@ export interface CreateAiFissionTaskResponse {
 }
 
 /**
- * 自动探测硬字幕区域中，表示字幕区域坐标的数据结构。同时包含置信度。
+ * DescribeAgentRecordTask请求参数结构体
  */
-export interface SubtitleArea {
+export interface DescribeAgentRecordTaskRequest {
   /**
-   * <p>检测到的字幕区域</p>
+   * <p>创建Agent录制任务时，返回的任务ID。</p>
    */
-  Area?: EraseArea
-  /**
-   * <p>检测区域的置信度</p><p>取值范围：[0, 100]</p>
-   */
-  Confidence?: number
+  TaskId: string
 }
 
 /**
@@ -2865,11 +2861,11 @@ export interface MediaMetaData {
  */
 export interface CreateOutputRTPSettingsDestinations {
   /**
-   * 转推的目标IP。
+   * <p>转推的目标IP。</p>
    */
   Ip: string
   /**
-   * 转推的目标端口。
+   * <p>转推的目标端口。</p>
    */
   Port: number
 }
@@ -3551,27 +3547,27 @@ export interface SmartSubtitleTaskTextResultOutput {
  */
 export interface AiAnalysisTaskFrameTagResult {
   /**
-   * 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p>
    */
   Status?: string
   /**
-   * 错误码，空字符串表示成功，其他值表示失败，取值请参考 [媒体处理类错误码](https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
    */
   ErrCodeExt?: string
   /**
-   * 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
+   * <p>错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。</p>
    */
   ErrCode?: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message?: string
   /**
-   * 智能按帧标签任务输入。
+   * <p>智能按帧标签任务输入。</p>
    */
   Input?: AiAnalysisTaskFrameTagInput
   /**
-   * 智能按帧标签任务输出。
+   * <p>智能按帧标签任务输出。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output?: AiAnalysisTaskFrameTagOutput
@@ -4007,29 +4003,19 @@ export interface CreateInputRTMPPullSettings {
  */
 export interface TerrorismImgReviewTemplateInfoForUpdate {
   /**
-   * 画面涉敏任务开关，可选值：
-<li>ON：开启画面涉敏任务；</li>
-<li>OFF：关闭画面涉敏任务。</li>
+   * <p>画面涉敏任务开关，可选值：</p><li>ON：开启画面涉敏任务；</li><li>OFF：关闭画面涉敏任务。</li>
    */
   Switch?: string
   /**
-   * 画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：
-<li>guns：武器枪支；</li>
-<li>crowd：人群聚集；</li>
-<li>bloody：血腥画面；</li>
-<li>police：警察部队；</li>
-<li>banners：涉敏旗帜；</li>
-<li>militant：武装分子；</li>
-<li>explosion：爆炸火灾；</li>
-<li>terrorists：涉敏人物；</li>
+   * <p>画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：</p><li>guns：武器枪支；</li><li>crowd：人群聚集；</li><li>bloody：血腥画面；</li><li>police：警察部队；</li><li>banners：涉敏旗帜；</li><li>militant：武装分子；</li><li>explosion：爆炸火灾；</li><li>terrorists：涉敏人物；</li>
    */
   LabelSet?: Array<string>
   /**
-   * 判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规。取值范围：0~100。
+   * <p>判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规。取值范围：0~100。</p>
    */
   BlockConfidence?: number
   /**
-   * 判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核。取值范围：0~100。
+   * <p>判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核。取值范围：0~100。</p>
    */
   ReviewConfidence?: number
 }
@@ -4079,6 +4065,20 @@ export interface CloneViralAIGC {
    * <p>模型等级。flagship（默认）、standard</p>
    */
   ModelTier?: string
+}
+
+/**
+ * 多视角图生 3D 场景下，MultiViewImages 数组中的单个视角。
+ */
+export interface ViewImage {
+  /**
+   * <p>视角类型</p><p>枚举值：</p><ul><li>front： 正视图 （必填）</li><li>back： 背视图</li><li>left： 左视图</li><li>right： 右视图</li><li>top： 顶视图</li><li>bottom： 底视图</li><li>left_front： 左前 45°</li><li>right_front： 右前 45°</li></ul><p>MultiViewImages 数组长度 ≥ 2 ; 必须包含 front 视角;  同一 ViewType 不允许重复; 每项必须提供 ViewImageUrl</p>
+   */
+  ViewType: string
+  /**
+   * <p>图片 URL（http / https）</p>
+   */
+  ViewImageUrl: string
 }
 
 /**
@@ -5036,27 +5036,27 @@ export interface DescribeInputSRTSettings {
  */
 export interface AiAnalysisTaskCoverResult {
   /**
-   * 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p>
    */
   Status?: string
   /**
-   * 错误码，空字符串表示成功，其他值表示失败，取值请参考 [媒体处理类错误码](https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
    */
   ErrCodeExt?: string
   /**
-   * 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
+   * <p>错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。</p>
    */
   ErrCode?: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message?: string
   /**
-   * 智能封面任务输入。
+   * <p>智能封面任务输入。</p>
    */
   Input?: AiAnalysisTaskCoverInput
   /**
-   * 智能封面任务输出。
+   * <p>智能封面任务输出。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output?: AiAnalysisTaskCoverOutput
@@ -5067,17 +5067,11 @@ export interface AiAnalysisTaskCoverResult {
  */
 export interface AudioBeautifyConfig {
   /**
-   * 能力配置开关，可选值：
-<li>ON：开启；</li>
-<li>OFF：关闭。</li>
-默认值：ON。
+   * <p>能力配置开关，可选值：</p><li>ON：开启；</li><li>OFF：关闭。</li>默认值：ON。
    */
   Switch?: string
   /**
-   * 类型，可多选，可选值：
-<li>declick：杂音去除</li>
-<li>deesser：齿音压制</li>
-默认值：declick。
+   * <p>类型，可多选，可选值：</p><li>declick：杂音去除</li><li>deesser：齿音压制</li>默认值：declick。
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Types?: Array<string>
@@ -5226,6 +5220,28 @@ export interface FlowRealtimeStatusSRT {
 }
 
 /**
+ * DescribeAgentRecordTask返回参数结构体
+ */
+export interface DescribeAgentRecordTaskResponse {
+  /**
+   * <p>任务当前状态。 </p><p>枚举值：</p><ul><li>WAITING： 等待中</li><li>RUNNING： 执行中</li><li>SUCCESS： 成功</li><li>FAILED： 失败</li></ul>
+   */
+  Status?: string
+  /**
+   * <p>当任务状态为 FAILED 时，返回失败信息。</p>
+   */
+  ErrorMessage?: string
+  /**
+   * <p>当任务状态为 SUCCESS 时，返回录制文件Url列表。</p>
+   */
+  RecordUrls?: Array<string>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 智能分类结果信息
  */
 export interface AiAnalysisTaskClassificationOutput {
@@ -5240,11 +5256,11 @@ export interface AiAnalysisTaskClassificationOutput {
  */
 export interface SRTAddressDestination {
   /**
-   * 目标地址的IP。
+   * <p>目标地址的IP。</p>
    */
   Ip?: string
   /**
-   * 目标地址的端口。
+   * <p>目标地址的端口。</p>
    */
   Port?: number
 }
@@ -5711,6 +5727,24 @@ export interface CreateAigcAudioTaskResponse {
 }
 
 /**
+ * Agent结果文件上传COS时，需传入的信息。 需创建并授权MPS_QcsRole角色。
+ */
+export interface AgentStoreCosParam {
+  /**
+   * <p>存储至 cos 的 bucket 桶名称。需要cos存储时，该值必填。 示例值：bucket。</p>
+   */
+  CosBucketName?: string
+  /**
+   * <p>存储至 cos 的 bucket 区域。与bucket所属区域相同，上传cos时必填。 示例值：ap-guangzhou</p>
+   */
+  CosBucketRegion?: string
+  /**
+   * <p>存储至 cos 的 bucket 路径。<br>可选。<br>示例值：my_file</p>
+   */
+  CosBucketPath?: string
+}
+
+/**
  * 智能擦除任务
  */
 export interface SmartEraseTaskInput {
@@ -5769,37 +5803,37 @@ export interface RecognizeMediaForZhiXueRequest {
  */
 export interface MediaProcessTaskAdaptiveDynamicStreamingResult {
   /**
-   * 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p>
    */
   Status: string
   /**
-   * 错误码，空字符串表示成功，其他值表示失败，取值请参考 [媒体处理类错误码](https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
    */
   ErrCodeExt: string
   /**
-   * 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
+   * <p>错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。</p>
    */
   ErrCode: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message: string
   /**
-   * 对视频转自适应码流任务的输入。
+   * <p>对视频转自适应码流任务的输入。</p>
    */
   Input: AdaptiveDynamicStreamingTaskInput
   /**
-   * 对视频转自适应码流任务的输出。
+   * <p>对视频转自适应码流任务的输出。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output: AdaptiveDynamicStreamingInfoItem
   /**
-   * 任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>任务开始执行的时间，采用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BeginProcessTime?: string
   /**
-   * 任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>任务执行完毕的时间，采用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FinishTime?: string
@@ -6922,37 +6956,37 @@ export interface LiveStreamAiSmartSubtitleResultInfo {
  */
 export interface MediaProcessTaskAnimatedGraphicResult {
   /**
-   * 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p>
    */
   Status?: string
   /**
-   * 错误码，空字符串表示成功，其他值表示失败，取值请参考 [媒体处理类错误码](https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
    */
   ErrCodeExt?: string
   /**
-   * 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
+   * <p>错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。</p>
    */
   ErrCode?: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message?: string
   /**
-   * 转动图任务的输入。
+   * <p>转动图任务的输入。</p>
    */
   Input?: AnimatedGraphicTaskInput
   /**
-   * 转动图任务的输出。
+   * <p>转动图任务的输出。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output?: MediaAnimatedGraphicsItem
   /**
-   * 任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>任务开始执行的时间，采用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BeginProcessTime?: string
   /**
-   * 任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>任务执行完毕的时间，采用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FinishTime?: string
@@ -7428,6 +7462,20 @@ export interface AiReviewTaskTerrorismOcrResult {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output?: AiReviewTerrorismOcrTaskOutput
+}
+
+/**
+ * 自动探测硬字幕区域中，表示字幕区域坐标的数据结构。同时包含置信度。
+ */
+export interface SubtitleArea {
+  /**
+   * <p>检测到的字幕区域</p>
+   */
+  Area?: EraseArea
+  /**
+   * <p>检测区域的置信度</p><p>取值范围：[0, 100]</p>
+   */
+  Confidence?: number
 }
 
 /**
@@ -8075,6 +8123,58 @@ export interface Speakers {
 }
 
 /**
+ * 输入规则，当上传视频命中该规则时，即触发工作流。
+ */
+export interface WorkflowTrigger {
+  /**
+   * 触发器的类型，可选值：
+<li>CosFileUpload：COS触发</li>
+<li>AwsS3FileUpload：AWS触发，目前只支持转码任务。只有编排支持，工作流不支持。  </li>
+
+
+   */
+  Type: string
+  /**
+   * 当 Type 为 CosFileUpload 时必填且有效，为 COS 触发规则。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CosFileUploadTrigger?: CosFileUploadTrigger
+  /**
+   * 当 Type 为 AwsS3FileUpload 时必填且有效，为 AWS S3 触发规则。
+
+注意：目前AWS的S3、对应触发队列SQS、回调队列SQS的秘钥需要一致。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AwsS3FileUploadTrigger?: AwsS3FileUploadTrigger
+}
+
+/**
+ * CreateAgentRecordTask请求参数结构体
+ */
+export interface CreateAgentRecordTaskRequest {
+  /**
+   * <p>直播间URL</p>
+   */
+  LiveRoomUrl: string
+  /**
+   * <p>最长录制时长</p><p>单位：分</p><p>最长支持720分</p>
+   */
+  MaxDurationMinutes: number
+  /**
+   * <p>文件结果指定存储Cos桶信息。 注意：需开通Cos，创建并授权MPS_QcsRole角色。</p>
+   */
+  StoreCosParam: AgentStoreCosParam
+  /**
+   * <p>定时录制开始时刻</p><p>参数格式：2026-07-01T15:31:32+08:00</p><p>空表示提交后立即开始录制；非空表示从该时刻开始录制</p>
+   */
+  StartTime?: string
+  /**
+   * <p>中断策略</p><p>枚举值：</p><ul><li>STOP_ON_INTERRUPT： 直播流中断后立即结束录制</li><li>CONTINUE_UNTIL_END： 直播流中断时忽略中断，继续录制直到任务结束时间</li></ul><p>默认值：STOP_ON_INTERRUPT</p>
+   */
+  InterruptPolicy?: string
+}
+
+/**
  * DescribeBlindWatermarkTemplates请求参数结构体
  */
 export interface DescribeBlindWatermarkTemplatesRequest {
@@ -8328,11 +8428,11 @@ export interface CloneVoiceResponse {
  */
 export interface RTPAddressDestination {
   /**
-   * 转推的目标地址的IP。
+   * <p>转推的目标地址的IP。</p>
    */
   Ip: string
   /**
-   * 转推的目标地址的端口。
+   * <p>转推的目标地址的端口。</p>
    */
   Port: number
 }
@@ -10912,6 +11012,16 @@ export interface DescribeStreamPackageLinearAssemblyChannelAlertsResponse {
 }
 
 /**
+ * QueryHunyuan3DTask请求参数结构体
+ */
+export interface QueryHunyuan3DTaskRequest {
+  /**
+   * <p>任务ID</p>
+   */
+  TaskId?: string
+}
+
+/**
  * Type为DASH时manifest配置使用的字段。
  */
 export interface DashManifestInfo {
@@ -12026,35 +12136,35 @@ export interface EmbeddingDataRequest {
  */
 export interface AiSamplePerson {
   /**
-   * 人物 ID。
+   * <p>人物 ID。</p>
    */
   PersonId?: string
   /**
-   * 人物名称。
+   * <p>人物名称。</p>
    */
   Name?: string
   /**
-   * 人物描述。
+   * <p>人物描述。</p>
    */
   Description?: string
   /**
-   * 人脸信息。
+   * <p>人脸信息。</p>
    */
   FaceInfoSet?: Array<AiSampleFaceInfo>
   /**
-   * 人物标签。
+   * <p>人物标签。</p>
    */
   TagSet?: Array<string>
   /**
-   * 应用场景。
+   * <p>应用场景。</p>
    */
   UsageSet?: Array<string>
   /**
-   * 创建时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>创建时间，使用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
    */
   CreateTime?: string
   /**
-   * 最后修改时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>最后修改时间，使用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
    */
   UpdateTime?: string
 }
@@ -12872,29 +12982,53 @@ export interface CreateOutputRTMPSettings {
 }
 
 /**
- * 输入规则，当上传视频命中该规则时，即触发工作流。
+ * SubmitHunyuan3DTask请求参数结构体
  */
-export interface WorkflowTrigger {
+export interface SubmitHunyuan3DTaskRequest {
   /**
-   * 触发器的类型，可选值：
-<li>CosFileUpload：COS触发</li>
-<li>AwsS3FileUpload：AWS触发，目前只支持转码任务。只有编排支持，工作流不支持。  </li>
-
-
+   * <p>文生 3D 的提示词</p><p>入参限制：最长 1024 utf-8 字符</p>
    */
-  Type: string
+  Prompt?: string
   /**
-   * 当 Type 为 CosFileUpload 时必填且有效，为 COS 触发规则。
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>图生 3D 的图片 URL（http/https）</p>
    */
-  CosFileUploadTrigger?: CosFileUploadTrigger
+  ImageUrl?: string
   /**
-   * 当 Type 为 AwsS3FileUpload 时必填且有效，为 AWS S3 触发规则。
-
-注意：目前AWS的S3、对应触发队列SQS、回调队列SQS的秘钥需要一致。
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>多视角图生 3D，至少 2 张，且必须包含 front 视角</p>
    */
-  AwsS3FileUploadTrigger?: AwsS3FileUploadTrigger
+  MultiViewImages?: Array<ViewImage>
+  /**
+   * <p>生成类型</p><p>枚举值：</p><ul><li>Normal： 生成完整 3D 资产（几何 + 纹理）</li><li>Geometry： 只生成几何体（无纹理，输出速度更快）</li><li>Texture： 只生成纹理（需要传 MeshUrl）</li></ul><p>默认值：Normal</p>
+   */
+  GenerateType?: string
+  /**
+   * <p>已有 3D 模型的 URL（仅支持 .glb / .obj）。传了 MeshUrl → 强制 GenerateType=Texture（贴纹理场景）</p>
+   */
+  MeshUrl?: string
+  /**
+   * <p>是否输出 PBR 材质</p><p>默认值：false</p>
+   */
+  EnablePBR?: boolean
+  /**
+   * <p>面片数，范围 [3000, 1500000]。仅 Normal / Geometry 分支生效</p><p>取值范围：[3000, 1500000]</p><p>默认值：500000</p>
+   */
+  FaceCount?: number
+  /**
+   * <p>是否保留 UV 展开</p><p>默认值：false</p>
+   */
+  KeepUV?: boolean
+  /**
+   * <p>除默认返回的 obj + glb 外，附加输出的一种格式。当前仅支持 FBX</p>
+   */
+  ResultFormat?: string
+  /**
+   * <p>随机种子，同一 Seed 输入下结果可复现</p>
+   */
+  Seed?: number
+  /**
+   * <p>风格控制词</p>
+   */
+  Style?: string
 }
 
 /**
@@ -13631,28 +13765,28 @@ export interface ClassificationConfigureInfoForUpdate {
  */
 export interface SecurityGroupInfo {
   /**
-   * 安全组 ID。
+   * <p>安全组 ID。</p>
    */
   Id?: string
   /**
-   * 安全组名称。
+   * <p>安全组名称。</p>
    */
   Name?: string
   /**
-   * 白名单列表。
+   * <p>白名单列表。</p>
    */
   Whitelist?: Array<string>
   /**
-   * 绑定的输入流列表。
+   * <p>绑定的输入流列表。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OccupiedInputs?: Array<string>
   /**
-   * 安全组地址。
+   * <p>安全组地址。</p>
    */
   Region?: string
   /**
-   * 绑定的输出流列表。
+   * <p>绑定的输出流列表。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OccupiedOutputs?: Array<string>
@@ -14210,11 +14344,11 @@ export interface AigcAudioExtraParam {
  */
 export interface AiSampleTagOperation {
   /**
-   * 操作类型，可选值：add（添加）、delete（删除）、reset（重置）。
+   * <p>操作类型，可选值：add（添加）、delete（删除）、reset（重置）。</p>
    */
   Type: string
   /**
-   * 标签，长度限制：128 个字符。
+   * <p>标签，长度限制：128 个字符。</p>
    */
   Tags: Array<string>
 }
@@ -14291,89 +14425,89 @@ export interface CreateAIRecognitionTemplateResponse {
  */
 export interface DescribeInput {
   /**
-   * 输入Id。
+   * <p>输入Id。</p>
    */
   InputId?: string
   /**
-   * 输入名称。
+   * <p>输入名称。</p>
    */
   InputName?: string
   /**
-   * 输入描述。
+   * <p>输入描述。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Description?: string
   /**
-   * 输入协议。
+   * <p>输入协议。</p>
    */
   Protocol?: string
   /**
-   * 输入地址列表。
+   * <p>输入地址列表。</p>
    */
   InputAddressList?: Array<InputAddress>
   /**
-   * 输入IP白名单列表。
+   * <p>输入IP白名单列表。</p>
    */
   AllowIpList?: Array<string>
   /**
-   * 输入的SRT配置信息。
+   * <p>输入的SRT配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SRTSettings?: DescribeInputSRTSettings
   /**
-   * 输入的RTP配置信息。
+   * <p>输入的RTP配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTPSettings?: DescribeInputRTPSettings
   /**
-   * 输入的地区。
+   * <p>输入的地区。</p>
    */
   InputRegion?: string
   /**
-   * 输入的RTMP配置信息。
+   * <p>输入的RTMP配置信息。</p>
    */
   RTMPSettings?: DescribeInputRTMPSettings
   /**
-   * 输入的主备开关。
+   * <p>输入的主备开关。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FailOver?: string
   /**
-   * 输入的RTMP_PULL配置信息。
+   * <p>输入的RTMP_PULL配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTMPPullSettings?: DescribeInputRTMPPullSettings
   /**
-   * 输入的RTSP_PULL配置信息。
+   * <p>输入的RTSP_PULL配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTSPPullSettings?: DescribeInputRTSPPullSettings
   /**
-   * 输入的HLS_PULL配置信息。
+   * <p>输入的HLS_PULL配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HLSPullSettings?: DescribeInputHLSPullSettings
   /**
-   * 延播平滑吐流配置信息。
+   * <p>延播平滑吐流配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ResilientStream?: ResilientStreamConf
   /**
-   * 绑定的输入安全组 ID。	
+   * <p>绑定的输入安全组 ID。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SecurityGroupIds?: Array<string>
   /**
-   * 可用区配置，开启容灾情况下最多有两个，顺序和pipeline 0、1对应，否则最多只有一个可用区。
+   * <p>可用区配置，开启容灾情况下最多有两个，顺序和pipeline 0、1对应，否则最多只有一个可用区。</p>
    */
   Zones?: Array<string>
   /**
-   * 输入的RIST配置信息。
+   * <p>输入的RIST配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RISTSettings?: DescribeInputRISTSettings
   /**
-   * 输入模块配置相关的URL信息，包含提供的推流地址，或者配置的第三方源流地址
+   * <p>输入模块配置相关的URL信息，包含提供的推流地址，或者配置的第三方源流地址</p>
    */
   StreamUrls?: Array<StreamUrlDetail>
 }
@@ -15732,57 +15866,57 @@ OcrFullTextRecognition 时有效。
  */
 export interface DescribeOutputSRTSettings {
   /**
-   * 转推的目标的地址信息列表，SRT模式为CALLER时使用。
+   * <p>转推的目标的地址信息列表，SRT模式为CALLER时使用。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Destinations?: Array<SRTAddressDestination>
   /**
-   * 流Id。
+   * <p>流Id。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StreamId?: string
   /**
-   * 延迟。
+   * <p>延迟。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Latency?: number
   /**
-   * 接收延迟。
+   * <p>接收延迟。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RecvLatency?: number
   /**
-   * 对端延迟。
+   * <p>对端延迟。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PeerLatency?: number
   /**
-   * 对端空闲超时时间。
+   * <p>对端空闲超时时间。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PeerIdleTimeout?: number
   /**
-   * 加密密钥。
+   * <p>加密密钥。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Passphrase?: string
   /**
-   * 加密密钥长度。
+   * <p>加密密钥长度。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PbKeyLen?: number
   /**
-   * SRT模式。
+   * <p>SRT模式。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Mode?: string
   /**
-   * 服务器监听地址，SRT模式为LISTENER时使用。
+   * <p>服务器监听地址，SRT模式为LISTENER时使用。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SourceAddresses?: Array<OutputSRTSourceAddressResp>
   /**
-   * FEC 配置
+   * <p>FEC 配置</p>
    */
   FEC?: SRTFECFullOptions
 }
@@ -15826,11 +15960,11 @@ export interface AiContentReviewTaskInput {
  */
 export interface InputAddress {
   /**
-   * 输入地址的IP。
+   * <p>输入地址的IP。</p>
    */
   Ip: string
   /**
-   * 输入地址的端口。
+   * <p>输入地址的端口。</p>
    */
   Port: number
 }
@@ -15905,6 +16039,44 @@ export interface DescribeTranscodeTemplatesResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 图片处理编排输出配置。
+ */
+export interface ImageProcessOutputConfig {
+  /**
+   * 输出图片的宽高比。可以配合ImageWidth 和 ImageHeight 使用，规则如下：
+
+1. 仅指定 AspectRatio 时，根据原图输入进行自适应调整。
+2. 指定 AspectRatio 和 ImageWidth 时，ImageHeight  由两者计算得出，反亦是如此。
+3. 当AspectRatio、ImageWidth、ImageHeight 同时指定的时候，优先使用ImageWidth、ImageHeight。
+
+可取值：1:1、3:2、2:3、3:4、4:3、4:5、5:4、9:16、16:9、21:9
+
+支持该参数 ScheduleId: 30010(扩图)
+   */
+  AspectRatio?: string
+  /**
+   * 图片输出高度，单位：像素。
+   */
+  ImageHeight?: number
+  /**
+   * 图片输出宽度，单位：像素。
+   */
+  ImageWidth?: number
+  /**
+   * 图片输出分辨率，取值：1K/2K/4K。
+   */
+  ImageSize?: string
+  /**
+   * 图片输出编码格式，可取值：PNG、JPG、WEBP、HEIF、AVIF。
+   */
+  Format?: string
+  /**
+   * 图片质量，对于某些输出格式可用，只有Format 有效的情况下生效，取值范围 0-100。
+   */
+  Quality?: number
 }
 
 /**
@@ -16081,51 +16253,31 @@ export interface BlindWatermarkConfig {
  */
 export interface MosaicInput {
   /**
-   * 原点位置，目前仅支持：
-<li>TopLeft：表示坐标原点位于视频图像左上角，马赛克原点为图片或文字的左上角。</li>
-默认值：TopLeft。
+   * <p>原点位置，目前仅支持：</p><li>TopLeft：表示坐标原点位于视频图像左上角，马赛克原点为图片或文字的左上角。</li>默认值：TopLeft。
    */
   CoordinateOrigin?: string
   /**
-   * 马赛克原点距离视频图像坐标原点的水平位置。支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示马赛克 XPos 为视频宽度指定百分比，如 10% 表示 XPos 为视频宽度的 10%；</li>
-<li>当字符串以 px 结尾，表示马赛克 XPos 为指定像素，如 100px 表示 XPos 为 100 像素。</li>
-默认值：0px。
+   * <p>马赛克原点距离视频图像坐标原点的水平位置。支持 %、px 两种格式：</p><li>当字符串以 % 结尾，表示马赛克 XPos 为视频宽度指定百分比，如 10% 表示 XPos 为视频宽度的 10%；</li><li>当字符串以 px 结尾，表示马赛克 XPos 为指定像素，如 100px 表示 XPos 为 100 像素。</li>默认值：0px。
    */
   XPos?: string
   /**
-   * 马赛克原点距离视频图像坐标原点的垂直位置。支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示马赛克 YPos 为视频高度指定百分比，如 10% 表示 YPos 为视频高度的 10%；</li>
-<li>当字符串以 px 结尾，表示马赛克 YPos 为指定像素，如 100px 表示 YPos 为 100 像素。</li>
-默认值：0px。
+   * <p>马赛克原点距离视频图像坐标原点的垂直位置。支持 %、px 两种格式：</p><li>当字符串以 % 结尾，表示马赛克 YPos 为视频高度指定百分比，如 10% 表示 YPos 为视频高度的 10%；</li><li>当字符串以 px 结尾，表示马赛克 YPos 为指定像素，如 100px 表示 YPos 为 100 像素。</li>默认值：0px。
    */
   YPos?: string
   /**
-   * 马赛克的宽度。支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示马赛克 Width 为视频宽度的百分比大小，如 10% 表示 Width 为视频宽度的 10%；</li>
-<li>当字符串以 px 结尾，表示马赛克 Width 单位为像素，如 100px 表示 Width 为 100 像素。</li>
-默认值：10%。
+   * <p>马赛克的宽度。支持 %、px 两种格式：</p><li>当字符串以 % 结尾，表示马赛克 Width 为视频宽度的百分比大小，如 10% 表示 Width 为视频宽度的 10%；</li><li>当字符串以 px 结尾，表示马赛克 Width 单位为像素，如 100px 表示 Width 为 100 像素。</li>默认值：10%。
    */
   Width?: string
   /**
-   * 马赛克的高度。支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示马赛克 Height 为视频高度的百分比大小，如 10% 表示 Height 为视频高度的 10%；</li>
-<li>当字符串以 px 结尾，表示马赛克 Height 单位为像素，如 100px 表示 Height 为 100 像素。</li>
-默认值：10%。
+   * <p>马赛克的高度。支持 %、px 两种格式：</p><li>当字符串以 % 结尾，表示马赛克 Height 为视频高度的百分比大小，如 10% 表示 Height 为视频高度的 10%；</li><li>当字符串以 px 结尾，表示马赛克 Height 单位为像素，如 100px 表示 Height 为 100 像素。</li>默认值：10%。
    */
   Height?: string
   /**
-   * 马赛克的起始时间偏移，单位：秒。不填或填0，表示马赛克从画面出现时开始显现。
-<li>不填或填0，表示马赛克从画面开始就出现；</li>
-<li>当数值大于0时（假设为 n），表示马赛克从画面开始的第 n 秒出现；</li>
-<li>当数值小于0时（假设为 -n），表示马赛克从离画面结束 n 秒前开始出现。</li>
+   * <p>马赛克的起始时间偏移，单位：秒。不填或填0，表示马赛克从画面出现时开始显现。</p><li>不填或填0，表示马赛克从画面开始就出现；</li><li>当数值大于0时（假设为 n），表示马赛克从画面开始的第 n 秒出现；</li><li>当数值小于0时（假设为 -n），表示马赛克从离画面结束 n 秒前开始出现。</li>
    */
   StartTimeOffset?: number
   /**
-   * 马赛克的结束时间偏移，单位：秒。
-<li>不填或填0，表示马赛克持续到画面结束；</li>
-<li>当数值大于0时（假设为 n），表示马赛克持续到第 n 秒时消失；</li>
-<li>当数值小于0时（假设为 -n），表示马赛克持续到离画面结束 n 秒前消失。</li>
+   * <p>马赛克的结束时间偏移，单位：秒。</p><li>不填或填0，表示马赛克持续到画面结束；</li><li>当数值大于0时（假设为 n），表示马赛克持续到第 n 秒时消失；</li><li>当数值小于0时（假设为 -n），表示马赛克持续到离画面结束 n 秒前消失。</li>
    */
   EndTimeOffset?: number
 }
@@ -17147,44 +17299,44 @@ export interface StopStreamPackageLinearAssemblyChannelResponse {
  */
 export interface DescribeFlow {
   /**
-   * 流Id。
+   * <p>流Id。</p>
    */
   FlowId?: string
   /**
-   * 流名称。
+   * <p>流名称。</p>
    */
   FlowName?: string
   /**
-   * 流状态，目前有IDLE/RUNNING。
+   * <p>流状态，目前有IDLE/RUNNING。</p>
    */
   State?: string
   /**
-   * 最大带宽值。
+   * <p>最大带宽值。</p>
    */
   MaxBandwidth?: number
   /**
-   * 输入组。
+   * <p>输入组。</p>
    */
   InputGroup?: Array<DescribeInput>
   /**
-   * 输出组。
+   * <p>输出组。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OutputGroup?: Array<DescribeOutput>
   /**
-   * 该Flow关联的媒体传输事件EventId。
+   * <p>该Flow关联的媒体传输事件EventId。</p>
    */
   EventId?: string
   /**
-   * 媒体传输输入流所属的区域，取值和InputRegion相同。
+   * <p>媒体传输输入流所属的区域，取值和InputRegion相同。</p>
    */
   Region?: string
   /**
-   * 该Flow允许创建的输入协议
+   * <p>该Flow允许创建的输入协议</p>
    */
   AllowedInputProtocols?: Array<string>
   /**
-   * 该Flow允许创建的输出协议
+   * <p>该Flow允许创建的输出协议</p>
    */
   AllowedOutputProtocols?: Array<string>
 }
@@ -17707,27 +17859,27 @@ export interface ImageProcessTaskResult {
  */
 export interface AiAnalysisTaskClassificationResult {
   /**
-   * 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p>
    */
   Status?: string
   /**
-   * 错误码，空字符串表示成功，其他值表示失败，取值请参考 [媒体处理类错误码](https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
    */
   ErrCodeExt?: string
   /**
-   * 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
+   * <p>错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。</p>
    */
   ErrCode?: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message?: string
   /**
-   * 智能分类任务输入。
+   * <p>智能分类任务输入。</p>
    */
   Input?: AiAnalysisTaskClassificationInput
   /**
-   * 智能分类任务输出。
+   * <p>智能分类任务输出。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output?: AiAnalysisTaskClassificationOutput
@@ -17756,29 +17908,19 @@ export interface DescribeQualityControlTemplatesResponse {
  */
 export interface PoliticalImgReviewTemplateInfoForUpdate {
   /**
-   * 画面涉敏任务开关，可选值：
-<li>ON：开启画面涉敏任务；</li>
-<li>OFF：关闭画面涉敏任务。</li>
+   * <p>画面涉敏任务开关，可选值：</p><li>ON：开启画面涉敏任务；</li><li>OFF：关闭画面涉敏任务。</li>
    */
   Switch?: string
   /**
-   * 画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：
-<li>violation_photo：违规图标；</li>
-<li>politician：涉敏人物；</li>
-<li>entertainment：娱乐人物；</li>
-<li>sport：体育人物；</li>
-<li>entrepreneur：商业人物；</li>
-<li>scholar：教育学者；</li>
-<li>celebrity：知名人物；</li>
-<li>military：军事人物。</li>
+   * <p>画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：</p><li>violation_photo：违规图标；</li><li>politician：涉敏人物；</li><li>entertainment：娱乐人物；</li><li>sport：体育人物；</li><li>entrepreneur：商业人物；</li><li>scholar：教育学者；</li><li>celebrity：知名人物；</li><li>military：军事人物。</li>
    */
   LabelSet?: Array<string>
   /**
-   * 判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规。取值范围：0~100。
+   * <p>判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规。取值范围：0~100。</p>
    */
   BlockConfidence?: number
   /**
-   * 判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核。取值范围：0~100。
+   * <p>判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核。取值范围：0~100。</p>
    */
   ReviewConfidence?: number
 }
@@ -18556,6 +18698,36 @@ export interface CreateStreamPackageSourceLocationResponse {
 }
 
 /**
+ * QueryHunyuan3DTask返回参数结构体
+ */
+export interface QueryHunyuan3DTaskResponse {
+  /**
+   * <p>任务状态</p><p>枚举值：</p><ul><li>WAIT： 已排队，等待执行</li><li>RUN： 正在执行</li><li>DONE： 已成功完成，ResultFile3Ds 有值</li><li>FAIL： 已失败，ErrorCode / ErrorMessage 有值</li></ul>
+   */
+  Status?: string
+  /**
+   * <p>进度百分比，0~100。未知时为 0；DONE 时应为 100；FAIL 时保留最后一次已知值</p>
+   */
+  Progress?: number
+  /**
+   * <p>仅 Status=FAIL 时有值，字符串错误码（如 InternalError.ModelInference）</p>
+   */
+  ErrorCode?: string
+  /**
+   * <p>仅 Status=FAIL 时有值，详细文案</p>
+   */
+  ErrorMessage?: string
+  /**
+   * <p>仅 Status=DONE 时有值，产物文件列表</p>
+   */
+  ResultFile3Ds?: Array<File3D>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DeleteSmartSubtitleTemplate请求参数结构体
  */
 export interface DeleteSmartSubtitleTemplateRequest {
@@ -18853,11 +19025,11 @@ export interface DescribeStreamPackageLinearAssemblyProgramsResponse {
  */
 export interface SpecificationDataItem {
   /**
-   * 任务规格。
+   * <p>任务规格。</p>
    */
   Specification: string
   /**
-   * 统计数据。
+   * <p>统计数据。</p>
    */
   Data: Array<TaskStatDataItem>
 }
@@ -19003,18 +19175,15 @@ export interface ModifyPersonSampleRequest {
  */
 export interface AigcVideoReferenceVideoInfo {
   /**
-   * 参考视频url。需要外网可访问。
-可作为特征参考视频，也可作为待编辑视频，默认为待编辑视频；可选择性保留视频原声
-通过ReferType参数区分参考视频类型：feature为特征参考视频，base为待编辑视频
-参考视频为待编辑视频时，不能定义视频首尾帧。
+   * <p>参考视频url。需要外网可访问。<br>可作为特征参考视频，也可作为待编辑视频，默认为待编辑视频；可选择性保留视频原声<br>通过ReferType参数区分参考视频类型：feature为特征参考视频，base为待编辑视频<br>参考视频为待编辑视频时，不能定义视频首尾帧。</p>
    */
   VideoUrl?: string
   /**
-   * 通过ReferType参数区分参考视频类型：feature为特征参考视频，base为待编辑视频。
+   * <p>通过ReferType参数区分参考视频类型：feature为特征参考视频，base为待编辑视频。</p>
    */
   ReferType?: string
   /**
-   * 通过KeepOriginalSound参数选择是否保留视频原声，yes为保留，no为不保留；当前参数对特征参考视频（feature）也生效。
+   * <p>通过KeepOriginalSound参数选择是否保留视频原声，yes为保留，no为不保留；当前参数对特征参考视频（feature）也生效。</p>
    */
   KeepOriginalSound?: string
 }
@@ -19383,29 +19552,19 @@ export interface DescribeStreamPackageLinearAssemblyUsageRequest {
  */
 export interface PoliticalImgReviewTemplateInfo {
   /**
-   * 画面涉敏任务开关，可选值：
-<li>ON：开启画面涉敏任务；</li>
-<li>OFF：关闭画面涉敏任务。</li>
+   * <p>画面涉敏任务开关，可选值：</p><li>ON：开启画面涉敏任务；</li><li>OFF：关闭画面涉敏任务。</li>
    */
   Switch: string
   /**
-   * 画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：
-<li>violation_photo：违规图标；</li>
-<li>politician：涉敏人物；</li>
-<li>entertainment：娱乐人物；</li>
-<li>sport：体育人物；</li>
-<li>entrepreneur：商业人物；</li>
-<li>scholar：教育学者；</li>
-<li>celebrity：知名人物；</li>
-<li>military：军事人物。</li>
+   * <p>画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：</p><li>violation_photo：违规图标；</li><li>politician：涉敏人物；</li><li>entertainment：娱乐人物；</li><li>sport：体育人物；</li><li>entrepreneur：商业人物；</li><li>scholar：教育学者；</li><li>celebrity：知名人物；</li><li>military：军事人物。</li>
    */
   LabelSet?: Array<string>
   /**
-   * 判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规，不填默认为 97 分。取值范围：0~100。
+   * <p>判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规，不填默认为 97 分。取值范围：0~100。</p>
    */
   BlockConfidence?: number
   /**
-   * 判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核，不填默认为 95 分。取值范围：0~100。
+   * <p>判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核，不填默认为 95 分。取值范围：0~100。</p>
    */
   ReviewConfidence?: number
 }
@@ -19599,43 +19758,43 @@ export interface BatchProcessMediaRequest {
  */
 export interface FlowLogInfo {
   /**
-   * 时间戳，单位为秒。
+   * <p>时间戳，单位为秒。</p>
    */
   Timestamp: number
   /**
-   * 输入输出类型（input/output）。
+   * <p>输入输出类型（input/output）。</p>
    */
   Type: string
   /**
-   * 输入或输出Id。
+   * <p>输入或输出Id。</p>
    */
   InputOutputId: string
   /**
-   * 协议。
+   * <p>协议。</p>
    */
   Protocol: string
   /**
-   * 事件代码。
+   * <p>事件代码。</p>
    */
   EventCode: string
   /**
-   * 事件信息。
+   * <p>事件信息。</p>
    */
   EventMessage: string
   /**
-   * 对端IP。
+   * <p>对端IP。</p>
    */
   RemoteIp: string
   /**
-   * 对端端口。
+   * <p>对端端口。</p>
    */
   RemotePort: string
   /**
-   * 主备通道，0为主通道，1为备通道。
+   * <p>主备通道，0为主通道，1为备通道。</p>
    */
   Pipeline: string
   /**
-   * 输入或输出的名称。
+   * <p>输入或输出的名称。</p>
    */
   InputOutputName: string
 }
@@ -19732,39 +19891,27 @@ export interface ImageEnhanceConfig {
  */
 export interface WatermarkInput {
   /**
-   * 水印模板 ID。
+   * <p>水印模板 ID。</p>
    */
   Definition: number
   /**
-   * 水印自定义参数，当 Definition 填 0 时有效。
-该参数用于高度定制场景，建议您优先使用 Definition 指定水印参数。
-水印自定义参数不支持截图打水印。
+   * <p>水印自定义参数，当 Definition 填 0 时有效。<br>该参数用于高度定制场景，建议您优先使用 Definition 指定水印参数。<br>水印自定义参数不支持截图打水印。</p>
    */
   RawParameter?: RawWatermarkParameter
   /**
-   * 文字内容，长度不超过100个字符。仅当水印类型为文字水印时填写。
-文字水印不支持截图打水印。
+   * <p>文字内容，长度不超过100个字符。仅当水印类型为文字水印时填写。<br>文字水印不支持截图打水印。</p>
    */
   TextContent?: string
   /**
-   * SVG 内容。长度不超过 2000000 个字符。仅当水印类型为 SVG 水印时填写。
-SVG 水印不支持截图打水印。
+   * <p>SVG 内容。长度不超过 2000000 个字符。仅当水印类型为 SVG 水印时填写。<br>SVG 水印不支持截图打水印。</p>
    */
   SvgContent?: string
   /**
-   * 水印的起始时间偏移，单位：秒。不填或填0，表示水印从画面出现时开始显现。
-<li>不填或填0，表示水印从画面开始就出现；</li>
-<li>当数值大于0时（假设为 n），表示水印从画面开始的第 n 秒出现；</li>
-<li>当数值小于0时（假设为 -n），表示水印从离画面结束 n 秒前开始出现。</li>
-注：只用于视频场景，截图不支持。
+   * <p>水印的起始时间偏移，单位：秒。不填或填0，表示水印从画面出现时开始显现。</p><li>不填或填0，表示水印从画面开始就出现；</li><li>当数值大于0时（假设为 n），表示水印从画面开始的第 n 秒出现；</li><li>当数值小于0时（假设为 -n），表示水印从离画面结束 n 秒前开始出现。</li>注：只用于视频场景，截图不支持。
    */
   StartTimeOffset?: number
   /**
-   * 水印的结束时间偏移，单位：秒。
-<li>不填或填0，表示水印持续到画面结束；</li>
-<li>当数值大于0时（假设为 n），表示水印持续到第 n 秒时消失；</li>
-<li>当数值小于0时（假设为 -n），表示水印持续到离画面结束 n 秒前消失。</li>
-注：只用于视频场景，截图不支持。
+   * <p>水印的结束时间偏移，单位：秒。</p><li>不填或填0，表示水印持续到画面结束；</li><li>当数值大于0时（假设为 n），表示水印持续到第 n 秒时消失；</li><li>当数值小于0时（假设为 -n），表示水印持续到离画面结束 n 秒前消失。</li>注：只用于视频场景，截图不支持。
    */
   EndTimeOffset?: number
 }
@@ -19975,37 +20122,37 @@ export interface ModifyStreamLinkInputRequest {
  */
 export interface ScheduleReviewTaskResult {
   /**
-   * 任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p>
    */
   Status?: string
   /**
-   * 错误码，空字符串表示成功，其他值表示失败，取值请参考 [媒体处理类错误码](https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81) 列表。
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
    */
   ErrCodeExt?: string
   /**
-   * 错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。
+   * <p>错误码，0 表示成功，其他值表示失败（该字段已不推荐使用，建议使用新的错误码字段 ErrCodeExt）。</p>
    */
   ErrCode?: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message?: string
   /**
-   * 审核任务的输入。
+   * <p>审核任务的输入。</p>
    */
   Input?: AiContentReviewTaskInput
   /**
-   * 审核任务的输出。
+   * <p>审核任务的输出。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Output?: Array<AiContentReviewResult>
   /**
-   * 任务开始执行的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>任务开始执行的时间，采用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BeginProcessTime?: string
   /**
-   * 任务执行完毕的时间，采用 [ISO 日期格式](https://cloud.tencent.com/document/product/862/37710#52)。
+   * <p>任务执行完毕的时间，采用 <a href="https://cloud.tencent.com/document/product/862/37710#52">ISO 日期格式</a>。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FinishTime?: string
@@ -20982,6 +21129,24 @@ export interface CreateProcessImageTemplateResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * Query 返回的单个产物文件
+ */
+export interface File3D {
+  /**
+   * <p>文件类型，OBJ / GLB / FBX / STL / USDZ</p><p>枚举值：</p><ul><li>OBJ： 3D 通用交换格式</li><li>GLB： glTF 2.0 二进制（&quot;3D 界的 JPEG&quot;）</li><li>FBX： Autodesk 影视/游戏工业标准</li><li>STL： 3D 打印/CAD 三角面片</li><li>USDZ： Pixar/Apple 打包场景描述</li></ul>
+   */
+  Type?: string
+  /**
+   * <p>文件下载 URL（临时签名，TTL 一般 24h）</p>
+   */
+  Url?: string
+  /**
+   * <p>预览图 URL（若有）</p>
+   */
+  PreviewImageUrl?: string
 }
 
 /**
@@ -22928,31 +23093,27 @@ export interface AwsSQS {
  */
 export interface MediaSampleSnapshotItem {
   /**
-   * 采样截图规格 ID，参见[采样截图参数模板](https://cloud.tencent.com/document/product/266/33480#.E9.87.87.E6.A0.B7.E6.88.AA.E5.9B.BE.E6.A8.A1.E6.9D.BF)。
+   * <p>采样截图规格 ID，参见<a href="https://cloud.tencent.com/document/product/266/33480#.E9.87.87.E6.A0.B7.E6.88.AA.E5.9B.BE.E6.A8.A1.E6.9D.BF">采样截图参数模板</a>。</p>
    */
   Definition?: number
   /**
-   * 采样方式，取值范围：
-<li>Percent：根据百分比间隔采样。</li>
-<li>Time：根据时间间隔采样。</li>
+   * <p>采样方式，取值范围：</p><li>Percent：根据百分比间隔采样。</li><li>Time：根据时间间隔采样。</li>
    */
   SampleType?: string
   /**
-   * 采样间隔
-<li>当 SampleType 为 Percent 时，该值表示多少百分比一张图。</li>
-<li>当 SampleType 为 Time 时，该值表示多少时间间隔一张图，单位秒， 第一张图均为视频首帧。</li>
+   * <p>采样间隔</p><li>当 SampleType 为 Percent 时，该值表示多少百分比一张图。</li><li>当 SampleType 为 Time 时，该值表示多少时间间隔一张图，单位秒， 第一张图均为视频首帧。</li>
    */
   Interval?: number
   /**
-   * 截图后文件的存储位置。
+   * <p>截图后文件的存储位置。</p>
    */
   Storage?: TaskOutputStorage
   /**
-   * 生成的截图 path 列表。
+   * <p>生成的截图 path 列表。</p>
    */
   ImagePathSet?: Array<string>
   /**
-   * 截图如果被打上了水印，被打水印的模板 ID 列表。
+   * <p>截图如果被打上了水印，被打水印的模板 ID 列表。</p>
    */
   WaterMarkDefinition?: Array<number | bigint>
 }
@@ -23041,25 +23202,23 @@ export interface CreateSmartSubtitleTemplateRequest {
  */
 export interface LiveStreamProcessTask {
   /**
-   * 媒体处理任务 ID。
+   * <p>媒体处理任务 ID。</p>
    */
   TaskId: string
   /**
-   * 任务流状态，取值：
-<li>PROCESSING：处理中；</li>
-<li>FINISH：已完成。</li>
+   * <p>任务流状态，取值：</p><li>PROCESSING：处理中；</li><li>FINISH：已完成。</li>
    */
   Status: string
   /**
-   * 错误码，0 表示成功，其他值表示失败。
+   * <p>错误码，0 表示成功，其他值表示失败。</p>
    */
   ErrCode: number
   /**
-   * 错误信息。
+   * <p>错误信息。</p>
    */
   Message: string
   /**
-   * 直播流 URL。
+   * <p>直播流 URL。</p>
    */
   Url: string
 }
@@ -23602,29 +23761,19 @@ export interface CreateAigcImageTaskRequest {
  */
 export interface TerrorismImgReviewTemplateInfo {
   /**
-   * 画面涉敏任务开关，可选值：
-<li>ON：开启画面涉敏任务；</li>
-<li>OFF：关闭画面涉敏任务。</li>
+   * <p>画面涉敏任务开关，可选值：</p><li>ON：开启画面涉敏任务；</li><li>OFF：关闭画面涉敏任务。</li>
    */
   Switch: string
   /**
-   * 画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：
-<li>guns：武器枪支；</li>
-<li>crowd：人群聚集；</li>
-<li>bloody：血腥画面；</li>
-<li>police：警察部队；</li>
-<li>banners：涉敏旗帜；</li>
-<li>militant：武装分子；</li>
-<li>explosion：爆炸火灾；</li>
-<li>terrorists：涉敏人物；</li>
+   * <p>画面涉敏过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回，可选值为：</p><li>guns：武器枪支；</li><li>crowd：人群聚集；</li><li>bloody：血腥画面；</li><li>police：警察部队；</li><li>banners：涉敏旗帜；</li><li>militant：武装分子；</li><li>explosion：爆炸火灾；</li><li>terrorists：涉敏人物；</li>
    */
   LabelSet?: Array<string>
   /**
-   * 判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规，不填默认为 90 分。取值范围：0~100。
+   * <p>判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规，不填默认为 90 分。取值范围：0~100。</p>
    */
   BlockConfidence?: number
   /**
-   * 判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核，不填默认为 80 分。取值范围：0~100。
+   * <p>判定需人工复核是否违规的分数阈值，当智能审核达到该分数以上，认为需人工复核，不填默认为 80 分。取值范围：0~100。</p>
    */
   ReviewConfidence?: number
 }
@@ -26471,6 +26620,20 @@ export interface PoliticalAsrReviewTemplateInfo {
 }
 
 /**
+ * SubmitHunyuan3DTask返回参数结构体
+ */
+export interface SubmitHunyuan3DTaskResponse {
+  /**
+   * <p>任务 ID</p>
+   */
+  TaskId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DeleteProcessImageTemplate请求参数结构体
  */
 export interface DeleteProcessImageTemplateRequest {
@@ -26559,41 +26722,17 @@ export interface TranslateConfigureInfoForUpdate {
 }
 
 /**
- * 图片处理编排输出配置。
+ * CreateAgentRecordTask返回参数结构体
  */
-export interface ImageProcessOutputConfig {
+export interface CreateAgentRecordTaskResponse {
   /**
-   * 输出图片的宽高比。可以配合ImageWidth 和 ImageHeight 使用，规则如下：
-
-1. 仅指定 AspectRatio 时，根据原图输入进行自适应调整。
-2. 指定 AspectRatio 和 ImageWidth 时，ImageHeight  由两者计算得出，反亦是如此。
-3. 当AspectRatio、ImageWidth、ImageHeight 同时指定的时候，优先使用ImageWidth、ImageHeight。
-
-可取值：1:1、3:2、2:3、3:4、4:3、4:5、5:4、9:16、16:9、21:9
-
-支持该参数 ScheduleId: 30010(扩图)
+   * <p>任务创建成功后，返回的任务ID。<br>调用查询接口，轮询获取任务进度及生成结果。</p>
    */
-  AspectRatio?: string
+  TaskId?: string
   /**
-   * 图片输出高度，单位：像素。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  ImageHeight?: number
-  /**
-   * 图片输出宽度，单位：像素。
-   */
-  ImageWidth?: number
-  /**
-   * 图片输出分辨率，取值：1K/2K/4K。
-   */
-  ImageSize?: string
-  /**
-   * 图片输出编码格式，可取值：PNG、JPG、WEBP、HEIF、AVIF。
-   */
-  Format?: string
-  /**
-   * 图片质量，对于某些输出格式可用，只有Format 有效的情况下生效，取值范围 0-100。
-   */
-  Quality?: number
+  RequestId?: string
 }
 
 /**

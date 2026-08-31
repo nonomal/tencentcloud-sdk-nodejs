@@ -1438,6 +1438,16 @@ it("cynosdb.v20190107.DescribeInstanceCLSLogDelivery", async function () {
     }
 })
 
+it("cynosdb.v20190107.ModifyClusterLevel", async function () {
+    try {
+       const data = await client.ModifyClusterLevel({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("cynosdb.v20190107.BindClusterResourcePackages", async function () {
     try {
        const data = await client.BindClusterResourcePackages({})

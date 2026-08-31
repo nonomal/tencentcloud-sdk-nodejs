@@ -1929,45 +1929,39 @@ export interface CreateAssetImageScanTaskResponse {
  */
 export interface DescribeVirusScanConfigResponse {
   /**
-   * 是否开启定期扫描
+   * <p>是否开启定期扫描</p>
    */
   EnableScan?: boolean
   /**
-   * 检测周期每隔多少天
+   * <p>检测周期每隔多少天</p>
    */
   Cycle?: number
   /**
-   * 扫描开始时间
+   * <p>扫描开始时间</p>
    */
   BeginScanAt?: string
   /**
-   * 超时时长，单位小时
+   * <p>超时时长，单位小时</p>
    */
   Timeout?: number
   /**
-   * SCAN_NODE:扫描节点
-SCAN_CONTAINER:扫描容器
+   * <p>SCAN_NODE:扫描节点<br>SCAN_CONTAINER:扫描容器</p>
    */
   ScanRangeType?: string
   /**
-   * 自选扫描范围的容器id或者节点id
+   * <p>自选扫描范围的容器id或者节点id</p>
    */
   ScanIDs?: Array<ScanRangeInfo>
   /**
-   * 自选排除或扫描的地址
+   * <p>自选排除或扫描的地址</p>
    */
   ScanPath?: Array<string>
   /**
-   * 扫描路径模式：
-SCAN_PATH_ALL：全部路径
-SCAN_PATH_DEFAULT：默认路径
-SCAN_PATH_USER_DEFINE：用户自定义路径
-
+   * <p>扫描路径模式：<br>SCAN_PATH_ALL：全部路径<br>SCAN_PATH_DEFAULT：默认路径<br>SCAN_PATH_USER_DEFINE：用户自定义路径</p>
    */
   ScanPathMode?: string
   /**
-   * true:包含路径
-false:排除路径
+   * <p>true:包含路径<br>false:排除路径</p>
    */
   IsIncludePath?: boolean
   /**
@@ -10645,24 +10639,20 @@ export interface WhiteListRegexpExpressionInfo {
  */
 export interface DescribeVirusMonitorConfigResponse {
   /**
-   * 是否开启实时监控
+   * <p>是否开启实时监控</p>
    */
   EnableScan?: boolean
   /**
-   * true:包含路径 false:排除路径
+   * <p>true:包含路径 false:排除路径</p>
    */
   IsIncludePath?: boolean
   /**
-   * 自选排除或扫描的地址
+   * <p>自选排除或扫描的地址</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScanPath?: Array<string>
   /**
-   * 扫描路径模式：
-SCAN_PATH_ALL：全部路径
-SCAN_PATH_DEFAULT：默认路径
-SCAN_PATH_USER_DEFINE：用户自定义路径
-
+   * <p>扫描路径模式：<br>SCAN_PATH_ALL：全部路径<br>SCAN_PATH_DEFAULT：默认路径<br>SCAN_PATH_USER_DEFINE：用户自定义路径</p>
    */
   ScanPathMode?: string
   /**

@@ -31,8 +31,10 @@ import {
   PullSmsSendStatusByPhoneNumberRequest,
   ReportConversionResponse,
   AddSmsTemplateRequest,
+  DescribeSendRecordListResponse,
   ModifySmsTemplateRequest,
   PullSmsReplyStatus,
+  DescribeSendRecordListRequest,
   CallbackStatusStatisticsResponse,
   PullSmsSendStatusRequest,
   SmsPackagesStatistics,
@@ -69,6 +71,7 @@ import {
   ReportConversionRequest,
   AddSignStatus,
   ModifyTemplateStatus,
+  SendRecord,
   PullSmsSendStatusResponse,
   SmsPackagesStatisticsResponse,
   DeleteSignStatus,
@@ -129,14 +132,14 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 本接口 (SendSms) 用于发送验证码、通知类短信和营销短信。支持国内短信与国际/港澳台短信。
-- 当前接口属于 2021-01-11 版本，如果您仍在使用 [2019-07-11 版本](https://cloud.tencent.com/document/product/382/38778)，建议您使用当前最新版本的接口，版本差异可参考[版本描述](https://cloud.tencent.com/document/product/382/63195#.E7.89.88.E6.9C.AC.E6.8F.8F.E8.BF.B0)。
+     * 本接口 (PullSmsSendStatusByPhoneNumber) 用于拉取单个号码短信下发状态。
+<blockquote class="d-mod-explain"><div class="d-mod-title d-explain-title" style="line-height: normal;"><i class="d-icon-explain"></i>说明：</div><p></p><ul><li>下发状态也支持 <a href="https://cloud.tencent.com/document/product/382/37809#sendingstatus">配置回调</a> 的方式获取。</li></ul></blockquote>
      */
-  async SendSms(
-    req: SendSmsRequest,
-    cb?: (error: string, rep: SendSmsResponse) => void
-  ): Promise<SendSmsResponse> {
-    return this.request("SendSms", req, cb)
+  async PullSmsSendStatusByPhoneNumber(
+    req: PullSmsSendStatusByPhoneNumberRequest,
+    cb?: (error: string, rep: PullSmsSendStatusByPhoneNumberResponse) => void
+  ): Promise<PullSmsSendStatusByPhoneNumberResponse> {
+    return this.request("PullSmsSendStatusByPhoneNumber", req, cb)
   }
 
   /**
@@ -214,14 +217,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 本接口 (PullSmsSendStatusByPhoneNumber) 用于拉取单个号码短信下发状态。
-<blockquote class="d-mod-explain"><div class="d-mod-title d-explain-title" style="line-height: normal;"><i class="d-icon-explain"></i>说明：</div><p></p><ul><li>下发状态也支持 <a href="https://cloud.tencent.com/document/product/382/37809#sendingstatus">配置回调</a> 的方式获取。</li></ul></blockquote>
-     */
-  async PullSmsSendStatusByPhoneNumber(
-    req: PullSmsSendStatusByPhoneNumberRequest,
-    cb?: (error: string, rep: PullSmsSendStatusByPhoneNumberResponse) => void
-  ): Promise<PullSmsSendStatusByPhoneNumberResponse> {
-    return this.request("PullSmsSendStatusByPhoneNumber", req, cb)
+   * 本接口 (DescribeSendRecordList) 用于查询单个手机号在指定时间范围内的短信下发记录。
+   */
+  async DescribeSendRecordList(
+    req: DescribeSendRecordListRequest,
+    cb?: (error: string, rep: DescribeSendRecordListResponse) => void
+  ): Promise<DescribeSendRecordListResponse> {
+    return this.request("DescribeSendRecordList", req, cb)
   }
 
   /**
@@ -288,5 +290,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: AddSmsTemplateResponse) => void
   ): Promise<AddSmsTemplateResponse> {
     return this.request("AddSmsTemplate", req, cb)
+  }
+
+  /**
+     * 本接口 (SendSms) 用于发送验证码、通知类短信和营销短信。支持国内短信与国际/港澳台短信。
+- 当前接口属于 2021-01-11 版本，如果您仍在使用 [2019-07-11 版本](https://cloud.tencent.com/document/product/382/38778)，建议您使用当前最新版本的接口，版本差异可参考[版本描述](https://cloud.tencent.com/document/product/382/63195#.E7.89.88.E6.9C.AC.E6.8F.8F.E8.BF.B0)。
+     */
+  async SendSms(
+    req: SendSmsRequest,
+    cb?: (error: string, rep: SendSmsResponse) => void
+  ): Promise<SendSmsResponse> {
+    return this.request("SendSms", req, cb)
   }
 }

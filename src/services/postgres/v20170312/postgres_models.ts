@@ -183,6 +183,32 @@ export interface DescribeAuditLogsRequest {
 }
 
 /**
+ * ModifyDBProxySSLConfig请求参数结构体
+ */
+export interface ModifyDBProxySSLConfigRequest {
+  /**
+   * 实例 ID，指定要修改 SSL 配置的数据库代理所属的目标实例
+   */
+  DBInstanceId: string
+  /**
+   * 代理组 ID，指定要修改 SSL 配置的代理组
+   */
+  ProxyGroupId: string
+  /**
+   * 代理地址 ID，指定要修改 SSL 配置的代理连接地址
+   */
+  ProxyAddressId: string
+  /**
+   * SSL 开关。true：开启 SSL；false：关闭 SSL
+   */
+  SSLEnabled: boolean
+  /**
+   * 连接地址。SSLEnabled 为 true 时必填，需与代理地址的 Vip 保持一致，用于 SSL 证书校验
+   */
+  ConnectAddress?: string
+}
+
+/**
  * DescribeMaintainTimeWindow请求参数结构体
  */
 export interface DescribeMaintainTimeWindowRequest {
@@ -490,6 +516,28 @@ export interface ParameterTemplate {
 }
 
 /**
+ * DescribeDBProxySSLConfig返回参数结构体
+ */
+export interface DescribeDBProxySSLConfigResponse {
+  /**
+   * <p>SSL 是否开启。true 表示已开启，false 表示未开启。</p>
+   */
+  SSLEnabled?: boolean
+  /**
+   * <p>SSL 连接的地址（VIP 或域名）。</p>
+   */
+  ConnectAddress?: string
+  /**
+   * <p>CA 证书下载地址。仅在 SSL 开启时有值。</p>
+   */
+  CAUrl?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * CreateDBInstanceNetworkAccess返回参数结构体
  */
 export interface CreateDBInstanceNetworkAccessResponse {
@@ -785,6 +833,20 @@ export interface ProxyNodeCustom {
 }
 
 /**
+ * CreateDBProxyAddress返回参数结构体
+ */
+export interface CreateDBProxyAddressResponse {
+  /**
+   * <p>异步任务 ID。可通过 DescribeTasks 接口查询任务执行进度</p>
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * Proxy 路由信息，描述某个 Proxy 接入地址下到具体 PG 节点的路由规则。
  */
 export interface ProxyRoute {
@@ -982,21 +1044,21 @@ export interface CreateAccountRequest {
 }
 
 /**
- * DescribeTasks返回参数结构体
+ * DescribeDBProxySSLConfig请求参数结构体
  */
-export interface DescribeTasksResponse {
+export interface DescribeDBProxySSLConfigRequest {
   /**
-   * <p>查询到的任务数量</p>
+   * <p>实例 ID。</p>
    */
-  TotalCount?: number
+  DBInstanceId: string
   /**
-   * <p>任务信息列表</p>
+   * <p>代理组 ID。</p>
    */
-  TaskSet?: Array<TaskSet>
+  ProxyGroupId: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>代理连接地址 ID。</p>
    */
-  RequestId?: string
+  ProxyAddressId: string
 }
 
 /**
@@ -1590,6 +1652,24 @@ export interface ModifyDBInstancesProjectResponse {
 }
 
 /**
+ * CloseDBProxyAddress请求参数结构体
+ */
+export interface CloseDBProxyAddressRequest {
+  /**
+   * <p>实例 ID，指定要关闭代理地址的目标实例</p>
+   */
+  DBInstanceId: string
+  /**
+   * <p>代理地址 ID，指定要关闭（删除）的代理地址</p>
+   */
+  AddressId: string
+  /**
+   * <p>代理组 ID。不传则按实例自动查找其默认代理组</p>
+   */
+  ProxyGroupId?: string
+}
+
+/**
  * CreateBaseBackup返回参数结构体
  */
 export interface CreateBaseBackupResponse {
@@ -1832,41 +1912,65 @@ export interface DescribeDBProxySpecsResponse {
 }
 
 /**
- * DescribeTasks请求参数结构体
+ * CreateDBProxyAddress请求参数结构体
  */
-export interface DescribeTasksRequest {
+export interface CreateDBProxyAddressRequest {
   /**
-   * <p>按照任务ID进行查询。其余云API中返回的FlowId和TaskId等价。</p>
+   * <p>实例 ID，指定要创建代理地址的目标实例</p>
    */
-  TaskId?: number
+  DBInstanceId: string
   /**
-   * <p>按照数据库实例ID进行查询。</p>
+   * <p>VPC ID，代理地址所属的私有网络</p>
    */
-  DBInstanceId?: string
+  VpcId: string
   /**
-   * <p>任务的最早开始时间，形如2024-08-23 00:00:00,默认只展示180天内的数据。</p>
+   * <p>子网 ID，代理地址所属的子网</p>
    */
-  MinStartTime?: string
+  SubnetId: string
   /**
-   * <p>任务的最晚开始时间，形如2024-08-23 00:00:00，默认为当前时间。</p>
+   * <p>代理组 ID。不传则按实例自动查找其默认代理组</p>
    */
-  MaxStartTime?: string
+  ProxyGroupId?: string
   /**
-   * <p>每页显示数量，取值范围为1-100，默认为返回20条。</p>
+   * <p>安全组 ID 列表，用于代理地址的网络安全控制</p>
    */
-  Limit?: number
+  SecurityGroup?: Array<string>
   /**
-   * <p>数据偏移量，从0开始。</p>
+   * <p>代理地址备注信息，最长 256 个字符</p>
    */
-  Offset?: number
+  Description?: string
   /**
-   * <p>排序字段，支持StartTime,EndTime，默认为StartTime。</p>
+   * <p>连接池开关。true：开启连接池；false：关闭连接池</p>
    */
-  OrderBy?: string
+  ConnectionPool?: boolean
   /**
-   * <p>排序方式，包括升序：asc，降序：desc，默认为desc。</p>
+   * <p>权重模式。取值：<ul><li>system：系统自动分配权重</li><li>custom：手动指定权重，需配合 ProxyAllocation 参数使用</li></ul></p>
    */
-  OrderByType?: string
+  WeightMode?: string
+  /**
+   * <p>路由权重列表。WeightMode 为 custom 时必填。若WeightMode传system或不传 ，则传入的权重不生效，由系统分配默认权重。</p>
+   */
+  ProxyAllocation?: Array<ProxyRoute>
+  /**
+   * <p>是否自动将新增的只读实例加入读写分离。true：自动加入；false：不自动加入</p>
+   */
+  RoAutoAdd?: boolean
+  /**
+   * <p>延迟剔除开关。true：开启延迟剔除，当只读实例延迟超过阈值时自动剔除路由；false：关闭延迟剔除。开启时 LatencyRemoveTime 必填</p>
+   */
+  LatencyRemove?: boolean
+  /**
+   * <p>延迟剔除阈值，单位秒，取值范围 [1, 10000]。LatencyRemove 为 true 时必填</p>
+   */
+  LatencyRemoveTime?: number
+  /**
+   * <p>最小路由节点数，取值范围 [0, 256]。用于防止延迟剔除将所有节点剔除后的兜底策略</p>
+   */
+  MinRouteNum?: number
+  /**
+   * <p>负载均衡策略</p><p>枚举值：</p><ul><li>0： 按活跃连接数(默认)</li><li>1： 按请求数</li></ul>
+   */
+  LoadBalancePolicy?: number
 }
 
 /**
@@ -2010,43 +2114,29 @@ export interface DeleteAuditLogFileResponse {
 }
 
 /**
- * 数据库版本号信息
+ * ResetAccountPassword请求参数结构体
  */
-export interface Version {
+export interface ResetAccountPasswordRequest {
   /**
-   * 数据库引擎，支持：
-1、postgresql（云数据库PostgreSQL）；
-2、mssql_compatible（MSSQL兼容-云数据库PostgreSQL）；
+   * 实例ID，形如postgres-4wdeb0zv。可通过[DescribeDBInstances](https://cloud.tencent.com/document/api/409/16773)接口获取
    */
-  DBEngine?: string
+  DBInstanceId: string
   /**
-   * 数据库版本，例如：12.4
+   * 实例账户名。可通过[DescribeAccounts](https://cloud.tencent.com/document/api/409/18109)接口获取
    */
-  DBVersion?: string
+  UserName: string
   /**
-   * 数据库主要版本，例如：12
+   * UserName账户对应的新密码。
+密码设置规则如下：
+- 长度8~ 32位，推荐使用12位以上的密码
+- 不能以" / "开头
+- 必须包含以下四项:
+  1.    小写字母a ~ z
+  2.    大写字母 A ～ Z
+  3.    数字 0 ～ 9
+  4.    特殊字符 ()`~!@#$%^&*-+=_|{}[]:<>,.?/
    */
-  DBMajorVersion?: string
-  /**
-   * 数据库内核版本，例如：v12.4_r1.3
-   */
-  DBKernelVersion?: string
-  /**
-   * 数据库内核支持的特性列表。例如，
-TDE：支持数据加密。
-   */
-  SupportedFeatureNames?: Array<string>
-  /**
-   * 数据库版本状态，包括：
-AVAILABLE：可用；
-UPGRADE_ONLY：不可创建，此版本仅可升级至高版本；
-DEPRECATED：已弃用。
-   */
-  Status?: string
-  /**
-   * 该数据库版本（DBKernelVersion）可以升级到的版本号列表。其中包含可升级的小版本号和可升级的大版本号（完整内核版本格式示例：v15.1_v1.6）。
-   */
-  AvailableUpgradeTarget?: Array<string>
+  Password: string
 }
 
 /**
@@ -2241,37 +2331,17 @@ export interface DescribeBackupPlansResponse {
 }
 
 /**
- * DescribeDBInstances请求参数结构体
+ * CloseDBProxyAddress返回参数结构体
  */
-export interface DescribeDBInstancesRequest {
+export interface CloseDBProxyAddressResponse {
   /**
-   * 按照一个或者多个过滤条件进行查询，目前支持的过滤条件有：
-db-instance-id：按照实例ID过滤，类型为string
-db-instance-name：按照实例名过滤，支持模糊匹配，类型为string
-db-project-id：按照项目ID过滤，类型为integer
-db-pay-mode：按照实例付费模式过滤，prepaid - 预付费；postpaid - 后付费。类型为string
-db-tag-key：按照标签键过滤，类型为string
-db-private-ip： 按照实例私有网络IP过滤，类型为string
-db-public-address： 按照实例外网地址过滤，类型为string
-db-dedicated-cluster-id: 按照私有集群Id过滤，类型为string
+   * <p>异步任务 ID，可通过 DescribeFlow 查询任务进度</p>
    */
-  Filters?: Array<Filter>
+  TaskId?: number
   /**
-   * 每页显示数量，取值范围为0-100，传入0时，取默认配置。默认为返回10条。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Limit?: number
-  /**
-   * 数据偏移量，从0开始。
-   */
-  Offset?: number
-  /**
-   * 排序指标，如实例名、创建时间等，支持DBInstanceId,CreateTime,Name,EndTime。默认值：CreateTime。
-   */
-  OrderBy?: string
-  /**
-   * 排序方式，包括升序：asc、降序：desc。默认值：asc。
-   */
-  OrderByType?: string
+  RequestId?: string
 }
 
 /**
@@ -3095,6 +3165,44 @@ export interface DescribeAuditLogFilesResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * DescribeTasks请求参数结构体
+ */
+export interface DescribeTasksRequest {
+  /**
+   * <p>按照任务ID进行查询。其余云API中返回的FlowId和TaskId等价。</p>
+   */
+  TaskId?: number
+  /**
+   * <p>按照数据库实例ID进行查询。</p>
+   */
+  DBInstanceId?: string
+  /**
+   * <p>任务的最早开始时间，形如2024-08-23 00:00:00,默认只展示180天内的数据。</p>
+   */
+  MinStartTime?: string
+  /**
+   * <p>任务的最晚开始时间，形如2024-08-23 00:00:00，默认为当前时间。</p>
+   */
+  MaxStartTime?: string
+  /**
+   * <p>每页显示数量，取值范围为1-100，默认为返回20条。</p>
+   */
+  Limit?: number
+  /**
+   * <p>数据偏移量，从0开始。</p>
+   */
+  Offset?: number
+  /**
+   * <p>排序字段，支持StartTime,EndTime，默认为StartTime。</p>
+   */
+  OrderBy?: string
+  /**
+   * <p>排序方式，包括升序：asc，降序：desc，默认为desc。</p>
+   */
+  OrderByType?: string
 }
 
 /**
@@ -5759,6 +5867,20 @@ export interface ModifyReadOnlyGroupConfigResponse {
 }
 
 /**
+ * ModifyDBProxySSLConfig返回参数结构体
+ */
+export interface ModifyDBProxySSLConfigResponse {
+  /**
+   * 异步任务 ID。可通过 DescribeTasks 接口查询任务执行进度。当 SSL 状态无变更时返回 0，无需等待任务
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 账户信息
  */
 export interface AccountInfo {
@@ -6341,29 +6463,21 @@ export interface RebalanceReadOnlyGroupResponse {
 }
 
 /**
- * ResetAccountPassword请求参数结构体
+ * DescribeTasks返回参数结构体
  */
-export interface ResetAccountPasswordRequest {
+export interface DescribeTasksResponse {
   /**
-   * 实例ID，形如postgres-4wdeb0zv。可通过[DescribeDBInstances](https://cloud.tencent.com/document/api/409/16773)接口获取
+   * <p>查询到的任务数量</p>
    */
-  DBInstanceId: string
+  TotalCount?: number
   /**
-   * 实例账户名。可通过[DescribeAccounts](https://cloud.tencent.com/document/api/409/18109)接口获取
+   * <p>任务信息列表</p>
    */
-  UserName: string
+  TaskSet?: Array<TaskSet>
   /**
-   * UserName账户对应的新密码。
-密码设置规则如下：
-- 长度8~ 32位，推荐使用12位以上的密码
-- 不能以" / "开头
-- 必须包含以下四项:
-  1.    小写字母a ~ z
-  2.    大写字母 A ～ Z
-  3.    数字 0 ～ 9
-  4.    特殊字符 ()`~!@#$%^&*-+=_|{}[]:<>,.?/
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Password: string
+  RequestId?: string
 }
 
 /**
@@ -6597,6 +6711,40 @@ export interface ModifyDBInstanceChargeTypeRequest {
 默认值：0
    */
   AutoVoucher?: number
+}
+
+/**
+ * DescribeDBInstances请求参数结构体
+ */
+export interface DescribeDBInstancesRequest {
+  /**
+   * 按照一个或者多个过滤条件进行查询，目前支持的过滤条件有：
+db-instance-id：按照实例ID过滤，类型为string
+db-instance-name：按照实例名过滤，支持模糊匹配，类型为string
+db-project-id：按照项目ID过滤，类型为integer
+db-pay-mode：按照实例付费模式过滤，prepaid - 预付费；postpaid - 后付费。类型为string
+db-tag-key：按照标签键过滤，类型为string
+db-private-ip： 按照实例私有网络IP过滤，类型为string
+db-public-address： 按照实例外网地址过滤，类型为string
+db-dedicated-cluster-id: 按照私有集群Id过滤，类型为string
+   */
+  Filters?: Array<Filter>
+  /**
+   * 每页显示数量，取值范围为0-100，传入0时，取默认配置。默认为返回10条。
+   */
+  Limit?: number
+  /**
+   * 数据偏移量，从0开始。
+   */
+  Offset?: number
+  /**
+   * 排序指标，如实例名、创建时间等，支持DBInstanceId,CreateTime,Name,EndTime。默认值：CreateTime。
+   */
+  OrderBy?: string
+  /**
+   * 排序方式，包括升序：asc、降序：desc。默认值：asc。
+   */
+  OrderByType?: string
 }
 
 /**
@@ -6893,6 +7041,46 @@ export interface DescribeAuditLogFilesRequest {
    * <p>偏移量</p><p>取值范围：[0, 1000]</p>
    */
   Offset?: number
+}
+
+/**
+ * 数据库版本号信息
+ */
+export interface Version {
+  /**
+   * 数据库引擎，支持：
+1、postgresql（云数据库PostgreSQL）；
+2、mssql_compatible（MSSQL兼容-云数据库PostgreSQL）；
+   */
+  DBEngine?: string
+  /**
+   * 数据库版本，例如：12.4
+   */
+  DBVersion?: string
+  /**
+   * 数据库主要版本，例如：12
+   */
+  DBMajorVersion?: string
+  /**
+   * 数据库内核版本，例如：v12.4_r1.3
+   */
+  DBKernelVersion?: string
+  /**
+   * 数据库内核支持的特性列表。例如，
+TDE：支持数据加密。
+   */
+  SupportedFeatureNames?: Array<string>
+  /**
+   * 数据库版本状态，包括：
+AVAILABLE：可用；
+UPGRADE_ONLY：不可创建，此版本仅可升级至高版本；
+DEPRECATED：已弃用。
+   */
+  Status?: string
+  /**
+   * 该数据库版本（DBKernelVersion）可以升级到的版本号列表。其中包含可升级的小版本号和可升级的大版本号（完整内核版本格式示例：v15.1_v1.6）。
+   */
+  AvailableUpgradeTarget?: Array<string>
 }
 
 /**

@@ -1890,6 +1890,7 @@ export interface ModelRouterDetail {
   VpcId?: string
   /**
    * <p>带宽</p><p>单位：Mbps</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
   Bandwidth?: number
   /**
@@ -3139,6 +3140,20 @@ export interface BatchModifyTargetTagRequest {
 }
 
 /**
+ * 多协议 ApiBase 单条目。
+ */
+export interface ApiBaseItem {
+  /**
+   * <p>后端转发协议</p>
+   */
+  Protocol?: string
+  /**
+   * <p>Api Base URL</p>
+   */
+  ApiBase?: string
+}
+
+/**
  * 负载均衡实例的健康检查状态
  */
 export interface LoadBalancerHealth {
@@ -3447,6 +3462,33 @@ export interface CreditUsage {
 }
 
 /**
+ * 健康检查配置
+ */
+export interface ServiceProviderHealthCheckConfigItemOutput {
+  /**
+   * <p>是否开启健康检查</p><p>枚举值：</p><ul><li>true： 是</li><li>false： 否</li></ul>
+   */
+  HealthCheckEnabled?: boolean
+  /**
+   * <p>健康检查间隔。支持以300s为步长配置。</p><p>单位：s</p><p>默认值：300</p>
+   */
+  HealthCheckInterval?: number
+  /**
+   * <p>不健康阈值。表示当模型连续多少次不健康时认为该模型不健康。</p><p>取值范围：[1, 10]</p><p>默认值：1</p>
+   */
+  HealthCheckUnhealthyThreshold?: number
+  /**
+   * <p>健康检查使用的最大Token数量。部分模型如gpt系列可能仅支持大于等于16。</p><p>默认值：1</p>
+   */
+  HealthCheckMaxTokens?: number
+  /**
+   * <p>健康检查协议</p><p>枚举值：</p><ul><li>chat： 表示/chat/completion协议</li><li>messages： 表示/v1/messages协议</li><li>responses： 表示/v1/messages协议</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  HealthCheckProtocol?: string
+}
+
+/**
  * DescribeModelAliases请求参数结构体
  */
 export interface DescribeModelAliasesRequest {
@@ -3601,6 +3643,14 @@ export interface TestServiceProviderConnectionRequest {
    * <p>是否校验服务提供商的SSL证书</p><p>默认值：AccessType取值为：</p><ul><li>PublicBYOK时，该参数无效；</li><li>PublicCustom时，该参数默认为true；</li><li>PrivateCustom时，该参数默认为false；</li></ul>
    */
   VerifySSL?: boolean
+  /**
+   * <p>健康检查协议</p><p>枚举值：</p><ul><li>chat： 表示/chat/completion协议</li><li>messages： 表示/v1/messages协议</li><li>responses： 表示/responses协议</li></ul>
+   */
+  HealthCheckProtocol?: string
+  /**
+   * <p>    CMR 私网管道ID </p>
+   */
+  CMRPrivateNetworkTunnelId?: string
 }
 
 /**
@@ -4365,6 +4415,10 @@ export interface CreateModelRequest {
    */
   ApiBase?: string
   /**
+   * <p>多协议 Api Base URL</p>
+   */
+  ApiBases?: Array<ApiBaseItem>
+  /**
    * <p>VPC ID</p>
    */
   VpcId?: string
@@ -4388,6 +4442,14 @@ export interface CreateModelRequest {
    * <p>健康检查配置</p>
    */
   HealthCheckConfig?: ServiceProviderHealthCheckConfigInput
+  /**
+   * <p>私网管道 ID</p>
+   */
+  CMRPrivateNetworkTunnelId?: string
+  /**
+   * <p>健康检查配置</p>
+   */
+  HealthCheckConfigs?: Array<ServiceProviderHealthCheckConfigItemInput>
 }
 
 /**
@@ -7842,6 +7904,14 @@ export interface TestModelInputModalitiesRequest {
    * <p>是否校验服务提供商的SSL证书</p><p>PublicBYOK时为True且禁止传入；若传入VerifySSL，则优先同步入参逻辑；若传入了ServiceProviderId则同步已创建的Byok实例该Model的逻辑；否则PublicCustom模式下为True，PrivateCustom模式下为False。</p>
    */
   VerifySSL?: boolean
+  /**
+   * <p>健康检查协议</p><p>枚举值：</p><ul><li>chat： 表示/chat/completion协议</li><li>messages： 表示/v1/messages协议</li><li>responses： 表示/responses协议</li></ul>
+   */
+  HealthCheckProtocol?: string
+  /**
+   * <p>CMR私网管道ID</p>
+   */
+  CMRPrivateNetworkTunnelId?: string
 }
 
 /**
@@ -9122,9 +9192,13 @@ export interface DescribeUpperModelsRequest {
    */
   ModelProvider?: string
   /**
-   * <p>BYOK 业务 ID，可选</p><p>格式：byok-xxxxxxxx</p>
+   * <p>BYOK 业务 ID，可选</p><p>格式：byok-xxxxxxxx，预留参数</p>
    */
   ServiceProviderId?: string
+  /**
+   * <p>    CMR 私网管道ID </p>
+   */
+  CMRPrivateNetworkTunnelId?: string
 }
 
 /**
@@ -9484,6 +9558,11 @@ export interface ModelKeyInfoItem {
    */
   ApiBase?: string
   /**
+   * <p>多协议 API Base URL</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ApiBases?: Array<ApiBaseItem>
+  /**
    * <p>模型创建时间（ISO 8601）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
@@ -9552,6 +9631,20 @@ export interface ModelKeyInfoItem {
    * <p>健康检查配置</p>
    */
   HealthCheckConfig?: ServiceProviderHealthCheckConfigOutput
+  /**
+   * <p>私网管道 ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CMRPrivateNetworkTunnelId?: string
+  /**
+   * <p>私网管道名称</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CMRPrivateNetworkTunnelName?: string
+  /**
+   * <p>健康检查配置</p>
+   */
+  HealthCheckConfigs?: Array<ServiceProviderHealthCheckConfigItemOutput>
 }
 
 /**
@@ -10569,6 +10662,32 @@ export interface ListenerBackend {
    * 若支持端口段，则为端口段结束端口；若不支持端口段，则为0
    */
   EndPort?: number
+}
+
+/**
+ * 健康检查配置
+ */
+export interface ServiceProviderHealthCheckConfigItemInput {
+  /**
+   * <p>是否开启健康检查</p><p>枚举值：</p><ul><li>true： 是</li><li>false： 否</li></ul>
+   */
+  HealthCheckEnabled?: boolean
+  /**
+   * <p>健康检查间隔。支持以300s为步长配置。</p><p>取值范围：[300, 14400]</p><p>单位：s</p><p>默认值：300</p>
+   */
+  HealthCheckInterval?: number
+  /**
+   * <p>不健康阈值。表示当模型连续多少次不健康时认为该模型不健康。</p><p>取值范围：[1, 10]</p>
+   */
+  HealthCheckUnhealthyThreshold?: number
+  /**
+   * <p>健康检查使用的最大Token数量。部分模型如gpt系列可能仅支持大于等于16。</p><p>取值范围：[1, 1024]</p><p>默认值：1</p>
+   */
+  HealthCheckMaxTokens?: number
+  /**
+   * <p>健康检查协议</p><p>枚举值：</p><ul><li>chat： 表示/chat/completion协议</li><li>messages： 表示/v1/messages协议</li><li>responses： 表示/v1/messages协议</li></ul>
+   */
+  HealthCheckProtocol?: string
 }
 
 /**

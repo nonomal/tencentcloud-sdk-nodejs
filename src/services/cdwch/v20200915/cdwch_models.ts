@@ -580,6 +580,10 @@ export interface ModifyUserNewPrivilegeRequest {
    * <p>数据库表权限</p>
    */
   DatabasePrivilegeList?: Array<DatabasePrivilegeInfo>
+  /**
+   * <p>实例类型</p><p>枚举值：</p><ul><li>SSC： 弹性版实例</li><li>Standard： 标准版实例</li></ul>
+   */
+  InstanceType?: string
 }
 
 /**
@@ -606,6 +610,10 @@ export interface DescribeCkSqlApisRequest {
    * <p>账户的类型</p>
    */
   UserType?: string
+  /**
+   * <p>实例类型</p><p>枚举值：</p><ul><li>SSC： 弹性版实例</li><li>Standard： 标准版实例</li></ul>
+   */
+  InstanceType?: string
 }
 
 /**

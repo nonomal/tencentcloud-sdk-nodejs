@@ -3174,7 +3174,7 @@ export interface CreateParamTemplateResponse {
  */
 export interface ModifyAccountPasswordResponse {
   /**
-   * 异步任务的请求 ID，可使用此 ID 查询异步任务的执行结果。
+   * <p>异步任务的请求 ID，可使用此 ID 查询异步任务的执行结果。</p>
    */
   AsyncRequestId?: string
   /**
@@ -4312,7 +4312,7 @@ export interface SlaveConfig {
  */
 export interface ModifyAccountPrivilegesResponse {
   /**
-   * 异步任务的请求 ID，可使用此 ID 查询异步任务的执行结果。
+   * <p>异步任务的请求 ID，可使用此 ID 查询异步任务的执行结果。</p>
    */
   AsyncRequestId?: string
   /**
@@ -5441,19 +5441,19 @@ export interface CreateDBInstanceRequest {
  */
 export interface DescribeAccountPrivilegesResponse {
   /**
-   * 全局权限数组。
+   * <p>全局权限数组。</p>
    */
   GlobalPrivileges?: Array<string>
   /**
-   * 数据库权限数组。
+   * <p>数据库权限数组。</p>
    */
   DatabasePrivileges?: Array<DatabasePrivilege>
   /**
-   * 数据库中的表权限数组。
+   * <p>数据库中的表权限数组。</p>
    */
   TablePrivileges?: Array<TablePrivilege>
   /**
-   * 数据库表中的列权限数组。
+   * <p>数据库表中的列权限数组。</p>
    */
   ColumnPrivileges?: Array<ColumnPrivilege>
   /**
@@ -5869,15 +5869,15 @@ export interface ResetRootAccountResponse {
 }
 
 /**
- * 数据库账号信息
+ * 账号信息
  */
 export interface Account {
   /**
-   * <p>账号名，可输入1 - 32个字符。</p>
+   * 账号名称
    */
   User: string
   /**
-   * <p>账号的主机。</p><p>IP 形式，支持填入%。</p>
+   * 账号的主机地址
    */
   Host: string
 }
@@ -7929,35 +7929,31 @@ export interface DeviceCpuRateInfo {
  */
 export interface ModifyAccountPrivilegesRequest {
   /**
-   * 实例 ID，格式如：cdb-c1nl9rpv，与云数据库控制台页面中显示的实例 ID 相同。
+   * <p>实例 ID，格式如：cdb-c1nl9rpv，与云数据库控制台页面中显示的实例 ID 相同。</p>
    */
   InstanceId: string
   /**
-   * 数据库的账号，包括用户名和域名。可通过 [DescribeAccounts](https://cloud.tencent.com/document/api/236/17499) 接口获取。
+   * <p>数据库的账号，包括用户名和域名。可通过 <a href="https://cloud.tencent.com/document/api/236/17499">DescribeAccounts</a> 接口获取。</p>
    */
   Accounts: Array<Account>
   /**
-   * 全局权限。其中，GlobalPrivileges 中权限的可选值为："SELECT","INSERT","UPDATE","DELETE","CREATE", "PROCESS", "DROP","REFERENCES","INDEX","ALTER","SHOW DATABASES","CREATE TEMPORARY TABLES","LOCK TABLES","EXECUTE","CREATE VIEW","SHOW VIEW","CREATE ROUTINE","ALTER ROUTINE","EVENT","TRIGGER","CREATE USER","RELOAD","REPLICATION CLIENT","REPLICATION SLAVE"。
-注意，ModifyAction为空时，不传该参数表示清除该权限。
+   * <p>全局权限。其中，GlobalPrivileges 中权限的可选值为：&quot;SELECT&quot;,&quot;INSERT&quot;,&quot;UPDATE&quot;,&quot;DELETE&quot;,&quot;CREATE&quot;, &quot;PROCESS&quot;, &quot;DROP&quot;,&quot;REFERENCES&quot;,&quot;INDEX&quot;,&quot;ALTER&quot;,&quot;SHOW DATABASES&quot;,&quot;CREATE TEMPORARY TABLES&quot;,&quot;LOCK TABLES&quot;,&quot;EXECUTE&quot;,&quot;CREATE VIEW&quot;,&quot;SHOW VIEW&quot;,&quot;CREATE ROUTINE&quot;,&quot;ALTER ROUTINE&quot;,&quot;EVENT&quot;,&quot;TRIGGER&quot;,&quot;CREATE USER&quot;,&quot;RELOAD&quot;,&quot;REPLICATION CLIENT&quot;,&quot;REPLICATION SLAVE&quot;。<br>注意，ModifyAction为空时，不传该参数表示清除该权限。</p>
    */
   GlobalPrivileges?: Array<string>
   /**
-   * 数据库的权限。Privileges 权限的可选值为："SELECT","INSERT","UPDATE","DELETE","CREATE",	"DROP","REFERENCES","INDEX","ALTER","CREATE TEMPORARY TABLES","LOCK TABLES","EXECUTE","CREATE VIEW","SHOW VIEW","CREATE ROUTINE","ALTER ROUTINE","EVENT","TRIGGER"。
-注意，ModifyAction为空时，不传该参数表示清除该权限。
+   * <p>数据库的权限。Privileges 权限的可选值为：&quot;SELECT&quot;,&quot;INSERT&quot;,&quot;UPDATE&quot;,&quot;DELETE&quot;,&quot;CREATE&quot;,    &quot;DROP&quot;,&quot;REFERENCES&quot;,&quot;INDEX&quot;,&quot;ALTER&quot;,&quot;CREATE TEMPORARY TABLES&quot;,&quot;LOCK TABLES&quot;,&quot;EXECUTE&quot;,&quot;CREATE VIEW&quot;,&quot;SHOW VIEW&quot;,&quot;CREATE ROUTINE&quot;,&quot;ALTER ROUTINE&quot;,&quot;EVENT&quot;,&quot;TRIGGER&quot;。<br>注意，ModifyAction为空时，不传该参数表示清除该权限。</p>
    */
   DatabasePrivileges?: Array<DatabasePrivilege>
   /**
-   * 数据库中表的权限。Privileges 权限的可选值为：权限的可选值为："SELECT","INSERT","UPDATE","DELETE","CREATE",	"DROP","REFERENCES","INDEX","ALTER","CREATE VIEW","SHOW VIEW", "TRIGGER"。
-注意，ModifyAction为空时，不传该参数表示清除该权限。
+   * <p>数据库中表的权限。Privileges 权限的可选值为：权限的可选值为：&quot;SELECT&quot;,&quot;INSERT&quot;,&quot;UPDATE&quot;,&quot;DELETE&quot;,&quot;CREATE&quot;,    &quot;DROP&quot;,&quot;REFERENCES&quot;,&quot;INDEX&quot;,&quot;ALTER&quot;,&quot;CREATE VIEW&quot;,&quot;SHOW VIEW&quot;, &quot;TRIGGER&quot;。<br>注意，ModifyAction为空时，不传该参数表示清除该权限。</p>
    */
   TablePrivileges?: Array<TablePrivilege>
   /**
-   * 数据库表中列的权限。Privileges 权限的可选值为："SELECT","INSERT","UPDATE","REFERENCES"。
-注意，ModifyAction为空时，不传该参数表示清除该权限。
+   * <p>数据库表中列的权限。Privileges 权限的可选值为：&quot;SELECT&quot;,&quot;INSERT&quot;,&quot;UPDATE&quot;,&quot;REFERENCES&quot;。<br>注意，ModifyAction为空时，不传该参数表示清除该权限。</p>
    */
   ColumnPrivileges?: Array<ColumnPrivilege>
   /**
-   * 该参数不为空时，为批量修改权限。可选值为：grant - 授予权限，revoke - 回收权限。
+   * <p>该参数不为空时，为批量修改权限。可选值为：grant - 授予权限，revoke - 回收权限。</p>
    */
   ModifyAction?: string
 }
@@ -8374,15 +8370,15 @@ export interface UpgradeEngineVersionParams {
  */
 export interface DescribeAccountPrivilegesRequest {
   /**
-   * 实例 ID，格式如：cdb-c1nl9rpv，与云数据库控制台页面中显示的实例 ID 相同。
+   * <p>实例 ID，格式如：cdb-c1nl9rpv，与云数据库控制台页面中显示的实例 ID 相同。</p>
    */
   InstanceId: string
   /**
-   * 数据库的账号名称。可通过 [DescribeAccounts](https://cloud.tencent.com/document/api/236/17499) 接口获取。
+   * <p>数据库的账号名称。可通过 <a href="https://cloud.tencent.com/document/api/236/17499">DescribeAccounts</a> 接口获取。</p>
    */
   User: string
   /**
-   * 数据库的账号域名。可通过 [DescribeAccounts](https://cloud.tencent.com/document/api/236/17499) 接口获取。
+   * <p>数据库的账号域名。可通过 <a href="https://cloud.tencent.com/document/api/236/17499">DescribeAccounts</a> 接口获取。</p>
    */
   Host: string
 }
@@ -10669,19 +10665,19 @@ export interface ModifyAccountDescriptionRequest {
  */
 export interface ModifyAccountPasswordRequest {
   /**
-   * 实例 ID，格式如：cdb-c1nl9rpv，与云数据库控制台页面中显示的实例 ID 相同。
+   * <p>实例 ID，格式如：cdb-c1nl9rpv，与云数据库控制台页面中显示的实例 ID 相同。</p>
    */
   InstanceId: string
   /**
-   * 数据库账号的新密码。密码应至少包含字母、数字和字符（_+-&=!@#$%^*()）中的两种，长度为8-64个字符。
+   * <p>数据库账号的新密码。密码应至少包含字母、数字和字符（_+-&amp;=!@#$%^*()）中的两种，长度为8-64个字符。</p>
    */
   NewPassword: string
   /**
-   * 云数据库账号。可通过 [DescribeAccounts](https://cloud.tencent.com/document/api/236/17499) 接口获取。
+   * <p>云数据库账号。可通过 <a href="https://cloud.tencent.com/document/api/236/17499">DescribeAccounts</a> 接口获取。</p>
    */
   Accounts: Array<Account>
   /**
-   * 该字段已废弃。
+   * <p>该字段已废弃。</p>
    * @deprecated
    */
   SkipValidatePassword?: boolean

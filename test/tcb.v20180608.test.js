@@ -388,6 +388,16 @@ it("tcb.v20180608.DescribeCreditsUsage", async function () {
     }
 })
 
+it("tcb.v20180608.ModifyEnvExtra", async function () {
+    try {
+       const data = await client.ModifyEnvExtra({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("tcb.v20180608.ModifyHTTPServiceRoute", async function () {
     try {
        const data = await client.ModifyHTTPServiceRoute({})
@@ -648,9 +658,9 @@ it("tcb.v20180608.RepairPGUserMigrationHistory", async function () {
     }
 })
 
-it("tcb.v20180608.ModifyLoginConfig", async function () {
+it("tcb.v20180608.DescribeCloudAppVersionList", async function () {
     try {
-       const data = await client.ModifyLoginConfig({})
+       const data = await client.DescribeCloudAppVersionList({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -838,6 +848,16 @@ it("tcb.v20180608.DescribeAuthDomains", async function () {
     }
 })
 
+it("tcb.v20180608.ModifyLoginConfig", async function () {
+    try {
+       const data = await client.ModifyLoginConfig({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("tcb.v20180608.DescribeMySQLClusterDetail", async function () {
     try {
        const data = await client.DescribeMySQLClusterDetail({})
@@ -891,16 +911,6 @@ it("tcb.v20180608.AllocateEnv", async function () {
 it("tcb.v20180608.DescribeDatabaseACL", async function () {
     try {
        const data = await client.DescribeDatabaseACL({})
-       expect(data).to.be.ok
-    } catch(error) {
-      expect(error.requestId).to.be.ok
-      expect(error.code).to.be.ok
-    }
-})
-
-it("tcb.v20180608.ExecutePGSql", async function () {
-    try {
-       const data = await client.ExecutePGSql({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1038,9 +1048,9 @@ it("tcb.v20180608.DescribeVmSpec", async function () {
     }
 })
 
-it("tcb.v20180608.DescribeCloudAppVersionList", async function () {
+it("tcb.v20180608.ExecutePGSql", async function () {
     try {
-       const data = await client.DescribeCloudAppVersionList({})
+       const data = await client.ExecutePGSql({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

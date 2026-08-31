@@ -136,7 +136,7 @@ export interface CreateDBInstancesRequest {
    */
   SQLMode?: string
   /**
-   * <p>svls实例的ccu变配配置</p>
+   * <p>SVLS 实例的ccu变配配置</p><p>入参限制：同时传入 AutoScaleConfigs 时此参数不再生效</p>
    */
   AutoScaleConfig?: AutoScalingConfig
   /**
@@ -155,6 +155,10 @@ export interface CreateDBInstancesRequest {
    * <p>是否开启透明加密，0：不开启，1：开启</p>
    */
   EncryptionEnable?: number
+  /**
+   * <p>SVLS 实例的自动变配相关限制</p><p>入参限制：传入时 AutoScaleConfig 参数不再生效</p>
+   */
+  AutoScaleConfigs?: Array<AutoScalingConfig>
 }
 
 /**
@@ -1007,6 +1011,10 @@ export interface DescribeSpecsResponse {
    */
   ServerlessCcuSpec?: Array<ServerlessCcu>
   /**
+   * <p>serverless节点数量配置</p>
+   */
+  ServerlessNodeNumSpec?: ServerlessNodeNumSpec
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -1327,6 +1335,14 @@ export interface DescribeDBInstancesRequest {
    * <p>指定查询引擎类型</p><p>枚举值：</p><ul><li>libra： 列存引擎</li></ul>
    */
   EngineType?: string
+  /**
+   * <p>查询Order By字段，支持 StorageNodeNum/CreateTime/CreateVersion</p>
+   */
+  OrderBy?: string
+  /**
+   * <p>排序方向</p><p>枚举值：</p><ul><li>ASC： 升序</li><li>DESC： 降序</li></ul><p>默认值：DESC</p>
+   */
+  OrderDirection?: string
 }
 
 /**
@@ -1730,6 +1746,10 @@ export interface DescribeDBInstanceDetailResponse {
    * <p>真实使用的kms地域，用于后续调用kms服务</p>
    */
   EncryptionKmsRegion?: string
+  /**
+   * <p>serverless自动变配配置</p>
+   */
+  AutoScaleConfigs?: Array<AutoScalingConfig>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -2863,6 +2883,10 @@ export interface InstanceInfo {
    * <p>分析引擎实例信息</p>
    */
   AnalysisInstanceInfo?: AnalysisInstanceInfo
+  /**
+   * <p>有关该实例的多个自动变配相关配置，ccu、nodecount 值</p>
+   */
+  AutoScaleConfigs?: Array<AutoScalingConfig>
 }
 
 /**
@@ -2942,7 +2966,7 @@ export interface ServerlessCcu {
   /**
    * <p>ccu最大值范围</p>
    */
-  MaxCcu?: Array<number | bigint>
+  MaxCcu?: Array<number>
 }
 
 /**
@@ -3373,6 +3397,20 @@ export interface ModifyMaintenanceWindowResponse {
 }
 
 /**
+ * Serverless 实例允许调整的 hybrid 节点数量上下限
+ */
+export interface ServerlessNodeNumSpec {
+  /**
+   * <p>最小节点数</p>
+   */
+  MinNodeNum?: number
+  /**
+   * <p>最大节点数</p>
+   */
+  MaxNodeNum?: number
+}
+
+/**
  * IsolateDBInstance请求参数结构体
  */
 export interface IsolateDBInstanceRequest {
@@ -3411,7 +3449,9 @@ export interface ModifyDBSBackupSetCommentResponse {
 }
 
 /**
- * serverless实例的ccu范围
+ * serverless实例的资源范围
+ResourceType 为 cpu 时表示 ccu
+为 nodecount 时表示节点数范围
  */
 export interface AutoScalingConfig {
   /**
@@ -3424,6 +3464,10 @@ export interface AutoScalingConfig {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RangeMax: number
+  /**
+   * <p>返回的 range 参数对应的资源类型</p><p>枚举值：</p><ul><li>cpu： 返回的是 cpu 调整返回限制，当不存在mem限制时代表 ccu</li><li>nodecount： 返回的是水平扩缩容的节点数限制范围</li></ul>
+   */
+  ResourceType?: string
 }
 
 /**

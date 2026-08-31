@@ -154,6 +154,7 @@ import {
   StickyConfig,
   DescribeExclusiveClustersResponse,
   BatchModifyTargetTagRequest,
+  ApiBaseItem,
   LoadBalancerHealth,
   ModifyRuleResponse,
   DeregisterFunctionTargetsResponse,
@@ -168,6 +169,7 @@ import {
   DescribeClsLogSetRequest,
   ModifyLoadBalancerAttributesResponse,
   CreditUsage,
+  ServiceProviderHealthCheckConfigItemOutput,
   DescribeModelAliasesRequest,
   AssociateModelRouterGuardrailsRequest,
   DescribeBudgetAssociationsResponse,
@@ -471,6 +473,7 @@ import {
   ModelAssociation,
   Quota,
   ListenerBackend,
+  ServiceProviderHealthCheckConfigItemInput,
   SnatIp,
   DescribeBlockIPTaskResponse,
   DescribeServiceProviderHealthStatusRequest,
@@ -1299,6 +1302,8 @@ RouteName和Tiers均为选填，至少传入一个。Tiers为全量替换（非�
 限制条件：
 - 共享型升级为性能容量型实例后，不支持再回退到共享型实例。
 - 传统型负载均衡实例不支持升级为性能容量型实例。
+
+本接口为异步接口，本接口返回成功后需以返回的RequestID为入参，调用 [DescribeTaskStatus](https://cloud.tencent.com/document/product/214/30683) 接口查询本次任务是否成功。
      */
   async ModifyLoadBalancerSla(
     req: ModifyLoadBalancerSlaRequest,

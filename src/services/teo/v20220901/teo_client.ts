@@ -31,6 +31,7 @@ import {
   CreateLogAnalysisDownloadTaskResponse,
   DescribeSecurityIPGroupInfoResponse,
   AdaptiveFrequencyControl,
+  DescribeAvailableCustomActionsForRuleEngineRequest,
   RenewFlag,
   DescribeWebSecurityTemplatesRequest,
   SecurityAction,
@@ -599,6 +600,7 @@ import {
   DescribeCustomErrorPagesRequest,
   GatewayRegion,
   CachePrefreshParameters,
+  RuleEngineCustomAction,
   Action,
   JSInjectionRule,
   UpstreamFollowRedirectParameters,
@@ -635,6 +637,7 @@ import {
   L4OfflineLog,
   ModifyAliasDomainResponse,
   DeleteDnsRecordsRequest,
+  DescribeAvailableCustomActionsForRuleEngineResponse,
   OfflineCacheParameters,
   CustomActionParameters,
   DeleteAliasDomainRequest,
@@ -766,6 +769,7 @@ import {
   DnsRecord,
   InferenceContainerConfig,
   OriginPrivateParameters,
+  RuleEngineCustomActionParameterSchema,
   ModifyZoneWorkModeResponse,
   HSTSParameters,
   Tag,
@@ -2681,6 +2685,16 @@ CNAME 模式接入时，若您未完成站点归属权校验，本接口将为�
     cb?: (error: string, rep: ModifyApplicationProxyRuleResponse) => void
   ): Promise<ModifyApplicationProxyRuleResponse> {
     return this.request("ModifyApplicationProxyRule", req, cb)
+  }
+
+  /**
+   * 查询站点规则引擎操作可用的定制配置列表。
+   */
+  async DescribeAvailableCustomActionsForRuleEngine(
+    req: DescribeAvailableCustomActionsForRuleEngineRequest,
+    cb?: (error: string, rep: DescribeAvailableCustomActionsForRuleEngineResponse) => void
+  ): Promise<DescribeAvailableCustomActionsForRuleEngineResponse> {
+    return this.request("DescribeAvailableCustomActionsForRuleEngine", req, cb)
   }
 
   /**

@@ -43,13 +43,16 @@ import {
   MPSSubtitleEmbedConfig,
   AudioTrackItem,
   MediaAiAnalysisHighlightItem,
+  ProcessMediaByProcedureRequest,
   DescribeAnimatedGraphicsTemplatesRequest,
   LiveRealTimeClipResponse,
   AiReviewTaskProhibitedAsrResult,
   AdaptiveDynamicStreamingTemplate,
+  TextToSpeechAsyncInput,
   DeleteJustInTimeTranscodeTemplateRequest,
   DeleteAnimatedGraphicsTemplateResponse,
   AiReviewTaskProhibitedOcrResult,
+  ProhibitedAsrReviewTemplateInfo,
   AiRecognitionTaskAsrFullTextResultOutput,
   AiReviewProhibitedOcrTaskOutput,
   DescribeAigcFaceInfoRequest,
@@ -60,8 +63,10 @@ import {
   ModifyDefaultStorageRegionRequest,
   ModifyEventConfigResponse,
   DeleteLLMComprehendTemplateRequest,
+  AigcHunyuan3DOutputConfig,
   QualityInspectTaskOutput,
   QualityEnhanceTaskInput,
+  TextToSpeechAsyncOutput,
   CreateAigcAdvancedCustomElementRequest,
   FaceRecognitionInfo,
   RebuildMediaTargetInfo,
@@ -81,6 +86,7 @@ import {
   LLMComprehendSummary,
   DescribeDefaultDistributionConfigRequest,
   AiReviewTaskPoliticalOcrResult,
+  VideoDubbingAsyncInput,
   QualityEnhanceTask,
   AiSampleWord,
   OverrideTranscodeParameter,
@@ -96,6 +102,7 @@ import {
   DescribeAIAnalysisTemplatesRequest,
   ContentReviewTemplateItem,
   AigcImageTaskOutputFileInfo,
+  TaskSimpleInfo,
   DeleteAIRecognitionTemplateResponse,
   VideoEnhanceConfig,
   DeleteContentReviewTemplateRequest,
@@ -109,6 +116,7 @@ import {
   ResetProcedureTemplateRequest,
   ContentReviewOcrResult,
   ComposeMediaResponse,
+  VideoDubbingAsyncTask,
   RoundPlayInfo,
   DescribeLicenseUsageDataResponse,
   AigcFaceIdentityInfo,
@@ -116,10 +124,11 @@ import {
   DrmStreamingsInfoForUpdate,
   ClassificationConfigureInfo,
   AbnormalLightingConfigureInfoForUpdate,
+  AigcHunyuan3DReferenceImageInfo,
   ModifyWordSampleResponse,
   AudioTemplateInfoForUpdate,
   DescribeDailyMediaPlayStatResponse,
-  ModifySubAppIdInfoRequest,
+  CustomVoiceInfo,
   DiffusionEnhanceInfo,
   CreateAigcAudioCloneTask,
   ProcedureReviewAudioVideoTaskInput,
@@ -133,6 +142,7 @@ import {
   AiRecognitionTaskInput,
   VideoConfigureInfoForUpdate,
   ReviewAudioVideoTaskOutput,
+  VoiceUpdateFields,
   AudioTemplateInfo,
   DeleteAigcAdvancedCustomElementRequest,
   CoverConfigureInfo,
@@ -168,13 +178,14 @@ import {
   AiReviewTerrorismOcrTaskInput,
   AiRecognitionTaskOcrWordsResultInput,
   MediaSnapshotByTimeOffsetItem,
+  ProductInstanceRecource,
   SceneAigcImageTaskOutputFileInfo,
   ModifyMediaStorageClassResponse,
   CreateAigcQuotaResponse,
   DescribeProcedureTemplatesRequest,
   AiReviewPornTaskInput,
   JitterConfigureInfoForUpdate,
-  UserDefineAsrTextReviewTemplateInfo,
+  CloneVoiceAsyncTask,
   CreateProcedureTemplateRequest,
   MediaProcessTaskAnimatedGraphicResult,
   DeleteAigcQuotaRequest,
@@ -211,6 +222,7 @@ import {
   DescribeAigcFaceInfoAsyncInput,
   AiAnalysisTaskClassificationOutput,
   CreateKnowledgeBaseRequest,
+  UserDefineAsrTextReviewTemplateInfo,
   FileDeleteTask,
   ResourceTag,
   ImportMediaKnowledgeRequest,
@@ -245,6 +257,7 @@ import {
   DescribeAIRecognitionTemplatesResponse,
   MPSAIAnalysisTemplate,
   EditMediaResponse,
+  TextToSpeechAsyncOutputOption,
   PoliticalOcrReviewTemplateInfoForUpdate,
   TaskOutputMediaInfo,
   ProcessMediaByUrlRequest,
@@ -274,7 +287,7 @@ import {
   DeleteLLMComprehendTemplateResponse,
   MediaMiniProgramReviewInfoItem,
   TaskStatData,
-  SplitMediaOutputConfig,
+  CloneVoiceAsyncOutput,
   CreateVodDomainRequest,
   OcrFullTextConfigureInfoForUpdate,
   DeleteRoundPlayRequest,
@@ -282,7 +295,8 @@ import {
   MediaImageSpriteInfo,
   EnhanceMediaQualityRequest,
   ExtractBlindWatermarkTask,
-  ProductInstanceRecource,
+  UpdateAigcApiTokenRequest,
+  DesignVoiceAsyncTask,
   DescribeImageProcessingTemplatesRequest,
   AiRecognitionTaskFaceSegmentItem,
   ProcessMediaResponse,
@@ -296,6 +310,7 @@ import {
   DeleteVodDomainRequest,
   BlurConfigureInfo,
   MPSSmartSubtitleTemplateForUpdate,
+  UpdateVoiceResponse,
   PoliticalAsrReviewTemplateInfoForUpdate,
   WechatMiniProgramPublishTaskInput,
   SetCLSPushTargetRequest,
@@ -319,6 +334,7 @@ import {
   CreateSceneAigcImageTaskResponse,
   AiRecognitionTaskAsrTranslateSegmentItem,
   DeleteCLSTopicResponse,
+  SceneAigcVideoOutputConfig,
   LiveRealTimeClipRequest,
   DeleteAdaptiveDynamicStreamingTemplateRequest,
   AiRecognitionTaskOcrFullTextSegmentItem,
@@ -330,6 +346,7 @@ import {
   SplitMediaTaskSegmentInfo,
   PornConfigureInfoForUpdate,
   AiReviewPornAsrTaskOutput,
+  DesignVoiceAsyncInput,
   FileContent,
   AigcImageTask,
   SimpleHlsClipResponse,
@@ -362,6 +379,7 @@ import {
   ForbidMediaDistributionResponse,
   DeleteBlindWatermarkTemplateResponse,
   ExtractBlindWatermarkResponse,
+  DescribeBlindWatermarkTemplatesResponse,
   DescribeAdaptiveDynamicStreamingTemplatesRequest,
   CreateAigcAdvancedCustomElementInput,
   ModifyRoundPlayRequest,
@@ -402,7 +420,7 @@ import {
   CoverBySnapshotTaskInput,
   DescribeMediaProcessUsageDataRequest,
   RebuildMediaTaskInput,
-  ModifyProcessImageAsyncTemplateResponse,
+  AigcHunyuan3DTaskOutput,
   UserDefineConfigureInfo,
   QualityInspectLLMDetectionReport,
   NoiseConfigureInfoForUpdate,
@@ -414,6 +432,7 @@ import {
   OcrWordsConfigureInfo,
   CreateSuperPlayerConfigResponse,
   ComposeMediaOutput,
+  AigcHunyuan3DTaskInput,
   CreateEnhanceMediaTemplateResponse,
   KnowledgeBasesInfo,
   DeleteReviewTemplateResponse,
@@ -459,12 +478,14 @@ import {
   CreateBlindWatermarkTemplateResponse,
   AiRecognitionTaskOcrFullTextResult,
   DescribeCLSTopicsResponse,
+  SplitMediaOutputConfig,
+  ModifyProcessImageAsyncTemplateResponse,
   MPSSubTaskResult,
   HeadTailTemplate,
   ImportMediaKnowledgeResponse,
   RestoreMediaResponse,
   ImageUnderstandingItem,
-  CustomVoiceInfo,
+  AigcHunyuan3DTaskOutputFileInfo,
   CreateAigcAudioCloneOutput,
   ModifyEnhanceMediaTemplateResponse,
   KnowledgeAnalysisInfo,
@@ -494,7 +515,7 @@ import {
   DeleteContentReviewTemplateResponse,
   DescribeReviewTemplatesRequest,
   CreateSuperPlayerConfigRequest,
-  MPSAIAnalysisTemplateForUpdate,
+  DesignVoiceAsyncRequest,
   ImageWatermarkTemplate,
   AdvancedElementInfo,
   AsrWordsConfigureInfo,
@@ -513,6 +534,7 @@ import {
   DescribeDailyPlayStatFileListRequest,
   AiReviewTaskTerrorismResult,
   DescribeSuperPlayerConfigsResponse,
+  VerifyDomainRecordRequest,
   AsrWordsConfigureInfoForUpdate,
   DescribeDailyMostPlayedStatRequest,
   LiveRealTimeClipMediaSegmentInfo,
@@ -557,6 +579,7 @@ import {
   ComposeMediaTask,
   HeadTailConfigureInfoForUpdate,
   ImageScale,
+  ModifyEventConfigRequest,
   ModifyJustInTimeTranscodeTemplateResponse,
   BeautyEffectItem,
   ImageContentReviewInput,
@@ -566,7 +589,7 @@ import {
   SplitMediaTask,
   ComposeMediaTaskInput,
   ModifyQualityInspectTemplateRequest,
-  SceneAigcVideoOutputConfig,
+  DesignVoiceAsyncResponse,
   SceneAigcVideoTask,
   ProcessImageAsyncInputExtendedParameter,
   AnimatedGraphicTaskInput,
@@ -609,10 +632,11 @@ import {
   AigcAudioCloneInputFileInfo,
   AiAnalysisResult,
   ReduceMediaBitrateAdaptiveDynamicStreamingResult,
-  ModifyEventConfigRequest,
+  DeleteVoiceResponse,
   BlindWatermarkInput,
-  DescribeBlindWatermarkTemplatesResponse,
+  AigcHunyuan3DMeshInfo,
   AttachMediaSubtitlesResponse,
+  TextToSpeechAsyncResponse,
   CreateDomainVerifyRecordResponse,
   ExtractCopyRightWatermarkResponse,
   MediaTranscodeInfo,
@@ -624,7 +648,7 @@ import {
   ReviewImageResult,
   DeleteSampleSnapshotTemplateResponse,
   AiAnalysisTaskTagInput,
-  DeleteAigcApiTokenResponse,
+  CloneVoiceAsyncRequest,
   DescribeStorageDetailsResponse,
   PullEventsResponse,
   MediaProcessTaskTranscodeResult,
@@ -687,11 +711,12 @@ import {
   ExtractBlindWatermarkInputInfo,
   CreateQualityInspectTemplateRequest,
   MPSSubtitleBoardConfig,
-  ProcessMediaByProcedureRequest,
+  ModifySubAppIdInfoRequest,
   RebuildMediaTargetVideoStream,
   VoiceConfigureInfo,
   SetCLSPushTargetResponse,
   MediaTrackItem,
+  MPSAIAnalysisTemplateForUpdate,
   ClipTask2017,
   DeletePersonSampleRequest,
   TranscodeTemplate,
@@ -734,9 +759,11 @@ import {
   DescribeVodDomainsResponse,
   AdaptiveStreamTemplate,
   DeleteAigcAdvancedCustomElementResponse,
+  VoiceSettings,
   AigcVideoRedrawOutputConfig,
   TranscodeTaskInput,
   DescribeClientUploadAccelerationUsageDataRequest,
+  TextToSpeechAsyncTask,
   AigcFaceInfo,
   ModifyAIRecognitionTemplateRequest,
   DeleteMPSTemplateResponse,
@@ -758,7 +785,7 @@ import {
   MediaImageSpriteItem,
   MediaSourceData,
   DescribePrepaidProductsResponse,
-  ProhibitedAsrReviewTemplateInfo,
+  CloneVoiceAsyncInput,
   CreateAigcAdvancedCustomElementTask,
   HandleCurrentPlaylistResponse,
   PushUrlCacheRequest,
@@ -854,6 +881,7 @@ import {
   CreateQualityInspectTemplateResponse,
   RebuildMediaTaskOutput,
   EnhanceMediaQualityOutputConfig,
+  UpdateVoiceRequest,
   AiRecognitionTaskAsrFullTextResultOutputSubtitleItem,
   DescribeStorageDataRequest,
   DescribeTaskDetailResponse,
@@ -903,7 +931,8 @@ import {
   CreateCLSLogsetRequest,
   ExtractTraceWatermarkRequest,
   FaceRecognitionTask,
-  DescribeAigcApiTokensResponse,
+  DeleteVoiceRequest,
+  DeleteAigcApiTokenResponse,
   ReviewAudioVideoTask,
   DescribeSnapshotByTimeOffsetTemplatesResponse,
   DeleteAigcApiTokenRequest,
@@ -921,6 +950,7 @@ import {
   AiRecognitionTaskAsrWordsResultInput,
   PornAsrReviewTemplateInfoForUpdate,
   ModifySubAppIdStatusResponse,
+  VideoDubbingAsyncOutput,
   CreateAIAnalysisTemplateRequest,
   UpdateAigcApiTokenResponse,
   AiReviewTerrorismTaskInput,
@@ -939,6 +969,7 @@ import {
   EditMediaStreamInfo,
   DescribeWordSamplesRequest,
   ImageCenterCut,
+  VoiceInfo,
   ModifyAIAnalysisTemplateRequest,
   CommitUploadResponse,
   MPSRawSmartEraseParameter,
@@ -948,7 +979,7 @@ import {
   DescribeSampleSnapshotTemplatesResponse,
   ModifyProcessImageAsyncTemplateRequest,
   MPSRawSmartSubtitleParameter,
-  TaskSimpleInfo,
+  DescribeAigcApiTokensResponse,
   MediaContentReviewSegmentItem,
   AiContentReviewResult,
   CreateAigcImageTaskRequest,
@@ -967,13 +998,14 @@ import {
   DomainQUICConfig,
   MPSSmartErasePrivacyConfig,
   CreateRebuildMediaTemplateRequest,
+  CloneVoiceAsyncResponse,
   ImageOperation,
   MediaSubStreamInfoItem,
   MosaicConfigureInfoForUpdate,
   DescribeWatermarkTemplatesResponse,
   SnapshotByTimeOffsetTemplate,
   DescribeRoundPlaysResponse,
-  UpdateAigcApiTokenRequest,
+  FaceConfigureInfo,
   ImageTransform,
   CreateAnimatedGraphicsTemplateRequest,
   AigcVideoRedrawTaskOutput,
@@ -983,6 +1015,7 @@ import {
   ExecuteFunctionRequest,
   ModifyAigcQuotaRequest,
   RebuildMediaTask,
+  DescribeVoicesResponse,
   ConfirmEventsResponse,
   CreateAigcApiTokenResponse,
   VideoTrackItem,
@@ -1029,7 +1062,7 @@ import {
   QualityInspectStrategy,
   PullUploadResponse,
   RemoveWaterMarkTaskInput,
-  FaceConfigureInfo,
+  DescribeVoicesRequest,
   AiRecognitionTaskFaceResultOutput,
   AigcVideoRedrawTaskInputFileInfo,
   PornImgReviewTemplateInfoForUpdate,
@@ -1045,6 +1078,7 @@ import {
   WatermarkCycleConfigForUpdate,
   SnapshotByTimeOffsetTask2017,
   ProhibitedConfigureInfoForUpdate,
+  AigcHunyuan3DMultiViewImageInfo,
   MediaClassInfo,
   CreateAigcSubjectInput,
   DeleteAnimatedGraphicsTemplateRequest,
@@ -1077,7 +1111,7 @@ import {
   AigcVideoTaskInput,
   ComplexAdaptiveDynamicStreamingTaskInput,
   AudioEnhanceConfig,
-  VerifyDomainRecordRequest,
+  AigcHunyuan3DTask,
   AiRecognitionTaskFaceResultItem,
   AiAnalysisTaskCoverInput,
   DeleteEnhanceMediaTemplateRequest,
@@ -1087,12 +1121,14 @@ import {
   SubtitleFormatsOperation,
   ThirdPartyDrmInfo,
   AiRecognitionTaskSegmentResultInput,
+  TextToSpeechAsyncRequest,
   MediaTrack,
   FastEditMediaFileInfo,
   StorageStatData,
   RebuildMediaTemplate,
   DescribeFileAttributesRequest,
   AigcVideoSceneInfo,
+  DesignVoiceAsyncOutput,
   QualityInspectResultItem,
   MediaOutputInfo,
   EditMediaTaskOutput,
@@ -1156,13 +1192,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 该接口用于设置默认的存储地域。上传文件时如果没有指定地域，将上传到默认地域。
+   * 音色设计，根据prompt生成音色ID。克隆/设计音色数量上限默认100
    */
-  async ModifyDefaultStorageRegion(
-    req: ModifyDefaultStorageRegionRequest,
-    cb?: (error: string, rep: ModifyDefaultStorageRegionResponse) => void
-  ): Promise<ModifyDefaultStorageRegionResponse> {
-    return this.request("ModifyDefaultStorageRegion", req, cb)
+  async CloneVoiceAsync(
+    req: CloneVoiceAsyncRequest,
+    cb?: (error: string, rep: CloneVoiceAsyncResponse) => void
+  ): Promise<CloneVoiceAsyncResponse> {
+    return this.request("CloneVoiceAsync", req, cb)
   }
 
   /**
@@ -1173,6 +1209,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ExtractTraceWatermarkResponse) => void
   ): Promise<ExtractTraceWatermarkResponse> {
     return this.request("ExtractTraceWatermark", req, cb)
+  }
+
+  /**
+   * 音色设计，根据prompt生成音色ID。克隆/设计音色数量上限默认100
+   */
+  async DeleteVoice(
+    req: DeleteVoiceRequest,
+    cb?: (error: string, rep: DeleteVoiceResponse) => void
+  ): Promise<DeleteVoiceResponse> {
+    return this.request("DeleteVoice", req, cb)
   }
 
   /**
@@ -1556,6 +1602,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 音色设计，根据prompt生成音色ID。克隆/设计音色数量上限默认100
+   */
+  async TextToSpeechAsync(
+    req: TextToSpeechAsyncRequest,
+    cb?: (error: string, rep: TextToSpeechAsyncResponse) => void
+  ): Promise<TextToSpeechAsyncResponse> {
+    return this.request("TextToSpeechAsync", req, cb)
+  }
+
+  /**
    * 修改大模型解析模板
    */
   async ModifyLLMComprehendTemplate(
@@ -1704,6 +1760,25 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeCDNStatDetailsResponse) => void
   ): Promise<DescribeCDNStatDetailsResponse> {
     return this.request("DescribeCDNStatDetails", req, cb)
+  }
+
+  /**
+     * 使用媒体处理服务（MPS）的媒体处理能力，对点播中的视频发起媒体处理。
+当前支持的 MPS 功能：
+1.智能字幕：该功能支持处理离线音频文件、视频文件及直播流，可通过 ASR 语音识别或 OCR 文本识别提取视频源语言字幕，并实现多语言翻译。详情查看[接入指南](https://cloud.tencent.com/document/product/266/131210)。
+2.智能擦除：能够对视频画面中的 Logo、字幕、人脸和车牌等元素进行模糊、马赛克或无痕化处理，从而便于内容的传播和分享。该任务产生的新视频将生成新的 FileId 存储在点播平台的子应用中。详情查看[接入指南](https://cloud.tencent.com/document/product/266/131211)。
+3.智能分析：该功能支持[一站式译制](https://cloud.tencent.com/document/product/266/131212)、[精彩集锦](https://cloud.tencent.com/document/product/266/131213)、[大模型视频摘要](https://cloud.tencent.com/document/product/266/131214)、[大模型音视频理解](https://cloud.tencent.com/document/product/266/131215)、[智能拆条](https://cloud.tencent.com/document/product/266/131216)、[智能横转竖](https://cloud.tencent.com/document/product/266/131217)、[视频去重](https://cloud.tencent.com/document/product/266/131218)等功能。
+
+
+> 以该种方式发起的视频处理任务：
+> 1. 任务状态及结果的查询仍在点播平台中完成，使用 [DescribeTaskDetail](https://cloud.tencent.com/document/product/266/33431) 或 [DescribeTasks](https://cloud.tencent.com/document/product/266/33430) 查询任务。
+> 2. 相关功能的用量及账单将在 MPS 平台给出，因此在使用该功能前，首先需要在控制台开通 MPS 服务。开通方式见接入文档的前置操作部分。
+     */
+  async ProcessMediaByMPS(
+    req: ProcessMediaByMPSRequest,
+    cb?: (error: string, rep: ProcessMediaByMPSResponse) => void
+  ): Promise<ProcessMediaByMPSResponse> {
+    return this.request("ProcessMediaByMPS", req, cb)
   }
 
   /**
@@ -1951,6 +2026,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 音色设计，根据prompt生成音色ID。克隆/设计音色数量上限默认100
+   */
+  async DescribeVoices(
+    req: DescribeVoicesRequest,
+    cb?: (error: string, rep: DescribeVoicesResponse) => void
+  ): Promise<DescribeVoicesResponse> {
+    return this.request("DescribeVoices", req, cb)
+  }
+
+  /**
    * 查询 DRM 密钥提供商信息。
    */
   async DescribeDrmKeyProviderInfo(
@@ -2039,13 +2124,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 修改用户自定义采样截图模板。
+   * 该接口用于设置默认的存储地域。上传文件时如果没有指定地域，将上传到默认地域。
    */
-  async ModifySampleSnapshotTemplate(
-    req: ModifySampleSnapshotTemplateRequest,
-    cb?: (error: string, rep: ModifySampleSnapshotTemplateResponse) => void
-  ): Promise<ModifySampleSnapshotTemplateResponse> {
-    return this.request("ModifySampleSnapshotTemplate", req, cb)
+  async ModifyDefaultStorageRegion(
+    req: ModifyDefaultStorageRegionRequest,
+    cb?: (error: string, rep: ModifyDefaultStorageRegionResponse) => void
+  ): Promise<ModifyDefaultStorageRegionResponse> {
+    return this.request("ModifyDefaultStorageRegion", req, cb)
   }
 
   /**
@@ -2554,22 +2639,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 使用媒体处理服务（MPS）的媒体处理能力，对点播中的视频发起媒体处理。
-当前支持的 MPS 功能：
-1.智能字幕：该功能支持处理离线音频文件、视频文件及直播流，可通过 ASR 语音识别或 OCR 文本识别提取视频源语言字幕，并实现多语言翻译。详情查看[接入指南](https://cloud.tencent.com/document/product/266/131210)。
-2.智能擦除：能够对视频画面中的 Logo、字幕、人脸和车牌等元素进行模糊、马赛克或无痕化处理，从而便于内容的传播和分享。该任务产生的新视频将生成新的 FileId 存储在点播平台的子应用中。详情查看[接入指南](https://cloud.tencent.com/document/product/266/131211)。
-3.智能分析：该功能支持[一站式译制](https://cloud.tencent.com/document/product/266/131212)、[精彩集锦](https://cloud.tencent.com/document/product/266/131213)、[大模型视频摘要](https://cloud.tencent.com/document/product/266/131214)、[大模型音视频理解](https://cloud.tencent.com/document/product/266/131215)、[智能拆条](https://cloud.tencent.com/document/product/266/131216)、[智能横转竖](https://cloud.tencent.com/document/product/266/131217)、[视频去重](https://cloud.tencent.com/document/product/266/131218)等功能。
-
-
-> 以该种方式发起的视频处理任务：
-> 1. 任务状态及结果的查询仍在点播平台中完成，使用 [DescribeTaskDetail](https://cloud.tencent.com/document/product/266/33431) 或 [DescribeTasks](https://cloud.tencent.com/document/product/266/33430) 查询任务。
-> 2. 相关功能的用量及账单将在 MPS 平台给出，因此在使用该功能前，首先需要在控制台开通 MPS 服务。开通方式见接入文档的前置操作部分。
-     */
-  async ProcessMediaByMPS(
-    req: ProcessMediaByMPSRequest,
-    cb?: (error: string, rep: ProcessMediaByMPSResponse) => void
-  ): Promise<ProcessMediaByMPSResponse> {
-    return this.request("ProcessMediaByMPS", req, cb)
+   * 音色设计，根据prompt生成音色ID。克隆/设计音色数量上限默认100
+   */
+  async DesignVoiceAsync(
+    req: DesignVoiceAsyncRequest,
+    cb?: (error: string, rep: DesignVoiceAsyncResponse) => void
+  ): Promise<DesignVoiceAsyncResponse> {
+    return this.request("DesignVoiceAsync", req, cb)
   }
 
   /**
@@ -3278,6 +3354,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 音色设计，根据prompt生成音色ID。克隆/设计音色数量上限默认100
+   */
+  async UpdateVoice(
+    req: UpdateVoiceRequest,
+    cb?: (error: string, rep: UpdateVoiceResponse) => void
+  ): Promise<UpdateVoiceResponse> {
+    return this.request("UpdateVoice", req, cb)
+  }
+
+  /**
    * 删除用户自定义 MPS 任务模板。
    */
   async DeleteMPSTemplate(
@@ -3306,6 +3392,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CommitUploadResponse) => void
   ): Promise<CommitUploadResponse> {
     return this.request("CommitUpload", req, cb)
+  }
+
+  /**
+   * 当媒体文件的存储类型是归档存储或深度归档存储时，是不可访问的。如需访问，则需要调用本接口进行解冻，解冻后可访问的媒体文件是临时的，在有效期过后，则不可访问。
+   */
+  async RestoreMedia(
+    req: RestoreMediaRequest,
+    cb?: (error: string, rep: RestoreMediaResponse) => void
+  ): Promise<RestoreMediaResponse> {
+    return this.request("RestoreMedia", req, cb)
   }
 
   /**
@@ -3787,12 +3883,12 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 当媒体文件的存储类型是归档存储或深度归档存储时，是不可访问的。如需访问，则需要调用本接口进行解冻，解冻后可访问的媒体文件是临时的，在有效期过后，则不可访问。
+   * 修改用户自定义采样截图模板。
    */
-  async RestoreMedia(
-    req: RestoreMediaRequest,
-    cb?: (error: string, rep: RestoreMediaResponse) => void
-  ): Promise<RestoreMediaResponse> {
-    return this.request("RestoreMedia", req, cb)
+  async ModifySampleSnapshotTemplate(
+    req: ModifySampleSnapshotTemplateRequest,
+    cb?: (error: string, rep: ModifySampleSnapshotTemplateResponse) => void
+  ): Promise<ModifySampleSnapshotTemplateResponse> {
+    return this.request("ModifySampleSnapshotTemplate", req, cb)
   }
 }

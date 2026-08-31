@@ -58,9 +58,9 @@ it("mps.v20190612.CreateAnimatedGraphicsTemplate", async function () {
     }
 })
 
-it("mps.v20190612.DeleteStreamPackageLinearAssemblyProgram", async function () {
+it("mps.v20190612.DeleteWatermarkTemplate", async function () {
     try {
-       const data = await client.DeleteStreamPackageLinearAssemblyProgram({})
+       const data = await client.DeleteWatermarkTemplate({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -518,6 +518,16 @@ it("mps.v20190612.DescribeAigcTaskStatus", async function () {
     }
 })
 
+it("mps.v20190612.CreateAgentRecordTask", async function () {
+    try {
+       const data = await client.CreateAgentRecordTask({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("mps.v20190612.DescribeImageTasks", async function () {
     try {
        const data = await client.DescribeImageTasks({})
@@ -871,6 +881,16 @@ it("mps.v20190612.StartStreamPackageLinearAssemblyChannel", async function () {
 it("mps.v20190612.DeleteQualityControlTemplate", async function () {
     try {
        const data = await client.DeleteQualityControlTemplate({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("mps.v20190612.SubmitHunyuan3DTask", async function () {
+    try {
+       const data = await client.SubmitHunyuan3DTask({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1418,6 +1438,16 @@ it("mps.v20190612.ExtractBlindWatermark", async function () {
     }
 })
 
+it("mps.v20190612.DescribeAgentRecordTask", async function () {
+    try {
+       const data = await client.DescribeAgentRecordTask({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("mps.v20190612.CreateImageSpriteTemplate", async function () {
     try {
        const data = await client.CreateImageSpriteTemplate({})
@@ -1878,9 +1908,9 @@ it("mps.v20190612.ModifyAdaptiveDynamicStreamingTemplate", async function () {
     }
 })
 
-it("mps.v20190612.DeleteWatermarkTemplate", async function () {
+it("mps.v20190612.DeleteStreamPackageLinearAssemblyProgram", async function () {
     try {
-       const data = await client.DeleteWatermarkTemplate({})
+       const data = await client.DeleteStreamPackageLinearAssemblyProgram({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -2011,6 +2041,16 @@ it("mps.v20190612.TextTranslation", async function () {
 it("mps.v20190612.ActivateStreamPackage", async function () {
     try {
        const data = await client.ActivateStreamPackage({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("mps.v20190612.QueryHunyuan3DTask", async function () {
+    try {
+       const data = await client.QueryHunyuan3DTask({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

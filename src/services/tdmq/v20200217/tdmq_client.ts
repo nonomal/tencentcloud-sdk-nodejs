@@ -1134,7 +1134,7 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 更新集群信息
+   * 更新虚拟集群信息
    */
   async ModifyCluster(
     req: ModifyClusterRequest,
@@ -1144,7 +1144,7 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取Pulsar专业版集群实例信息
+   * 获取Pulsar标准版或专业版实例信息
    */
   async DescribePulsarProInstanceDetail(
     req: DescribePulsarProInstanceDetailRequest,
@@ -1470,7 +1470,7 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建专业集群——预付费，仅通过api调用
+   * 创建Pulsar标准版或专业版实例——预付费，仅通过api调用
    */
   async CreateProCluster(
     req: CreateProClusterRequest,
@@ -1778,7 +1778,7 @@ BatchReceivePolicy 的接口会一次性返回多条消息：
   }
 
   /**
-   * 查询用户已购的Pulsar专业版实例列表
+   * 查询用户已购的Pulsar实例列表
    */
   async DescribePulsarProInstances(
     req: DescribePulsarProInstancesRequest,

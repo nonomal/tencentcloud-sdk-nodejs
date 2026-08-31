@@ -6992,6 +6992,20 @@ export interface ReplayInstanceAuditLogRequest {
 }
 
 /**
+ * ModifyClusterLevel请求参数结构体
+ */
+export interface ModifyClusterLevelRequest {
+  /**
+   * <p>集群ID</p>
+   */
+  ClusterId: string
+  /**
+   * <p>集群级别</p>
+   */
+  ClusterLevel: string
+}
+
+/**
  * 同步库表对象
  */
 export interface MigrateDBItem {
@@ -8283,6 +8297,11 @@ export interface Package {
 CCU-计算资源包，DISK-存储资源包
    */
   PackageType?: string
+  /**
+   * 资源包套餐版本
+base-基础，common-通用，enterprise-企业
+   */
+  PackageVersion?: string
   /**
    * 资源包使用地域
 china-中国内地通用，overseas-港澳台及海外通用
@@ -11603,6 +11622,20 @@ export interface CreateAuditRuleTemplateRequest {
 }
 
 /**
+ * ModifyClusterLevel返回参数结构体
+ */
+export interface ModifyClusterLevelResponse {
+  /**
+   * <p>任务ID</p>
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * PauseServerless请求参数结构体
  */
 export interface PauseServerlessRequest {
@@ -12849,15 +12882,15 @@ export interface DescribeAccountPrivilegesRequest {
    */
   Host: string
   /**
-   * 数据库名，为*时，忽略Type/TableName, 表示修改用户全局权限；
+   * 数据库名。为*时，忽略Type/TableName，表示查询用户全局权限；不传时默认为*。
    */
-  Db: string
+  Db?: string
   /**
-   * 指定数据库下的对象类型，可选"table"，"*"
+   * 指定数据库下的对象类型，可选"table"、"*"。不传时默认为*；Type为table时，必须指定TableName。
    */
-  Type: string
+  Type?: string
   /**
-   * 当Type="table"时，用来指定表名
+   * 当Type="table"时，用来指定表名；Type为table时必填。
    */
   TableName?: string
 }

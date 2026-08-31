@@ -2066,50 +2066,49 @@ export interface DescribeFlowLogsResponse {
  */
 export interface InstanceBind {
   /**
-   * 云联网ID。
+   * <p>云联网ID。</p>
    */
   CcnId?: string
   /**
-   * 实例类型：VPC，DIRECTCONNECT，BMVPC，EDGE，EDGE_TUNNEL，EDGE_VPNGW，VPNGW。
+   * <p>实例类型：VPC，DIRECTCONNECT，BMVPC，EDGE，EDGE_TUNNEL，EDGE_VPNGW，VPNGW。</p>
    */
   InstanceType?: string
   /**
-   * 实例ID。
+   * <p>实例ID。</p>
    */
   InstanceId?: string
   /**
-   * 实例绑定路由表的时间。
+   * <p>实例绑定路由表的时间。</p>
    */
   InstanceBindTime?: string
   /**
-   * 路由表ID。
+   * <p>路由表ID。</p>
    */
   RouteTableId?: string
   /**
-   * 实例名称。
+   * <p>实例名称。</p>
    */
   InstanceName?: string
   /**
-   * 实例所在地域。
+   * <p>实例所在地域。</p>
    */
   InstanceRegion?: string
   /**
-   * 实例所属的账户uin。
+   * <p>实例所属的账户uin。</p>
    */
   InstanceUin?: string
   /**
-   * 关联实例状态：
-<li>`PENDING`：申请中</li>
-<li>`ACTIVE`：已连接</li>
-<li>`EXPIRED`：已过期</li>
-<li>`REJECTED`：已拒绝</li>
-<li>`DELETED`：已删除</li>
-<li>`FAILED`：失败的（2小时后将异步强制解关联）</li>
-<li>`ATTACHING`：关联中</li>
-<li>`DETACHING`：解关联中</li>
-<li>`DETACHFAILED`：解关联失败（2小时后将异步强制解关联）</li>
+   * <p>关联实例状态：</p><li><code>PENDING</code>：申请中</li><li><code>ACTIVE</code>：已连接</li><li><code>EXPIRED</code>：已过期</li><li><code>REJECTED</code>：已拒绝</li><li><code>DELETED</code>：已删除</li><li><code>FAILED</code>：失败的（2小时后将异步强制解关联）</li><li><code>ATTACHING</code>：关联中</li><li><code>DETACHING</code>：解关联中</li><li><code>DETACHFAILED</code>：解关联失败（2小时后将异步强制解关联）</li>
    */
   State?: string
+  /**
+   * <p>别名类型</p>
+   */
+  AliasType?: string
+  /**
+   * <p>别名实例ID</p>
+   */
+  AliasInstanceId?: string
 }
 
 /**
@@ -5798,65 +5797,73 @@ export interface PrivateNatGatewayLimit {
  */
 export interface CcnRoute {
   /**
-   * 路由策略ID
+   * <p>路由策略ID</p>
    */
   RouteId?: string
   /**
-   * 目的端
+   * <p>目的端</p>
    */
   DestinationCidrBlock?: string
   /**
-   * 下一跳类型（关联实例类型），所有类型：VPC、DIRECTCONNECT
+   * <p>下一跳类型（关联实例类型），所有类型：VPC、DIRECTCONNECT</p>
    */
   InstanceType?: string
   /**
-   * 下一跳（关联实例）
+   * <p>下一跳（关联实例）</p>
    */
   InstanceId?: string
   /**
-   * 下一跳名称（关联实例名称）
+   * <p>下一跳名称（关联实例名称）</p>
    */
   InstanceName?: string
   /**
-   * 下一跳所属地域（关联实例所属地域）
+   * <p>下一跳所属地域（关联实例所属地域）</p>
    */
   InstanceRegion?: string
   /**
-   * 更新时间
+   * <p>更新时间</p>
    */
   UpdateTime?: string
   /**
-   * 路由是否启用
+   * <p>路由是否启用</p>
    */
   Enabled?: boolean
   /**
-   * 关联实例所属UIN（根账号）
+   * <p>关联实例所属UIN（根账号）</p>
    */
   InstanceUin?: string
   /**
-   * 路由的扩展状态
+   * <p>路由的扩展状态</p>
    */
   ExtraState?: string
   /**
-   * 是否动态路由
+   * <p>是否动态路由</p>
    */
   IsBgp?: boolean
   /**
-   * 路由优先级
+   * <p>路由优先级</p>
    */
   RoutePriority?: number
   /**
-   * 下一跳扩展名称（关联实例的扩展名称）
+   * <p>下一跳扩展名称（关联实例的扩展名称）</p>
    */
   InstanceExtraName?: string
   /**
-   * 实例类型
+   * <p>实例类型</p>
    */
   AliasType?: string
   /**
-   * 实例id
+   * <p>实例id</p>
    */
   AliasInstanceId?: string
+  /**
+   * <p>路由表ID</p>
+   */
+  RouteTableId?: string
+  /**
+   * <p>AS-PATH</p>
+   */
+  AsPath?: string
 }
 
 /**
@@ -10806,73 +10813,69 @@ export interface BgpConfigAndAsn {
  */
 export interface CcnAttachedInstance {
   /**
-   * 云联网实例ID。
+   * <p>云联网实例ID。</p>
    */
   CcnId?: string
   /**
-   * 关联实例类型：
-<li>`VPC`：私有网络</li>
-<li>`DIRECTCONNECT`：专线网关</li>
-<li>`BMVPC`：黑石私有网络</li>
+   * <p>关联实例类型：</p><li><code>VPC</code>：私有网络</li><li><code>DIRECTCONNECT</code>：专线网关</li><li><code>BMVPC</code>：黑石私有网络</li>
    */
   InstanceType?: string
   /**
-   * 关联实例ID。
+   * <p>关联实例ID。</p>
    */
   InstanceId?: string
   /**
-   * 关联实例名称。
+   * <p>关联实例名称。</p>
    */
   InstanceName?: string
   /**
-   * 关联实例所属大区，例如：ap-guangzhou。
+   * <p>关联实例所属大区，例如：ap-guangzhou。</p>
    */
   InstanceRegion?: string
   /**
-   * 关联实例所属UIN（根账号）。
+   * <p>关联实例所属UIN（根账号）。</p>
    */
   InstanceUin?: string
   /**
-   * 关联实例CIDR。
+   * <p>关联实例CIDR。</p>
    */
   CidrBlock?: Array<string>
   /**
-   * 关联实例状态：
-<li>`PENDING`：申请中</li>
-<li>`ACTIVE`：已连接</li>
-<li>`EXPIRED`：已过期</li>
-<li>`REJECTED`：已拒绝</li>
-<li>`DELETED`：已删除</li>
-<li>`FAILED`：失败的（2小时后将异步强制解关联）</li>
-<li>`ATTACHING`：关联中</li>
-<li>`DETACHING`：解关联中</li>
-<li>`DETACHFAILED`：解关联失败（2小时后将异步强制解关联）</li>
+   * <p>关联实例状态：</p><li><code>PENDING</code>：申请中</li><li><code>ACTIVE</code>：已连接</li><li><code>EXPIRED</code>：已过期</li><li><code>REJECTED</code>：已拒绝</li><li><code>DELETED</code>：已删除</li><li><code>FAILED</code>：失败的（2小时后将异步强制解关联）</li><li><code>ATTACHING</code>：关联中</li><li><code>DETACHING</code>：解关联中</li><li><code>DETACHFAILED</code>：解关联失败（2小时后将异步强制解关联）</li>
    */
   State?: string
   /**
-   * 关联时间。
+   * <p>关联时间。</p>
    */
   AttachedTime?: string
   /**
-   * 云联网所属UIN（根账号）。
+   * <p>云联网所属UIN（根账号）。</p>
    */
   CcnUin?: string
   /**
-   * 关联实例所属的大地域，如: CHINA_MAINLAND
+   * <p>关联实例所属的大地域，如: CHINA_MAINLAND</p>
    */
   InstanceArea?: string
   /**
-   * 备注
+   * <p>备注</p>
    */
   Description?: string
   /**
-   * 路由表ID
+   * <p>路由表ID</p>
    */
   RouteTableId?: string
   /**
-   * 路由表名称
+   * <p>路由表名称</p>
    */
   RouteTableName?: string
+  /**
+   * <p>别名类型</p>
+   */
+  AliasType?: string
+  /**
+   * <p>别名ID</p>
+   */
+  AliasInstanceId?: string
 }
 
 /**
@@ -16735,109 +16738,113 @@ export interface InquiryPriceAllocateAddressesRequest {
  */
 export interface CCN {
   /**
-   * 云联网唯一ID
+   * <p>云联网唯一ID</p>
    */
   CcnId?: string
   /**
-   * 云联网名称
+   * <p>云联网名称</p>
    */
   CcnName?: string
   /**
-   * 云联网描述信息
+   * <p>云联网描述信息</p>
    */
   CcnDescription?: string
   /**
-   * 关联实例数量
+   * <p>关联实例数量</p>
    */
   InstanceCount?: number
   /**
-   * 创建时间
+   * <p>创建时间</p>
    */
   CreateTime?: string
   /**
-   * 实例状态， 'ISOLATED': 隔离中（欠费停服），'AVAILABLE'：运行中。
+   * <p>实例状态， &#39;ISOLATED&#39;: 隔离中（欠费停服），&#39;AVAILABLE&#39;：运行中。</p>
    */
   State?: string
   /**
-   * 实例服务质量，’PT’：白金，'AU'：金，'AG'：银。
+   * <p>实例服务质量，’PT’：白金，&#39;AU&#39;：金，&#39;AG&#39;：银。</p>
    */
   QosLevel?: string
   /**
-   * 付费类型，PREPAID为预付费，POSTPAID为后付费。
+   * <p>付费类型，PREPAID为预付费，POSTPAID为后付费。</p>
    */
   InstanceChargeType?: string
   /**
-   * 计量类型
+   * <p>计量类型</p>
    */
   InstanceMeteringType?: string
   /**
-   * 限速类型，`INTER_REGION_LIMIT` 为地域间限速；`OUTER_REGION_LIMIT` 为地域出口限速。
+   * <p>限速类型，<code>INTER_REGION_LIMIT</code> 为地域间限速；<code>OUTER_REGION_LIMIT</code> 为地域出口限速。</p>
    */
   BandwidthLimitType?: string
   /**
-   * 标签键值对。
+   * <p>标签键值对。</p>
    */
   TagSet?: Array<Tag>
   /**
-   * 是否支持云联网路由优先级的功能。`False`：不支持，`True`：支持。
+   * <p>是否支持云联网路由优先级的功能。<code>False</code>：不支持，<code>True</code>：支持。</p>
    */
   RoutePriorityFlag?: boolean
   /**
-   * 实例关联的路由表个数。
+   * <p>实例关联的路由表个数。</p>
    */
   RouteTableCount?: number
   /**
-   * 是否开启云联网多路由表特性。`False`：未开启，`True`：开启。
+   * <p>是否开启云联网多路由表特性。<code>False</code>：未开启，<code>True</code>：开启。</p>
    */
   RouteTableFlag?: boolean
   /**
-   * `true`：实例已被封禁，流量不通，`false`:解封禁。
+   * <p><code>true</code>：实例已被封禁，流量不通，<code>false</code>:解封禁。</p>
    */
   IsSecurityLock?: boolean
   /**
-   * 是否开启云联网路由传播策略。`False` 未开启，`True` 开启。
+   * <p>是否开启云联网路由传播策略。<code>False</code> 未开启，<code>True</code> 开启。</p>
    */
   RouteBroadcastPolicyFlag?: boolean
   /**
-   * 是否开启等价路由功能。`False` 未开启，`True` 开启。
+   * <p>是否开启等价路由功能。<code>False</code> 未开启，<code>True</code> 开启。</p>
    */
   RouteECMPFlag?: boolean
   /**
-   * 是否开启路由重叠功能。`False` 未开启，`True` 开启。
+   * <p>是否开启路由重叠功能。<code>False</code> 未开启，<code>True</code> 开启。</p>
    */
   RouteOverlapFlag?: boolean
   /**
-   * 是否开启QOS。
+   * <p>是否开启QOS。</p>
    */
   TrafficMarkingPolicyFlag?: boolean
   /**
-   * 是否开启路由表选择策略。
+   * <p>是否开启路由表选择策略。</p>
    */
   RouteSelectPolicyFlag?: boolean
   /**
-   * 是否开启二层云联网通道。
+   * <p>是否开启二层云联网通道。</p>
    */
   DirectConnectAccelerateChannelFlag?: boolean
   /**
-   * 是否支持ipv6路由表
+   * <p>是否支持ipv6路由表</p>
    */
   Ipv6Flag?: boolean
   /**
-   * 是否支持路由表聚合策略
+   * <p>是否支持路由表聚合策略</p>
    */
   MrtbAggregatePolicyFlag?: boolean
   /**
-   * 是否支持AsPath策略值
+   * <p>是否支持AsPath策略值</p>
    */
   MrtbPolicyValueFlag?: boolean
   /**
-   * 是否支持Community策略值
+   * <p>是否支持Community策略值</p>
    */
   RouteTablePolicyValueCommunityFlag?: boolean
   /**
-   * 是否支持策略路由
+   * <p>是否支持策略路由</p>
    */
   PolicyBasedRoutingFlag?: boolean
+  /**
+   * <p>服务等级模式</p><p>枚举值：</p><ul><li>0： 云联网模式</li><li>1： 地域间模式</li></ul>
+   */
+  ServiceLevelMode?: number
 }
 
 /**
@@ -17402,35 +17409,35 @@ export interface DeleteNetworkAclQuintupleEntriesRequest {
  */
 export interface CcnRouteTableBroadcastPolicy {
   /**
-   * 路由条件
+   * <p>路由条件</p>
    */
   RouteConditions: Array<CcnRouteBroadcastPolicyRouteCondition>
   /**
-   * 传播条件
+   * <p>传播条件</p>
    */
   BroadcastConditions: Array<CcnRouteBroadcastPolicyRouteCondition>
   /**
-   * 路由行为，`accept` 允许，`drop` 拒绝
+   * <p>路由行为，<code>accept</code> 允许，<code>drop</code> 拒绝</p>
    */
   Action: string
   /**
-   * 策略描述
+   * <p>策略描述</p>
    */
   Description?: string
   /**
-   * as-path操作
+   * <p>as-path操作</p>
    */
   OperateAsPath?: string
   /**
-   * as-path操作模式
+   * <p>as-path操作模式</p>
    */
   AsPathOperateMode?: string
   /**
-   * community操作
+   * <p>community操作</p>
    */
   OperateCommunitySet?: Array<string>
   /**
-   * community操作模式
+   * <p>community操作模式</p>
    */
   CommunityOperateMode?: string
 }

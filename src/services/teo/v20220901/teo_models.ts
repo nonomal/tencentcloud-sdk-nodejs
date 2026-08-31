@@ -256,6 +256,36 @@ export interface AdaptiveFrequencyControl {
 }
 
 /**
+ * DescribeAvailableCustomActionsForRuleEngine请求参数结构体
+ */
+export interface DescribeAvailableCustomActionsForRuleEngineRequest {
+  /**
+   * <p>站点 ID。</p>
+   */
+  ZoneId: string
+  /**
+   * <p>过滤条件，多个条件为且关系，Filters.Values 的上限为 20。该参数不填写时，返回当前站点下所有可用的规则引擎定制配置。详细的过滤条件如下：</p><li>action-id：按照定制配置唯一标识 ID 进行过滤；</li><li>name：按照定制配置名称进行过滤。</li>模糊查询时仅支持过滤字段名为 <code>name</code>。<p></p>
+   */
+  Filters?: Array<AdvancedFilter>
+  /**
+   * <p>分页查询限制数目。</p><p>取值范围：[0, 1000]</p><p>默认值：20</p>
+   */
+  Limit?: number
+  /**
+   * <p>分页偏移量。</p><p>默认值：0</p>
+   */
+  Offset?: number
+  /**
+   * <p>排序字段，取值有：</p><li>action-id：按照定制配置唯一标识 ID 排序；</li><li>create-time：按照定制配置创建时间排序。</li>默认值：<code>action-id</code>。<p></p>
+   */
+  SortBy?: string
+  /**
+   * <p>排序方式，取值有：</p><li>asc：升序排序；</li><li>desc：降序排序。</li>默认值：desc。<p></p>
+   */
+  SortOrder?: string
+}
+
+/**
  * 预付费套餐自动续费配置项。
  */
 export interface RenewFlag {
@@ -13021,6 +13051,32 @@ export interface CachePrefreshParameters {
 }
 
 /**
+ * 规则引擎操作定制配置。
+ */
+export interface RuleEngineCustomAction {
+  /**
+   * <p>定制配置唯一 ID。</p>
+   */
+  ActionId?: string
+  /**
+   * <p>定制配置名称。</p>
+   */
+  Name?: string
+  /**
+   * <p>定制配置描述。</p>
+   */
+  Description?: string
+  /**
+   * <p>定制配置参数定义列表。</p>
+   */
+  Parameters?: Array<RuleEngineCustomActionParameterSchema>
+  /**
+   * <p>定制配置支持的匹配条件。</p><p>支持匹配条件参考官方文档 <a href="https://cloud.tencent.com/document/product/1552/125344">通用参考-配置语法-变量</a>。</p>
+   */
+  SupportedConditions?: Array<string>
+}
+
+/**
  * 规则引擎功能项操作，对于一种功能只对应下面三种类型的其中一种，RuleAction 数组中的每一项只能是其中一个类型，更多功能项的填写规范可调用接口 [查询规则引擎的设置参数](https://cloud.tencent.com/document/product/1552/80618) 查看。
  */
 export interface Action {
@@ -13956,6 +14012,24 @@ export interface DeleteDnsRecordsRequest {
    * 待删除的 DNS 记录 ID 列表，上限：1000。
    */
   RecordIds: Array<string>
+}
+
+/**
+ * DescribeAvailableCustomActionsForRuleEngine返回参数结构体
+ */
+export interface DescribeAvailableCustomActionsForRuleEngineResponse {
+  /**
+   * <p>符合条件的规则引擎定制配置的总数。</p>
+   */
+  TotalCount?: number
+  /**
+   * <p>符合条件的规则引擎定制配置的列表。</p>
+   */
+  CustomActionSet?: Array<RuleEngineCustomAction>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -17011,6 +17085,76 @@ export interface OriginPrivateParameters {
    * 存储桶地域。
    */
   Region?: string
+}
+
+/**
+ * 规则引擎操作定制配置参数结构定义。
+ */
+export interface RuleEngineCustomActionParameterSchema {
+  /**
+   * <p>参数字段名称。</p>
+   */
+  Name?: string
+  /**
+   * <p>参数字段类型，取值有：<li>Boolean：布尔；</li><li>Integer：整型；</li><li>Float：浮点型；</li><li>String：字符串；</li><li>ArrayOfInteger：整型数组；</li><li>ArrayOfFloat：浮点型数组；</li><li>ArrayOfString：字符串数组。</li></p>
+   */
+  ValueType?: string
+  /**
+   * <p>参数字段描述。</p>
+   */
+  Description?: string
+  /**
+   * <p>参数字段默认值。</p>
+   */
+  Default?: string
+  /**
+   * <p>参数字段单位。</p>
+   */
+  Unit?: string
+  /**
+   * <p>参数字段是否必填。</p><p>默认值：false</p><p>若填充，则适用于所有参数字段类型校验；若不填充则不校验。</p>
+   */
+  Required?: boolean
+  /**
+   * <p>参数字段最小值。</p><p>若填充，适用于整数、浮点数、整数数组、浮点数数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MinValue?: number
+  /**
+   * <p>参数字段最大值。</p><p>若填充，适用于整数、浮点数、整数数组、浮点数数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MaxValue?: number
+  /**
+   * <p>参数字段最小长度。</p><p>若填充，适用于字符串、字符串数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MinLength?: number
+  /**
+   * <p>参数字段最大长度。</p><p>若填充，适用于字符串、字符串数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MaxLength?: number
+  /**
+   * <p>参数字段最小项数。</p><p>若填充，适用于各类数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MinItems?: number
+  /**
+   * <p>参数字段最大项数。</p><p>若填充，适用于各类数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MaxItems?: number
+  /**
+   * <p>参数字段项是否唯一。</p><p>默认值：false</p><p>若填充，适用于各类数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  UniqueItems?: boolean
+  /**
+   * <p>参数字段允许的格式。</p><p>若填充，需要校验字符串或者字符串数组内容合适；若不填充则不校验。</p>
+   */
+  AllowedPattern?: string
+  /**
+   * <p>参数字段允许的取值，若为空则不校验。</p><p>若本参数填充，则说明对应参数为枚举类型，仅允许填充本参数数组中的值；若不填充则不校验。</p>
+   */
+  AllowedValues?: Array<string>
+  /**
+   * <p>参数字段最小步长。若填充，适用于浮点型和浮点型数组类型参数的数值校验；若不填充则不校验。</p>
+   */
+  MultipleOf?: string
 }
 
 /**

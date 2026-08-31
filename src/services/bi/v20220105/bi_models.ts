@@ -36,33 +36,37 @@ export interface PageScreenVO {
  */
 export interface DescribeUserRoleListRequest {
   /**
-   * 页码
+   * <p>页码</p>
    */
   PageNo: number
   /**
-   * 页数
+   * <p>页数</p>
    */
   PageSize: number
   /**
-   * 全部页码
+   * <p>全部页码</p>
    */
   AllPage?: boolean
   /**
-   * 0 企业用户 1 访客 不填表示所有用户
+   * <p>0 企业用户 1 访客 不填表示所有用户</p>
    */
   UserType?: string
   /**
-   * 模糊搜索的关键字
+   * <p>模糊搜索的关键字</p>
    */
   Keyword?: string
   /**
-   * 项目id
+   * <p>项目id</p>
    */
   ProjectId?: string
   /**
-   * 是否只获取绑定企微应用的
+   * <p>是否只获取绑定企微应用的</p>
    */
   IsOnlyBindAppUser?: boolean
+  /**
+   * <p>用户类型</p>
+   */
+  IdentityType?: string
 }
 
 /**
@@ -2460,6 +2464,11 @@ export interface UserInfo {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LarkOpenId?: string
+  /**
+   * <p>用户类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IdentityType?: string
 }
 
 /**
@@ -2627,17 +2636,17 @@ export interface DescribeUserRoleListResponse {
    */
   ErrorInfo?: ErrorInfo
   /**
-   * 扩展描述信息(提供更多异常信息,用于辅助判断)
+   * <p>扩展描述信息(提供更多异常信息,用于辅助判断)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Extra?: string
   /**
-   * 数据
+   * <p>数据</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Data?: UserRoleListData
   /**
-   * 消息
+   * <p>消息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Msg?: string
@@ -5304,121 +5313,126 @@ export interface DescribeProjectListRequest {
  */
 export interface UserRoleListDataUserRoleInfo {
   /**
-   * 业务ID
+   * <p>业务ID</p>
    */
   Id?: number
   /**
-   * 角色列表
+   * <p>角色列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RoleList?: Array<UserRoleListDataRoleInfo>
   /**
-   * 角色ID列表
+   * <p>角色ID列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RoleIdList?: Array<number | bigint>
   /**
-   * 用户ID
+   * <p>用户ID</p>
    */
   UserId?: string
   /**
-   * 用户名
+   * <p>用户名</p>
    */
   UserName?: string
   /**
-   * 企业ID
+   * <p>企业ID</p>
    */
   CorpId?: string
   /**
-   * 邮箱
+   * <p>邮箱</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Email?: string
   /**
-   * 创建人
+   * <p>创建人</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreatedUser?: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreatedAt?: string
   /**
-   * 更新人
+   * <p>更新人</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdatedUser?: string
   /**
-   * 更新时间
+   * <p>更新时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdatedAt?: string
   /**
-   * 最后一次登录时间
+   * <p>最后一次登录时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LastLogin?: string
   /**
-   * 账号状态
+   * <p>账号状态</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Status?: number
   /**
-   * 手机号码
+   * <p>手机号码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PhoneNumber?: string
   /**
-   * 手机号区号
+   * <p>手机号区号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AreaCode?: string
   /**
-   * 是否为主账号
+   * <p>是否为主账号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RootAccount?: boolean
   /**
-   * 是否为企业管理员
+   * <p>是否为企业管理员</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CorpAdmin?: boolean
   /**
-   * 企微用户id
+   * <p>企微用户id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AppUserId?: string
   /**
-   * 昵称
+   * <p>昵称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AppUserAliasName?: string
   /**
-   * 应用用户名
+   * <p>应用用户名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AppUserName?: string
   /**
-   * 是否在可见范围内
+   * <p>是否在可见范围内</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InValidateAppRange?: boolean
   /**
-   * 用户openid
+   * <p>用户openid</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AppOpenUserId?: string
   /**
-   * 邮箱激活状态
+   * <p>邮箱激活状态</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   EmailActivationStatus?: number
   /**
-   * 用户组信息
+   * <p>用户组信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserGroupList?: Array<UserGroupDTO>
+  /**
+   * <p>用户类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IdentityType?: string
 }
 
 /**

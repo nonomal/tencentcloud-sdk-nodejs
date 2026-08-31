@@ -3050,6 +3050,10 @@ export interface DescribeLiveCloudEffectConfigResponse {
    */
   EffectTemplateList?: Array<CloudEffectTemplateInfo>
   /**
+   * <p>惩罚特效模板信息列表。</p>
+   */
+  PunishmentEffectTemplateList?: Array<CloudEffectTemplateInfo>
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -11279,47 +11283,39 @@ export interface DescribeConcurrentRecordStreamNumResponse {
  */
 export interface CloudEffectInfo {
   /**
-   * 云端特效 ID。
+   * <p>云端特效 ID。</p>
    */
   Id?: string
   /**
-   * 云端特效描述词。
+   * <p>云端特效描述词。</p>
    */
   Prompt?: string
   /**
-   * 云端特效标签。
+   * <p>云端特效标签。</p>
    */
   Flag?: string
   /**
-   * 云端特效生成状态。
-生成中 - GENERATING。
-处理中 - PROCESSING。
-生成失败 - FAILED。
-已完成 - FINISH。
-
+   * <p>云端特效生成状态。<br>生成中 - GENERATING。<br>处理中 - PROCESSING。<br>生成失败 - FAILED。<br>已完成 - FINISH。</p>
    */
   Status?: string
   /**
-   * 特效信息，生成失败时，此处返回失败原因。
+   * <p>特效信息，生成失败时，此处返回失败原因。</p>
    */
   Message?: string
   /**
-   * 云端特效预览图片。
+   * <p>云端特效预览图片。</p>
    */
   PreviewImageUrl?: string
   /**
-   * 云端特效类型。
-PGC : 官方精品特效。
-AIGC : AI生成的特效。
-UGC : 用户上传特效。
+   * <p>云端特效类型。<br>PGC : 官方精品特效。<br>AIGC : AI生成的特效。<br>UGC : 用户上传特效。</p>
    */
   Type?: string
   /**
-   * 云端特效创建时间。
+   * <p>云端特效创建时间。</p>
    */
   CreateTime?: string
   /**
-   * 云端特效更新时间。
+   * <p>云端特效更新时间。</p>
    */
   UpdateTime?: string
 }

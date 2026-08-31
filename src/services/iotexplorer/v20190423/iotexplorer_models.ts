@@ -478,60 +478,59 @@ export interface DescribeCloudStorageThumbnailListRequest {
  */
 export interface DescribeTWeSeeSubscriptionResponse {
   /**
-   * 资源 ID
+   * <p>资源 ID</p>
    */
   ResourceId?: string
   /**
-   * 套餐规格。可能取值：
-
-- `BASIC`：包年包月基础版（适用于视频理解）
+   * <p>套餐规格。可能取值：</p><ul><li><code>BASIC</code>：包年包月基础版（适用于视频理解）</li></ul>
    */
   ServiceTier?: string
   /**
-   * 到期时间，秒级时间戳
+   * <p>到期时间，秒级时间戳</p>
    */
   ExpireTime?: number
   /**
-   * 启用状态，`true` 为开启，`false` 为关闭
+   * <p>启用状态，<code>true</code> 为开启，<code>false</code> 为关闭</p>
    */
   Enabled?: boolean
   /**
-   * 订阅状态。可能取值：
-
-- `NORMAL`：正常
-- `ISOLATED`：隔离
+   * <p>订阅状态。可能取值：</p><ul><li><code>NORMAL</code>：正常</li><li><code>ISOLATED</code>：隔离</li></ul>
    */
   Status?: string
   /**
-   * 视觉理解配置（适用于视频理解、图片理解）
+   * <p>视觉理解配置（适用于视频理解、图片理解）</p>
    */
   ComprehensionConfig?: SeeComprehensionConfig
   /**
-   * 视频语义浓缩配置（适用于视频语义浓缩）
+   * <p>视频语义浓缩配置（适用于视频语义浓缩）</p>
    */
   CompHighlightConfig?: SeeCompHighlightConfig
   /**
-   * 云存事件 ID 过滤规则配置项
+   * <p>云存事件 ID 过滤规则配置项</p>
    */
   EventIdFilterConfig?: SeeEventIdFilterConfig
   /**
-   * 当前周期基础能力总额度
+   * <p>每日与每周总结配置</p>
+   */
+  SummarizeConfig?: SeeSummarizeConfig
+  /**
+   * <p>当前周期基础能力总额度</p>
    */
   QuotaBasic?: number
   /**
-   * 当前周期基础能力已用额度
+   * <p>当前周期基础能力已用额度</p>
    */
   QuotaUsedBasic?: number
   /**
-   * 当前周期高级能力总额度
+   * <p>当前周期高级能力总额度</p>
    */
   QuotaAdvanced?: number
   /**
-   * 当前周期高级能力已用额度
+   * <p>当前周期高级能力已用额度</p>
    */
   QuotaUsedAdvanced?: number
   /**
-   * 额度刷新时间
+   * <p>额度刷新时间</p>
    */
   QuotaRefreshTime?: number
   /**
@@ -1555,21 +1554,19 @@ export interface DescribeAISearchTaskAsyncRequest {
  */
 export interface DescribeTWeSeeSubscriptionRequest {
   /**
-   * 产品 ID
+   * <p>产品 ID</p>
    */
   ProductId: string
   /**
-   * 设备名称
+   * <p>设备名称</p>
    */
   DeviceName: string
   /**
-   * 算法类型。可选值：
-
-- `VID_COMP`：视频理解
+   * <p>算法类型。可选值：</p><ul><li><code>VID_COMP</code>：视频理解</li></ul>
    */
   ServiceType: string
   /**
-   * 通道 ID
+   * <p>通道 ID</p>
    */
   ChannelId?: number
 }
@@ -3757,45 +3754,29 @@ export interface CheckFirmwareUpdateResponse {
  */
 export interface ListTWeSeeTasksRequest {
   /**
-   * <p>产品 ID</p>
-   */
-  ProductId: string
-  /**
    * <p>设备名称</p>
    */
   DeviceName: string
-  /**
-   * <p>算法类目。可选值：</p><ul><li><code>COMPREHENSION</code>：视觉理解</li><li><code>HIGHLIGHT</code>：视频浓缩</li></ul>
-   */
-  ServiceCategory: string
   /**
    * <p>分页拉取数量</p>
    */
   Limit: number
   /**
-   * <p>分页拉取偏移</p>
+   * <p>产品 ID</p>
    */
-  Offset?: number
+  ProductId: string
   /**
-   * <p>算法类型。</p><p>当 ServiceCategory 为 <code>COMPREHENSION</code> 时，可选值包括：</p><ul><li><code>VID_COMP</code>：视频理解</li><li><code>IMG_COMP</code>：图片理解</li><li><code>CONT_PERSON_MOTIONLESS</code>：静姿检测</li></ul><p>当 ServiceCategory 为 <code>HIGHLIGHT</code> 时，可选值包括：</p><ul><li><code>COMP_HIGHLIGHT</code>：视频浓缩</li></ul>
+   * <p>算法类目。可选值：</p><ul><li><code>COMPREHENSION</code>：视觉理解</li><li><code>HIGHLIGHT</code>：视频浓缩</li><li><code>SUMMARIZATION</code>：每日/每周总结</li></ul>
    */
-  ServiceTypes?: Array<string>
+  ServiceCategory: string
   /**
    * <p>通道 ID</p>
    */
   ChannelId?: number
   /**
-   * <p>查询任务时间范围的起始时间（毫秒级 UNIX 时间戳）。不传则不生效时间范围条件。</p>
-   */
-  StartTimeMs?: number
-  /**
    * <p>查询任务时间范围的结束时间（毫秒级 UNIX 时间戳）。不传则不生效时间范围条件。</p>
    */
   EndTimeMs?: number
-  /**
-   * <p>要查询的任务的状态条件。不传则不按照状态过滤，可选值：</p><ul><li><code>1</code>：失败</li><li><code>2</code>：空结果</li><li><code>3</code>：有效结果</li></ul>
-   */
-  Status?: number
   /**
    * <p>下载 URL 的过期时间（秒级 UNIX 时间戳）。若传入该参数，则响应中将包含所有文件的下载 URL</p>
    */
@@ -3804,6 +3785,22 @@ export interface ListTWeSeeTasksRequest {
    * <p>任务结果过滤条件</p>
    */
   Filters?: Array<VisionRecognitionTaskFilter>
+  /**
+   * <p>分页拉取偏移</p>
+   */
+  Offset?: number
+  /**
+   * <p>算法类型。</p><p>当 ServiceCategory 为 <code>COMPREHENSION</code> 时，可选值包括：</p><ul><li><code>VID_COMP</code>：视频理解</li><li><code>IMG_COMP</code>：图片理解</li><li><code>CONT_PERSON_MOTIONLESS</code>：静姿检测</li></ul><p>当 ServiceCategory 为 <code>HIGHLIGHT</code> 时，可选值包括：</p><ul><li><code>COMP_HIGHLIGHT</code>：视频浓缩</li></ul><p>当 ServiceCategory 为 <code>SUMMARIZATION</code> 时，可选值包括：</p><ul><li><code>DAILY_SUM</code>：每日总结</li><li><code>WEEKLY_SUM</code>：每周总结</li></ul>
+   */
+  ServiceTypes?: Array<string>
+  /**
+   * <p>查询任务时间范围的起始时间（毫秒级 UNIX 时间戳）。不传则不生效时间范围条件。</p>
+   */
+  StartTimeMs?: number
+  /**
+   * <p>要查询的任务的状态条件。不传则不按照状态过滤，可选值：</p><ul><li><code>1</code>：失败</li><li><code>2</code>：空结果</li><li><code>3</code>：有效结果</li></ul>
+   */
+  Status?: number
 }
 
 /**
@@ -4490,13 +4487,13 @@ export interface ModifyTWeTalkProductConfigResponse {
  */
 export interface ModifyTWeSeeSubscriptionRequest {
   /**
-   * 产品 ID
-   */
-  ProductId: string
-  /**
    * 设备名称
    */
   DeviceName: string
+  /**
+   * 产品 ID
+   */
+  ProductId: string
   /**
    * 算法类型。可选值：
 
@@ -4508,21 +4505,25 @@ export interface ModifyTWeSeeSubscriptionRequest {
    */
   ChannelId?: number
   /**
-   * 功能开关。`true` 为开启，`false` 为关闭；不传表示不修改
+   * 视频语义浓缩配置（适用于视频语义浓缩），不传则不修改
    */
-  Enabled?: boolean
+  CompHighlightConfig?: SeeCompHighlightConfig
   /**
    * 视觉理解配置（适用于视频理解、图片理解），不传则不修改
    */
   ComprehensionConfig?: SeeComprehensionConfig
   /**
-   * 视频语义浓缩配置（适用于视频语义浓缩），不传则不修改
+   * 功能开关。`true` 为开启，`false` 为关闭；不传表示不修改
    */
-  CompHighlightConfig?: SeeCompHighlightConfig
+  Enabled?: boolean
   /**
    * 云存事件 ID 过滤规则配置，不传则不修改
    */
   EventIdFilterConfig?: SeeEventIdFilterConfig
+  /**
+   * 每日与每周总结配置，不传则不修改
+   */
+  SummarizeConfig?: SeeSummarizeConfig
 }
 
 /**
@@ -5591,7 +5592,7 @@ export interface DeleteTWeSeeTasksByConditionRequest {
    */
   DeviceName: string
   /**
-   * <p>算法类目。</p><p>枚举值：</p><ul><li>COMPREHENSION： 视觉理解</li><li>HIGHLIGHT： 视频浓缩</li></ul>
+   * <p>算法类目。</p><p>枚举值：</p><ul><li>COMPREHENSION： 视觉理解</li><li>HIGHLIGHT： 视频浓缩</li><li>SUMMARIZATION： 每日/每周总结</li></ul>
    */
   ServiceCategory: string
   /**
@@ -6958,7 +6959,7 @@ export interface PackageInfo {
  */
 export interface DescribeTWeSeeTaskResponse {
   /**
-   * 任务信息
+   * <p>任务信息</p>
    */
   TaskInfo?: SeeTaskInfo
   /**
@@ -7213,6 +7214,24 @@ export interface ResetCloudStorageAIServiceResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * TWeSee 每日与每周总结配置
+ */
+export interface SeeSummarizeConfig {
+  /**
+   * 是否开启每日总结
+   */
+  EnableDailySummary?: boolean
+  /**
+   * 是否开启每周总结
+   */
+  EnableWeeklySummary?: boolean
+  /**
+   * <p>生成总结的详细程度</p><p>枚举值：</p><ul><li>low： 精简</li><li>medium： 概要（默认值）</li></ul>
+   */
+  SummaryVerbosity?: string
 }
 
 /**
@@ -8285,9 +8304,13 @@ export interface InvokeCloudStorageAIServiceTaskResponse {
  */
 export interface DescribeTWeSeeTaskRequest {
   /**
-   * 任务 ID
+   * <p>任务 ID</p>
    */
   TaskId: string
+  /**
+   * <p>下载 URL 的过期时间（秒级 UNIX 时间戳）。若传入该参数，则响应中将包含所有文件的下载 URL</p><p>单位：秒</p>
+   */
+  FileURLExpireTime?: number
 }
 
 /**
@@ -11688,6 +11711,16 @@ export interface ListTopicPolicyRequest {
 }
 
 /**
+ * TWeSee 每日或每周总结结果
+ */
+export interface SeeSummarizeResult {
+  /**
+   * 总结文本
+   */
+  Summary?: string
+}
+
+/**
  * DeleteLoRaFrequency请求参数结构体
  */
 export interface DeleteLoRaFrequencyRequest {
@@ -13915,11 +13948,11 @@ export interface SeeTaskInfo {
    */
   Metadata?: SeeTaskMetadata
   /**
-   * <p>算法类目。可能取值：</p><ul><li><code>COMPREHENSION</code>：视觉理解</li><li><code>HIGHLIGHT</code>：视频浓缩</li></ul>
+   * <p>算法类目。</p><p>枚举值：</p><ul><li>COMPREHENSION： 视觉理解</li><li>HIGHLIGHT： 视频浓缩</li><li>SUMMARIZATION： 每日/每周总结</li></ul>
    */
   ServiceCategory?: string
   /**
-   * <p>算法类型。可能取值：</p><ul><li><code>VID_COMP</code>：视频理解</li><li><code>IMG_COMP</code>：图片理解</li><li><code>COMP_HIGHLIGHT</code>：视频浓缩</li></ul>
+   * <p>算法类型。</p><p>枚举值：</p><ul><li>VID_COMP： 视频理解</li><li>IMG_COMP： 图片理解</li><li>COMP_HIGHLIGHT： 视频浓缩</li><li>DAILY_SUM： 每日总结</li><li>WEEKLY_SUM： 每周总结</li></ul>
    */
   ServiceType?: string
   /**
@@ -13942,6 +13975,10 @@ export interface SeeTaskInfo {
    * <p>人脸检测结果</p>
    */
   FaceRecognitionResult?: SeeFaceRecognitionResult
+  /**
+   * <p>每日或每周总结结果</p>
+   */
+  SummarizeResult?: SeeSummarizeResult
   /**
    * <p>完成该任务所消耗的基础能力额度</p>
    */

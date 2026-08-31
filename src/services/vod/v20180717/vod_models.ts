@@ -763,6 +763,48 @@ export interface MediaAiAnalysisHighlightItem {
 }
 
 /**
+ * ProcessMediaByProcedure请求参数结构体
+ */
+export interface ProcessMediaByProcedureRequest {
+  /**
+   * <p><a href="https://cloud.tencent.com/document/product/266/33475#.E4.BB.BB.E5.8A.A1.E6.B5.81">任务流</a>名称。</p>
+   */
+  ProcedureName: string
+  /**
+   * <p>媒体文件 ID。<br>FileId和MediaStoragePath必须提供其中一个。</p>
+   */
+  FileId?: string
+  /**
+   * <p>媒体的存储路径。<br>只有<a href="https://cloud.tencent.com/document/product/266/126825">FileID + Path 模式</a>的子应用可以通过MediaStoragePath发起任务。<br>FileId和MediaStoragePath必须提供其中一个。</p>
+   */
+  MediaStoragePath?: string
+  /**
+   * <p><b>点播<a href="/document/product/266/14574">应用</a> ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b></p>
+   */
+  SubAppId?: number
+  /**
+   * <p>任务流的优先级，数值越大优先级越高，取值范围是-10到10，不填代表0。</p>
+   */
+  TasksPriority?: number
+  /**
+   * <p>任务流状态变更通知模式，可取值有 Finish，Change 和 None，不填代表 Finish。</p>
+   */
+  TasksNotifyMode?: string
+  /**
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>用于去重的识别码，如果 7 天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
+  /**
+   * <p>保留字段，特殊用途时使用。</p>
+   */
+  ExtInfo?: string
+}
+
+/**
  * DescribeAnimatedGraphicsTemplates请求参数结构体
  */
 export interface DescribeAnimatedGraphicsTemplatesRequest {
@@ -922,6 +964,28 @@ export interface AdaptiveDynamicStreamingTemplate {
 }
 
 /**
+ * 语音合成任务输入。
+ */
+export interface TextToSpeechAsyncInput {
+  /**
+   * <p>音色ID</p>
+   */
+  VoiceId?: string
+  /**
+   * <p>语音合成文本</p>
+   */
+  Text?: string
+  /**
+   * <p>语音合成语言</p>
+   */
+  LanguageBoost?: string
+  /**
+   * <p>扩展参数，json字符串</p>
+   */
+  ExtParam?: string
+}
+
+/**
  * DeleteJustInTimeTranscodeTemplate请求参数结构体
  */
 export interface DeleteJustInTimeTranscodeTemplateRequest {
@@ -977,6 +1041,26 @@ export interface AiReviewTaskProhibitedOcrResult {
    * 音视频审核 Ocr 文字鉴违禁任务进度，取值范围 [0-100] 。
    */
   Progress?: number
+}
+
+/**
+ * 语音违禁任务控制参数
+ */
+export interface ProhibitedAsrReviewTemplateInfo {
+  /**
+   * 语音违禁任务开关，可选值：
+<li>ON：开启语音违禁任务；</li>
+<li>OFF：关闭语音违禁任务。</li>
+   */
+  Switch: string
+  /**
+   * 判定涉嫌违规的分数阈值，当审核达到该分数以上，认为涉嫌违规，不填默认为 100 分。取值范围：0~100。
+   */
+  BlockConfidence?: number
+  /**
+   * 判定需人工复核是否违规的分数阈值，当审核达到该分数以上，认为需人工复核，不填默认为 75 分。取值范围：0~100。
+   */
+  ReviewConfidence?: number
 }
 
 /**
@@ -1148,6 +1232,16 @@ export interface DeleteLLMComprehendTemplateRequest {
 }
 
 /**
+ * AIGC 混元 3D 任务的输出媒体文件配置。
+ */
+export interface AigcHunyuan3DOutputConfig {
+  /**
+   * <p>存储模式。取值有： <li>Temporary：临时存储；</li>默认值：Temporary</p>
+   */
+  StorageMode?: string
+}
+
+/**
  * 音画质检测任务的输出。
  */
 export interface QualityInspectTaskOutput {
@@ -1197,6 +1291,28 @@ export interface QualityEnhanceTaskInput {
    * 音画质重生模板 ID。
    */
   Definition?: number
+}
+
+/**
+ * 语音合成任务输出。
+ */
+export interface TextToSpeechAsyncOutput {
+  /**
+   * <p>合成音频结果URL</p>
+   */
+  AudioUrl?: string
+  /**
+   * <p>使用的音色ID</p>
+   */
+  VoiceId?: string
+  /**
+   * <p>扩展信息</p>
+   */
+  ExtInfo?: string
+  /**
+   * <p>合成音频结果FileId</p>
+   */
+  FileId?: string
 }
 
 /**
@@ -1725,6 +1841,32 @@ export interface AiReviewTaskPoliticalOcrResult {
 }
 
 /**
+ * 视频配音任务输入。
+ */
+export interface VideoDubbingAsyncInput {
+  /**
+   * <p>输入视频Url</p>
+   */
+  InputUrl?: string
+  /**
+   * <p>输入视频FileId</p>
+   */
+  InputFileId?: string
+  /**
+   * <p>视频源语言，默认zh</p>
+   */
+  SrcLanguage?: string
+  /**
+   * <p>视频目标语言，默认en</p>
+   */
+  DstLanguage?: string
+  /**
+   * <p>配音模型</p>
+   */
+  Model?: string
+}
+
+/**
  * 音画质重生任务
  */
 export interface QualityEnhanceTask {
@@ -2186,9 +2328,62 @@ export interface AigcImageTaskOutputFileInfo {
    */
   FileId?: string
   /**
-   * <p>输出图片的元信息。当 StorageMode 为 Permanent 时有效。</p>
+   * <p>输出图片的元信息。</p>
    */
   MetaData?: MediaMetaData
+}
+
+/**
+ * 任务概要信息
+ */
+export interface TaskSimpleInfo {
+  /**
+   * 任务 ID。
+   */
+  TaskId?: string
+  /**
+   * 任务状态。取值：WAITING（等待中）、PROCESSING（处理中）、FINISH（已完成）、ABORTED（已终止）。
+   */
+  Status?: string
+  /**
+   * 视频 ID。
+   */
+  FileId?: string
+  /**
+   * 任务类型，取值：
+<li>Procedure：视频处理任务；</li>
+<li>EditMedia：视频编辑任务；</li>
+<li>ReduceMediaBitrate：降码率任务；</li>
+<li>WechatDistribute：微信发布任务；</li>
+<li>ReviewAudioVideo：音视频审核任务。</li>
+兼容 2017 版的任务类型：
+<li>Transcode：视频转码任务；</li>
+<li>SnapshotByTimeOffset：视频截图任务；</li>
+<li>Concat：视频拼接任务；</li>
+<li>Clip：视频剪辑任务；</li>
+<li>ImageSprites：截取雪碧图任务。</li>
+   */
+  TaskType?: string
+  /**
+   * 任务创建时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+   */
+  CreateTime?: string
+  /**
+   * 任务开始执行时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。若任务尚未开始，该字段为空。
+   */
+  BeginProcessTime?: string
+  /**
+   * 任务结束时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。若任务尚未完成，该字段为空。
+   */
+  FinishTime?: string
+  /**
+   * 用于去重的识别码，如果七天内曾有过相同的识别码的请求。
+   */
+  SessionId?: string
+  /**
+   * 来源上下文，用于透传用户请求信息。
+   */
+  SessionContext?: string
 }
 
 /**
@@ -2540,6 +2735,52 @@ export interface ComposeMediaResponse {
 }
 
 /**
+ * 音色设计任务。
+ */
+export interface VideoDubbingAsyncTask {
+  /**
+   * <p>任务 ID。</p>
+   */
+  TaskId?: string
+  /**
+   * <p>任务状态，取值：</p><li>PROCESSING：处理中；</li><li>FINISH：已完成。</li>
+   */
+  Status?: string
+  /**
+   * <p>错误码，0 表示成功，其他值表示失败：</p><li>40000：输入参数不合法，请检查输入参数；</li><li>60000：源文件错误（如视频数据损坏），请确认源文件是否正常；</li><li>70000：内部服务错误，建议重试。</li>
+   */
+  ErrCode?: number
+  /**
+   * <p>错误信息。</p>
+   */
+  Message?: string
+  /**
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/266/50368#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">视频处理类错误码</a> 列表。</p>
+   */
+  ErrCodeExt?: string
+  /**
+   * <p>视频配音任务输入信息。</p>
+   */
+  Input?: VideoDubbingAsyncInput
+  /**
+   * <p>视频配音任务输出信息。</p>
+   */
+  Output?: VideoDubbingAsyncOutput
+  /**
+   * <p>用于去重的识别码，如果七天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
+  /**
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>拉取上传进度，取值范围 [0-100] 。</p>
+   */
+  Progress?: number
+}
+
+/**
  * 轮播任务信息
  */
 export interface RoundPlayInfo {
@@ -2692,6 +2933,24 @@ export interface AbnormalLightingConfigureInfoForUpdate {
 }
 
 /**
+ * AIGC 混元 3D 的参考图片信息。
+ */
+export interface AigcHunyuan3DReferenceImageInfo {
+  /**
+   * <p>输入的文件类型。取值有： <li>File：点播文件；</li> <li>Url：可访问的 Url；</li></p>
+   */
+  Type?: string
+  /**
+   * <p>文件 ID，即该文件在云点播上的全局唯一标识符，在上传成功后由云点播后台分配。可以在 <a href="/document/product/266/7830">视频上传完成事件通知</a> 或 <a href="https://console.cloud.tencent.com/vod/media">云点播控制台</a> 获取该字段。当 Type 取值为 File 时，本参数有效。说明：图片格式的取值为：支持 jpg、jpeg、png、bmp、webp。</p>
+   */
+  FileId?: string
+  /**
+   * <p>可访问的文件 URL。当 Type 取值为 Url 时，本参数有效。说明：图片格式的取值为：支持 jpg、jpeg、png、bmp、webp。</p>
+   */
+  Url?: string
+}
+
+/**
  * ModifyWordSample返回参数结构体
  */
 export interface ModifyWordSampleResponse {
@@ -2742,21 +3001,17 @@ export interface DescribeDailyMediaPlayStatResponse {
 }
 
 /**
- * ModifySubAppIdInfo请求参数结构体
+ * 自定义音色信息。
  */
-export interface ModifySubAppIdInfoRequest {
+export interface CustomVoiceInfo {
   /**
-   * <b>点播[应用](/document/product/266/14574) ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b>
+   * <p>音色 ID。</p>
    */
-  SubAppId: number
+  VoiceId?: string
   /**
-   * 应用名称，长度限制：40个字符。
+   * <p>音色信息。</p>
    */
-  Name?: string
-  /**
-   * 应用简介，长度限制： 300个字符。
-   */
-  Description?: string
+  VoiceInfo?: string
 }
 
 /**
@@ -3107,6 +3362,44 @@ export interface ReviewAudioVideoTaskOutput {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CoverReviewResult?: ReviewImageResult
+}
+
+/**
+ * 音色更新字段
+ */
+export interface VoiceUpdateFields {
+  /**
+   * <p>音色名</p>
+   */
+  Name?: string
+  /**
+   * <p>音色描述</p>
+   */
+  Description?: string
+  /**
+   * <p>性别</p><p>枚举值：</p><ul><li>male： 男</li><li>female： 女</li><li>unknown： 未知</li></ul>
+   */
+  Gender?: string
+  /**
+   * <p>年龄</p><p>枚举值：</p><ul><li>child： 儿童</li><li>teenager： 少年</li><li>youth： 青年</li><li>middle_aged： 中年</li><li>senior： 老年</li><li>unknown： 未知</li></ul>
+   */
+  Age?: string
+  /**
+   * <p>语言</p>
+   */
+  Languages?: Array<string>
+  /**
+   * <p>标签</p>
+   */
+  Labels?: Array<string>
+  /**
+   * <p>场景</p>
+   */
+  Scenes?: Array<string>
+  /**
+   * <p>试听音频</p>
+   */
+  AudioUrl?: string
 }
 
 /**
@@ -3996,6 +4289,42 @@ export interface MediaSnapshotByTimeOffsetItem {
 }
 
 /**
+ * 资源包中包含的资源。
+ */
+export interface ProductInstanceRecource {
+  /**
+   * 资源类型。
+<li>Storage：存储资源包。</li>
+<li>Traffic：流量资源包。</li>
+<li>Transcode：普通转码资源包。</li>
+<li>TESHD：极速高清转码资源包。</li>
+<li>Review：音视频审核转码资源包。</li>
+<li>MediaProcess：媒体处理时长资源包。</li>
+   */
+  ResourceType?: string
+  /**
+   * 资源包额度。
+<li>音视频存储资源包，单位为字节。</li>
+<li>音视频转码资源包，单位为秒。</li>
+<li>音视频审核资源包，单位为秒。</li>
+<li>音视频极速高清资源包，单位为秒。</li>
+<li>音视频加速资源包，单位为字节。</li>
+<li>媒体处理时长资源包，单位为秒。</li>
+   */
+  Amount?: number
+  /**
+   * 资源包余量。
+<li>音视频存储资源包，单位为字节。</li>
+<li>音视频转码资源包，单位为秒。</li>
+<li>音视频审核资源包，单位为秒。</li>
+<li>音视频极速高清资源包，单位为秒。</li>
+<li>音视频加速资源包，单位为字节。</li>
+<li>媒体处理时长资源包，单位为秒。</li>
+   */
+  Left?: number
+}
+
+/**
  * 场景化 AIGC 生图任务的输出文件信息。
  */
 export interface SceneAigcImageTaskOutputFileInfo {
@@ -4108,28 +4437,49 @@ export interface JitterConfigureInfoForUpdate {
 }
 
 /**
- * 用户自定义语音审核任务控制参数
+ * 语音克隆任务。
  */
-export interface UserDefineAsrTextReviewTemplateInfo {
+export interface CloneVoiceAsyncTask {
   /**
-   * 用户自定语音审核任务开关，可选值：
-<li>ON：开启自定义语音审核任务；</li>
-<li>OFF：关闭自定义语音审核任务。</li>
+   * <p>任务 ID。</p>
    */
-  Switch: string
+  TaskId?: string
   /**
-   * 用户自定义语音过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回。如果要使用标签过滤功能，添加自定义语音关键词素材时需要添加对应标签。
-标签个数最多 10 个，每个标签长度最多 16 个字符。
+   * <p>任务状态，取值：</p><li>PROCESSING：处理中；</li><li>FINISH：已完成。</li>
    */
-  LabelSet?: Array<string>
+  Status?: string
   /**
-   * 判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规，不填默认为 100 分。取值范围：0~100。
+   * <p>错误码，0 表示成功，其他值表示失败：</p><li>40000：输入参数不合法，请检查输入参数；</li><li>60000：源文件错误（如视频数据损坏），请确认源文件是否正常；</li><li>70000：内部服务错误，建议重试。</li>
    */
-  BlockConfidence?: number
+  ErrCode?: number
   /**
-   * 判定需人工复核是否违规的分数阈值，当审核达到该分数以上，认为需人工复核，不填默认为 75 分。取值范围：0~100。
+   * <p>错误信息。</p>
    */
-  ReviewConfidence?: number
+  Message?: string
+  /**
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/266/50368#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">视频处理类错误码</a> 列表。</p>
+   */
+  ErrCodeExt?: string
+  /**
+   * <p>音色克隆任务输入信息。</p>
+   */
+  Input?: CloneVoiceAsyncInput
+  /**
+   * <p>音色克隆任务输出信息。</p>
+   */
+  Output?: CloneVoiceAsyncOutput
+  /**
+   * <p>用于去重的识别码，如果七天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
+  /**
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>拉取上传进度，取值范围 [0-100] 。</p>
+   */
+  Progress?: number
 }
 
 /**
@@ -5077,6 +5427,31 @@ export interface CreateKnowledgeBaseRequest {
 }
 
 /**
+ * 用户自定义语音审核任务控制参数
+ */
+export interface UserDefineAsrTextReviewTemplateInfo {
+  /**
+   * 用户自定语音审核任务开关，可选值：
+<li>ON：开启自定义语音审核任务；</li>
+<li>OFF：关闭自定义语音审核任务。</li>
+   */
+  Switch: string
+  /**
+   * 用户自定义语音过滤标签，审核结果包含选择的标签则返回结果，如果过滤标签为空，则审核结果全部返回。如果要使用标签过滤功能，添加自定义语音关键词素材时需要添加对应标签。
+标签个数最多 10 个，每个标签长度最多 16 个字符。
+   */
+  LabelSet?: Array<string>
+  /**
+   * 判定涉嫌违规的分数阈值，当智能审核达到该分数以上，认为涉嫌违规，不填默认为 100 分。取值范围：0~100。
+   */
+  BlockConfidence?: number
+  /**
+   * 判定需人工复核是否违规的分数阈值，当审核达到该分数以上，认为需人工复核，不填默认为 75 分。取值范围：0~100。
+   */
+  ReviewConfidence?: number
+}
+
+/**
  * 文件删除任务
  */
 export interface FileDeleteTask {
@@ -5889,6 +6264,16 @@ export interface EditMediaResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 异步配音输出参数设置
+ */
+export interface TextToSpeechAsyncOutputOption {
+  /**
+   * <p>合成结果输出类型</p><p>枚举值：</p><ul><li>fileId：生成新的点播fileId</li><li>url：音频url，有效期24小时</li></ul>
+   */
+  Type?: string
 }
 
 /**
@@ -6724,26 +7109,21 @@ export interface TaskStatData {
 }
 
 /**
- * 视频拆条的结果文件输出。
+ * 音色克隆任务输出。
  */
-export interface SplitMediaOutputConfig {
+export interface CloneVoiceAsyncOutput {
   /**
-   * 输出文件名，最长 64 个字符。缺省由系统指定生成文件名。
+   * <p>音色ID</p>
    */
-  MediaName?: string
+  VoiceId?: string
   /**
-   * 输出文件格式，可选值：mp4、hls。默认是 mp4。
+   * <p>试听音频</p>
    */
-  Type?: string
+  DemoAudio?: string
   /**
-   * 分类ID，用于对媒体进行分类管理，可通过 [创建分类](/document/product/266/7812) 接口，创建分类，获得分类 ID。
-<li>默认值：0，表示其他分类。</li>
+   * <p>扩展信息</p>
    */
-  ClassId?: number
-  /**
-   * 输出文件的过期时间，超过该时间文件将被删除，默认为永久不过期，格式按照 ISO 8601标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
-   */
-  ExpireTime?: string
+  ExtInfo?: string
 }
 
 /**
@@ -6931,39 +7311,71 @@ export interface ExtractBlindWatermarkTask {
 }
 
 /**
- * 资源包中包含的资源。
+ * UpdateAigcApiToken请求参数结构体
  */
-export interface ProductInstanceRecource {
+export interface UpdateAigcApiTokenRequest {
   /**
-   * 资源类型。
-<li>Storage：存储资源包。</li>
-<li>Traffic：流量资源包。</li>
-<li>Transcode：普通转码资源包。</li>
-<li>TESHD：极速高清转码资源包。</li>
-<li>Review：音视频审核转码资源包。</li>
-<li>MediaProcess：媒体处理时长资源包。</li>
+   * <p><b>点播<a href="/document/product/266/14574">应用</a> ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b></p>
    */
-  ResourceType?: string
+  SubAppId: number
   /**
-   * 资源包额度。
-<li>音视频存储资源包，单位为字节。</li>
-<li>音视频转码资源包，单位为秒。</li>
-<li>音视频审核资源包，单位为秒。</li>
-<li>音视频极速高清资源包，单位为秒。</li>
-<li>音视频加速资源包，单位为字节。</li>
-<li>媒体处理时长资源包，单位为秒。</li>
+   * <p>要更新Api Key</p>
    */
-  Amount?: number
+  ApiToken: string
   /**
-   * 资源包余量。
-<li>音视频存储资源包，单位为字节。</li>
-<li>音视频转码资源包，单位为秒。</li>
-<li>音视频审核资源包，单位为秒。</li>
-<li>音视频极速高清资源包，单位为秒。</li>
-<li>音视频加速资源包，单位为字节。</li>
-<li>媒体处理时长资源包，单位为秒。</li>
+   * <p>Merge（默认，对 ExtInfo JSON 按顶层 key 合并）、Overwrite（直接覆盖）</p>
    */
-  Left?: number
+  ActionType?: string
+  /**
+   * <p>token 的扩展信息</p>
+   */
+  ExtInfo?: string
+}
+
+/**
+ * 音色设计任务。
+ */
+export interface DesignVoiceAsyncTask {
+  /**
+   * <p>任务 ID。</p>
+   */
+  TaskId?: string
+  /**
+   * <p>任务状态，取值：</p><li>PROCESSING：处理中；</li><li>FINISH：已完成。</li>
+   */
+  Status?: string
+  /**
+   * <p>错误码，0 表示成功，其他值表示失败：</p><li>40000：输入参数不合法，请检查输入参数；</li><li>60000：源文件错误（如视频数据损坏），请确认源文件是否正常；</li><li>70000：内部服务错误，建议重试。</li>
+   */
+  ErrCode?: number
+  /**
+   * <p>错误信息。</p>
+   */
+  Message?: string
+  /**
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/266/50368#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">视频处理类错误码</a> 列表。</p>
+   */
+  ErrCodeExt?: string
+  /**
+   * <p>音色设计任务输入信息。</p>
+   */
+  Input?: DesignVoiceAsyncInput
+  /**
+   * <p>音色设计任务输出信息。</p>
+   */
+  Output?: DesignVoiceAsyncOutput
+  /**
+   * <p>用于去重的识别码，如果七天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
+  /**
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>拉取上传进度，取值范围 [0-100] 。</p>
+   */
+  Progress?: number
 }
 
 /**
@@ -7234,6 +7646,20 @@ export interface MPSSmartSubtitleTemplateForUpdate {
    * <p>说话人识别输出到字幕文件，可选值：<br>0：表示不输出到字幕文件；<br>1：表示输出到vtt字幕文件<br>注意：使用此参数SpeakerMode的值不能为0。</p>
    */
   SpeakerLabel?: number
+}
+
+/**
+ * UpdateVoice返回参数结构体
+ */
+export interface UpdateVoiceResponse {
+  /**
+   * <p>更新后的音色信息</p>
+   */
+  Voice?: VoiceInfo
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -7866,6 +8292,38 @@ export interface DeleteCLSTopicResponse {
 }
 
 /**
+ * AIGC 场景化生视频任务的输出媒体文件配置。
+ */
+export interface SceneAigcVideoOutputConfig {
+  /**
+   * 存储模式。取值有： <li>Permanent：永久存储，生成的图片文件将存储到云点播，可在事件通知中获取到 FileId；</li> <li>Temporary：临时存储，生成的图片文件不会存储到云点播，可在事件通知中获取到临时访问的 URL；</li>
+默认值：Temporary
+   */
+  StorageMode?: string
+  /**
+   * 输出文件名，最长 64 个字符。缺省由系统指定生成文件名。
+   */
+  MediaName?: string
+  /**
+   * 分类ID，用于对媒体进行分类管理，可通过 [创建分类](/document/product/266/7812) 接口，创建分类，获得分类 ID。
+<li>默认值：0，表示其他分类。</li>
+   */
+  ClassId?: number
+  /**
+   * 输出文件的过期时间，超过该时间文件将被删除，默认为永久不过期，格式按照 ISO 8601标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+   */
+  ExpireTime?: string
+  /**
+   * 指定所生成视频的宽高比。输入格式为 W:H。仅生商品图场景有效。可选：16:9、9:16。
+   */
+  AspectRatio?: string
+  /**
+   * 生成视频时长。可选值4、6、8秒
+   */
+  Duration?: number
+}
+
+/**
  * LiveRealTimeClip请求参数结构体
  */
 export interface LiveRealTimeClipRequest {
@@ -8137,6 +8595,28 @@ export interface AiReviewPornAsrTaskOutput {
 }
 
 /**
+ * 音色设计任务输入。
+ */
+export interface DesignVoiceAsyncInput {
+  /**
+   * <p>音色描述</p>
+   */
+  Prompt?: string
+  /**
+   * <p>音色信息</p>
+   */
+  VoiceSettings?: VoiceSettings
+  /**
+   * <p>试听文本</p>
+   */
+  PreviewText?: string
+  /**
+   * <p>扩展参数，json字符串</p>
+   */
+  ExtParam?: string
+}
+
+/**
  * 云点播中存储的文件。
  */
 export interface FileContent {
@@ -8300,7 +8780,7 @@ export interface AigcVideoTaskOutputFileInfo {
    */
   FileId?: string
   /**
-   * <p>输出视频的元信息。当 StorageMode 为 Permanent 时有效。</p>
+   * <p>输出视频的元信息。</p>
    */
   MetaData?: MediaMetaData
   /**
@@ -8930,6 +9410,24 @@ export interface ExtractBlindWatermarkResponse {
    * 任务 ID。
    */
   TaskId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeBlindWatermarkTemplates返回参数结构体
+ */
+export interface DescribeBlindWatermarkTemplatesResponse {
+  /**
+   * 符合过滤条件的记录总数。
+   */
+  TotalCount?: number
+  /**
+   * 数字水印模板详情列表。
+   */
+  BlindWatermarkTemplateSet?: Array<BlindWatermarkTemplate>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -10230,13 +10728,13 @@ export interface RebuildMediaTaskInput {
 }
 
 /**
- * ModifyProcessImageAsyncTemplate返回参数结构体
+ * AIGC 混元 3D 任务的输出信息。
  */
-export interface ModifyProcessImageAsyncTemplateResponse {
+export interface AigcHunyuan3DTaskOutput {
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>AIGC 混元 3D 任务的输出文件信息。</p>
    */
-  RequestId?: string
+  FileInfos?: Array<AigcHunyuan3DTaskOutputFileInfo>
 }
 
 /**
@@ -10494,6 +10992,60 @@ export interface ComposeMediaOutput {
 默认值：0。
    */
   RemoveAudio?: number
+}
+
+/**
+ * AIGC 混元 3D 任务的输入。
+ */
+export interface AigcHunyuan3DTaskInput {
+  /**
+   * <p>生成 3D 的参考图片信息。</p>
+   */
+  ImageInfos?: Array<AigcHunyuan3DReferenceImageInfo>
+  /**
+   * <p>用于生成 3D 模型的多视角图片信息。</p><p>数组长度必须在2-8之间，且必须包含 front 视角。</p>
+   */
+  MultiViewImageInfos?: Array<AigcHunyuan3DMultiViewImageInfo>
+  /**
+   * <p>生成 3D 模型的提示词。</p>
+   */
+  Prompt?: string
+  /**
+   * <p>生成类型。</p><p>枚举值：</p><ul><li>Normal： 生成完整 3D 资产（几何 + 纹理）；</li><li>Geometry： 只生成几何体（无纹理，输出速度更快）；</li><li>Texture： 只生成纹理（需要填写 MeshInfos）</li></ul>
+   */
+  GenerateType?: string
+  /**
+   * <p>用于生成 3D 模型的参考 3D 模型。</p>
+   */
+  MeshInfos?: Array<AigcHunyuan3DMeshInfo>
+  /**
+   * <p>是否开启输出 PBR 材质。</p><p>枚举值：</p><ul><li>Enabled： 开启；</li><li>Disabled： 关闭。</li></ul>
+   */
+  EnablePBR?: string
+  /**
+   * <p>面片数。仅 GenerateType 取值为 Normal  和 Geometry 时生效。</p>
+   */
+  FaceCount?: number
+  /**
+   * <p>是否保留 UV 展开。</p><p>枚举值：</p><ul><li>Enabled： 保留；</li><li>Disabled： 不保留。</li></ul>
+   */
+  KeepUV?: string
+  /**
+   * <p>结果格式。除默认返回的 obj 和 glb 外，附加输出的一种格式。</p><p>枚举值：</p><ul><li>FBX： FBX 格式文件。</li></ul>
+   */
+  ResultFormat?: string
+  /**
+   * <p>随机种子，同一 Seed 输入下结果可复现。</p>
+   */
+  Seed?: number
+  /**
+   * <p>风格控制词。</p>
+   */
+  Style?: string
+  /**
+   * <p>任务的输出媒体文件配置。</p>
+   */
+  OutputConfig?: AigcHunyuan3DOutputConfig
 }
 
 /**
@@ -11504,6 +12056,39 @@ export interface DescribeCLSTopicsResponse {
 }
 
 /**
+ * 视频拆条的结果文件输出。
+ */
+export interface SplitMediaOutputConfig {
+  /**
+   * 输出文件名，最长 64 个字符。缺省由系统指定生成文件名。
+   */
+  MediaName?: string
+  /**
+   * 输出文件格式，可选值：mp4、hls。默认是 mp4。
+   */
+  Type?: string
+  /**
+   * 分类ID，用于对媒体进行分类管理，可通过 [创建分类](/document/product/266/7812) 接口，创建分类，获得分类 ID。
+<li>默认值：0，表示其他分类。</li>
+   */
+  ClassId?: number
+  /**
+   * 输出文件的过期时间，超过该时间文件将被删除，默认为永久不过期，格式按照 ISO 8601标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
+   */
+  ExpireTime?: string
+}
+
+/**
+ * ModifyProcessImageAsyncTemplate返回参数结构体
+ */
+export interface ModifyProcessImageAsyncTemplateResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * MPS 具体子任务查询结果类型。
  */
 export interface MPSSubTaskResult {
@@ -11635,17 +12220,29 @@ export interface ImageUnderstandingItem {
 }
 
 /**
- * 自定义音色信息。
+ * AIGC 混元 3D 任务的输出文件信息。
  */
-export interface CustomVoiceInfo {
+export interface AigcHunyuan3DTaskOutputFileInfo {
   /**
-   * <p>音色 ID。</p>
+   * <p>存储模式。取值有： <li>Permanent：永久存储；</li> <li>Temporary：临时存储；</li> 默认值：Temporary</p>
    */
-  VoiceId?: string
+  StorageMode?: string
   /**
-   * <p>音色信息。</p>
+   * <p>输出文件的过期时间，超过该时间文件将被删除，默认为永久不过期，格式按照 ISO 8601标准表示，详见 <a href="https://cloud.tencent.com/document/product/266/11732#I">ISO 日期格式说明</a>。</p>
    */
-  VoiceInfo?: string
+  ExpireTime?: string
+  /**
+   * <p>文件类型，例如 OBJ、GLB、FBX 等。</p>
+   */
+  FileType?: string
+  /**
+   * <p>输出文件地址。</p>
+   */
+  FileUrl?: string
+  /**
+   * <p>输出文件预览地址。</p><p>无文件预览地址时为空。</p>
+   */
+  PreviewFileUrl?: string
 }
 
 /**
@@ -12370,49 +12967,37 @@ export interface CreateSuperPlayerConfigRequest {
 }
 
 /**
- * MPS智能分析模板输入
+ * DesignVoiceAsync请求参数结构体
  */
-export interface MPSAIAnalysisTemplateForUpdate {
+export interface DesignVoiceAsyncRequest {
   /**
-   * <p>视频内容分析模板唯一标识。</p>
+   * <p>音色描述</p>
    */
-  Definition: number
+  Prompt: string
   /**
-   * <p>视频内容分析模板名称，长度限制：64 个字符。</p>
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
    */
-  Name: string
+  SubAppId?: string
   /**
-   * <p>视频内容分析模板描述信息，长度限制：256 个字符。</p>
+   * <p>音色设置</p>
    */
-  Comment: string
+  VoiceSettings?: VoiceSettings
   /**
-   * <p>智能分类任务控制参数。</p>
+   * <p>试听合成文本，最大 500 字符</p>
    */
-  ClassificationConfigure?: MPSAIAnalysisConfigureInfo
+  PreviewText?: string
   /**
-   * <p>智能标签任务控制参数。</p>
+   * <p>扩展参数，json字符串</p>
    */
-  TagConfigure?: MPSAIAnalysisConfigureInfo
+  ExtParam?: string
   /**
-   * <p>智能封面任务控制参数。</p>
+   * <p>标识来源上下文，用于透传用户请求信息，在回调和任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
    */
-  CoverConfigure?: MPSAIAnalysisConfigureInfo
+  SessionContext?: string
   /**
-   * <p>智能按帧标签任务控制参数。</p>
+   * <p>用于任务去重的识别码，如果三天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
    */
-  FrameTagConfigure?: MPSAIAnalysisConfigureInfo
-  /**
-   * <p>智能拆条任务控制参数。</p>
-   */
-  SplitConfigure?: MPSAIAnalysisConfigureInfo
-  /**
-   * <p>智能集锦任务控制参数。</p>
-   */
-  HighlightConfigure?: MPSAIAnalysisConfigureInfo
-  /**
-   * <p>智能片头片尾任务控制参数。</p>
-   */
-  OpeningAndEndingConfigure?: MPSAIAnalysisConfigureInfo
+  SessionId?: string
 }
 
 /**
@@ -12635,19 +13220,11 @@ export interface SimpleHlsClipRequest {
  */
 export interface MediaDeleteItem {
   /**
-   * 所指定的删除部分。如果未填写该字段则参数无效。可选值有：
-<li>OriginalFiles（删除原文件，删除后无法发起转码、微信发布等任何视频处理操作）；</li>
-<li>TranscodeFiles（删除转码文件）；</li>
-<li>AdaptiveDynamicStreamingFiles（删除转自适应码流文件）；</li>
-<li>WechatPublishFiles（删除微信发布文件）；</li>
-<li>WechatMiniProgramPublishFiles（删除微信小程序发布文件）。</li>
-<font color=red>注意：</font> <li>取值为OriginalFiles时，文件上传时携带的封面文件会被删除；</li>
-<li>取值为TranscodeFiles时，媒体处理产生的封面文件会被删除。</li>
+   * <p>所指定的删除部分。如果未填写该字段则参数无效。可选值有：</p><li>OriginalFiles（删除原文件，删除后无法发起转码、微信发布等任何视频处理操作）；</li><li>TranscodeFiles（删除转码文件）；</li><li>AdaptiveDynamicStreamingFiles（删除转自适应码流文件）；</li><li>WechatPublishFiles（删除微信发布文件）；</li><li>WechatMiniProgramPublishFiles（删除微信小程序发布文件）。</li><li>MpsAiMediaAiAnalysisFiles（删除ProcessMediaByMPS产生的智能分析产物）。</li><li>MpsAiMediaSmartEraseFiles（删除ProcessMediaByMPS产生的智能擦除产物）。</li><li>MpsAiMediaSmartSubtitleFiles（删除ProcessMediaByMPS产生的智能字幕产物）。</li><font color="red">注意：</font> <li>取值为OriginalFiles时，文件上传时携带的封面文件会被删除；</li><li>取值为TranscodeFiles时，媒体处理产生的封面文件会被删除。</li>
    */
   Type: string
   /**
-   * 删除由Type参数指定的种类下的视频模板号，模板定义参见[转码模板](https://cloud.tencent.com/document/product/266/33478#.3Cspan-id-.3D-.22zm.22-.3E.3C.2Fspan.3E.E8.BD.AC.E7.A0.81.E6.A8.A1.E6.9D.BF)。
-默认值为0，表示删除参数Type指定种类下所有的视频。
+   * <p>删除由Type参数指定的种类下的视频模板号，模板定义参见<a href="https://cloud.tencent.com/document/product/266/33478#.3Cspan-id-.3D-.22zm.22-.3E.3C.2Fspan.3E.E8.BD.AC.E7.A0.81.E6.A8.A1.E6.9D.BF">转码模板</a>。<br>默认值为0，表示删除参数Type指定种类下所有的视频。</p>
    */
   Definition?: number
 }
@@ -12870,6 +13447,28 @@ export interface DescribeSuperPlayerConfigsResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * VerifyDomainRecord请求参数结构体
+ */
+export interface VerifyDomainRecordRequest {
+  /**
+   * 需要接入点播的加速域名。
+   */
+  Domain: string
+  /**
+   * <b>点播[应用](/document/product/266/14574) ID。从2024年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b>
+   */
+  SubAppId?: number
+  /**
+   * 验证方式：
+<li>dns：DNS 解析验证；</li>
+<li>fIle：文件验证。</li>
+
+默认值：dns。
+   */
+  VerifyType?: string
 }
 
 /**
@@ -13848,7 +14447,7 @@ export interface AigcAudioTaskOutputFileInfo {
    */
   FileId?: string
   /**
-   * <p>输出视频的元信息。当 StorageMode 为 Permanent 时有效。</p>
+   * <p>输出音频的元信息。</p>
    */
   MetaData?: MediaMetaData
   /**
@@ -13963,6 +14562,40 @@ export interface ImageScale {
    * 输出图片的短边长度，单位为像素。当 Type 取值为 ShortEdgeFirst 时此字段有效。
    */
   ShortEdge?: number
+}
+
+/**
+ * ModifyEventConfig请求参数结构体
+ */
+export interface ModifyEventConfigRequest {
+  /**
+   * <p><b>点播<a href="/document/product/266/14574">应用</a> ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b></p>
+   */
+  SubAppId?: number
+  /**
+   * <p>接收事件通知的方式。</p><li>PUSH：[HTTP 回调通知](https://cloud.tencent.com/document/product/266/33779)；</li><li>PULL：[基于消息队列的可靠通知](https://cloud.tencent.com/document/product/266/33779)。</li>
+   */
+  Mode?: string
+  /**
+   * <p>采用 <a href="https://cloud.tencent.com/document/product/266/33779">HTTP 回调通知</a> 接收方式时，用于接收 3.0 格式回调的地址。<br>注意：如果带 NotificationUrl  参数且值为空字符串时将会清空 3.0 格式回调地址。</p>
+   */
+  NotificationUrl?: string
+  /**
+   * <p>是否接收 <a href="https://cloud.tencent.com/document/product/266/7830">视频上传完成</a> 事件通知， 默认 &quot;OFF&quot; 为忽略该事件通知，&quot;ON&quot; 为接收事件通知。</p>
+   */
+  UploadMediaCompleteEventSwitch?: string
+  /**
+   * <p>是否接收 <a href="https://cloud.tencent.com/document/product/266/13434">视频删除完成</a> 事件通知，  默认 &quot;OFF&quot; 为忽略该事件通知，&quot;ON&quot; 为接收事件通知。</p>
+   */
+  DeleteMediaCompleteEventSwitch?: string
+  /**
+   * <p>是否接收剪辑固化完成事件通知，  默认 &quot;OFF&quot; 为忽略该事件通知，&quot;ON&quot; 为接收事件通知。</p>
+   */
+  PersistenceCompleteEventSwitch?: string
+  /**
+   * <p>回调密钥，由大小写字母及数字组成，最长32字符。配置后将在回调中发送<code>Sign</code>与<code>T</code>字段，可用于鉴权。</p><ul><li><code>Sign</code>：string类型。事件通知安全签名 Sign = MD5（SignKey + T）。说明：腾讯云把加密 SignKey 和 T 进行字符串拼接后通过 MD5 计算得出 Sign 值，并将其放在通知消息里，您的后台服务器在收到通知消息后可以根据同样的算法确认 Sign 是否正确，进而确认消息是否确实来自腾讯云后台。</li><li><code>T</code>：int64类型。过期时间，事件通知签名过期 UNIX 时间戳。来自腾讯云的消息通知默认过期时间是10分钟，如果一条消息通知中的 t 值所指定的时间已经过期，则可以判定这条通知无效，进而可以防止网络重放攻击。T 的格式为十进制 UNIX 时间戳，即从1970年01月01日（UTC/GMT 的午夜）开始所经过的秒数。</li></ul>
+   */
+  SignKey?: string
 }
 
 /**
@@ -14225,35 +14858,17 @@ export interface ModifyQualityInspectTemplateRequest {
 }
 
 /**
- * AIGC 场景化生视频任务的输出媒体文件配置。
+ * DesignVoiceAsync返回参数结构体
  */
-export interface SceneAigcVideoOutputConfig {
+export interface DesignVoiceAsyncResponse {
   /**
-   * 存储模式。取值有： <li>Permanent：永久存储，生成的图片文件将存储到云点播，可在事件通知中获取到 FileId；</li> <li>Temporary：临时存储，生成的图片文件不会存储到云点播，可在事件通知中获取到临时访问的 URL；</li>
-默认值：Temporary
+   * <p>任务id，查询任务时使用</p>
    */
-  StorageMode?: string
+  TaskId?: string
   /**
-   * 输出文件名，最长 64 个字符。缺省由系统指定生成文件名。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  MediaName?: string
-  /**
-   * 分类ID，用于对媒体进行分类管理，可通过 [创建分类](/document/product/266/7812) 接口，创建分类，获得分类 ID。
-<li>默认值：0，表示其他分类。</li>
-   */
-  ClassId?: number
-  /**
-   * 输出文件的过期时间，超过该时间文件将被删除，默认为永久不过期，格式按照 ISO 8601标准表示，详见 [ISO 日期格式说明](https://cloud.tencent.com/document/product/266/11732#I)。
-   */
-  ExpireTime?: string
-  /**
-   * 指定所生成视频的宽高比。输入格式为 W:H。仅生商品图场景有效。可选：16:9、9:16。
-   */
-  AspectRatio?: string
-  /**
-   * 生成视频时长。可选值4、6、8秒
-   */
-  Duration?: number
+  RequestId?: string
 }
 
 /**
@@ -15387,37 +16002,13 @@ export interface ReduceMediaBitrateAdaptiveDynamicStreamingResult {
 }
 
 /**
- * ModifyEventConfig请求参数结构体
+ * DeleteVoice返回参数结构体
  */
-export interface ModifyEventConfigRequest {
+export interface DeleteVoiceResponse {
   /**
-   * <p><b>点播<a href="/document/product/266/14574">应用</a> ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b></p>
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  SubAppId?: number
-  /**
-   * <p>接收事件通知的方式。</p><li>PUSH：[HTTP 回调通知](https://cloud.tencent.com/document/product/266/33779)；</li><li>PULL：[基于消息队列的可靠通知](https://cloud.tencent.com/document/product/266/33779)。</li>
-   */
-  Mode?: string
-  /**
-   * <p>采用 <a href="https://cloud.tencent.com/document/product/266/33779">HTTP 回调通知</a> 接收方式时，用于接收 3.0 格式回调的地址。<br>注意：如果带 NotificationUrl  参数且值为空字符串时将会清空 3.0 格式回调地址。</p>
-   */
-  NotificationUrl?: string
-  /**
-   * <p>是否接收 <a href="https://cloud.tencent.com/document/product/266/7830">视频上传完成</a> 事件通知， 默认 &quot;OFF&quot; 为忽略该事件通知，&quot;ON&quot; 为接收事件通知。</p>
-   */
-  UploadMediaCompleteEventSwitch?: string
-  /**
-   * <p>是否接收 <a href="https://cloud.tencent.com/document/product/266/13434">视频删除完成</a> 事件通知，  默认 &quot;OFF&quot; 为忽略该事件通知，&quot;ON&quot; 为接收事件通知。</p>
-   */
-  DeleteMediaCompleteEventSwitch?: string
-  /**
-   * <p>是否接收剪辑固化完成事件通知，  默认 &quot;OFF&quot; 为忽略该事件通知，&quot;ON&quot; 为接收事件通知。</p>
-   */
-  PersistenceCompleteEventSwitch?: string
-  /**
-   * <p>回调密钥，由大小写字母及数字组成，最长32字符。配置后将在回调中发送<code>Sign</code>与<code>T</code>字段，可用于鉴权。</p><ul><li><code>Sign</code>：string类型。事件通知安全签名 Sign = MD5（SignKey + T）。说明：腾讯云把加密 SignKey 和 T 进行字符串拼接后通过 MD5 计算得出 Sign 值，并将其放在通知消息里，您的后台服务器在收到通知消息后可以根据同样的算法确认 Sign 是否正确，进而确认消息是否确实来自腾讯云后台。</li><li><code>T</code>：int64类型。过期时间，事件通知签名过期 UNIX 时间戳。来自腾讯云的消息通知默认过期时间是10分钟，如果一条消息通知中的 t 值所指定的时间已经过期，则可以判定这条通知无效，进而可以防止网络重放攻击。T 的格式为十进制 UNIX 时间戳，即从1970年01月01日（UTC/GMT 的午夜）开始所经过的秒数。</li></ul>
-   */
-  SignKey?: string
+  RequestId?: string
 }
 
 /**
@@ -15431,17 +16022,27 @@ export interface BlindWatermarkInput {
 }
 
 /**
- * DescribeBlindWatermarkTemplates返回参数结构体
+ * 用于生成混元 3D 模型的已有模型信息。
  */
-export interface DescribeBlindWatermarkTemplatesResponse {
+export interface AigcHunyuan3DMeshInfo {
   /**
-   * 符合过滤条件的记录总数。
+   * <p>输入的文件类型。取值有： <li>File：点播文件；</li> <li>Url：可访问的 Url；</li></p>
    */
-  TotalCount?: number
+  Type?: string
   /**
-   * 数字水印模板详情列表。
+   * <p>文件 ID，即该文件在云点播上的全局唯一标识符，在上传成功后由云点播后台分配。可以在 <a href="/document/product/266/7830">视频上传完成事件通知</a> 或 <a href="https://console.cloud.tencent.com/vod/media">云点播控制台</a> 获取该字段。当 Type 取值为 File 时，本参数有效。说明：图片格式的取值为：支持 glb、obj。</p>
    */
-  BlindWatermarkTemplateSet?: Array<BlindWatermarkTemplate>
+  FileId?: string
+  /**
+   * <p>可访问的文件 URL。当 Type 取值为 Url 时，本参数有效。说明：文件格式的取值为：支持 glb、obj。</p>
+   */
+  Url?: string
+}
+
+/**
+ * AttachMediaSubtitles返回参数结构体
+ */
+export interface AttachMediaSubtitlesResponse {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -15449,9 +16050,13 @@ export interface DescribeBlindWatermarkTemplatesResponse {
 }
 
 /**
- * AttachMediaSubtitles返回参数结构体
+ * TextToSpeechAsync返回参数结构体
  */
-export interface AttachMediaSubtitlesResponse {
+export interface TextToSpeechAsyncResponse {
+  /**
+   * <p>任务ID，使用该ID查询结果</p>
+   */
+  TaskId?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -15649,13 +16254,41 @@ export interface AiAnalysisTaskTagInput {
 }
 
 /**
- * DeleteAigcApiToken返回参数结构体
+ * CloneVoiceAsync请求参数结构体
  */
-export interface DeleteAigcApiTokenResponse {
+export interface CloneVoiceAsyncRequest {
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
    */
-  RequestId?: string
+  SubAppId?: string
+  /**
+   * <p>克隆音频base64编码。</p>
+   */
+  AudioData?: string
+  /**
+   * <p>克隆音频Url，AudioData为空时有效</p>
+   */
+  AudioUrl?: string
+  /**
+   * <p>克隆文件FileID，AudioData及AudioUrl为空时有效</p>
+   */
+  AudioFileId?: string
+  /**
+   * <p>语言增强，如 "zh" "en" "auto"，默认 "auto"</p>
+   */
+  LanguageBoost?: string
+  /**
+   * <p>音色克隆拓展参数。<code>ExtParam</code> 支持的字段： </p><ul><li><code>text</code> (string)：试听合成文本，最大 1000 字符；为空或不传时不返回试听音频。</li></ul>
+   */
+  ExtParam?: string
+  /**
+   * <p>标识来源上下文，用于透传用户请求信息，在回调和任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>用于任务去重的识别码，如果三天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
 }
 
 /**
@@ -17303,45 +17936,21 @@ export interface MPSSubtitleBoardConfig {
 }
 
 /**
- * ProcessMediaByProcedure请求参数结构体
+ * ModifySubAppIdInfo请求参数结构体
  */
-export interface ProcessMediaByProcedureRequest {
+export interface ModifySubAppIdInfoRequest {
   /**
-   * <p><a href="https://cloud.tencent.com/document/product/266/33475#.E4.BB.BB.E5.8A.A1.E6.B5.81">任务流</a>名称。</p>
+   * <b>点播[应用](/document/product/266/14574) ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b>
    */
-  ProcedureName: string
+  SubAppId: number
   /**
-   * <p>媒体文件 ID。<br>FileId和MediaStoragePath必须提供其中一个。</p>
+   * 应用名称，长度限制：40个字符。
    */
-  FileId?: string
+  Name?: string
   /**
-   * <p>媒体的存储路径。<br>只有<a href="https://cloud.tencent.com/document/product/266/126825">FileID + Path 模式</a>的子应用可以通过MediaStoragePath发起任务。<br>FileId和MediaStoragePath必须提供其中一个。</p>
+   * 应用简介，长度限制： 300个字符。
    */
-  MediaStoragePath?: string
-  /**
-   * <p><b>点播<a href="/document/product/266/14574">应用</a> ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b></p>
-   */
-  SubAppId?: number
-  /**
-   * <p>任务流的优先级，数值越大优先级越高，取值范围是-10到10，不填代表0。</p>
-   */
-  TasksPriority?: number
-  /**
-   * <p>任务流状态变更通知模式，可取值有 Finish，Change 和 None，不填代表 Finish。</p>
-   */
-  TasksNotifyMode?: string
-  /**
-   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
-   */
-  SessionContext?: string
-  /**
-   * <p>用于去重的识别码，如果 7 天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
-   */
-  SessionId?: string
-  /**
-   * <p>保留字段，特殊用途时使用。</p>
-   */
-  ExtInfo?: string
+  Description?: string
 }
 
 /**
@@ -17469,6 +18078,52 @@ export interface MediaTrackItem {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   EmptyItem?: EmptyTrackItem
+}
+
+/**
+ * MPS智能分析模板输入
+ */
+export interface MPSAIAnalysisTemplateForUpdate {
+  /**
+   * <p>视频内容分析模板唯一标识。</p>
+   */
+  Definition: number
+  /**
+   * <p>视频内容分析模板名称，长度限制：64 个字符。</p>
+   */
+  Name: string
+  /**
+   * <p>视频内容分析模板描述信息，长度限制：256 个字符。</p>
+   */
+  Comment: string
+  /**
+   * <p>智能分类任务控制参数。</p>
+   */
+  ClassificationConfigure?: MPSAIAnalysisConfigureInfo
+  /**
+   * <p>智能标签任务控制参数。</p>
+   */
+  TagConfigure?: MPSAIAnalysisConfigureInfo
+  /**
+   * <p>智能封面任务控制参数。</p>
+   */
+  CoverConfigure?: MPSAIAnalysisConfigureInfo
+  /**
+   * <p>智能按帧标签任务控制参数。</p>
+   */
+  FrameTagConfigure?: MPSAIAnalysisConfigureInfo
+  /**
+   * <p>智能拆条任务控制参数。</p>
+   */
+  SplitConfigure?: MPSAIAnalysisConfigureInfo
+  /**
+   * <p>智能集锦任务控制参数。</p>
+   */
+  HighlightConfigure?: MPSAIAnalysisConfigureInfo
+  /**
+   * <p>智能片头片尾任务控制参数。</p>
+   */
+  OpeningAndEndingConfigure?: MPSAIAnalysisConfigureInfo
 }
 
 /**
@@ -18493,6 +19148,40 @@ export interface DeleteAigcAdvancedCustomElementResponse {
 }
 
 /**
+ * 音色属性
+ */
+export interface VoiceSettings {
+  /**
+   * <p>音色名</p>
+   */
+  Name?: string
+  /**
+   * <p>音色描述</p>
+   */
+  Description?: string
+  /**
+   * <p>性别</p><p>枚举值：</p><ul><li>male： 男性</li><li>female： 女性</li><li>unknown： 未知</li></ul>
+   */
+  Gender?: string
+  /**
+   * <p>年龄</p><p>枚举值：</p><ul><li>child： 儿童</li><li>teenager： 少年</li><li>youth： 青年</li><li>middle_aged： 中年</li><li>senior： 老年</li><li>unknown： 未知</li></ul>
+   */
+  Age?: string
+  /**
+   * <p>语言，当前支持：<br>zh 中文 (Chinese)<br>en 英语 (English)<br>ja 日语 (Japanese)<br>de 德语 (German)<br>fr 法语 (French)<br>ko 韩语 (Korean)<br>ru 俄语 (Russian)<br>uk 乌克兰语 (Ukrainian)<br>pt 葡萄牙语 (Portuguese)<br>it 意大利语 (Italian)<br>es 西班牙语 (Spanish)<br>id 印度尼西亚语 (Indonesian)<br>nl 荷兰语 (Dutch)<br>tr 土耳其语 (Turkish)<br>fil 菲律宾语 (Filipino)<br>ms 马来语 (Malay)<br>el 希腊语 (Greek)<br>fi 芬兰语 (Finnish)<br>hr 克罗地亚语 (Croatian)<br>sk 斯洛伐克语 (Slovak)<br>pl 波兰语 (Polish)<br>sv 瑞典语 (Swedish)<br>hi 印地语 (Hindi)<br>bg 保加利亚语 (Bulgarian)<br>ro 罗马尼亚语 (Romanian)<br>ar 阿拉伯语 (Arabic)<br>cs 捷克语 (Czech)<br>da 丹麦语 (Danish)<br>ta 泰米尔语 (Tamil)<br>hun 匈牙利语（Hungarian）<br>vi 越南语（Vietnamese）<br>no 挪威语（Norwegian）<br>yue 粤语（Cantonese）<br>th 泰语（Thai）<br>he 希伯来语（Hebrew）<br>ca 加泰罗尼亚语（Catalan）<br>nn 尼诺斯克语（Nynorsk）<br>af 阿非利卡语（Afrikaans）<br>fa 波斯语（Persian）<br>sl 斯洛文尼亚语（Slovenian）</p>
+   */
+  Languages?: Array<string>
+  /**
+   * <p>标签</p>
+   */
+  Labels?: Array<string>
+  /**
+   * <p>使用场景</p>
+   */
+  Scenes?: Array<string>
+}
+
+/**
  * AIGC 视频转绘任务的输出媒体文件配置。
  */
 export interface AigcVideoRedrawOutputConfig {
@@ -18587,6 +19276,52 @@ export interface DescribeClientUploadAccelerationUsageDataRequest {
 默认查询所有加速类型的用量 。
    */
   Type?: string
+}
+
+/**
+ * 语音合成任务。
+ */
+export interface TextToSpeechAsyncTask {
+  /**
+   * <p>任务 ID。</p>
+   */
+  TaskId?: string
+  /**
+   * <p>任务状态，取值：</p><li>PROCESSING：处理中；</li><li>FINISH：已完成。</li>
+   */
+  Status?: string
+  /**
+   * <p>错误码，0 表示成功，其他值表示失败：</p><li>40000：输入参数不合法，请检查输入参数；</li><li>60000：源文件错误（如视频数据损坏），请确认源文件是否正常；</li><li>70000：内部服务错误，建议重试。</li>
+   */
+  ErrCode?: number
+  /**
+   * <p>错误信息。</p>
+   */
+  Message?: string
+  /**
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/266/50368#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">视频处理类错误码</a> 列表。</p>
+   */
+  ErrCodeExt?: string
+  /**
+   * <p>语音合成任务输入信息。</p>
+   */
+  Input?: TextToSpeechAsyncInput
+  /**
+   * <p>语音合成任务输出信息。</p>
+   */
+  Output?: TextToSpeechAsyncOutput
+  /**
+   * <p>用于去重的识别码，如果七天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
+  /**
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>拉取上传进度，取值范围 [0-100] 。</p>
+   */
+  Progress?: number
 }
 
 /**
@@ -19151,23 +19886,25 @@ export interface DescribePrepaidProductsResponse {
 }
 
 /**
- * 语音违禁任务控制参数
+ * 音色克隆任务输入。
  */
-export interface ProhibitedAsrReviewTemplateInfo {
+export interface CloneVoiceAsyncInput {
   /**
-   * 语音违禁任务开关，可选值：
-<li>ON：开启语音违禁任务；</li>
-<li>OFF：关闭语音违禁任务。</li>
+   * <p>克隆音频Url，AudioData为空时有效</p>
    */
-  Switch: string
+  AudioUrl?: string
   /**
-   * 判定涉嫌违规的分数阈值，当审核达到该分数以上，认为涉嫌违规，不填默认为 100 分。取值范围：0~100。
+   * <p>输入音频fileId</p>
    */
-  BlockConfidence?: number
+  AudioFileId?: string
   /**
-   * 判定需人工复核是否违规的分数阈值，当审核达到该分数以上，认为需人工复核，不填默认为 75 分。取值范围：0~100。
+   * <p>音频语言</p>
    */
-  ReviewConfidence?: number
+  LanguageBoost?: string
+  /**
+   * <p>扩展参数，json字符串</p>
+   */
+  ExtParam?: string
 }
 
 /**
@@ -19367,7 +20104,7 @@ export interface EventContent {
    */
   EventHandle?: string
   /**
-   * <p><b>支持事件类型：</b></p><li>NewFileUpload：视频上传完成；</li><li>ProcedureStateChanged：任务流状态变更；</li><li>FileDeleted：视频删除完成；</li><li>RestoreMediaComplete：视频取回完成；</li><li>PullComplete：视频转拉完成；</li><li>EditMediaComplete：视频编辑完成；</li><li>SplitMediaComplete：视频拆分完成；</li><li>ComposeMediaComplete：制作媒体文件完成；</li><li>WechatMiniProgramPublishComplete：微信小程序发布完成。</li><li>RemoveWatermark：智能去除水印完成。</li><li>RebuildMediaComplete：音画质重生完成事件（不推荐使用）。</li><li>ReviewAudioVideoComplete：音视频审核完成；</li><li>ExtractTraceWatermarkComplete：提取溯源水印完成；</li><li>ExtractCopyRightWatermarkComplete：提取版权水印完成；</li><li>DescribeFileAttributesComplete：获取文件属性完成；</li><li>QualityInspectComplete：音画质检测完成；</li><li>QualityEnhanceComplete：音画质重生任务完成；</li><li>PersistenceComplete：剪辑固化完成；</li><li>ComplexAdaptiveDynamicStreamingComplete：复杂自适应码流任务完成。</li><li>ProcessMediaByMPSComplete：MPS视频处理完成。</li><li>AigcImageTaskComplete：AIGC 生图任务完成。</li><li>AigcVideoTaskComplete：AIGC 生视频任务完成。</li><li>DescribeAigcFaceInfoAsyncComplete：异步获取 AIGC 人脸信息任务完成。</li><b>兼容 2017 版的事件类型：</b><li>TranscodeComplete：视频转码完成；</li><li>ConcatComplete：视频拼接完成；</li><li>ClipComplete：视频剪辑完成；</li><li>CreateImageSpriteComplete：视频截取雪碧图完成；</li><li>CreateSnapshotByTimeOffsetComplete：视频按时间点截图完成。</li>
+   * <p><b>支持事件类型：</b></p><li>NewFileUpload：视频上传完成；</li><li>ProcedureStateChanged：任务流状态变更；</li><li>FileDeleted：视频删除完成；</li><li>RestoreMediaComplete：视频取回完成；</li><li>PullComplete：视频转拉完成；</li><li>EditMediaComplete：视频编辑完成；</li><li>SplitMediaComplete：视频拆分完成；</li><li>ComposeMediaComplete：制作媒体文件完成；</li><li>WechatMiniProgramPublishComplete：微信小程序发布完成。</li><li>RemoveWatermark：智能去除水印完成。</li><li>RebuildMediaComplete：音画质重生完成事件（不推荐使用）。</li><li>ReviewAudioVideoComplete：音视频审核完成；</li><li>ExtractTraceWatermarkComplete：提取溯源水印完成；</li><li>ExtractCopyRightWatermarkComplete：提取版权水印完成；</li><li>DescribeFileAttributesComplete：获取文件属性完成；</li><li>QualityInspectComplete：音画质检测完成；</li><li>QualityEnhanceComplete：音画质重生任务完成；</li><li>PersistenceComplete：剪辑固化完成；</li><li>ComplexAdaptiveDynamicStreamingComplete：复杂自适应码流任务完成。</li><li>ProcessMediaByMPSComplete：MPS视频处理完成。</li><li>AigcImageTaskComplete：AIGC 生图任务完成。</li><li>AigcVideoTaskComplete：AIGC 生视频任务完成。</li><li>AigcHunyuan3DTaskComplete：AIGC 混元 3D 任务完成。</li><li>DescribeAigcFaceInfoAsyncComplete：异步获取 AIGC 人脸信息任务完成。</li><b>兼容 2017 版的事件类型：</b><li>TranscodeComplete：视频转码完成；</li><li>ConcatComplete：视频拼接完成；</li><li>ClipComplete：视频剪辑完成；</li><li>CreateImageSpriteComplete：视频截取雪碧图完成；</li><li>CreateSnapshotByTimeOffsetComplete：视频按时间点截图完成。</li>
    */
   EventType?: string
   /**
@@ -19541,6 +20278,10 @@ export interface EventContent {
    * <p>异步获取 AIGC 人脸信息，仅当 EventType 为 DescribeAigcFaceInfoAsyncComplete，该字段有值。</p>
    */
   DescribeAigcFaceInfoAsyncCompleteEvent?: DescribeAigcFaceInfoAsyncTask
+  /**
+   * <p>AIGC 混元 3D 任务信息，仅当 EventType 为 AigcHunyuan3DTaskComplete，该字段有值。</p>
+   */
+  AigcHunyuan3DCompleteEvent?: AigcHunyuan3DTask
 }
 
 /**
@@ -21727,6 +22468,28 @@ export interface EnhanceMediaQualityOutputConfig {
 }
 
 /**
+ * UpdateVoice请求参数结构体
+ */
+export interface UpdateVoiceRequest {
+  /**
+   * <p>音色Id</p>
+   */
+  VoiceId: string
+  /**
+   * <p>更新音色字段</p>
+   */
+  VoiceFields: VoiceUpdateFields
+  /**
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
+   */
+  SubAppId?: string
+  /**
+   * <p>扩展参数，json字符串</p>
+   */
+  ExtParam?: string
+}
+
+/**
  * 字幕信息。
  */
 export interface AiRecognitionTaskAsrFullTextResultOutputSubtitleItem {
@@ -21771,7 +22534,7 @@ export interface DescribeStorageDataRequest {
  */
 export interface DescribeTaskDetailResponse {
   /**
-   * <p>任务类型，取值：<li>Procedure：视频处理任务；</li><li>EditMedia：视频编辑任务；</li><li>SplitMedia：视频拆条任务；</li><li>ComposeMedia：制作媒体文件任务；</li><li>WechatPublish：微信发布任务；</li><li>WechatMiniProgramPublish：微信小程序视频发布任务；</li><li>PullUpload：拉取上传媒体文件任务；</li><li>FastClipMedia：快速剪辑任务；</li><li>RemoveWatermarkTask：智能去除水印任务；</li><li>DescribeFileAttributesTask：获取文件属性任务；</li><li>RebuildMedia：音画质重生任务（不推荐使用）；</li><li>ReviewAudioVideo：音视频审核任务；</li><li>ExtractTraceWatermark：提取溯源水印任务；</li><li>ExtractCopyRightWatermark：提取版权水印任务；</li><li>QualityInspect：音画质检测任务；</li><li>QualityEnhance：音画质重生任务；</li><li>ComplexAdaptiveDynamicStreaming：复杂自适应码流任务；</li><li>ProcessMediaByMPS：MPS 视频处理任务；</li><li>AigcImageTask：AIGC 生图任务；</li><li>SceneAigcImageTask：场景化 AIGC 生图任务；</li><li>AigcVideoTask：AIGC 生视频任务；</li><li>ImportMediaKnowledge：导入媒体知识任务。</li><li>SceneAigcVideoTask：场景化 AIGC 生视频任务；</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> CreateAigcAdvancedCustomElement：创建自定义主体任务</li><li>CreateAigcCustomVoice：创建自定义音色任务</li><li>CreateAigcSubject：创建主体任务</li><li>AigcVideoRedrawTask：AIGC 视频转绘任务</li><li>CreateAigcAudioClone：AIGC 声音复刻任务</li><li>DescribeAigcFaceInfoAsync：异步获取 AIGC 人脸信息任务</li><li>WandAsrTask：WAND 语音识别</li></p>
+   * <p>任务类型，取值：<li>Procedure：视频处理任务；</li><li>EditMedia：视频编辑任务；</li><li>SplitMedia：视频拆条任务；</li><li>ComposeMedia：制作媒体文件任务；</li><li>WechatPublish：微信发布任务；</li><li>WechatMiniProgramPublish：微信小程序视频发布任务；</li><li>PullUpload：拉取上传媒体文件任务；</li><li>FastClipMedia：快速剪辑任务；</li><li>RemoveWatermarkTask：智能去除水印任务；</li><li>DescribeFileAttributesTask：获取文件属性任务；</li><li>RebuildMedia：音画质重生任务（不推荐使用）；</li><li>ReviewAudioVideo：音视频审核任务；</li><li>ExtractTraceWatermark：提取溯源水印任务；</li><li>ExtractCopyRightWatermark：提取版权水印任务；</li><li>QualityInspect：音画质检测任务；</li><li>QualityEnhance：音画质重生任务；</li><li>ComplexAdaptiveDynamicStreaming：复杂自适应码流任务；</li><li>ProcessMediaByMPS：MPS 视频处理任务；</li><li>AigcImageTask：AIGC 生图任务；</li><li>SceneAigcImageTask：场景化 AIGC 生图任务；</li><li>AigcVideoTask：AIGC 生视频任务；</li><li>ImportMediaKnowledge：导入媒体知识任务。</li><li>SceneAigcVideoTask：场景化 AIGC 生视频任务；</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> CreateAigcAdvancedCustomElement：创建自定义主体任务</li><li>CreateAigcCustomVoice：创建自定义音色任务</li><li>CreateAigcSubject：创建主体任务</li><li>AigcVideoRedrawTask：AIGC 视频转绘任务</li><li>CreateAigcAudioClone：AIGC 声音复刻任务</li><li>DescribeAigcFaceInfoAsync：异步获取 AIGC 人脸信息任务</li><li>WandAsrTask：WAND 语音识别</li><li>AigcHunyuan3DTask：AIGC 混元 3D 任务</li><li>DesignVoiceAsync：音色设计</li><li>CloneVoiceAsync：音色克隆</li><li>TextToSpeechAsync：语音生成</li><li>VideoDubbingAsync：视频翻译配音</li></p>
    */
   TaskType?: string
   /**
@@ -21960,6 +22723,26 @@ export interface DescribeTaskDetailResponse {
    * <p>异步获取 AIGC 人脸信息，仅当 TaskType 为 DescribeAigcFaceInfoAsync，该字段有值。</p>
    */
   DescribeAigcFaceInfoAsyncTask?: DescribeAigcFaceInfoAsyncTask
+  /**
+   * <p>混元 3D 任务，仅当 TaskType 为 AigcHunyuan3DTask，该字段有值。</p>
+   */
+  AigcHunyuan3DTask?: AigcHunyuan3DTask
+  /**
+   * <p>音色设计，仅当 TaskType 为 DesignVoiceAsync，该字段有值。</p>
+   */
+  DesignVoiceAsyncTask?: DesignVoiceAsyncTask
+  /**
+   * <p>音色克隆，仅当 TaskType 为 CloneVoiceAsync，该字段有值。</p>
+   */
+  CloneVoiceAsyncTask?: CloneVoiceAsyncTask
+  /**
+   * <p>语音合成，仅当 TaskType 为 TextToSpeechAsync，该字段有值。</p>
+   */
+  TextToSpeechAsyncTask?: TextToSpeechAsyncTask
+  /**
+   * <p>视频翻译配音，仅当 TaskType 为VideoDubbingAsync，该字段有值。</p>
+   */
+  VideoDubbingAsyncTask?: VideoDubbingAsyncTask
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -22907,17 +23690,23 @@ export interface FaceRecognitionTask {
 }
 
 /**
- * DescribeAigcApiTokens返回参数结构体
+ * DeleteVoice请求参数结构体
  */
-export interface DescribeAigcApiTokensResponse {
+export interface DeleteVoiceRequest {
   /**
-   * <p>API Token 列表</p>
+   * <p>音色Id</p>
    */
-  ApiTokens?: Array<string>
+  VoiceId: string
   /**
-   * <p>ExtInfo信息，和API Token列表一一对应</p>
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
    */
-  ExtInfos?: Array<string>
+  SubAppId?: string
+}
+
+/**
+ * DeleteAigcApiToken返回参数结构体
+ */
+export interface DeleteAigcApiTokenResponse {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -23232,6 +24021,20 @@ export interface ModifySubAppIdStatusResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 视频配音任务输出。
+ */
+export interface VideoDubbingAsyncOutput {
+  /**
+   * <p>配音结果Url</p>
+   */
+  ResultUrl?: string
+  /**
+   * <p>配音结果FileId</p>
+   */
+  FileId?: string
 }
 
 /**
@@ -23689,6 +24492,52 @@ export interface ImageCenterCut {
 }
 
 /**
+ * 音色信息
+ */
+export interface VoiceInfo {
+  /**
+   * <p>音色ID</p>
+   */
+  VoiceId?: string
+  /**
+   * <p>音色名</p>
+   */
+  Name?: string
+  /**
+   * <p>音色描述信息</p>
+   */
+  Description?: string
+  /**
+   * <p>音色类别</p><p>枚举值：</p><ul><li>system：系统音色</li><li>clone：克隆音色</li><li>design：设计音色</li></ul>
+   */
+  Category?: string
+  /**
+   * <p>性别</p><p>枚举值：</p><ul><li>male： 男</li><li>famale： 女</li></ul>
+   */
+  Gender?: string
+  /**
+   * <p>年龄</p><p>枚举值：</p><ul><li>child： 儿童</li><li>teenager： 少年</li><li>youth： 青年</li><li>middle_aged： 中年</li><li>senior： 老年</li><li>unknown： 未知</li></ul>
+   */
+  Age?: string
+  /**
+   * <p>支持语种列表</p><p>如：en</p>
+   */
+  Languages?: Array<string>
+  /**
+   * <p>试听音频URL</p>
+   */
+  AudioUrl?: string
+  /**
+   * <p>标签列表</p><p>如：温柔</p>
+   */
+  Labels?: Array<string>
+  /**
+   * <p>推荐场景</p><p>如：教育</p>
+   */
+  Scenes?: Array<string>
+}
+
+/**
  * ModifyAIAnalysisTemplate请求参数结构体
  */
 export interface ModifyAIAnalysisTemplateRequest {
@@ -24034,56 +24883,21 @@ export interface MPSRawSmartSubtitleParameter {
 }
 
 /**
- * 任务概要信息
+ * DescribeAigcApiTokens返回参数结构体
  */
-export interface TaskSimpleInfo {
+export interface DescribeAigcApiTokensResponse {
   /**
-   * 任务 ID。
+   * <p>API Token 列表</p>
    */
-  TaskId?: string
+  ApiTokens?: Array<string>
   /**
-   * 任务状态。取值：WAITING（等待中）、PROCESSING（处理中）、FINISH（已完成）、ABORTED（已终止）。
+   * <p>ExtInfo信息，和API Token列表一一对应</p>
    */
-  Status?: string
+  ExtInfos?: Array<string>
   /**
-   * 视频 ID。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  FileId?: string
-  /**
-   * 任务类型，取值：
-<li>Procedure：视频处理任务；</li>
-<li>EditMedia：视频编辑任务；</li>
-<li>ReduceMediaBitrate：降码率任务；</li>
-<li>WechatDistribute：微信发布任务；</li>
-<li>ReviewAudioVideo：音视频审核任务。</li>
-兼容 2017 版的任务类型：
-<li>Transcode：视频转码任务；</li>
-<li>SnapshotByTimeOffset：视频截图任务；</li>
-<li>Concat：视频拼接任务；</li>
-<li>Clip：视频剪辑任务；</li>
-<li>ImageSprites：截取雪碧图任务。</li>
-   */
-  TaskType?: string
-  /**
-   * 任务创建时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
-   */
-  CreateTime?: string
-  /**
-   * 任务开始执行时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。若任务尚未开始，该字段为空。
-   */
-  BeginProcessTime?: string
-  /**
-   * 任务结束时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。若任务尚未完成，该字段为空。
-   */
-  FinishTime?: string
-  /**
-   * 用于去重的识别码，如果七天内曾有过相同的识别码的请求。
-   */
-  SessionId?: string
-  /**
-   * 来源上下文，用于透传用户请求信息。
-   */
-  SessionContext?: string
+  RequestId?: string
 }
 
 /**
@@ -24664,6 +25478,20 @@ export interface CreateRebuildMediaTemplateRequest {
 }
 
 /**
+ * CloneVoiceAsync返回参数结构体
+ */
+export interface CloneVoiceAsyncResponse {
+  /**
+   * <p>任务ID，使用该ID查询结果</p>
+   */
+  TaskId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 单个图片处理操作。
  */
 export interface ImageOperation {
@@ -24837,25 +25665,39 @@ export interface DescribeRoundPlaysResponse {
 }
 
 /**
- * UpdateAigcApiToken请求参数结构体
+ * 人脸识别任务控制参数
  */
-export interface UpdateAigcApiTokenRequest {
+export interface FaceConfigureInfo {
   /**
-   * <p><b>点播<a href="/document/product/266/14574">应用</a> ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b></p>
+   * 人脸识别任务开关，可选值：
+<li>ON：开启智能人脸识别任务；</li>
+<li>OFF：关闭智能人脸识别任务。</li>
    */
-  SubAppId: number
+  Switch: string
   /**
-   * <p>要更新Api Key</p>
+   * 人脸识别过滤分数，当识别结果达到该分数以上，返回识别结果。默认 95 分。取值范围：0 - 100。
    */
-  ApiToken: string
+  Score?: number
   /**
-   * <p>Merge（默认，对 ExtInfo JSON 按顶层 key 合并）、Overwrite（直接覆盖）</p>
+   * 默认人物过滤标签，指定需要返回的默认人物的标签。如果未填或者为空，则全部默认人物结果都返回。标签可选值：
+<li>entertainment：娱乐明星；</li>
+<li>sport：体育明星；</li>
+<li>politician：相关人物。</li>
    */
-  ActionType?: string
+  DefaultLibraryLabelSet?: Array<string>
   /**
-   * <p>token 的扩展信息</p>
+   * 用户自定义人物过滤标签，指定需要返回的用户自定义人物的标签。如果未填或者为空，则全部自定义人物结果都返回。
+标签个数最多 100 个，每个标签长度最多 16 个字符。
    */
-  ExtInfo?: string
+  UserDefineLibraryLabelSet?: Array<string>
+  /**
+   * 人物库选择，可选值：
+<li>Default：使用默认人物库；</li>
+<li>UserDefine：使用用户自定义人物库。</li>
+<li>All：同时使用默认人物库和用户自定义人物库。</li>
+默认值：All，使用系统默认人物库及用户自定义人物库。
+   */
+  FaceLibrary?: string
 }
 
 /**
@@ -25126,6 +25968,24 @@ export interface RebuildMediaTask {
    * 来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。
    */
   SessionContext?: string
+}
+
+/**
+ * DescribeVoices返回参数结构体
+ */
+export interface DescribeVoicesResponse {
+  /**
+   * <p>可用音色列表</p>
+   */
+  Voices?: Array<VoiceInfo>
+  /**
+   * <p>可用音色总数</p>
+   */
+  TotalCount?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -26377,39 +27237,53 @@ export interface RemoveWaterMarkTaskInput {
 }
 
 /**
- * 人脸识别任务控制参数
+ * DescribeVoices请求参数结构体
  */
-export interface FaceConfigureInfo {
+export interface DescribeVoicesRequest {
   /**
-   * 人脸识别任务开关，可选值：
-<li>ON：开启智能人脸识别任务；</li>
-<li>OFF：关闭智能人脸识别任务。</li>
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
    */
-  Switch: string
+  SubAppId?: string
   /**
-   * 人脸识别过滤分数，当识别结果达到该分数以上，返回识别结果。默认 95 分。取值范围：0 - 100。
+   * <p>音色ID</p>
    */
-  Score?: number
+  VoiceId?: string
   /**
-   * 默认人物过滤标签，指定需要返回的默认人物的标签。如果未填或者为空，则全部默认人物结果都返回。标签可选值：
-<li>entertainment：娱乐明星；</li>
-<li>sport：体育明星；</li>
-<li>politician：相关人物。</li>
+   * <p>音色类别</p><p>枚举值：</p><ul><li>system： 系统音色</li><li>clone： 克隆音色</li><li>design： 设计音色</li><li>all： 所有音色（默认）</li></ul>
    */
-  DefaultLibraryLabelSet?: Array<string>
+  VoiceType?: string
   /**
-   * 用户自定义人物过滤标签，指定需要返回的用户自定义人物的标签。如果未填或者为空，则全部自定义人物结果都返回。
-标签个数最多 100 个，每个标签长度最多 16 个字符。
+   * <p>音色名</p>
    */
-  UserDefineLibraryLabelSet?: Array<string>
+  VoiceName?: string
   /**
-   * 人物库选择，可选值：
-<li>Default：使用默认人物库；</li>
-<li>UserDefine：使用用户自定义人物库。</li>
-<li>All：同时使用默认人物库和用户自定义人物库。</li>
-默认值：All，使用系统默认人物库及用户自定义人物库。
+   * <p>音色描述</p>
    */
-  FaceLibrary?: string
+  Description?: string
+  /**
+   * <p>性别</p><p>枚举值：</p><ul><li>male： 男</li><li>female： 女</li><li>unknown： 未知</li></ul>
+   */
+  Gender?: string
+  /**
+   * <p>年龄</p><p>枚举值：</p><ul><li>child： 儿童</li><li>teenager： 少年</li><li>youth： 青年</li><li>middle_aged： 中年</li><li>senior： 老年</li><li>unknown： 未知</li></ul>
+   */
+  Age?: string
+  /**
+   * <p>语言</p>
+   */
+  Languages?: Array<string>
+  /**
+   * <p>标签</p>
+   */
+  Labels?: Array<string>
+  /**
+   * <p>场景</p>
+   */
+  Scenes?: Array<string>
+  /**
+   * <p>扩展参数，json字符串</p><p>其他筛选条件voiceName String 音色名，模糊匹配labels Array of String 标签，匹配包含这些标签的音色</p>
+   */
+  ExtParam?: string
 }
 
 /**
@@ -26814,6 +27688,28 @@ export interface ProhibitedConfigureInfoForUpdate {
    * 文本违禁控制参数。
    */
   OcrReviewInfo?: ProhibitedOcrReviewTemplateInfoForUpdate
+}
+
+/**
+ * AIGC 混元 3D 的多视角图信息。
+ */
+export interface AigcHunyuan3DMultiViewImageInfo {
+  /**
+   * <p>输入的文件类型。取值有： <li>File：点播媒体文件；</li> <li>Url：可访问的 Url；</li></p>
+   */
+  Type?: string
+  /**
+   * <p>文件 ID，即该文件在云点播上的全局唯一标识符，在上传成功后由云点播后台分配。可以在 <a href="/document/product/266/7830">视频上传完成事件通知</a> 或 <a href="https://console.cloud.tencent.com/vod/media">云点播控制台</a> 获取该字段。当 Type 取值为 File 时，本参数有效。说明：图片格式的取值为：支持 jpg、jpeg、png、bmp、webp。</p>
+   */
+  FileId?: string
+  /**
+   * <p>可访问的文件 URL。当 Type 取值为 Url 时，本参数有效。说明：图片格式的取值为：支持 jpg、jpeg、png、bmp、webp。</p>
+   */
+  Url?: string
+  /**
+   * <p>视角图片类型。</p><p>枚举值：</p><ul><li><p>front： 正视图 （必填）</p></li><li><p>back： 背视图</p></li><li><p>left： 左视图</p></li><li><p>right： 右视图</p></li><li><p>top： 顶视图</p></li><li><p>bottom： 底视图</p></li><li><p>left_front： 左前 45°</p></li><li><p>right_front： 右前 45°</p></li><li><p>必须包含 front 视角；</p></li><li><p>同一 ViewType 不允许重复。</p></li></ul>
+   */
+  ViewType?: string
 }
 
 /**
@@ -27610,25 +28506,49 @@ export interface AudioEnhanceConfig {
 }
 
 /**
- * VerifyDomainRecord请求参数结构体
+ * AIGC 混元 3D 任务信息。
  */
-export interface VerifyDomainRecordRequest {
+export interface AigcHunyuan3DTask {
   /**
-   * 需要接入点播的加速域名。
+   * <p>任务 ID。</p>
    */
-  Domain: string
+  TaskId?: string
   /**
-   * <b>点播[应用](/document/product/266/14574) ID。从2024年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</b>
+   * <p>任务状态，取值：<li>PROCESSING：处理中；</li><li>FINISH：已完成。</li></p>
    */
-  SubAppId?: number
+  Status?: string
   /**
-   * 验证方式：
-<li>dns：DNS 解析验证；</li>
-<li>fIle：文件验证。</li>
-
-默认值：dns。
+   * <p>错误码。源异常时返回非0错误码，返回0时请使用各个具体任务的 ErrCode。</p>
    */
-  VerifyType?: string
+  ErrCode?: number
+  /**
+   * <p>扩展错误码。</p>
+   */
+  ErrCodeExt?: string
+  /**
+   * <p>错误信息。</p>
+   */
+  Message?: string
+  /**
+   * <p>任务进度，取值范围 [0-100] 。</p>
+   */
+  Progress?: number
+  /**
+   * <p>AIGC 混元 3D 任务的输入信息。</p>
+   */
+  Input?: AigcHunyuan3DTaskInput
+  /**
+   * <p>AIGC 混元 3D 任务的输出信息。</p>
+   */
+  Output?: AigcHunyuan3DTaskOutput
+  /**
+   * <p>用于去重的识别码，如果七天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
+  /**
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
 }
 
 /**
@@ -27795,6 +28715,44 @@ export interface AiRecognitionTaskSegmentResultInput {
    * 视频拆条模板 ID。
    */
   Definition?: number
+}
+
+/**
+ * TextToSpeechAsync请求参数结构体
+ */
+export interface TextToSpeechAsyncRequest {
+  /**
+   * <p>语音合成文本</p>
+   */
+  Text: string
+  /**
+   * <p>音色ID</p>
+   */
+  VoiceId: string
+  /**
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
+   */
+  SubAppId?: string
+  /**
+   * <p>语言增强，如 "zh" "en" "auto"，默认 "auto"</p>
+   */
+  LanguageBoost?: string
+  /**
+   * <p>文本合成语音（异步）拓展参数。ExtParam 支持的字段：</p><ul><li>model (string)：合成模型，可选 minimax-speech-2.8-hd、minimax-speech-2.8-turbo、minimax-speech-2.6-hd、minimax-speech-2.6-turbo、minimax-speech-02-hd、minimax-speech-02-turbo；默认 minimax-speech-2.8-hd。</li><li>text_lang (string)：文本语言，如 zh / en；与入参 LanguageBoost 同义，同时传入时以 ExtParam 为准。</li><li>audio_setting (object)：音频输出与音色微调参数（注意：异步接口的语速、音量、音调、情绪均在 audio_setting 下，与同步接口的 voice_setting 不同），可选字段：<ul><li>speed (float)：语速，[0.5, 2.0]，默认 1.0。</li><li>vol (float)：音量，(0, 10]，默认 1.0。</li><li>pitch (int)：音调，[-12, 12]，默认 0。</li><li>emotion (string)：情绪，可选 happy / sad / angry / fearful / disgusted / surprised / calm / fluent / whisper。</li><li>sample_rate (int)：采样率，可选 8000 / 16000 / 22050 / 24000 / 32000 / 44100，默认 16000。</li><li>format (string)：音频格式，可选 mp3 / wav，默认 wav。</li><li>duration (float)：目标时长（秒）。</li><li>cut_silence (bool)：是否裁剪静音段。</li></ul></li></ul>
+   */
+  ExtParam?: string
+  /**
+   * <p>输出相关参数</p><p>可以指定输出形式等。默认输出音频url。</p>
+   */
+  Output?: TextToSpeechAsyncOutputOption
+  /**
+   * <p>标识来源上下文，用于透传用户请求信息，在回调和任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
+   */
+  SessionContext?: string
+  /**
+   * <p>用于任务去重的识别码，如果三天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
+   */
+  SessionId?: string
 }
 
 /**
@@ -27986,6 +28944,20 @@ export interface AigcVideoSceneInfo {
    * 产品展示参数
    */
   ProductShowcaseConfig?: ProductShowcaseConfig
+}
+
+/**
+ * 音色设计任务输出。
+ */
+export interface DesignVoiceAsyncOutput {
+  /**
+   * <p>音色ID</p>
+   */
+  VoiceId?: string
+  /**
+   * <p>试听音频</p>
+   */
+  TrialAudio?: string
 }
 
 /**

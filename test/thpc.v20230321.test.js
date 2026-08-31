@@ -18,16 +18,6 @@ const client = new tencentcloud.thpc.v20230321.Client({
 })
 describe("thpc.v20230321.test.js", function () {
 
-it("thpc.v20230321.DescribeAutoScalingConfiguration", async function () {
-    try {
-       const data = await client.DescribeAutoScalingConfiguration({})
-       expect(data).to.be.ok
-    } catch(error) {
-      expect(error.requestId).to.be.ok
-      expect(error.code).to.be.ok
-    }
-})
-
 it("thpc.v20230321.DeleteNodes", async function () {
     try {
        const data = await client.DeleteNodes({})
@@ -78,9 +68,9 @@ it("thpc.v20230321.CreateWorkspaces", async function () {
     }
 })
 
-it("thpc.v20230321.DescribeQueues", async function () {
+it("thpc.v20230321.DescribeAutoScalingConfiguration", async function () {
     try {
-       const data = await client.DescribeQueues({})
+       const data = await client.DescribeAutoScalingConfiguration({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -118,6 +108,16 @@ it("thpc.v20230321.DeleteCluster", async function () {
     }
 })
 
+it("thpc.v20230321.DescribeQueues", async function () {
+    try {
+       const data = await client.DescribeQueues({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.ModifyWorkspacesRenewFlag", async function () {
     try {
        const data = await client.ModifyWorkspacesRenewFlag({})
@@ -128,9 +128,19 @@ it("thpc.v20230321.ModifyWorkspacesRenewFlag", async function () {
     }
 })
 
-it("thpc.v20230321.DetachNodes", async function () {
+it("thpc.v20230321.DeleteScheduledAction", async function () {
     try {
-       const data = await client.DetachNodes({})
+       const data = await client.DeleteScheduledAction({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.ModifyScheduledAction", async function () {
+    try {
+       const data = await client.ModifyScheduledAction({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -141,6 +151,16 @@ it("thpc.v20230321.DetachNodes", async function () {
 it("thpc.v20230321.DeleteClusterStorageOption", async function () {
     try {
        const data = await client.DeleteClusterStorageOption({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.CreateScheduledAction", async function () {
+    try {
+       const data = await client.CreateScheduledAction({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -188,6 +208,16 @@ it("thpc.v20230321.ModifyWorkspacesChargeType", async function () {
     }
 })
 
+it("thpc.v20230321.InquirePriceCreateWorkspaces", async function () {
+    try {
+       const data = await client.InquirePriceCreateWorkspaces({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.DescribeClusters", async function () {
     try {
        const data = await client.DescribeClusters({})
@@ -208,6 +238,16 @@ it("thpc.v20230321.ModifyNodeAttribute", async function () {
     }
 })
 
+it("thpc.v20230321.DescribeQueueAutoScalingOverview", async function () {
+    try {
+       const data = await client.DescribeQueueAutoScalingOverview({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.SetAutoScalingConfiguration", async function () {
     try {
        const data = await client.SetAutoScalingConfiguration({})
@@ -218,9 +258,9 @@ it("thpc.v20230321.SetAutoScalingConfiguration", async function () {
     }
 })
 
-it("thpc.v20230321.AddQueue", async function () {
+it("thpc.v20230321.DescribeInstanceFamilies", async function () {
     try {
-       const data = await client.AddQueue({})
+       const data = await client.DescribeInstanceFamilies({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -238,9 +278,9 @@ it("thpc.v20230321.DescribeInitNodeScripts", async function () {
     }
 })
 
-it("thpc.v20230321.AttachNodes", async function () {
+it("thpc.v20230321.AddQueue", async function () {
     try {
-       const data = await client.AttachNodes({})
+       const data = await client.AddQueue({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -258,9 +298,29 @@ it("thpc.v20230321.DescribeJobSubmitInfo", async function () {
     }
 })
 
+it("thpc.v20230321.DescribeQueueAutoScaling", async function () {
+    try {
+       const data = await client.DescribeQueueAutoScaling({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.DescribeClusterActivities", async function () {
     try {
        const data = await client.DescribeClusterActivities({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.DetachNodes", async function () {
+    try {
+       const data = await client.DetachNodes({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -348,9 +408,39 @@ it("thpc.v20230321.InquirePriceModifyWorkspacesChargeType", async function () {
     }
 })
 
+it("thpc.v20230321.SetQueueAutoScaling", async function () {
+    try {
+       const data = await client.SetQueueAutoScaling({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.DeleteQueue", async function () {
     try {
        const data = await client.DeleteQueue({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.DescribeScheduledActions", async function () {
+    try {
+       const data = await client.DescribeScheduledActions({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.AttachNodes", async function () {
+    try {
+       const data = await client.AttachNodes({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

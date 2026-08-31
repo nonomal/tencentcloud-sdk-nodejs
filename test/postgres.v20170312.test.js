@@ -48,6 +48,16 @@ it("postgres.v20170312.DescribeBackupDownloadURL", async function () {
     }
 })
 
+it("postgres.v20170312.DescribeDBProxySSLConfig", async function () {
+    try {
+       const data = await client.DescribeDBProxySSLConfig({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("postgres.v20170312.DescribeDefaultParameters", async function () {
     try {
        const data = await client.DescribeDefaultParameters({})
@@ -68,9 +78,9 @@ it("postgres.v20170312.DescribeDBErrlogs", async function () {
     }
 })
 
-it("postgres.v20170312.DescribeDBInstanceHAConfig", async function () {
+it("postgres.v20170312.CloseDBProxyAddress", async function () {
     try {
-       const data = await client.DescribeDBInstanceHAConfig({})
+       const data = await client.CloseDBProxyAddress({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -401,6 +411,16 @@ it("postgres.v20170312.DescribeParameterTemplateAttributes", async function () {
 it("postgres.v20170312.RestoreDBInstanceObjects", async function () {
     try {
        const data = await client.RestoreDBInstanceObjects({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("postgres.v20170312.DescribeDBInstanceHAConfig", async function () {
+    try {
+       const data = await client.DescribeDBInstanceHAConfig({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1048,9 +1068,9 @@ it("postgres.v20170312.ModifyBackupPlan", async function () {
     }
 })
 
-it("postgres.v20170312.ModifyDBInstanceSSLConfig", async function () {
+it("postgres.v20170312.CreateDBProxyAddress", async function () {
     try {
-       const data = await client.ModifyDBInstanceSSLConfig({})
+       const data = await client.CreateDBProxyAddress({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -1178,6 +1198,16 @@ it("postgres.v20170312.LockAccount", async function () {
     }
 })
 
+it("postgres.v20170312.ModifyDBProxySSLConfig", async function () {
+    try {
+       const data = await client.ModifyDBProxySSLConfig({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("postgres.v20170312.DescribeDBProxy", async function () {
     try {
        const data = await client.DescribeDBProxy({})
@@ -1211,6 +1241,16 @@ it("postgres.v20170312.DescribeReadOnlyGroups", async function () {
 it("postgres.v20170312.CreateInstances", async function () {
     try {
        const data = await client.CreateInstances({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("postgres.v20170312.ModifyDBInstanceSSLConfig", async function () {
+    try {
+       const data = await client.ModifyDBInstanceSSLConfig({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

@@ -36,12 +36,14 @@ import {
   ModifyLibraryRequest,
   DescribeOfficialOverviewRequest,
   DeleteLibraryResponse,
+  TagFilter,
   DescribeOfficialInstancesResponse,
   VerifySmsCodeRequest,
   CreateLibraryResponse,
   Library,
   CreateLibraryRequest,
   DescribeOfficialOverviewResponse,
+  ResourceTag,
 } from "./smh_models"
 
 /**

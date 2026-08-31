@@ -19,7 +19,9 @@ import { AbstractClient } from "../../../common/abstract_client"
 import { ClientConfig } from "../../../common/interface"
 import {
   CreatePrivilegeCodeRequest,
+  DeviceNetworkCardBrief,
   DescribeDeviceHardwareInfoListRspData,
+  DeleteAccountGroupResourcesRequest,
   DescribeAccountResourcesData,
   ModifyVirtualDeviceGroupsReqItem,
   DescribeDeviceDetailListResponse,
@@ -38,7 +40,7 @@ import {
   DescribeAggrSoftDeviceListData,
   GrantResourcesByVirtualGroupsRequest,
   DescribeAccountGroupsData,
-  DescribeDirectAccountGroupResourcesResponse,
+  DescribeAccountGroupsRequest,
   DescribeDeviceVirtualGroupsResponse,
   CreateBusinessResourceResponse,
   DescribeAggrSoftCategorySoftListRequest,
@@ -64,6 +66,7 @@ import {
   CreateDLPFileDetectionTaskRequest,
   GrantedVirtualGroupItem,
   BindBusinessResourceConnectorGroupRequest,
+  DeleteResourceData,
   DescribeSoftCensusListByDeviceData,
   ModifyBusinessResourceResponse,
   CreateBusinessResourceRequest,
@@ -79,6 +82,7 @@ import {
   CreatePrivilegeCodeRspData,
   DescribeBusinessResourceData,
   DescribeAccountGroupsPageResp,
+  DeviceVideoCardBrief,
   DescribeDLPEdgeNodesResponse,
   ExportSoftwareInformationListResponse,
   DescribeResourceGrantedVirtualGroupsRequest,
@@ -135,7 +139,7 @@ import {
   ModifyDeviceTrustStatusRequest,
   DescribeAggrSoftDeviceListResponse,
   DescribeRootAccountGroupResponse,
-  DescribeAccountGroupsRequest,
+  DescribeDirectAccountGroupResourcesResponse,
   SimpleRule,
   DescribeDLPFileDetectTaskResultRequest,
   DescribeDeviceDetailListRequest,
@@ -161,6 +165,7 @@ import {
   DeviceDownloadTask,
   DeviceGroupDetail,
   DescribeSoftCensusListByDevicePageData,
+  DeleteAccountGroupResourcesResponse,
   DescribeDevicesRequest,
   DescribeAggrSoftCategorySoftListResponse,
   DescribeAggrSoftDetailResponse,
@@ -546,6 +551,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeDLPEdgeNodeGroupsResponse) => void
   ): Promise<DescribeDLPEdgeNodeGroupsResponse> {
     return this.request("DescribeDLPEdgeNodeGroups", req, cb)
+  }
+
+  /**
+   * 删除账户组资源授权，私有化调用path为：capi/NGN/DeleteAccountGroupResources
+   */
+  async DeleteAccountGroupResources(
+    req: DeleteAccountGroupResourcesRequest,
+    cb?: (error: string, rep: DeleteAccountGroupResourcesResponse) => void
+  ): Promise<DeleteAccountGroupResourcesResponse> {
+    return this.request("DeleteAccountGroupResources", req, cb)
   }
 
   /**

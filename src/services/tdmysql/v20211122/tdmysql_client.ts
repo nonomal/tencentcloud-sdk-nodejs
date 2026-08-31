@@ -130,6 +130,7 @@ import {
   AnalysisRelationInfo,
   ResourceTag,
   ModifyMaintenanceWindowResponse,
+  ServerlessNodeNumSpec,
   IsolateDBInstanceRequest,
   DescribeFlowRequest,
   ModifyDBSBackupSetCommentResponse,

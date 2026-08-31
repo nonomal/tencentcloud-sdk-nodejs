@@ -25,6 +25,7 @@ import {
   DescribeDatabasesRequest,
   DescribeDBXlogsRequest,
   DescribeAuditLogsRequest,
+  ModifyDBProxySSLConfigRequest,
   DescribeMaintainTimeWindowRequest,
   DescribeAccountsRequest,
   DeleteReadOnlyGroupResponse,
@@ -33,6 +34,7 @@ import {
   SpecItemInfo,
   ModifyDBInstanceSSLConfigRequest,
   ParameterTemplate,
+  DescribeDBProxySSLConfigResponse,
   CreateDBInstanceNetworkAccessResponse,
   DescribeAvailableRecoveryTimeResponse,
   CreateBaseBackupRequest,
@@ -46,6 +48,7 @@ import {
   ProxyNode,
   ModifyDBInstanceDeletionProtectionRequest,
   ProxyNodeCustom,
+  CreateDBProxyAddressResponse,
   ProxyRoute,
   DeleteLogBackupResponse,
   ModifyReadOnlyGroupConfigRequest,
@@ -54,7 +57,7 @@ import {
   DescribeProductConfigRequest,
   RemoveDBInstanceFromReadOnlyGroupRequest,
   CreateAccountRequest,
-  DescribeTasksResponse,
+  DescribeDBProxySSLConfigRequest,
   DescribeMaintainTimeWindowResponse,
   AuditLogFilter,
   DescribeDedicatedClustersResponse,
@@ -78,6 +81,7 @@ import {
   DescribeBackupSummariesRequest,
   CreateBackupPlanRequest,
   ModifyDBInstancesProjectResponse,
+  CloseDBProxyAddressRequest,
   CreateBaseBackupResponse,
   LockAccountResponse,
   CloneDBInstanceResponse,
@@ -89,7 +93,7 @@ import {
   DescribeAvailableRecoveryTimeRequest,
   CloseAccountCAMRequest,
   DescribeDBProxySpecsResponse,
-  DescribeTasksRequest,
+  CreateDBProxyAddressRequest,
   DescribeDBInstanceParametersRequest,
   ProxyGroupInfo,
   DescribeOrdersResponse,
@@ -98,7 +102,7 @@ import {
   ModifyMaintainTimeWindowResponse,
   InquiryPriceCreateDBInstancesResponse,
   DeleteAuditLogFileResponse,
-  Version,
+  ResetAccountPasswordRequest,
   CreateDBInstanceNetworkAccessRequest,
   ModifySwitchTimePeriodResponse,
   TaskSet,
@@ -106,7 +110,7 @@ import {
   InquiryPriceCreateDBInstancesRequest,
   DescribeDefaultParametersResponse,
   DescribeBackupPlansResponse,
-  DescribeDBInstancesRequest,
+  CloseDBProxyAddressResponse,
   ReadOnlyGroup,
   ModifyDBInstanceSpecRequest,
   ModifyAccountRemarkResponse,
@@ -140,6 +144,7 @@ import {
   NetworkAccess,
   ModifyDBInstanceHAConfigRequest,
   DescribeAuditLogFilesResponse,
+  DescribeTasksRequest,
   DeleteReadOnlyGroupNetworkAccessResponse,
   DescribeBackupSummariesResponse,
   DescribeDBErrlogsRequest,
@@ -248,6 +253,7 @@ import {
   ModifyAccountPrivilegesRequest,
   ModifyDBInstanceParametersResponse,
   ModifyReadOnlyGroupConfigResponse,
+  ModifyDBProxySSLConfigResponse,
   AccountInfo,
   ModifyAccountRemarkRequest,
   DescribeParameterTemplateAttributesRequest,
@@ -280,7 +286,7 @@ import {
   ModifyDBInstanceHAConfigResponse,
   CreateDatabaseResponse,
   RebalanceReadOnlyGroupResponse,
-  ResetAccountPasswordRequest,
+  DescribeTasksResponse,
   DescribeSlowQueryAnalysisResponse,
   ModifyDBInstanceDeletionProtectionResponse,
   DedicatedCluster,
@@ -292,6 +298,7 @@ import {
   RestoreDBInstanceObjectsRequest,
   DescribeAccountsResponse,
   ModifyDBInstanceChargeTypeRequest,
+  DescribeDBInstancesRequest,
   DescribeParameterTemplateAttributesResponse,
   AuditLog,
   UpgradeDBInstanceKernelVersionResponse,
@@ -305,6 +312,7 @@ import {
   DeleteLogBackupRequest,
   DeleteBaseBackupResponse,
   DescribeAuditLogFilesRequest,
+  Version,
   ModifyDBInstanceSpecResponse,
   RefreshAccountPasswordResponse,
   DescribeBaseBackupsResponse,
@@ -357,6 +365,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 本接口用于查询指定代理连接地址的 SSL 配置信息，包括 SSL 是否开启、连接地址和 CA 证书下载地址。
+   */
+  async DescribeDBProxySSLConfig(
+    req: DescribeDBProxySSLConfigRequest,
+    cb?: (error: string, rep: DescribeDBProxySSLConfigResponse) => void
+  ): Promise<DescribeDBProxySSLConfigResponse> {
+    return this.request("DescribeDBProxySSLConfig", req, cb)
+  }
+
+  /**
    * 本接口（DescribeDefaultParameters）主要用于查询某个数据库版本和引擎支持的所有参数。
    */
   async DescribeDefaultParameters(
@@ -377,15 +395,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 本接口（DescribeDBInstanceHAConfig）用于查询实例HA配置信息。其中HA配置信息包括：
-<li>允许备节点切换为主节点的条件配置</li>
-<li>半同步实例使用同步复制或异步复制的条件配置</li>
-     */
-  async DescribeDBInstanceHAConfig(
-    req: DescribeDBInstanceHAConfigRequest,
-    cb?: (error: string, rep: DescribeDBInstanceHAConfigResponse) => void
-  ): Promise<DescribeDBInstanceHAConfigResponse> {
-    return this.request("DescribeDBInstanceHAConfig", req, cb)
+   * 本接口用于关闭（删除）数据库代理的指定地址。接口为异步操作，返回 TaskId 供调用方通过 DescribeTasks 查询任务执行进度。约束：代理组至少保留一个地址，不允许删除最后一个地址。
+   */
+  async CloseDBProxyAddress(
+    req: CloseDBProxyAddressRequest,
+    cb?: (error: string, rep: CloseDBProxyAddressResponse) => void
+  ): Promise<CloseDBProxyAddressResponse> {
+    return this.request("CloseDBProxyAddress", req, cb)
   }
 
   /**
@@ -730,6 +746,18 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: RestoreDBInstanceObjectsResponse) => void
   ): Promise<RestoreDBInstanceObjectsResponse> {
     return this.request("RestoreDBInstanceObjects", req, cb)
+  }
+
+  /**
+     * 本接口（DescribeDBInstanceHAConfig）用于查询实例HA配置信息。其中HA配置信息包括：
+<li>允许备节点切换为主节点的条件配置</li>
+<li>半同步实例使用同步复制或异步复制的条件配置</li>
+     */
+  async DescribeDBInstanceHAConfig(
+    req: DescribeDBInstanceHAConfigRequest,
+    cb?: (error: string, rep: DescribeDBInstanceHAConfigResponse) => void
+  ): Promise<DescribeDBInstanceHAConfigResponse> {
+    return this.request("DescribeDBInstanceHAConfig", req, cb)
   }
 
   /**
@@ -1378,13 +1406,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口用于修改实例SSL配置，功能包含开启、关闭、修改SSL证书保护的连接地址。
+   * 本接口（CreateDBProxyAddress）用于为指定实例的数据库代理创建连接地址。该接口为异步接口，调用成功后返回 TaskId，可通过 DescribeTasks 接口查询任务执行进度。<p>支持同时配置读写分离策略，包括权重模式、路由分配、延迟剔除、故障转移等高级功能。</p>
    */
-  async ModifyDBInstanceSSLConfig(
-    req: ModifyDBInstanceSSLConfigRequest,
-    cb?: (error: string, rep: ModifyDBInstanceSSLConfigResponse) => void
-  ): Promise<ModifyDBInstanceSSLConfigResponse> {
-    return this.request("ModifyDBInstanceSSLConfig", req, cb)
+  async CreateDBProxyAddress(
+    req: CreateDBProxyAddressRequest,
+    cb?: (error: string, rep: CreateDBProxyAddressResponse) => void
+  ): Promise<CreateDBProxyAddressResponse> {
+    return this.request("CreateDBProxyAddress", req, cb)
   }
 
   /**
@@ -1508,6 +1536,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 本接口（ModifyDBProxySSLConfig）用于修改数据库代理连接地址的 SSL 配置。该接口为异步接口，调用成功后返回 TaskId，可通过 DescribeTasks 接口查询任务执行进度。<p>当前仅支持物理机（local）存储类型的代理开启 SSL。SSL 开启时需提供 ConnectAddress，且必须与代理地址的 Vip 保持一致。</p><p>当 SSL 状态与当前配置一致时，接口直接返回成功，TaskId 为 0，无需等待任务。</p>
+   */
+  async ModifyDBProxySSLConfig(
+    req: ModifyDBProxySSLConfigRequest,
+    cb?: (error: string, rep: ModifyDBProxySSLConfigResponse) => void
+  ): Promise<ModifyDBProxySSLConfigResponse> {
+    return this.request("ModifyDBProxySSLConfig", req, cb)
+  }
+
+  /**
    * 本接口（DescribeDBProxy）用于查询指定 PostgreSQL 实例下的数据库代理（Proxy）信息，包含 Proxy 节点列表与接入地址列表。可选传入 ProxyGroupId 精确查询某一 Proxy；不传则返回该实例下的全部 Proxy。
    */
   async DescribeDBProxy(
@@ -1547,5 +1585,15 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateInstancesResponse) => void
   ): Promise<CreateInstancesResponse> {
     return this.request("CreateInstances", req, cb)
+  }
+
+  /**
+   * 本接口用于修改实例SSL配置，功能包含开启、关闭、修改SSL证书保护的连接地址。
+   */
+  async ModifyDBInstanceSSLConfig(
+    req: ModifyDBInstanceSSLConfigRequest,
+    cb?: (error: string, rep: ModifyDBInstanceSSLConfigResponse) => void
+  ): Promise<ModifyDBInstanceSSLConfigResponse> {
+    return this.request("ModifyDBInstanceSSLConfig", req, cb)
   }
 }

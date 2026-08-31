@@ -34,6 +34,36 @@ export interface CreatePrivilegeCodeRequest {
 }
 
 /**
+ * 多网卡MAC地址等列表数据
+ */
+export interface DeviceNetworkCardBrief {
+  /**
+   * <p>MAC地址</p>
+   */
+  MacAddress?: string
+  /**
+   * <p>网卡名称</p>
+   */
+  NetworkCardName?: string
+  /**
+   * <p>网卡类型</p><p>枚举值：</p><ul><li>1： 物理网卡</li><li>2： 虚拟网卡</li></ul>
+   */
+  NetworkCardType?: number
+  /**
+   * <p>网卡状态</p><p>枚举值：</p><ul><li>1： 启用中</li><li>2： 未启用</li></ul>
+   */
+  NetworkCardStatus?: number
+  /**
+   * <p>IPv4地址</p>
+   */
+  Ipv4Address?: string
+  /**
+   * <p>IPv6地址</p>
+   */
+  Ipv6Address?: string
+}
+
+/**
  * 终端硬件信息列表响应详情
  */
 export interface DescribeDeviceHardwareInfoListRspData {
@@ -45,6 +75,20 @@ export interface DescribeDeviceHardwareInfoListRspData {
    * 终端硬件信息数据数组
    */
   Items?: Array<DescribeDeviceHardwareInfoItem>
+}
+
+/**
+ * DeleteAccountGroupResources请求参数结构体
+ */
+export interface DeleteAccountGroupResourcesRequest {
+  /**
+   * 资源集
+   */
+  ResourceList: Array<DeleteResourceData>
+  /**
+   * 账户组Id(只支持32位)
+   */
+  AccountGroupId: number
 }
 
 /**
@@ -315,6 +359,30 @@ export interface DescribeDeviceHardwareInfoItem {
    * <p>BiosUUID（启动盘标识符）</p>
    */
   BiosUuid?: string
+  /**
+   * <p>多网卡数据</p>
+   */
+  NetworkCards?: Array<DeviceNetworkCardBrief>
+  /**
+   * <p>多显卡数据</p>
+   */
+  VideoCards?: Array<DeviceVideoCardBrief>
+  /**
+   * <p>主板型号</p>
+   */
+  MainBoard?: string
+  /**
+   * <p>主板序列号</p>
+   */
+  BaseBoardSn?: string
+  /**
+   * <p>主板制造商</p>
+   */
+  BaseBoardManufacturer?: string
+  /**
+   * <p>声卡</p>
+   */
+  AudioCard?: string
 }
 
 /**
@@ -612,18 +680,32 @@ export interface DescribeAccountGroupsData {
 }
 
 /**
- * DescribeDirectAccountGroupResources返回参数结构体
+ * DescribeAccountGroups请求参数结构体
  */
-export interface DescribeDirectAccountGroupResourcesResponse {
+export interface DescribeAccountGroupsRequest {
   /**
-   * 查询的数据集合
-注意：此字段可能返回 null，表示取不到有效值。
+   * 搜索范围：0-仅当前分组的直接子组，1-当前分组的所有子组。默认为0。
    */
-  Data?: DescribeAccountResourcesData
+  Deepin?: number
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * 查询条件
+
+过滤参数
+1、Name，string类型，按分组名过滤
+是否必填：否
+操作符: like
+
+排序条件
+1、Itime，string类型，按分组创建时间排序
+是否必填：否
+2、Utime，string类型，按分组更新时间排序
+是否必填：否
    */
-  RequestId?: string
+  Condition?: Condition
+  /**
+   * 父分组ID，获取该分组下的子组信息。默认查询全网根分组下子组信息。
+   */
+  ParentId?: number
 }
 
 /**
@@ -1437,6 +1519,22 @@ export interface BindBusinessResourceConnectorGroupRequest {
 }
 
 /**
+ * 资源集
+ */
+export interface DeleteResourceData {
+  /**
+   * 资源类型 ,1:资源 2:资源组(只支持32位)
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceType: number
+  /**
+   * 资源或资源组Id(只支持32位)
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResourceId: number
+}
+
+/**
  * 软件统计响应对象集合
  */
 export interface DescribeSoftCensusListByDeviceData {
@@ -2038,6 +2136,16 @@ export interface DescribeAccountGroupsPageResp {
    * 分页公共对象
    */
   Page?: Paging
+}
+
+/**
+ * 设备显卡简要信息
+ */
+export interface DeviceVideoCardBrief {
+  /**
+   * <p>显卡名称</p>
+   */
+  VideoCardName?: string
 }
 
 /**
@@ -3191,32 +3299,18 @@ export interface DescribeRootAccountGroupResponse {
 }
 
 /**
- * DescribeAccountGroups请求参数结构体
+ * DescribeDirectAccountGroupResources返回参数结构体
  */
-export interface DescribeAccountGroupsRequest {
+export interface DescribeDirectAccountGroupResourcesResponse {
   /**
-   * 搜索范围：0-仅当前分组的直接子组，1-当前分组的所有子组。默认为0。
+   * 查询的数据集合
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Deepin?: number
+  Data?: DescribeAccountResourcesData
   /**
-   * 查询条件
-
-过滤参数
-1、Name，string类型，按分组名过滤
-是否必填：否
-操作符: like
-
-排序条件
-1、Itime，string类型，按分组创建时间排序
-是否必填：否
-2、Utime，string类型，按分组更新时间排序
-是否必填：否
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Condition?: Condition
-  /**
-   * 父分组ID，获取该分组下的子组信息。默认查询全网根分组下子组信息。
-   */
-  ParentId?: number
+  RequestId?: string
 }
 
 /**
@@ -3779,6 +3873,16 @@ export interface DescribeSoftCensusListByDevicePageData {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Page?: Paging
+}
+
+/**
+ * DeleteAccountGroupResources返回参数结构体
+ */
+export interface DeleteAccountGroupResourcesResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**

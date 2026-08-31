@@ -58,9 +58,9 @@ it("sms.v20210111.PullSmsSendStatus", async function () {
     }
 })
 
-it("sms.v20210111.SendSms", async function () {
+it("sms.v20210111.PullSmsSendStatusByPhoneNumber", async function () {
     try {
-       const data = await client.SendSms({})
+       const data = await client.PullSmsSendStatusByPhoneNumber({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -138,9 +138,9 @@ it("sms.v20210111.DescribeSmsSignList", async function () {
     }
 })
 
-it("sms.v20210111.PullSmsSendStatusByPhoneNumber", async function () {
+it("sms.v20210111.DescribeSendRecordList", async function () {
     try {
-       const data = await client.PullSmsSendStatusByPhoneNumber({})
+       const data = await client.DescribeSendRecordList({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -201,6 +201,16 @@ it("sms.v20210111.DeleteSmsSign", async function () {
 it("sms.v20210111.AddSmsTemplate", async function () {
     try {
        const data = await client.AddSmsTemplate({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("sms.v20210111.SendSms", async function () {
+    try {
+       const data = await client.SendSms({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

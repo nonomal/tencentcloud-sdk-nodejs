@@ -378,6 +378,16 @@ it("ioa.v20220601.DescribeDLPEdgeNodeGroups", async function () {
     }
 })
 
+it("ioa.v20220601.DeleteAccountGroupResources", async function () {
+    try {
+       const data = await client.DeleteAccountGroupResources({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("ioa.v20220601.DescribeDevices", async function () {
     try {
        const data = await client.DescribeDevices({})

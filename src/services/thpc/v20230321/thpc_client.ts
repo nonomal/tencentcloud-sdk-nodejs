@@ -27,22 +27,25 @@ import {
   ExpansionNodeConfig,
   NodeActivity,
   ModifyClusterDeletionProtectionResponse,
+  ExpansionPolicy,
   CreateWorkspacesResponse,
   SpaceVirtualPrivateCloud,
   ModifyWorkspacesRenewFlagRequest,
+  DescribeQueueAutoScalingOverviewRequest,
   ModifyNodeAttributeResponse,
+  DescribeInstanceFamiliesRequest,
   ManagerNodeOverview,
   DeleteClusterRequest,
   SystemDisk,
   Task,
-  TerminateWorkspacesResponse,
+  ModifyScheduledActionResponse,
   ModifyInitNodeScriptsRequest,
   AttachNodesRequest,
   SpaceChargePrepaid,
   DescribeWorkspacesResponse,
   Tag,
   GooseFSOption,
-  StorageOptionOverview,
+  ModifyScheduledActionRequest,
   DescribeJobsOverviewRequest,
   DeleteClusterResponse,
   DescribeAutoScalingConfigurationResponse,
@@ -54,17 +57,24 @@ import {
   DescribeWorkspacesRequest,
   ModifyNodeAttributeRequest,
   AddQueueRequest,
+  DeleteScheduledActionRequest,
   QueueConfigOverview,
-  DeleteNodesRequest,
+  DescribeInstanceFamiliesResponse,
+  ScalingPolicy,
   DescribeQueuesResponse,
   SubmitJobRequest,
   Job,
+  DescribeScheduledActionsResponse,
   ModifyWorkspacesRenewFlagResponse,
   Placement,
   DescribeNodesResponse,
   GooseFSOptionOverview,
+  SpaceInternetAccessible,
   CosOption,
+  DescribeJobsRequest,
+  SetAutoScalingConfigurationResponse,
   DeleteClusterStorageOptionRequest,
+  ModifyClusterDeletionProtectionRequest,
   RunMonitorServiceEnabled,
   ExpansionNodeConfigOverview,
   DeleteJobRequest,
@@ -74,45 +84,51 @@ import {
   StorageOption,
   LoginNodeOverview,
   ModifyWorkspacesAttributeResponse,
+  ExpansionPriority,
   DescribeClustersResponse,
   DescribeClusterActivitiesResponse,
-  AddNodesRequest,
+  DescribeInitNodeScriptsResponse,
   DeleteQueueResponse,
   DataDisk,
   QueueOverview,
   DeleteJobResponse,
   LoginSettings,
   TaskDependence,
+  CreateScheduledActionRequest,
   EnhancedService,
   RunAutomationServiceEnabled,
   ClusterActivity,
   DescribeJobSubmitInfoResponse,
   CreateClusterResponse,
+  DescribeScheduledActionsRequest,
   RunSecurityServiceEnabled,
   DescribeQueuesRequest,
-  SetAutoScalingConfigurationResponse,
+  InquirePriceCreateWorkspacesRequest,
   CreateClusterRequest,
   AddQueueResponse,
   DescribeClusterStorageOptionResponse,
+  CreateScheduledActionResponse,
+  StorageOptionOverview,
   NodeScript,
   ModifyInitNodeScriptsResponse,
   CommandItem,
   ManagerNode,
   DescribeJobSubmitInfoRequest,
   OutputRedirect,
-  ModifyWorkspacesAttributeRequest,
+  DeleteQueueRequest,
   Filter,
   Docker,
+  InquirePriceCreateWorkspacesResponse,
   ModifyWorkspacesChargeTypeRequest,
   Application,
   SpaceInfo,
   TerminateWorkspacesRequest,
   ComputeNode,
-  ItemPrice,
+  DeleteNodesRequest,
   DeleteClusterStorageOptionResponse,
   TerminateJobResponse,
-  SpaceInternetAccessible,
-  DescribeJobsRequest,
+  DescribeQueueAutoScalingRequest,
+  DescribeQueueAutoScalingResponse,
   GooseFSxOptionOverview,
   CosOptionOverview,
   SetAutoScalingConfigurationRequest,
@@ -125,26 +141,32 @@ import {
   CFSOption,
   Price,
   CreateWorkspacesRequest,
+  TemplateOverrides,
+  DescribeQueueAutoScalingOverviewResponse,
   SpaceSystemDisk,
   ComputeNodeOverview,
   QueueConfig,
   DescribeClusterActivitiesRequest,
+  DeleteScheduledActionResponse,
   DescribeJobsResponse,
-  ModifyClusterDeletionProtectionRequest,
-  DescribeInitNodeScriptsResponse,
+  AddNodesRequest,
   CFSOptionOverview,
-  DeleteQueueRequest,
+  ModifyWorkspacesAttributeRequest,
   AddClusterStorageOptionRequest,
   GooseFSxOption,
   ModifyWorkspacesChargeTypeResponse,
   VirtualPrivateCloud,
+  SetQueueAutoScalingResponse,
+  TerminateWorkspacesResponse,
   DescribeAutoScalingConfigurationRequest,
   StorageMount,
   InternetAccessible,
+  SetQueueAutoScalingRequest,
   JobView,
   InquirePriceModifyWorkspacesChargeTypeResponse,
   EnvVar,
   InstanceChargePrepaid,
+  ItemPrice,
 } from "./thpc_models"
 
 /**
@@ -154,16 +176,6 @@ import {
 export class Client extends AbstractClient {
   constructor(clientConfig: ClientConfig) {
     super("thpc.tencentcloudapi.com", "2023-03-21", clientConfig)
-  }
-
-  /**
-   * 本接口(DescribeAutoScalingConfiguration)用于查询集群弹性伸缩配置信息。本接口仅适用于弹性伸缩类型为THPC_AS的集群。
-   */
-  async DescribeAutoScalingConfiguration(
-    req: DescribeAutoScalingConfigurationRequest,
-    cb?: (error: string, rep: DescribeAutoScalingConfigurationResponse) => void
-  ): Promise<DescribeAutoScalingConfigurationResponse> {
-    return this.request("DescribeAutoScalingConfiguration", req, cb)
   }
 
   /**
@@ -219,13 +231,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口(DescribeQueues)用于查询指定集群队列概览信息列表。
+   * 本接口(DescribeAutoScalingConfiguration)用于查询集群弹性伸缩配置信息。本接口仅适用于弹性伸缩类型为THPC_AS的集群。
    */
-  async DescribeQueues(
-    req: DescribeQueuesRequest,
-    cb?: (error: string, rep: DescribeQueuesResponse) => void
-  ): Promise<DescribeQueuesResponse> {
-    return this.request("DescribeQueues", req, cb)
+  async DescribeAutoScalingConfiguration(
+    req: DescribeAutoScalingConfigurationRequest,
+    cb?: (error: string, rep: DescribeAutoScalingConfigurationResponse) => void
+  ): Promise<DescribeAutoScalingConfigurationResponse> {
+    return this.request("DescribeAutoScalingConfiguration", req, cb)
   }
 
   /**
@@ -259,6 +271,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 本接口(DescribeQueues)用于查询指定集群队列概览信息列表。
+   */
+  async DescribeQueues(
+    req: DescribeQueuesRequest,
+    cb?: (error: string, rep: DescribeQueuesResponse) => void
+  ): Promise<DescribeQueuesResponse> {
+    return this.request("DescribeQueues", req, cb)
+  }
+
+  /**
    * 本接口 (ModifyWorkspacesAttribute) 用于修改工作空间的属性（目前只支持修改工作空间的名称）。
    */
   async ModifyWorkspacesRenewFlag(
@@ -269,13 +291,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口 (DetachNodes) 用于将一个或者多个计算节点从集群中移除，但是不销毁指定计算资源。
+   * 删除指定的定时伸缩任务。
    */
-  async DetachNodes(
-    req: DetachNodesRequest,
-    cb?: (error: string, rep: DetachNodesResponse) => void
-  ): Promise<DetachNodesResponse> {
-    return this.request("DetachNodes", req, cb)
+  async DeleteScheduledAction(
+    req: DeleteScheduledActionRequest,
+    cb?: (error: string, rep: DeleteScheduledActionResponse) => void
+  ): Promise<DeleteScheduledActionResponse> {
+    return this.request("DeleteScheduledAction", req, cb)
+  }
+
+  /**
+   * 修改指定的定时伸缩任务配置。
+   */
+  async ModifyScheduledAction(
+    req: ModifyScheduledActionRequest,
+    cb?: (error: string, rep: ModifyScheduledActionResponse) => void
+  ): Promise<ModifyScheduledActionResponse> {
+    return this.request("ModifyScheduledAction", req, cb)
   }
 
   /**
@@ -286,6 +318,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DeleteClusterStorageOptionResponse) => void
   ): Promise<DeleteClusterStorageOptionResponse> {
     return this.request("DeleteClusterStorageOption", req, cb)
+  }
+
+  /**
+   * 为指定集群队列创建定时伸缩任务，按计划时间自动调整队列的节点数量。
+   */
+  async CreateScheduledAction(
+    req: CreateScheduledActionRequest,
+    cb?: (error: string, rep: CreateScheduledActionResponse) => void
+  ): Promise<CreateScheduledActionResponse> {
+    return this.request("CreateScheduledAction", req, cb)
   }
 
   /**
@@ -329,6 +371,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 本接口(InquirePriceCreateWorkspaces)用于创建实例询价。
+   */
+  async InquirePriceCreateWorkspaces(
+    req: InquirePriceCreateWorkspacesRequest,
+    cb?: (error: string, rep: InquirePriceCreateWorkspacesResponse) => void
+  ): Promise<InquirePriceCreateWorkspacesResponse> {
+    return this.request("InquirePriceCreateWorkspaces", req, cb)
+  }
+
+  /**
    * 本接口（DescribeClusters）用于查询集群列表。
    */
   async DescribeClusters(
@@ -349,6 +401,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询指定集群的队列弹性伸缩概览信息，包括期望容量、当前容量、当前动态节点数、有效定时任务数等。
+   */
+  async DescribeQueueAutoScalingOverview(
+    req: DescribeQueueAutoScalingOverviewRequest,
+    cb?: (error: string, rep: DescribeQueueAutoScalingOverviewResponse) => void
+  ): Promise<DescribeQueueAutoScalingOverviewResponse> {
+    return this.request("DescribeQueueAutoScalingOverview", req, cb)
+  }
+
+  /**
    * 本接口(SetAutoScalingConfiguration)用于为集群设置集群弹性伸缩配置信息。
    */
   async SetAutoScalingConfiguration(
@@ -356,6 +418,26 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: SetAutoScalingConfigurationResponse) => void
   ): Promise<SetAutoScalingConfigurationResponse> {
     return this.request("SetAutoScalingConfiguration", req, cb)
+  }
+
+  /**
+   * 查询指定集群可用的机型族列表，用于弹性伸缩配置时选择机型族。
+   */
+  async DescribeInstanceFamilies(
+    req: DescribeInstanceFamiliesRequest,
+    cb?: (error: string, rep: DescribeInstanceFamiliesResponse) => void
+  ): Promise<DescribeInstanceFamiliesResponse> {
+    return this.request("DescribeInstanceFamilies", req, cb)
+  }
+
+  /**
+   * 本接口 (DescribeInitNodeScripts) 用于查询节点初始化脚本列表。
+   */
+  async DescribeInitNodeScripts(
+    req: DescribeInitNodeScriptsRequest,
+    cb?: (error: string, rep: DescribeInitNodeScriptsResponse) => void
+  ): Promise<DescribeInitNodeScriptsResponse> {
+    return this.request("DescribeInitNodeScripts", req, cb)
   }
 
   /**
@@ -371,26 +453,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口 (DescribeInitNodeScripts) 用于查询节点初始化脚本列表。
-   */
-  async DescribeInitNodeScripts(
-    req: DescribeInitNodeScriptsRequest,
-    cb?: (error: string, rep: DescribeInitNodeScriptsResponse) => void
-  ): Promise<DescribeInitNodeScriptsResponse> {
-    return this.request("DescribeInitNodeScripts", req, cb)
-  }
-
-  /**
-   * 本接口 (AttachNodes) 用于绑定一个或者多个计算节点指定资源到指定集群中。
-   */
-  async AttachNodes(
-    req: AttachNodesRequest,
-    cb?: (error: string, rep: AttachNodesResponse) => void
-  ): Promise<AttachNodesResponse> {
-    return this.request("AttachNodes", req, cb)
-  }
-
-  /**
    * 本接口用于查询作业的提交信息。
    */
   async DescribeJobSubmitInfo(
@@ -401,6 +463,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 查询指定集群的队列弹性伸缩配置信息。
+   */
+  async DescribeQueueAutoScaling(
+    req: DescribeQueueAutoScalingRequest,
+    cb?: (error: string, rep: DescribeQueueAutoScalingResponse) => void
+  ): Promise<DescribeQueueAutoScalingResponse> {
+    return this.request("DescribeQueueAutoScaling", req, cb)
+  }
+
+  /**
    * 本接口（DescribeClusterActivities）用于查询集群活动历史记录列表。
    */
   async DescribeClusterActivities(
@@ -408,6 +480,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeClusterActivitiesResponse) => void
   ): Promise<DescribeClusterActivitiesResponse> {
     return this.request("DescribeClusterActivities", req, cb)
+  }
+
+  /**
+   * 本接口 (DetachNodes) 用于将一个或者多个计算节点从集群中移除，但是不销毁指定计算资源。
+   */
+  async DetachNodes(
+    req: DetachNodesRequest,
+    cb?: (error: string, rep: DetachNodesResponse) => void
+  ): Promise<DetachNodesResponse> {
+    return this.request("DetachNodes", req, cb)
   }
 
   /**
@@ -491,6 +573,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 为指定集群的队列配置弹性伸缩策略，包括伸缩容量、扩容方式等。
+   */
+  async SetQueueAutoScaling(
+    req: SetQueueAutoScalingRequest,
+    cb?: (error: string, rep: SetQueueAutoScalingResponse) => void
+  ): Promise<SetQueueAutoScalingResponse> {
+    return this.request("SetQueueAutoScaling", req, cb)
+  }
+
+  /**
      * 本接口(DeleteQueue)用于从指定集群删除队列。
 * 本接口为目前只支持SchedulerType为SLURM的集群。
 
@@ -501,5 +593,25 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DeleteQueueResponse) => void
   ): Promise<DeleteQueueResponse> {
     return this.request("DeleteQueue", req, cb)
+  }
+
+  /**
+   * 查询指定集群队列的定时伸缩任务列表。
+   */
+  async DescribeScheduledActions(
+    req: DescribeScheduledActionsRequest,
+    cb?: (error: string, rep: DescribeScheduledActionsResponse) => void
+  ): Promise<DescribeScheduledActionsResponse> {
+    return this.request("DescribeScheduledActions", req, cb)
+  }
+
+  /**
+   * 本接口 (AttachNodes) 用于绑定一个或者多个计算节点指定资源到指定集群中。
+   */
+  async AttachNodes(
+    req: AttachNodesRequest,
+    cb?: (error: string, rep: AttachNodesResponse) => void
+  ): Promise<AttachNodesResponse> {
+    return this.request("AttachNodes", req, cb)
   }
 }

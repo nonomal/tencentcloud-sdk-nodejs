@@ -73,7 +73,7 @@ import {
   AwsS3FileUploadTrigger,
   AdBreakInfo,
   CreateAiFissionTaskResponse,
-  SubtitleArea,
+  DescribeAgentRecordTaskRequest,
   ScheduleAnalysisTaskResult,
   ModifyOutputInfo,
   MediaSnapshotByTimeOffsetItem,
@@ -177,6 +177,7 @@ import {
   FailOverOption,
   ModifyStreamLinkFlowRequest,
   CloneViralAIGC,
+  ViewImage,
   DescribeImageSpriteTemplatesRequest,
   FissionTaskInfo,
   DescribeEvent,
@@ -226,6 +227,7 @@ import {
   CreateStreamLinkFlowResponse,
   AigcImageExtraParam,
   FlowRealtimeStatusSRT,
+  DescribeAgentRecordTaskResponse,
   AiAnalysisTaskClassificationOutput,
   SRTAddressDestination,
   DescribeFlowId,
@@ -249,6 +251,7 @@ import {
   CreateOutputSRTSettingsDestinations,
   CreateBlindWatermarkTemplateRequest,
   CreateAigcAudioTaskResponse,
+  AgentStoreCosParam,
   SmartEraseTaskInput,
   RecognizeMediaForZhiXueRequest,
   MediaProcessTaskAdaptiveDynamicStreamingResult,
@@ -316,6 +319,7 @@ import {
   AiSampleFaceOperation,
   SvgWatermarkInputForUpdate,
   AiReviewTaskTerrorismOcrResult,
+  SubtitleArea,
   DescribeAigcTaskListResponse,
   DescribeStreamPackageSSAIChannelRequest,
   Rules,
@@ -349,6 +353,8 @@ import {
   DescribeMDPMPSUserInfoRequest,
   SSAIChannelInfo,
   Speakers,
+  WorkflowTrigger,
+  CreateAgentRecordTaskRequest,
   DescribeBlindWatermarkTemplatesRequest,
   PureSubtitleTransResultOutput,
   DeleteVoiceRequest,
@@ -454,6 +460,7 @@ import {
   ProcessImageResponse,
   DescribeRTSPPullSourceAddress,
   DescribeStreamPackageLinearAssemblyChannelAlertsResponse,
+  QueryHunyuan3DTaskRequest,
   DashManifestInfo,
   VideoDramaCosInfo,
   DescribeOutputRTSPPullSettings,
@@ -526,7 +533,7 @@ import {
   AnimatedGraphicsTemplate,
   CreateInput,
   CreateOutputRTMPSettings,
-  WorkflowTrigger,
+  SubmitHunyuan3DTaskRequest,
   HLSPullSourceAddress,
   DescribeStreamPackageSourceLocationRequest,
   QueryProjectRequest,
@@ -649,6 +656,7 @@ import {
   DeleteSampleSnapshotTemplateRequest,
   TerrorismOcrReviewTemplateInfoForUpdate,
   DescribeTranscodeTemplatesResponse,
+  ImageProcessOutputConfig,
   LiveStreamTransTextRecognitionResult,
   ImageSpriteTemplate,
   AiRecognitionTaskOcrFullTextSegmentTextItem,
@@ -746,6 +754,7 @@ import {
   CreateSubtitleEmbedTemplateResponse,
   ImageTaskInfo,
   CreateStreamPackageSourceLocationResponse,
+  QueryHunyuan3DTaskResponse,
   DeleteSmartSubtitleTemplateRequest,
   DescribeStreamPackageLinearAssemblyProgramSchedulesRequest,
   CreateAIAnalysisTemplateResponse,
@@ -850,6 +859,7 @@ import {
   UserDefineFaceReviewTemplateInfoForUpdate,
   DescribeInputRTMPSettings,
   CreateProcessImageTemplateResponse,
+  File3D,
   CloneViralPersona,
   AigcVideoReferenceAudioInfo,
   DeleteProcessImageTemplateResponse,
@@ -1056,11 +1066,12 @@ import {
   TerrorismConfigureInfo,
   CreateStreamPackageLinearAssemblyProgramResponse,
   PoliticalAsrReviewTemplateInfo,
+  SubmitHunyuan3DTaskResponse,
   DeleteProcessImageTemplateRequest,
   SmartSubtitlesTaskInput,
   CreateAnimatedGraphicsTemplateResponse,
   TranslateConfigureInfoForUpdate,
-  ImageProcessOutputConfig,
+  CreateAgentRecordTaskResponse,
   SampleSnapshotTemplate,
   RTSPPullSourceAddress,
   SubtitleEmbedTemplateItem,
@@ -1161,13 +1172,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 删除线性组装Program。
+   * 删除用户自定义水印模板。
    */
-  async DeleteStreamPackageLinearAssemblyProgram(
-    req: DeleteStreamPackageLinearAssemblyProgramRequest,
-    cb?: (error: string, rep: DeleteStreamPackageLinearAssemblyProgramResponse) => void
-  ): Promise<DeleteStreamPackageLinearAssemblyProgramResponse> {
-    return this.request("DeleteStreamPackageLinearAssemblyProgram", req, cb)
+  async DeleteWatermarkTemplate(
+    req: DeleteWatermarkTemplateRequest,
+    cb?: (error: string, rep: DeleteWatermarkTemplateResponse) => void
+  ): Promise<DeleteWatermarkTemplateResponse> {
+    return this.request("DeleteWatermarkTemplate", req, cb)
   }
 
   /**
@@ -1650,6 +1661,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 调用该接口，用于创建Agent录制任务。
+   */
+  async CreateAgentRecordTask(
+    req: CreateAgentRecordTaskRequest,
+    cb?: (error: string, rep: CreateAgentRecordTaskResponse) => void
+  ): Promise<CreateAgentRecordTaskResponse> {
+    return this.request("CreateAgentRecordTask", req, cb)
+  }
+
+  /**
    * 图片处理任务查询接口。
    */
   async DescribeImageTasks(
@@ -2010,6 +2031,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DeleteQualityControlTemplateResponse) => void
   ): Promise<DeleteQualityControlTemplateResponse> {
     return this.request("DeleteQualityControlTemplate", req, cb)
+  }
+
+  /**
+   * 提交创建混元3D的任务
+   */
+  async SubmitHunyuan3DTask(
+    req: SubmitHunyuan3DTaskRequest,
+    cb?: (error: string, rep: SubmitHunyuan3DTaskResponse) => void
+  ): Promise<SubmitHunyuan3DTaskResponse> {
+    return this.request("SubmitHunyuan3DTask", req, cb)
   }
 
   /**
@@ -2561,6 +2592,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 调用该接口，用于查询Agent录制任务的进度以及获取生成结果。
+   */
+  async DescribeAgentRecordTask(
+    req: DescribeAgentRecordTaskRequest,
+    cb?: (error: string, rep: DescribeAgentRecordTaskResponse) => void
+  ): Promise<DescribeAgentRecordTaskResponse> {
+    return this.request("DescribeAgentRecordTask", req, cb)
+  }
+
+  /**
    * 创建用户自定义雪碧图模板，数量上限：16。
    */
   async CreateImageSpriteTemplate(
@@ -3051,13 +3092,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 删除用户自定义水印模板。
+   * 删除线性组装Program。
    */
-  async DeleteWatermarkTemplate(
-    req: DeleteWatermarkTemplateRequest,
-    cb?: (error: string, rep: DeleteWatermarkTemplateResponse) => void
-  ): Promise<DeleteWatermarkTemplateResponse> {
-    return this.request("DeleteWatermarkTemplate", req, cb)
+  async DeleteStreamPackageLinearAssemblyProgram(
+    req: DeleteStreamPackageLinearAssemblyProgramRequest,
+    cb?: (error: string, rep: DeleteStreamPackageLinearAssemblyProgramResponse) => void
+  ): Promise<DeleteStreamPackageLinearAssemblyProgramResponse> {
+    return this.request("DeleteStreamPackageLinearAssemblyProgram", req, cb)
   }
 
   /**
@@ -3196,6 +3237,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ActivateStreamPackageResponse) => void
   ): Promise<ActivateStreamPackageResponse> {
     return this.request("ActivateStreamPackage", req, cb)
+  }
+
+  /**
+   * 查询混元3D任务对应的结果
+   */
+  async QueryHunyuan3DTask(
+    req: QueryHunyuan3DTaskRequest,
+    cb?: (error: string, rep: QueryHunyuan3DTaskResponse) => void
+  ): Promise<QueryHunyuan3DTaskResponse> {
+    return this.request("QueryHunyuan3DTask", req, cb)
   }
 
   /**

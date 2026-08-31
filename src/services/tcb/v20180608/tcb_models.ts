@@ -2276,6 +2276,10 @@ export interface CreateCloudAppRequest {
    * <p>敏感凭证（AES 加密落库），构建容器中以 $SECRET_NAME 引用</p>
    */
   Secrets?: Array<BuildSecret>
+  /**
+   * <p>选择 NodeRuntime 版本: 16,18,20,22,24 等</p>
+   */
+  NodeJsVersion?: string
 }
 
 /**
@@ -4502,6 +4506,16 @@ export interface Pager {
 }
 
 /**
+ * ModifyEnvExtra返回参数结构体
+ */
+export interface ModifyEnvExtraResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 本类型用于UpdateTable接口中描述待创建索引信息
  */
 export interface MgoIndexKeys {
@@ -6376,6 +6390,20 @@ export interface CreateHTTPServiceRouteResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * ModifyEnvExtra请求参数结构体
+ */
+export interface ModifyEnvExtraRequest {
+  /**
+   * <p>环境ID</p>
+   */
+  EnvId: string
+  /**
+   * <p>开启或关闭 <code>超限转按量</code>。<br>可取值： TRUE/FALSE （字符串类型）<br>非法制、不传、为空 则不变更该字段。</p>
+   */
+  EnableOverrun?: string
 }
 
 /**

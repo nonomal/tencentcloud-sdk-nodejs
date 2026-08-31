@@ -2496,15 +2496,15 @@ export interface ModifyRabbitMQVipInstanceResponse {
  */
 export interface DescribePulsarProInstancesRequest {
   /**
-   * 查询条件过滤器
+   * <p>查询条件过滤器</p>
    */
   Filters?: Array<Filter>
   /**
-   * 查询数目上限，默认20
+   * <p>查询数目上限，默认20</p>
    */
   Limit?: number
   /**
-   * 查询起始位置
+   * <p>查询起始位置</p>
    */
   Offset?: number
 }
@@ -3100,7 +3100,7 @@ export interface DescribePublisherSummaryRequest {
 }
 
 /**
- * Pulsar专业版集群信息
+ * Pulsar标准版或专业版集群信息
  */
 export interface PulsarProClusterInfo {
   /**
@@ -3142,7 +3142,7 @@ export interface PulsarProClusterInfo {
    */
   CanEditRoute?: boolean
   /**
-   * <p>代表是专业版和小规格专业版的不同计费规格PULSAR.P1固定存储PULSAR.P2弹性存储</p>
+   * <p>代表是专业版和标准版的不同计费规格<br>PULSAR.P1固定存储<br>PULSAR.P2弹性存储<br>PULSAR.S2标准版</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BillingLabelVersion?: string
@@ -3162,7 +3162,7 @@ export interface PulsarProClusterInfo {
    */
   DefaultPartitionNumber?: number
   /**
-   * <p>用户自定义的租户别名，如果没有，会复用专业集群 ID</p>
+   * <p>用户自定义的租户别名，如果没有，会复用集群 ID</p>
    */
   Tenant?: string
   /**
@@ -3177,6 +3177,10 @@ export interface PulsarProClusterInfo {
    * <p>是否开启数据加密</p><p>枚举值：</p><ul><li>0： 关闭数据加密</li><li>1： 开启数据加密</li></ul>
    */
   EncryptionStatus?: number
+  /**
+   * <p>是否开启磁盘自动扩容。枚举值：0-关闭，1-开启</p>
+   */
+  AutoExpansionEnabled?: number
 }
 
 /**
@@ -4394,7 +4398,7 @@ export interface Tag {
  */
 export interface CreateProClusterRequest {
   /**
-   * <p>多可用区部署选择三个可用区，示例[200002,200003,200004]<br>单可用区部署选择一个可用区，示例[200002]</p><p>当选择PULSAR.P2.MINI1 时只支持两个可用区，其他支持三个可用区</p>
+   * <p>多可用区部署选择三个可用区，示例[200002,200003,200004]<br>单可用区部署选择一个可用区，示例[200002]</p><p>专业版：当选择PULSAR.P2.MINI1时只支持两个可用区，其他规格支持三个可用区<br>标准版（PULSAR.S2系列）：只支持两个可用区</p>
    */
   ZoneIds: Array<number | bigint>
   /**
@@ -4433,6 +4437,14 @@ export interface CreateProClusterRequest {
    * <p>集群版本信息</p>
    */
   InstanceVersion?: string
+  /**
+   * <p>用户自定义租户名，可选。<br>不能为空，支持数字、字母以及符号 “-_=:.”，长度不超过 64 个字符。<br>未传时使用默认规则（实例 ID 作为租户名）。</p>
+   */
+  UserTenant?: string
+  /**
+   * <p>是否开启弹性TPS（1：开启，0：关闭），仅专业版P1固定存储集群支持</p>
+   */
+  ElasticTpsEnabled?: number
 }
 
 /**
@@ -4763,98 +4775,98 @@ export interface DeleteRocketMQGroupResponse {
 }
 
 /**
- * Pulsar专业版实例信息
+ * Pulsar标准版或专业版实例信息
  */
 export interface PulsarProInstance {
   /**
-   * 实例id
+   * <p>实例id</p>
    */
   InstanceId?: string
   /**
-   * 实例名称
+   * <p>实例名称</p>
    */
   InstanceName?: string
   /**
-   * 实例版本
+   * <p>实例版本</p>
    */
   InstanceVersion?: string
   /**
-   * 实例状态，0-创建中，1-正常，2-隔离中，3-已销毁，4 - 异常, 5 - 发货失败，6-变配中，7-变配失败
+   * <p>实例状态，0-创建中，1-正常，2-隔离中，3-已销毁，4 - 异常, 5 - 发货失败，6-变配中，7-变配失败</p>
    */
   Status?: number
   /**
-   * 实例配置规格名称
+   * <p>实例配置规格名称</p>
    */
   ConfigDisplay?: string
   /**
-   * 峰值TPS
+   * <p>峰值TPS</p>
    */
   MaxTps?: number
   /**
-   * 存储容量，GB为单位
+   * <p>存储容量，GB为单位</p>
    */
   MaxStorage?: number
   /**
-   * 实例到期时间，毫秒为单位
+   * <p>实例到期时间，毫秒为单位</p>
    */
   ExpireTime?: number
   /**
-   * 自动续费标记，0表示默认状态(用户未设置，即初始状态即手动续费)， 1表示自动续费，2表示明确不自动续费(用户设置)
+   * <p>自动续费标记，0表示默认状态(用户未设置，即初始状态即手动续费)， 1表示自动续费，2表示明确不自动续费(用户设置)</p>
    */
   AutoRenewFlag?: number
   /**
-   * 0-后付费，1-预付费
+   * <p>0-后付费，1-预付费</p>
    */
   PayMode?: number
   /**
-   * 备注信息
+   * <p>备注信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Remark?: string
   /**
-   * 实例配置ID
+   * <p>实例配置ID</p>
    */
   SpecName?: string
   /**
-   * 规格外弹性TPS
+   * <p>规格外弹性TPS</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ScalableTps?: number
   /**
-   * VPC的id
+   * <p>VPC的id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   VpcId?: string
   /**
-   * 子网id
+   * <p>子网id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SubnetId?: string
   /**
-   * 峰值带宽。单位：mbps
+   * <p>峰值带宽。单位：mbps</p>
    */
   MaxBandWidth?: number
   /**
-   * 集群的标签列表
+   * <p>集群的标签列表</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Tags?: Array<Tag>
   /**
-   * 集群创建时间
+   * <p>集群创建时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreateTime?: string
   /**
-   * 代表是专业版和小规格专业版的不同计费规格PULSAR.P1固定存储PULSAR.P2弹性存储
+   * <p>代表是专业版和标准版的不同计费规格<br>PULSAR.P1固定存储<br>PULSAR.P2弹性存储<br>PULSAR.S2标准版</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BillingLabelVersion?: string
   /**
-   * 自定义租户
+   * <p>自定义租户</p>
    */
   Tenant?: string
   /**
-   * 集群的证书列表
+   * <p>集群的证书列表</p>
    */
   CertificateList?: Array<CertificateInfo>
 }
@@ -5521,11 +5533,11 @@ export interface DeleteRocketMQClusterRequest {
  */
 export interface DescribePulsarProInstancesResponse {
   /**
-   * 未分页的总数目
+   * <p>未分页的总数目</p>
    */
   TotalCount?: number
   /**
-   * 实例信息列表
+   * <p>实例信息列表</p>
    */
   Instances?: Array<PulsarProInstance>
   /**
@@ -6948,7 +6960,7 @@ export interface SendRocketMQMessageResponse {
 }
 
 /**
- * Pulsar专业版集群规格信息
+ * Pulsar标准版或专业版集群规格信息
  */
 export interface PulsarProClusterSpecInfo {
   /**
