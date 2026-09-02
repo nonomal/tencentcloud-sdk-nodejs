@@ -567,7 +567,7 @@ export interface SendSmsResponse {
  */
 export interface SendStatusStatisticsResponse {
   /**
-   * 发送数据统计响应包体。
+   * <p>发送数据统计响应包体。</p>
    */
   SendStatusStatistics?: SendStatusStatistics
   /**
@@ -974,26 +974,23 @@ export interface PhoneNumberInfo {
  */
 export interface SendStatusStatisticsRequest {
   /**
-   * 起始时间，格式为yyyymmddhh，精确到小时，例如2024050113，表示2024年5月1号13时。
+   * <p>起始时间，格式为yyyymmddhh，精确到小时，例如2024050113，表示2024年5月1号13时。注：统计范围包含当前小时。</p><p>参数格式：yyyymmddhh</p>
    */
   BeginTime: string
   /**
-   * 结束时间，格式为yyyymmddhh，精确到小时，例如2024050118，表示2024年5月1号18时。
-注：EndTime 必须大于等于 BeginTime。
+   * <p>结束时间，格式为yyyymmddhh，精确到小时，例如2024050118，表示2024年5月1号18时。注：EndTime 必须大于等于 BeginTime，统计范围包含当前小时。</p><p>参数格式：yyyymmddhh</p>
    */
   EndTime: string
   /**
-   * 短信 SdkAppId 在 [短信控制台](https://console.cloud.tencent.com/smsv2/app-manage)  添加应用后生成的实际 SdkAppId，示例如1400006666。
+   * <p>短信 SdkAppId 在 <a href="https://console.cloud.tencent.com/smsv2/app-manage">短信控制台</a>  添加应用后生成的实际 SdkAppId，示例如1400006666。</p>
    */
   SmsSdkAppId: string
   /**
-   * 最大上限。
-注：目前固定设置为0。
+   * <p>最大上限。<br>注：目前固定设置为0。</p>
    */
   Limit: number
   /**
-   * 偏移量。
-注：目前固定设置为0。
+   * <p>偏移量。<br>注：目前固定设置为0。</p>
    */
   Offset: number
 }

@@ -20,6 +20,7 @@ import { ClientConfig } from "../../../common/interface"
 import {
   DescribeAsyncTextToSpeechRequest,
   ModifyCloudSliceTaskResponse,
+  TimeValue,
   DescribeCloudModerationResponse,
   StartStreamIngestResponse,
   AgentConfig,
@@ -28,7 +29,8 @@ import {
   CreatePictureRequest,
   SubscribeModerationUserIds,
   AudioEncodeParams,
-  ServerPushText,
+  DeleteRecognizeVocabV3Request,
+  GetRecognizeVocabListV3Response,
   McuRecordParams,
   MixLayout,
   McuVideoParams,
@@ -43,6 +45,7 @@ import {
   DescribeUserEventRequest,
   DeleteCloudModerationRequest,
   CreateLiveStreamModerationRequest,
+  CreateCloudSliceTaskRequest,
   McuBackgroundCustomRender,
   AsyncTextToSpeechRequest,
   DescribeTrtcRoomUsageResponse,
@@ -59,7 +62,7 @@ import {
   UpdateAIConversationResponse,
   DescribeUserEventResponse,
   VideoEncode,
-  DescribeCloudRecordingResponse,
+  DeleteRecognizeVocabV3Response,
   StopMCUMixTranscodeByStrRoomIdResponse,
   PictureInfo,
   DescribeCallDetailInfoRequest,
@@ -86,14 +89,15 @@ import {
   DescribeAsyncTextToSpeechResponse,
   TranslationParam,
   CloudStorage,
-  VoicePrint,
+  ServerPushText,
   DescribeTrtcUsageResponse,
   StopAITranscriptionRequest,
-  TimeValue,
+  SetVocabStateV3Response,
   CreateCloudRecordingResponse,
   RemoveUserRequest,
   DescribeWebRecordRequest,
   AmbientSound,
+  CreateRecognizeVocabV3Request,
   DescribeRecordStatisticRequest,
   DescribeRoomInfoRequest,
   StorageParams,
@@ -133,6 +137,7 @@ import {
   DeleteCloudTranscriptionResponse,
   McuLayout,
   DescribeUserInfoResponse,
+  GetRecognizeVocabV3Response,
   RemoveUserByStrRoomIdResponse,
   DescribeVoicePrintRequest,
   UpdateStreamIngestResponse,
@@ -161,6 +166,7 @@ import {
   MixLayoutParams,
   ModifyCloudSliceTaskRequest,
   StopMCUMixTranscodeResponse,
+  VoicePrint,
   DescribeMixTranscodingUsageResponse,
   AsrParam,
   McuFeedBackRoomParams,
@@ -169,16 +175,18 @@ import {
   AudioEncode,
   LayoutParams,
   TTSVoice,
+  WaterMarkChar,
   DismissRoomRequest,
   DeleteLiveStreamModerationRequest,
   DescribeUnusualEventRequest,
+  GetRecognizeVocabV3Request,
   DescribeCloudRecordingRequest,
   TencentVod,
   DeleteVoicePrintResponse,
   UsageList,
   StartWebRecordResponse,
   TRTCDataResult,
-  CreateCloudSliceTaskRequest,
+  DescribeCloudRecordingResponse,
   ModifyCloudModerationRequest,
   RecordUsage,
   CreateCloudRecordingRequest,
@@ -196,7 +204,7 @@ import {
   StopAIConversationResponse,
   CreateLiveStreamModerationResponse,
   DescribeAIConversationRequest,
-  WaterMarkChar,
+  McuAudioParams,
   RowValues,
   TranscriptionParam,
   OneSdkAppIdTranscodeTimeUsagesInfo,
@@ -208,6 +216,7 @@ import {
   DeleteCloudRecordingRequest,
   DescribePictureRequest,
   TTSParam,
+  DownloadRecognizeVocabV3Request,
   ModifyCloudModerationResponse,
   Terminology,
   DescribeLiveStreamModerationRequest,
@@ -225,15 +234,17 @@ import {
   ControlAIConversationRequest,
   DismissRoomByStrRoomIdResponse,
   StopPublishCdnStreamResponse,
+  StopPublishCdnStreamRequest,
   DescribeUnusualEventResponse,
   ModifyCloudRecordingResponse,
   SingleSubscribeParams,
   CreateCloudTranscriptionRequest,
   AsyncTextToSpeechResponse,
+  GetRecognizeVocabListV3Request,
   ModerationParams,
   DescribeCloudSliceTaskRequest,
   StartMCUMixTranscodeByStrRoomIdRequest,
-  StopPublishCdnStreamRequest,
+  SetVocabStateV3Request,
   MixUserInfo,
   DescribeTRTCMarketQualityDataRequest,
   DescribeTRTCRealTimeScaleDataResponse,
@@ -260,20 +271,23 @@ import {
   TranscriptionParams,
   SeriesInfos,
   RemoveUserByStrRoomIdRequest,
+  WaterMarkTimestamp,
+  UpdateRecognizeVocabV3Response,
+  UpdateRecognizeVocabV3Request,
   MaxVideoUser,
   TextToSpeechRequest,
   DescribeStreamIngestRequest,
   UpdateVoicePrintResponse,
   TTSConfig,
   EncodeParams,
-  McuAudioParams,
+  DownloadRecognizeVocabV3Response,
   DescribeTRTCDedicatedCloudAccUsageResponse,
   McuPublishCdnParam,
   DescribeCloudTranscriptionRequest,
   AudioParams,
   StopAITranscriptionResponse,
   SeriesInfo,
-  WaterMarkTimestamp,
+  CreateRecognizeVocabV3Response,
   McuCloudVod,
   StopMCUMixTranscodeRequest,
   DescribeCloudModerationRequest,
@@ -311,6 +325,21 @@ export class Client extends AbstractClient {
   }
 
   /**
+     * 查询TRTC监控仪表盘-实时监控质量指标（会返回下列指标）
+-视频卡顿率
+-音频卡顿率
+注意：
+1.调用接口需开通监控仪表盘【基础版】和【进阶版】，监控仪表盘【免费版】不支持调用，详情参考[监控仪表盘](https://cloud.tencent.com/document/product/647/81331)。
+2.查询时间范围根据监控仪表盘功能版本而定，基础版可查近3小时，进阶版可查近12小时。
+     */
+  async DescribeTRTCRealTimeQualityData(
+    req: DescribeTRTCRealTimeQualityDataRequest,
+    cb?: (error: string, rep: DescribeTRTCRealTimeQualityDataResponse) => void
+  ): Promise<DescribeTRTCRealTimeQualityDataResponse> {
+    return this.request("DescribeTRTCRealTimeQualityData", req, cb)
+  }
+
+  /**
    * 停止页面录制任务
    */
   async StopWebRecord(
@@ -318,6 +347,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: StopWebRecordResponse) => void
   ): Promise<StopWebRecordResponse> {
     return this.request("StopWebRecord", req, cb)
+  }
+
+  /**
+   * 传入声纹ID以及对应音频信息，更新对应声纹信息
+   */
+  async UpdateVoicePrint(
+    req: UpdateVoicePrintRequest,
+    cb?: (error: string, rep: UpdateVoicePrintResponse) => void
+  ): Promise<UpdateVoicePrintResponse> {
+    return this.request("UpdateVoicePrint", req, cb)
   }
 
   /**
@@ -381,21 +420,14 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 接口说明：  
-启动一个混流转推任务，将  TRTC 房间的多路音视频流混成一路音视频流，编码后推到直播 CDN 或者回推到 TRTC 房间。也支持不转码直接转推 TRTC 房间的单路流。启动成功后，会返回一个 SdkAppid 维度唯一的任务 Id（TaskId）。您需要保存该 TaskId，后续需要依赖此 TaskId 更新和结束任务。可以参考文档： [功能说明](https://cloud.tencent.com/document/product/647/84721#b9a855f4-e38c-4616-9b07-fc44e0e8282a) 和 [常见问题](https://cloud.tencent.com/document/product/647/62620)
-需要注意的是，TaskId调用时效性是30天，从成功启动转推并获得任务ID后开始计算，超时后无法调用更新和停止等接口，但是转推任务不会停止。最终任务会等所有参与混流转推的主播离开TRTC房间或切换成观众，并且超过MaxIdleTime时长后，自动停止。
-
-注意：
-您可以在控制台开通旁路转推回调功能，对转推 CDN 状态的事件进行监控，回调请参考文档：[旁路转推回调说明](https://cloud.tencent.com/document/product/647/88552)  
-您发起混流转推任务时，可能会产生如下费用：  
-MCU 混流转码费用，请参考文档：[云端混流转码计费说明](https://cloud.tencent.com/document/product/647/49446)  
-转推非腾讯云 CDN 费用，请参考文档：[云端转推计费说明](https://cloud.tencent.com/document/product/647/82155)
+     * 接口说明：
+用户通过本接口进行热词表的下载，获得词表权重文件形式的 base64 值，文件形式为通过 “|” 分割的词和权重，即 word|weight 的形式。
      */
-  async StartPublishCdnStream(
-    req: StartPublishCdnStreamRequest,
-    cb?: (error: string, rep: StartPublishCdnStreamResponse) => void
-  ): Promise<StartPublishCdnStreamResponse> {
-    return this.request("StartPublishCdnStream", req, cb)
+  async DownloadRecognizeVocabV3(
+    req?: DownloadRecognizeVocabV3Request,
+    cb?: (error: string, rep: DownloadRecognizeVocabV3Response) => void
+  ): Promise<DownloadRecognizeVocabV3Response> {
+    return this.request("DownloadRecognizeVocabV3", req, cb)
   }
 
   /**
@@ -468,6 +500,28 @@ peakCurrentUsers：峰值同时在线人数。
   }
 
   /**
+     * 接口说明：
+用户通过本接口进行热词表的更新。
+     */
+  async UpdateRecognizeVocabV3(
+    req?: UpdateRecognizeVocabV3Request,
+    cb?: (error: string, rep: UpdateRecognizeVocabV3Response) => void
+  ): Promise<UpdateRecognizeVocabV3Response> {
+    return this.request("UpdateRecognizeVocabV3", req, cb)
+  }
+
+  /**
+     * 接口说明：
+用户通过该接口可以设置热词表的默认状态。初始状态为0，用户可设置状态为1，即为默认状态。默认状态表示用户在请求识别时，如不设置热词表ID，则默认使用状态为1的热词表。
+     */
+  async SetVocabStateV3(
+    req?: SetVocabStateV3Request,
+    cb?: (error: string, rep: SetVocabStateV3Response) => void
+  ): Promise<SetVocabStateV3Response> {
+    return this.request("SetVocabStateV3", req, cb)
+  }
+
+  /**
      * 查询TRTC监控仪表盘-实时监控规模指标（会返回下列指标）
 -userCount（在线用户数）
 -roomCount（在线房间数）
@@ -483,13 +537,13 @@ peakCurrentUsers：峰值同时在线人数。
   }
 
   /**
-   * 传入声纹ID，删除之前注册的声纹信息
+   * 查询AI对话任务状态。
    */
-  async DeleteVoicePrint(
-    req: DeleteVoicePrintRequest,
-    cb?: (error: string, rep: DeleteVoicePrintResponse) => void
-  ): Promise<DeleteVoicePrintResponse> {
-    return this.request("DeleteVoicePrint", req, cb)
+  async DescribeAIConversation(
+    req: DescribeAIConversationRequest,
+    cb?: (error: string, rep: DescribeAIConversationResponse) => void
+  ): Promise<DescribeAIConversationResponse> {
+    return this.request("DescribeAIConversation", req, cb)
   }
 
   /**
@@ -566,6 +620,17 @@ TRTC AI对话功能内置语音转文本能力，同时提供通道服务，即�
   }
 
   /**
+     * 接口说明：
+用户通过本接口进行热词表的删除。
+     */
+  async DeleteRecognizeVocabV3(
+    req?: DeleteRecognizeVocabV3Request,
+    cb?: (error: string, rep: DeleteRecognizeVocabV3Response) => void
+  ): Promise<DeleteRecognizeVocabV3Response> {
+    return this.request("DeleteRecognizeVocabV3", req, cb)
+  }
+
+  /**
    * 如果您需要在 [云端混流转码](https://cloud.tencent.com/document/product/647/16827) 时频繁删除自定义背景图或水印，可通过此接口删除已上传的图片。无需频繁删除图片的场景，建议直接在 [控制台 > 应用管理 > 素材管理](https://cloud.tencent.com/document/product/647/50769) 中操作。
    */
   async DeletePicture(
@@ -611,13 +676,21 @@ TRTC AI对话功能内置语音转文本能力，同时提供通道服务，即�
   }
 
   /**
-   * 传入声纹ID以及对应音频信息，更新对应声纹信息
-   */
-  async UpdateVoicePrint(
-    req: UpdateVoicePrintRequest,
-    cb?: (error: string, rep: UpdateVoicePrintResponse) => void
-  ): Promise<UpdateVoicePrintResponse> {
-    return this.request("UpdateVoicePrint", req, cb)
+     * 接口说明：
+用户通过本接口进行热词表的创建。
+
+• 默认最多可创建30个热词表。
+• 每个热词表最多可添加1000个词，每个词最长10个汉字或30个英文字符，不能超出限制。
+• 热词表可以通过数组或者本地文件形式上传。
+• 本地文件必须为UTF-8编码格式，每行仅添加一个热词且不能包含标点和特殊字符。
+• 热词权重取值范围为[1,11]之间的整数或者100，权重越大代表该词被识别出来的概率越大。
+• 注意: 热词权重设置为11时，当前热词将升级为超级热词，建议仅将重要且必须生效的热词设置到11，设置过多权重为11的热词将影响整体字准率。
+     */
+  async CreateRecognizeVocabV3(
+    req: CreateRecognizeVocabV3Request,
+    cb?: (error: string, rep: CreateRecognizeVocabV3Response) => void
+  ): Promise<CreateRecognizeVocabV3Response> {
+    return this.request("CreateRecognizeVocabV3", req, cb)
   }
 
   /**
@@ -631,13 +704,21 @@ TRTC AI对话功能内置语音转文本能力，同时提供通道服务，即�
   }
 
   /**
-   * 接口说明：结束云端混流
-   */
-  async StopMCUMixTranscode(
-    req: StopMCUMixTranscodeRequest,
-    cb?: (error: string, rep: StopMCUMixTranscodeResponse) => void
-  ): Promise<StopMCUMixTranscodeResponse> {
-    return this.request("StopMCUMixTranscode", req, cb)
+     * 接口说明：  
+启动一个混流转推任务，将  TRTC 房间的多路音视频流混成一路音视频流，编码后推到直播 CDN 或者回推到 TRTC 房间。也支持不转码直接转推 TRTC 房间的单路流。启动成功后，会返回一个 SdkAppid 维度唯一的任务 Id（TaskId）。您需要保存该 TaskId，后续需要依赖此 TaskId 更新和结束任务。可以参考文档： [功能说明](https://cloud.tencent.com/document/product/647/84721#b9a855f4-e38c-4616-9b07-fc44e0e8282a) 和 [常见问题](https://cloud.tencent.com/document/product/647/62620)
+需要注意的是，TaskId调用时效性是30天，从成功启动转推并获得任务ID后开始计算，超时后无法调用更新和停止等接口，但是转推任务不会停止。最终任务会等所有参与混流转推的主播离开TRTC房间或切换成观众，并且超过MaxIdleTime时长后，自动停止。
+
+注意：
+您可以在控制台开通旁路转推回调功能，对转推 CDN 状态的事件进行监控，回调请参考文档：[旁路转推回调说明](https://cloud.tencent.com/document/product/647/88552)  
+您发起混流转推任务时，可能会产生如下费用：  
+MCU 混流转码费用，请参考文档：[云端混流转码计费说明](https://cloud.tencent.com/document/product/647/49446)  
+转推非腾讯云 CDN 费用，请参考文档：[云端转推计费说明](https://cloud.tencent.com/document/product/647/82155)
+     */
+  async StartPublishCdnStream(
+    req: StartPublishCdnStreamRequest,
+    cb?: (error: string, rep: StartPublishCdnStreamResponse) => void
+  ): Promise<StartPublishCdnStreamResponse> {
+    return this.request("StartPublishCdnStream", req, cb)
   }
 
   /**
@@ -1097,18 +1178,13 @@ peakCurrentUsers：峰值同时在线人数。
   }
 
   /**
-     * 查询TRTC监控仪表盘-实时监控质量指标（会返回下列指标）
--视频卡顿率
--音频卡顿率
-注意：
-1.调用接口需开通监控仪表盘【基础版】和【进阶版】，监控仪表盘【免费版】不支持调用，详情参考[监控仪表盘](https://cloud.tencent.com/document/product/647/81331)。
-2.查询时间范围根据监控仪表盘功能版本而定，基础版可查近3小时，进阶版可查近12小时。
-     */
-  async DescribeTRTCRealTimeQualityData(
-    req: DescribeTRTCRealTimeQualityDataRequest,
-    cb?: (error: string, rep: DescribeTRTCRealTimeQualityDataResponse) => void
-  ): Promise<DescribeTRTCRealTimeQualityDataResponse> {
-    return this.request("DescribeTRTCRealTimeQualityData", req, cb)
+   * 传入声纹ID，删除之前注册的声纹信息
+   */
+  async DeleteVoicePrint(
+    req: DeleteVoicePrintRequest,
+    cb?: (error: string, rep: DeleteVoicePrintResponse) => void
+  ): Promise<DeleteVoicePrintResponse> {
+    return this.request("DeleteVoicePrint", req, cb)
   }
 
   /**
@@ -1167,13 +1243,14 @@ peakCurrentUsers：峰值同时在线人数。
   }
 
   /**
-   * 查询AI对话任务状态。
-   */
-  async DescribeAIConversation(
-    req: DescribeAIConversationRequest,
-    cb?: (error: string, rep: DescribeAIConversationResponse) => void
-  ): Promise<DescribeAIConversationResponse> {
-    return this.request("DescribeAIConversation", req, cb)
+     * 接口说明：
+用户通过本接口分页列举所有的热词表。
+     */
+  async GetRecognizeVocabListV3(
+    req?: GetRecognizeVocabListV3Request,
+    cb?: (error: string, rep: GetRecognizeVocabListV3Response) => void
+  ): Promise<GetRecognizeVocabListV3Response> {
+    return this.request("GetRecognizeVocabListV3", req, cb)
   }
 
   /**
@@ -1255,5 +1332,26 @@ networkDelay ：网络延迟率。
     cb?: (error: string, rep: TextToSpeechSSEResponse) => void
   ): Promise<TextToSpeechSSEResponse> {
     return this.request("TextToSpeechSSE", req, cb)
+  }
+
+  /**
+   * 接口说明：结束云端混流
+   */
+  async StopMCUMixTranscode(
+    req: StopMCUMixTranscodeRequest,
+    cb?: (error: string, rep: StopMCUMixTranscodeResponse) => void
+  ): Promise<StopMCUMixTranscodeResponse> {
+    return this.request("StopMCUMixTranscode", req, cb)
+  }
+
+  /**
+     * 接口说明：
+用户根据词表的ID可以获取对应的热词表信息
+     */
+  async GetRecognizeVocabV3(
+    req?: GetRecognizeVocabV3Request,
+    cb?: (error: string, rep: GetRecognizeVocabV3Response) => void
+  ): Promise<GetRecognizeVocabV3Response> {
+    return this.request("GetRecognizeVocabV3", req, cb)
   }
 }

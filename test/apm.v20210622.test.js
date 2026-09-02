@@ -58,6 +58,16 @@ it("apm.v20210622.ModifyApmService", async function () {
     }
 })
 
+it("apm.v20210622.DescribeRelatedServicesOnTrace", async function () {
+    try {
+       const data = await client.DescribeRelatedServicesOnTrace({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("apm.v20210622.DescribeGeneralOTSpanList", async function () {
     try {
        const data = await client.DescribeGeneralOTSpanList({})

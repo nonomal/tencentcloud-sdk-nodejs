@@ -26,7 +26,7 @@ import {
   DescribeApmSQLInjectionDetailResponse,
   AgentOperationConfigView,
   SelectorView,
-  DescribeApmSampleConfigRequest,
+  DescribeRelatedServicesOnTraceResponse,
   DescribeApmAllVulCountResponse,
   DescribeApmSampleConfigResponse,
   DescribeServiceOverviewRequest,
@@ -53,7 +53,7 @@ import {
   TopologyNode,
   DescribeApmAgentResponse,
   CreateApmSampleConfigRequest,
-  DescribeTagValuesRequest,
+  DescribeApmSampleConfigRequest,
   ApmServiceMetric,
   ApmAppConfig,
   CreateApmSampleConfigResponse,
@@ -75,6 +75,7 @@ import {
   ServiceDetail,
   DescribeApmInstancesResponse,
   DescribeApmPrometheusRuleResponse,
+  ServiceRelation,
   ModifyApmSampleConfigResponse,
   DescribeApmApplicationConfigRequest,
   CreateProfileTaskResponse,
@@ -82,7 +83,7 @@ import {
   ModifyApmPrometheusRuleResponse,
   DescribeMetricRecordsResponse,
   ApmTag,
-  DescribeApmSQLInjectionDetailRequest,
+  DescribeRelatedServicesOnTraceRequest,
   Filter,
   DescribeGeneralOTSpanListRequest,
   AutoProfilingConfig,
@@ -113,10 +114,12 @@ import {
   DescribeGeneralSpanListResponse,
   ApmAssociation,
   Resource,
+  DescribeApmSQLInjectionDetailRequest,
   Selectors,
   ModifyApmServiceResponse,
   ModifyApmApplicationConfigRequest,
   ModifyGeneralApmApplicationConfigResponse,
+  DescribeTagValuesRequest,
   CVMMeta,
   ModifyApmServiceRequest,
   SpanReference,
@@ -172,6 +175,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyApmServiceResponse) => void
   ): Promise<ModifyApmServiceResponse> {
     return this.request("ModifyApmService", req, cb)
+  }
+
+  /**
+   * 根据链路查询目标服务的上下游相关服务
+   */
+  async DescribeRelatedServicesOnTrace(
+    req: DescribeRelatedServicesOnTraceRequest,
+    cb?: (error: string, rep: DescribeRelatedServicesOnTraceResponse) => void
+  ): Promise<DescribeRelatedServicesOnTraceResponse> {
+    return this.request("DescribeRelatedServicesOnTrace", req, cb)
   }
 
   /**

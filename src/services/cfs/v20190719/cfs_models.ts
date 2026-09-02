@@ -1511,7 +1511,7 @@ export interface SetUserQuotaRequest {
    */
   CapacityHardLimit?: number
   /**
-   * <p>文件硬限制，单位个。设置范围1000-100000000</p>
+   * <p>文件硬限制</p><p>取值范围：[1000, 1000000000]</p><p>单位：个</p><p>默认值：无默认值</p>
    */
   FileHardLimit?: number
   /**

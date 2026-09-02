@@ -204,17 +204,30 @@ export interface SelectorView {
 }
 
 /**
- * DescribeApmSampleConfig请求参数结构体
+ * DescribeRelatedServicesOnTrace返回参数结构体
  */
-export interface DescribeApmSampleConfigRequest {
+export interface DescribeRelatedServicesOnTraceResponse {
   /**
-   * 业务系统ID
+   * 查询的总链路数
    */
-  InstanceId: string
+  TotalTraces?: number
   /**
-   * 采样规则名
+   * 查询到的应用的数量
    */
-  SampleName?: string
+  TotalServices?: number
+  /**
+   * 挑选的链路数量
+   */
+  SelectedTraces?: number
+  /**
+   * 相关的服务/应用名列表
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ServiceRelations?: Array<ServiceRelation>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -926,37 +939,17 @@ export interface CreateApmSampleConfigRequest {
 }
 
 /**
- * DescribeTagValues请求参数结构体
+ * DescribeApmSampleConfig请求参数结构体
  */
-export interface DescribeTagValuesRequest {
+export interface DescribeApmSampleConfigRequest {
   /**
-   * 业务系统 ID
+   * 业务系统ID
    */
   InstanceId: string
   /**
-   * 维度名
+   * 采样规则名
    */
-  TagKey: string
-  /**
-   * 开始时间（单位为秒）
-   */
-  StartTime: number
-  /**
-   * 结束时间（单位为秒）
-   */
-  EndTime: number
-  /**
-   * 过滤条件
-   */
-  Filters?: Array<Filter>
-  /**
-   * Or 过滤条件
-   */
-  OrFilters?: Array<Filter>
-  /**
-   * 使用类型
-   */
-  Type?: string
+  SampleName?: string
 }
 
 /**
@@ -1981,6 +1974,24 @@ export interface DescribeApmPrometheusRuleResponse {
 }
 
 /**
+ * 应用对应的链路上下游应用集合
+ */
+export interface ServiceRelation {
+  /**
+   * 应用名
+   */
+  ServiceName?: string
+  /**
+   * 上游应用集合
+   */
+  UpstreamServices?: Array<string>
+  /**
+   * 下游应用集合
+   */
+  DownstreamServices?: Array<string>
+}
+
+/**
  * ModifyApmSampleConfig返回参数结构体
  */
 export interface ModifyApmSampleConfigResponse {
@@ -2079,45 +2090,29 @@ export interface ApmTag {
 }
 
 /**
- * DescribeApmSQLInjectionDetail请求参数结构体
+ * DescribeRelatedServicesOnTrace请求参数结构体
  */
-export interface DescribeApmSQLInjectionDetailRequest {
+export interface DescribeRelatedServicesOnTraceRequest {
   /**
    * 业务系统 ID
    */
   InstanceId: string
   /**
-   * 限制
+   * 查询开始时间
    */
-  Limit?: number
+  StartTime: number
   /**
-   * 偏移量
+   * 查询结束时间
    */
-  Offset?: number
+  EndTime: number
   /**
-   * 秒级时间戳
+   * 应用名
    */
-  StartTime?: number
+  ServiceName?: string
   /**
-   * 秒级时间戳
+   * 是否为应用拓扑查询
    */
-  EndTime?: number
-  /**
-   * 排序
-   */
-  OrderBy?: OrderBy
-  /**
-   * 查询过滤条件
-   */
-  Filters?: Array<Filter>
-  /**
-   * 聚合维度
-   */
-  GroupBy?: Array<string>
-  /**
-   * 指标列表
-   */
-  Metrics?: Array<QueryMetricItem>
+  IsServiceTopology?: boolean
 }
 
 /**
@@ -3359,6 +3354,48 @@ export interface Resource {
 }
 
 /**
+ * DescribeApmSQLInjectionDetail请求参数结构体
+ */
+export interface DescribeApmSQLInjectionDetailRequest {
+  /**
+   * 业务系统 ID
+   */
+  InstanceId: string
+  /**
+   * 限制
+   */
+  Limit?: number
+  /**
+   * 偏移量
+   */
+  Offset?: number
+  /**
+   * 秒级时间戳
+   */
+  StartTime?: number
+  /**
+   * 秒级时间戳
+   */
+  EndTime?: number
+  /**
+   * 排序
+   */
+  OrderBy?: OrderBy
+  /**
+   * 查询过滤条件
+   */
+  Filters?: Array<Filter>
+  /**
+   * 聚合维度
+   */
+  GroupBy?: Array<string>
+  /**
+   * 指标列表
+   */
+  Metrics?: Array<QueryMetricItem>
+}
+
+/**
  * 视图方案勾选情况
  */
 export interface Selectors {
@@ -3653,6 +3690,40 @@ export interface ModifyGeneralApmApplicationConfigResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * DescribeTagValues请求参数结构体
+ */
+export interface DescribeTagValuesRequest {
+  /**
+   * 业务系统 ID
+   */
+  InstanceId: string
+  /**
+   * 维度名
+   */
+  TagKey: string
+  /**
+   * 开始时间（单位为秒）
+   */
+  StartTime: number
+  /**
+   * 结束时间（单位为秒）
+   */
+  EndTime: number
+  /**
+   * 过滤条件
+   */
+  Filters?: Array<Filter>
+  /**
+   * Or 过滤条件
+   */
+  OrFilters?: Array<Filter>
+  /**
+   * 使用类型
+   */
+  Type?: string
 }
 
 /**

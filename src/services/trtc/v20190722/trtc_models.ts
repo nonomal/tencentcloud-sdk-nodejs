@@ -40,6 +40,20 @@ export interface ModifyCloudSliceTaskResponse {
 }
 
 /**
+ * 返回的质量数据，时间:值
+ */
+export interface TimeValue {
+  /**
+   * 时间，unix时间戳（1590065877s)
+   */
+  Time?: number
+  /**
+   * 当前时间返回参数取值，如（bigvCapFps在1590065877取值为0，则Value：0 ）
+   */
+  Value?: number
+}
+
+/**
  * DescribeCloudModeration返回参数结构体
  */
 export interface DescribeCloudModerationResponse {
@@ -283,52 +297,18 @@ export interface AudioEncodeParams {
 }
 
 /**
- * 服务端控制AI对话机器人播报指定文本
+ * DeleteRecognizeVocabV3请求参数结构体
  */
-export interface ServerPushText {
-  /**
-   * 服务端推送播报文本
-   */
-  Text?: string
-  /**
-   * 是否允许该文本打断机器人说话
-   */
-  Interrupt?: boolean
-  /**
-   * 播报完文本后，是否自动关闭对话任务
-   */
-  StopAfterPlay?: boolean
-  /**
-   * 服务端推送播报音频
-    格式说明：音频必须为单声道，采样率必须跟对应TTS的采样率保持一致，编码为Base64字符串。
-    输入规则：当提供Audio字段时，将不接受Text字段的输入。系统将直接播放Audio字段中的音频内容。
-   */
-  Audio?: string
-  /**
-   * 默认为0，仅在Interrupt为false时有效
-- 0表示当前有交互发生时，会丢弃Interrupt为false的消息
-- 1表示当前有交互发生时，不会丢弃Interrupt为false的消息，而是缓存下来，等待当前交互结束后，再去处理
+export type DeleteRecognizeVocabV3Request = null
 
-注意：DropMode为1时，允许缓存多个消息，如果后续出现了打断，缓存的消息会被清空
-   */
-  DropMode?: number
+/**
+ * GetRecognizeVocabListV3返回参数结构体
+ */
+export interface GetRecognizeVocabListV3Response {
   /**
-   * ServerPushText消息的优先级，0表示可被打断，1表示不会被打断。**目前仅支持传入0，如果需要传入1，请提工单联系我们添加权限。**
-注意：在接收到Priority=1的消息后，后续其他任何消息都会被忽略（包括Priority=1的消息），直到Priority=1的消息处理结束。该字段可与Interrupt、DropMode字段配合使用。
-例子：
-- Priority=1、Interrupt=true，会打断现有交互，立刻播报，播报过程中不会被打断
-- Priority=1、Interrupt=false、DropMode=1，会等待当前交互结束，再进行播报，播报过程中不会被打断
-
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Priority?: number
-  /**
-   * 是否将文本加入到llm历史上下文中
-   */
-  AddHistory?: boolean
-  /**
-   * 如果填写，会和字幕绑定发送到端上，注意确保内容为json字符串
-   */
-  MetaInfo?: string
+  RequestId?: string
 }
 
 /**
@@ -775,6 +755,48 @@ export interface CreateLiveStreamModerationRequest {
 }
 
 /**
+ * CreateCloudSliceTask请求参数结构体
+ */
+export interface CreateCloudSliceTaskRequest {
+  /**
+   * TRTC的[SdkAppId](https://cloud.tencent.com/document/product/647/46351#sdkappid)，和TRTC的房间所对应的SdkAppId相同。
+   */
+  SdkAppId: number
+  /**
+   * TRTC的[RoomId](https://cloud.tencent.com/document/product/647/46351#roomid)，为TRTC房间所对应的RoomId。
+   */
+  RoomId: string
+  /**
+   * 机器人的UserId，用于进房发起切片任务。【*注意】这个UserId不能与当前房间内的主播观众UserId重复。如果一个房间发起多个切片任务时，机器人的userid也不能相互重复，否则会中断前一个切片任务。建议可以把房间ID作为UserId的标识的一部分，即机器人UserId在房间内唯一。
+   */
+  UserId: string
+  /**
+   * 机器人UserId对应的校验签名，即UserId和UserSig相当于机器人进房的登录密码，具体计算方法请参考TRTC计算UserSig的方案。
+   */
+  UserSig: string
+  /**
+   * 云端切片控制参数。
+   */
+  SliceParams: SliceParams
+  /**
+   * 云端切片文件上传到云存储的参数
+   */
+  SliceStorageParams: SliceStorageParams
+  /**
+   * TRTC房间号的类型。 【*注意】必须和录制的房间所对应的RoomId类型相同: 0: 字符串类型的RoomId 1: 32位整型的RoomId（默认） 示例值：1
+   */
+  RoomIdType?: number
+  /**
+   * 接口可以调用的时效性，从成功开启录制并获得任务ID后开始计算，超时后无法调用查询、更新和停止等接口，但是录制任务不会停止。 参数的单位是小时，默认72小时（3天），最大可设置720小时（30天），最小设置6小时。举例说明：如果不设置该参数，那么开始录制成功后，查询、更新和停止录制的调用时效为72个小时。 示例值：24
+   */
+  ResourceExpiredHour?: number
+  /**
+   * TRTC房间权限加密串，只有在TRTC控制台启用了高级权限控制的时候需要携带，在TRTC控制台如果开启高级权限控制后，TRTC 的后台服务系统会校验一个叫做 [PrivateMapKey] 的“权限票据”，权限票据中包含了一个加密后的 RoomId 和一个加密后的“权限位列表”。由于 PrivateMapKey 中包含 RoomId，所以只提供了 UserSig 没有提供 PrivateMapKey 时，并不能进入指定的房间。 示例值：eJw1jcEKgkAURX9FZlvY****fL9rfNX4_
+   */
+  PrivateMapKey?: string
+}
+
+/**
  * 混流自定义渲染参数
  */
 export interface McuBackgroundCustomRender {
@@ -1066,28 +1088,9 @@ export interface VideoEncode {
 }
 
 /**
- * DescribeCloudRecording返回参数结构体
+ * DeleteRecognizeVocabV3返回参数结构体
  */
-export interface DescribeCloudRecordingResponse {
-  /**
-   * 录制任务的唯一Id。
-   */
-  TaskId?: string
-  /**
-   * 云端录制任务的状态信息。
-Idle：表示当前录制任务空闲中
-InProgress：表示当前录制任务正在进行中。
-Exited：表示当前录制任务正在退出的过程中。
-   */
-  Status?: string
-  /**
-   * 录制文件信息。
-   */
-  StorageFileList?: Array<StorageFile>
-  /**
-   * 转推录制任务发起时所填，标识一次录制
-   */
-  RecorderKey?: string
+export interface DeleteRecognizeVocabV3Response {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -1702,17 +1705,52 @@ export interface CloudStorage {
 }
 
 /**
- * 声纹配置参数
+ * 服务端控制AI对话机器人播报指定文本
  */
-export interface VoicePrint {
+export interface ServerPushText {
   /**
-   * 默认为0，表示不启用声纹。1表示启用声纹，此时需要填写voiceprint id。
+   * 服务端推送播报文本
    */
-  Mode?: number
+  Text?: string
   /**
-   * VoicePrint Mode为1时需要填写，目前仅支持填写一个声纹id
+   * 是否允许该文本打断机器人说话
    */
-  IdList?: Array<string>
+  Interrupt?: boolean
+  /**
+   * 播报完文本后，是否自动关闭对话任务
+   */
+  StopAfterPlay?: boolean
+  /**
+   * 服务端推送播报音频
+    格式说明：音频必须为单声道，采样率必须跟对应TTS的采样率保持一致，编码为Base64字符串。
+    输入规则：当提供Audio字段时，将不接受Text字段的输入。系统将直接播放Audio字段中的音频内容。
+   */
+  Audio?: string
+  /**
+   * 默认为0，仅在Interrupt为false时有效
+- 0表示当前有交互发生时，会丢弃Interrupt为false的消息
+- 1表示当前有交互发生时，不会丢弃Interrupt为false的消息，而是缓存下来，等待当前交互结束后，再去处理
+
+注意：DropMode为1时，允许缓存多个消息，如果后续出现了打断，缓存的消息会被清空
+   */
+  DropMode?: number
+  /**
+   * ServerPushText消息的优先级，0表示可被打断，1表示不会被打断。**目前仅支持传入0，如果需要传入1，请提工单联系我们添加权限。**
+注意：在接收到Priority=1的消息后，后续其他任何消息都会被忽略（包括Priority=1的消息），直到Priority=1的消息处理结束。该字段可与Interrupt、DropMode字段配合使用。
+例子：
+- Priority=1、Interrupt=true，会打断现有交互，立刻播报，播报过程中不会被打断
+- Priority=1、Interrupt=false、DropMode=1，会等待当前交互结束，再进行播报，播报过程中不会被打断
+
+   */
+  Priority?: number
+  /**
+   * 是否将文本加入到llm历史上下文中
+   */
+  AddHistory?: boolean
+  /**
+   * 如果填写，会和字幕绑定发送到端上，注意确保内容为json字符串
+   */
+  MetaInfo?: string
 }
 
 /**
@@ -1744,17 +1782,13 @@ export interface StopAITranscriptionRequest {
 }
 
 /**
- * 返回的质量数据，时间:值
+ * SetVocabStateV3返回参数结构体
  */
-export interface TimeValue {
+export interface SetVocabStateV3Response {
   /**
-   * 时间，unix时间戳（1590065877s)
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Time?: number
-  /**
-   * 当前时间返回参数取值，如（bigvCapFps在1590065877取值为0，则Value：0 ）
-   */
-  Value?: number
+  RequestId?: string
 }
 
 /**
@@ -1823,6 +1857,16 @@ export interface AmbientSound {
    * 控制环境音的音量。取值的范围是 [0,2]。值越低，环境音越小；值越高，环境音越响亮。如果未设置，则使用默认值 1。
    */
   Volume?: number
+}
+
+/**
+ * CreateRecognizeVocabV3请求参数结构体
+ */
+export interface CreateRecognizeVocabV3Request {
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
 }
 
 /**
@@ -2734,6 +2778,16 @@ export interface DescribeUserInfoResponse {
 }
 
 /**
+ * GetRecognizeVocabV3返回参数结构体
+ */
+export interface GetRecognizeVocabV3Response {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * RemoveUserByStrRoomId返回参数结构体
  */
 export interface RemoveUserByStrRoomIdResponse {
@@ -3393,6 +3447,20 @@ export interface StopMCUMixTranscodeResponse {
 }
 
 /**
+ * 声纹配置参数
+ */
+export interface VoicePrint {
+  /**
+   * 默认为0，表示不启用声纹。1表示启用声纹，此时需要填写voiceprint id。
+   */
+  Mode?: number
+  /**
+   * VoicePrint Mode为1时需要填写，目前仅支持填写一个声纹id
+   */
+  IdList?: Array<string>
+}
+
+/**
  * DescribeMixTranscodingUsage返回参数结构体
  */
 export interface DescribeMixTranscodingUsageResponse {
@@ -3597,6 +3665,50 @@ export interface TTSVoice {
 }
 
 /**
+ * 自定义文字水印数据结构
+ */
+export interface WaterMarkChar {
+  /**
+   * 文字水印的起始坐标Y值，从左上角开始
+   */
+  Top: number
+  /**
+   * 文字水印的起始坐标X值，从左上角开始
+   */
+  Left: number
+  /**
+   * 文字水印的宽度，单位像素值
+   */
+  Width: number
+  /**
+   * 文字水印的高度，单位像素值
+   */
+  Height: number
+  /**
+   * 水印文字的内容
+   */
+  Chars: string
+  /**
+   * 水印文字的大小，单位像素，默认14
+   */
+  FontSize?: number
+  /**
+   * 水印文字的颜色，默认白色
+   */
+  FontColor?: string
+  /**
+   * 水印文字的背景色，为空代表背景透明，默认为空
+   */
+  BackGroundColor?: string
+  /**
+   * 文字水印的字体，支持设置以下值：
+1. Tencent （默认）
+2. SourceHanSans
+   */
+  Font?: string
+}
+
+/**
  * DismissRoom请求参数结构体
  */
 export interface DismissRoomRequest {
@@ -3646,6 +3758,11 @@ export interface DescribeUnusualEventRequest {
    */
   RoomId?: string
 }
+
+/**
+ * GetRecognizeVocabV3请求参数结构体
+ */
+export type GetRecognizeVocabV3Request = null
 
 /**
  * DescribeCloudRecording请求参数结构体
@@ -3769,45 +3886,32 @@ export interface TRTCDataResult {
 }
 
 /**
- * CreateCloudSliceTask请求参数结构体
+ * DescribeCloudRecording返回参数结构体
  */
-export interface CreateCloudSliceTaskRequest {
+export interface DescribeCloudRecordingResponse {
   /**
-   * TRTC的[SdkAppId](https://cloud.tencent.com/document/product/647/46351#sdkappid)，和TRTC的房间所对应的SdkAppId相同。
+   * 录制任务的唯一Id。
    */
-  SdkAppId: number
+  TaskId?: string
   /**
-   * TRTC的[RoomId](https://cloud.tencent.com/document/product/647/46351#roomid)，为TRTC房间所对应的RoomId。
+   * 云端录制任务的状态信息。
+Idle：表示当前录制任务空闲中
+InProgress：表示当前录制任务正在进行中。
+Exited：表示当前录制任务正在退出的过程中。
    */
-  RoomId: string
+  Status?: string
   /**
-   * 机器人的UserId，用于进房发起切片任务。【*注意】这个UserId不能与当前房间内的主播观众UserId重复。如果一个房间发起多个切片任务时，机器人的userid也不能相互重复，否则会中断前一个切片任务。建议可以把房间ID作为UserId的标识的一部分，即机器人UserId在房间内唯一。
+   * 录制文件信息。
    */
-  UserId: string
+  StorageFileList?: Array<StorageFile>
   /**
-   * 机器人UserId对应的校验签名，即UserId和UserSig相当于机器人进房的登录密码，具体计算方法请参考TRTC计算UserSig的方案。
+   * 转推录制任务发起时所填，标识一次录制
    */
-  UserSig: string
+  RecorderKey?: string
   /**
-   * 云端切片控制参数。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  SliceParams: SliceParams
-  /**
-   * 云端切片文件上传到云存储的参数
-   */
-  SliceStorageParams: SliceStorageParams
-  /**
-   * TRTC房间号的类型。 【*注意】必须和录制的房间所对应的RoomId类型相同: 0: 字符串类型的RoomId 1: 32位整型的RoomId（默认） 示例值：1
-   */
-  RoomIdType?: number
-  /**
-   * 接口可以调用的时效性，从成功开启录制并获得任务ID后开始计算，超时后无法调用查询、更新和停止等接口，但是录制任务不会停止。 参数的单位是小时，默认72小时（3天），最大可设置720小时（30天），最小设置6小时。举例说明：如果不设置该参数，那么开始录制成功后，查询、更新和停止录制的调用时效为72个小时。 示例值：24
-   */
-  ResourceExpiredHour?: number
-  /**
-   * TRTC房间权限加密串，只有在TRTC控制台启用了高级权限控制的时候需要携带，在TRTC控制台如果开启高级权限控制后，TRTC 的后台服务系统会校验一个叫做 [PrivateMapKey] 的“权限票据”，权限票据中包含了一个加密后的 RoomId 和一个加密后的“权限位列表”。由于 PrivateMapKey 中包含 RoomId，所以只提供了 UserSig 没有提供 PrivateMapKey 时，并不能进入指定的房间。 示例值：eJw1jcEKgkAURX9FZlvY****fL9rfNX4_
-   */
-  PrivateMapKey?: string
+  RequestId?: string
 }
 
 /**
@@ -4305,47 +4409,24 @@ export interface DescribeAIConversationRequest {
 }
 
 /**
- * 自定义文字水印数据结构
+ * 混流转推的音频相关参数。
  */
-export interface WaterMarkChar {
+export interface McuAudioParams {
   /**
-   * 文字水印的起始坐标Y值，从左上角开始
+   * 音频编码参数。
    */
-  Top: number
+  AudioEncode?: AudioEncode
   /**
-   * 文字水印的起始坐标X值，从左上角开始
+   * 音频用户白名单，start时，为空或不填表示混所有主播音频，填具体值表示混指定主播音频；update时，不填表示不更新，为空表示更新为混所有主播音频，填具体值表示更新为混指定主播音频。
+使用黑白名单时，黑白名单必须同时填写。都不填写时表示不更新。同一个用户同时在黑白名单时，以黑名单为主。
+注：如果是跨房pk时，跨房混流需要指定音频白名单，否则pk主播的音频上行会被拉到两次，产生重音。
    */
-  Left: number
+  SubscribeAudioList?: Array<McuUserInfoParams>
   /**
-   * 文字水印的宽度，单位像素值
+   * 音频用户黑名单，为空或不填表示无黑名单，填具体值表示不混指定主播音频。update时，不填表示不更新，为空表示更新为清空黑名单，填具体值表示更新为不混指定主播音频。
+使用黑白名单时，黑白名单必须同时填写。都不填写时表示不更新。同一个用户同时在黑白名单时，以黑名单为主。
    */
-  Width: number
-  /**
-   * 文字水印的高度，单位像素值
-   */
-  Height: number
-  /**
-   * 水印文字的内容
-   */
-  Chars: string
-  /**
-   * 水印文字的大小，单位像素，默认14
-   */
-  FontSize?: number
-  /**
-   * 水印文字的颜色，默认白色
-   */
-  FontColor?: string
-  /**
-   * 水印文字的背景色，为空代表背景透明，默认为空
-   */
-  BackGroundColor?: string
-  /**
-   * 文字水印的字体，支持设置以下值：
-1. Tencent （默认）
-2. SourceHanSans
-   */
-  Font?: string
+  UnSubscribeAudioList?: Array<McuUserInfoParams>
 }
 
 /**
@@ -4551,6 +4632,11 @@ export interface TTSParam {
    */
   Voice: TTSVoice
 }
+
+/**
+ * DownloadRecognizeVocabV3请求参数结构体
+ */
+export type DownloadRecognizeVocabV3Request = null
 
 /**
  * ModifyCloudModeration返回参数结构体
@@ -4886,6 +4972,26 @@ export interface StopPublishCdnStreamResponse {
 }
 
 /**
+ * StopPublishCdnStream请求参数结构体
+ */
+export interface StopPublishCdnStreamRequest {
+  /**
+   * TRTC的[SdkAppId](https://cloud.tencent.com/document/product/647/46351#sdkappid)，和转推的房间所对应的SdkAppId相同。
+   */
+  SdkAppId: number
+  /**
+   * 唯一标识转推任务。
+   */
+  TaskId: string
+  /**
+   * 录制任务 key，标识一个录制任务，对应转推任务发起时指定 RecordKey；
+如果填写该参数，表示调用者希望立即结束该录制任务。当RecordKey 指定的录制任务正在录制当前转推任务时，录制任务立即结束，否则录制任务不受影响。
+如果没有填写该参数，但是转推任务发起时填写了 RecordKey，则表示在续录等待时间结束后才结束录制任务，续录等待期间可以使用相同的 RecordKey 发起新的转推任务，和当前转推任务录制到同一文件。
+   */
+  RecordKey?: string
+}
+
+/**
  * DescribeUnusualEvent返回参数结构体
  */
 export interface DescribeUnusualEventResponse {
@@ -4977,6 +5083,11 @@ export interface AsyncTextToSpeechResponse {
 }
 
 /**
+ * GetRecognizeVocabListV3请求参数结构体
+ */
+export type GetRecognizeVocabListV3Request = null
+
+/**
  * 云端审核的控制参数。
  */
 export interface ModerationParams {
@@ -5063,24 +5174,9 @@ export interface StartMCUMixTranscodeByStrRoomIdRequest {
 }
 
 /**
- * StopPublishCdnStream请求参数结构体
+ * SetVocabStateV3请求参数结构体
  */
-export interface StopPublishCdnStreamRequest {
-  /**
-   * TRTC的[SdkAppId](https://cloud.tencent.com/document/product/647/46351#sdkappid)，和转推的房间所对应的SdkAppId相同。
-   */
-  SdkAppId: number
-  /**
-   * 唯一标识转推任务。
-   */
-  TaskId: string
-  /**
-   * 录制任务 key，标识一个录制任务，对应转推任务发起时指定 RecordKey；
-如果填写该参数，表示调用者希望立即结束该录制任务。当RecordKey 指定的录制任务正在录制当前转推任务时，录制任务立即结束，否则录制任务不受影响。
-如果没有填写该参数，但是转推任务发起时填写了 RecordKey，则表示在续录等待时间结束后才结束录制任务，续录等待期间可以使用相同的 RecordKey 发起新的转推任务，和当前转推任务录制到同一文件。
-   */
-  RecordKey?: string
-}
+export type SetVocabStateV3Request = null
 
 /**
  * TRTC用户参数。
@@ -5724,6 +5820,41 @@ export interface RemoveUserByStrRoomIdRequest {
 }
 
 /**
+ * 时间戳水印数据结构
+ */
+export interface WaterMarkTimestamp {
+  /**
+   * 时间戳的位置，取值范围0-6，分别代表上左，上右，下左，下右，上居中，下居中，居中
+   */
+  Pos: number
+  /**
+   * 显示时间戳的时区，默认东八区
+   */
+  TimeZone?: number
+  /**
+   * 文字水印的字体，支持设置以下值：
+1. Tencent （默认）
+2. SourceHanSans
+   */
+  Font?: string
+}
+
+/**
+ * UpdateRecognizeVocabV3返回参数结构体
+ */
+export interface UpdateRecognizeVocabV3Response {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * UpdateRecognizeVocabV3请求参数结构体
+ */
+export type UpdateRecognizeVocabV3Request = null
+
+/**
  * 指定动态布局中悬浮布局和屏幕分享布局的大画面信息，只在悬浮布局和屏幕分享布局有效。
  */
 export interface MaxVideoUser {
@@ -5888,24 +6019,13 @@ export interface EncodeParams {
 }
 
 /**
- * 混流转推的音频相关参数。
+ * DownloadRecognizeVocabV3返回参数结构体
  */
-export interface McuAudioParams {
+export interface DownloadRecognizeVocabV3Response {
   /**
-   * 音频编码参数。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  AudioEncode?: AudioEncode
-  /**
-   * 音频用户白名单，start时，为空或不填表示混所有主播音频，填具体值表示混指定主播音频；update时，不填表示不更新，为空表示更新为混所有主播音频，填具体值表示更新为混指定主播音频。
-使用黑白名单时，黑白名单必须同时填写。都不填写时表示不更新。同一个用户同时在黑白名单时，以黑名单为主。
-注：如果是跨房pk时，跨房混流需要指定音频白名单，否则pk主播的音频上行会被拉到两次，产生重音。
-   */
-  SubscribeAudioList?: Array<McuUserInfoParams>
-  /**
-   * 音频用户黑名单，为空或不填表示无黑名单，填具体值表示不混指定主播音频。update时，不填表示不更新，为空表示更新为清空黑名单，填具体值表示更新为不混指定主播音频。
-使用黑白名单时，黑白名单必须同时填写。都不填写时表示不更新。同一个用户同时在黑白名单时，以黑名单为主。
-   */
-  UnSubscribeAudioList?: Array<McuUserInfoParams>
+  RequestId?: string
 }
 
 /**
@@ -6004,23 +6124,13 @@ export interface SeriesInfo {
 }
 
 /**
- * 时间戳水印数据结构
+ * CreateRecognizeVocabV3返回参数结构体
  */
-export interface WaterMarkTimestamp {
+export interface CreateRecognizeVocabV3Response {
   /**
-   * 时间戳的位置，取值范围0-6，分别代表上左，上右，下左，下右，上居中，下居中，居中
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Pos: number
-  /**
-   * 显示时间戳的时区，默认东八区
-   */
-  TimeZone?: number
-  /**
-   * 文字水印的字体，支持设置以下值：
-1. Tencent （默认）
-2. SourceHanSans
-   */
-  Font?: string
+  RequestId?: string
 }
 
 /**

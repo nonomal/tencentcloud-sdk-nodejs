@@ -17371,7 +17371,7 @@ export interface AiReviewProhibitedAsrTaskInput {
  */
 export interface DescribeMediaMetaDataResponse {
   /**
-   * 媒体元信息。
+   * <p>媒体元信息。</p>
    */
   MetaData?: MediaMetaData
   /**
@@ -27792,9 +27792,13 @@ export interface LowLightEnhanceConfig {
  */
 export interface DescribeMediaMetaDataRequest {
   /**
-   * 需要获取元信息的文件输入信息。
+   * <p>需要获取元信息的文件输入信息。</p>
    */
   InputInfo: MediaInputInfo
+  /**
+   * <p>指定为slow时，增加接口超时时间</p><p>枚举值：</p><ul><li>slow： 增加接口超时时间</li></ul>
+   */
+  Mode?: string
 }
 
 /**

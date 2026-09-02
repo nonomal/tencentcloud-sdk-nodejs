@@ -2152,6 +2152,10 @@ export interface VatElectronicItemInfo {
    * <p>通行日期止</p>
    */
   DateEnd?: string
+  /**
+   * <p>车架号</p>
+   */
+  VinNo?: string
 }
 
 /**
@@ -7246,105 +7250,109 @@ export interface ArithmeticOCRRequest {
  */
 export interface NonTaxIncomeBill {
   /**
-   * 发票名称
+   * <p>发票名称</p>
    */
   Title?: string
   /**
-   * 发票号码
+   * <p>发票号码</p>
    */
   Number?: string
   /**
-   * 发票代码
+   * <p>发票代码</p>
    */
   Code?: string
   /**
-   * 校验码
+   * <p>校验码</p>
    */
   CheckCode?: string
   /**
-   * 开票日期
+   * <p>开票日期</p>
    */
   Date?: string
   /**
-   * 价税合计（小写）
+   * <p>价税合计（小写）</p>
    */
   Total?: string
   /**
-   * 价税合计（大写）
+   * <p>价税合计（大写）</p>
    */
   TotalCn?: string
   /**
-   * 交款人名称
+   * <p>交款人名称</p>
    */
   Buyer?: string
   /**
-   * 交款人纳税人识别号
+   * <p>交款人纳税人识别号</p>
    */
   BuyerTaxID?: string
   /**
-   * 收款人名称
+   * <p>收款人名称</p>
    */
   Seller?: string
   /**
-   * 收款单位名称
+   * <p>收款单位名称</p>
    */
   SellerCompany?: string
   /**
-   * 备注
+   * <p>备注</p>
    */
   Remark?: string
   /**
-   * 币种
+   * <p>币种</p>
    */
   CurrencyCode?: string
   /**
-   * 复核人
+   * <p>复核人</p>
    */
   Reviewer?: string
   /**
-   * 是否存在二维码（1：有，0：无）
+   * <p>是否存在二维码（1：有，0：无）</p>
    */
   QRCodeMark?: number
   /**
-   * 其他信息
+   * <p>其他信息</p>
    */
   OtherInfo?: string
   /**
-   * 缴款码
+   * <p>缴款码</p>
    */
   PaymentCode?: string
   /**
-   * 执收单位编码
+   * <p>执收单位编码</p>
    */
   ReceiveUnitCode?: string
   /**
-   * 执收单位名称
+   * <p>执收单位名称</p>
    */
   Receiver?: string
   /**
-   * 经办人
+   * <p>经办人</p>
    */
   Operator?: string
   /**
-   * 付款人账号
+   * <p>付款人账号</p>
    */
   PayerAccount?: string
   /**
-   * 付款人开户银行
+   * <p>付款人开户银行</p>
    */
   PayerBank?: string
   /**
-   * 收款人账号
+   * <p>收款人账号</p>
    */
   ReceiverAccount?: string
   /**
-   * 收款人开户银行
+   * <p>收款人开户银行</p>
    */
   ReceiverBank?: string
   /**
-   * 条目
+   * <p>条目</p>
    */
   NonTaxItems?: Array<NonTaxItem>
+  /**
+   * <p>票据名称</p>
+   */
+  BillName?: string
 }
 
 /**
