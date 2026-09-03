@@ -18,83 +18,109 @@
 import { AbstractClient } from "../../../common/abstract_client"
 import { ClientConfig } from "../../../common/interface"
 import {
-  CloudStorage,
   StartPublishLiveStreamResponse,
   DeleteProjectRequest,
-  License,
-  BoundLicensesRequest,
   PolicyInfo,
+  GetDurationDetailsResponse,
+  SessionDeviceDetail,
+  ProcessParams,
+  GetLicenseStatRequest,
+  DescribeProjectListResponse,
+  GetLicenseStatResponse,
+  RetryAnnotationTaskResponse,
+  DescribeSessionStatisticsRequest,
+  DescribeAnnotationResultsRequest,
+  Task,
+  DescribeAnnotationTasksRequest,
+  ModifyDeviceRequest,
+  DeleteAnnotationJobResponse,
+  ProjectInfo,
+  CreateBatchVideoAnnotationJobRequest,
+  BoundLicensesRequest,
+  DescribeDeviceListRequest,
+  DescribeSessionStatisticsByIntervalRequest,
+  DurationDetails,
+  ModifyPolicyResponse,
+  CallbackInfo,
+  DescribeAnnotationJobsRequest,
+  ModifyCallbackUrlRequest,
+  CreateProjectRequest,
+  CloudStorage,
+  BatchDeleteDevicesResponse,
   CreateCloudRecordingResponse,
-  ModifyProjectSecModeResponse,
-  StartPublishLiveStreamRequest,
-  ModifyDeviceResponse,
+  DescribeAnnotationResultsResponse,
   GetLicensesRequest,
   DescribePolicyResponse,
-  BatchDeleteDevicesRequest,
-  ModifyProjectSecModeRequest,
+  SessionInfo,
   DescribeDeviceInfoRequest,
   DescribeSessionStatisticsByIntervalResponse,
-  GetLicenseStatResponse,
-  SessionInfo,
-  DescribeRecentSessionListRequest,
-  DescribeDeviceSessionDetailsResponse,
-  DescribeProjectInfoRequest,
-  ModifyPolicyRequest,
-  DescribeDeviceInfoResponse,
-  GetLicenseStatRequest,
-  GetDurationDetailsResponse,
-  DescribeProjectListResponse,
-  ModifyProjectResponse,
-  BatchDeletePolicyResponse,
-  CreateCloudRecordingRequest,
-  DescribePolicyRequest,
-  ModifyPolicyResponse,
-  Device,
-  DeleteCloudRecordingResponse,
-  DescribeSessionStatisticsRequest,
-  GetDurationDetailsRequest,
-  BatchDeleteDevicesResponse,
-  ModifyProjectRequest,
-  DescribeRecentSessionListResponse,
-  ModifyDeviceRequest,
-  DescribeProjectListRequest,
-  ProjectInfo,
-  BatchDeletePolicyRequest,
   RecentSessionInfo,
+  DescribeProjectInfoRequest,
+  DescribeDeviceInfoResponse,
+  Job,
+  DeleteAnnotationJobRequest,
+  GetDurationDetailsRequest,
+  S3SourceInfo,
   CreateProjectResponse,
   DescribeProjectInfoResponse,
   DescribeDeviceListResponse,
+  DeleteProjectResponse,
+  SecretInfo,
+  GetTotalDurationResponse,
+  CreateDeviceRequest,
+  GetDevicesResponse,
+  BoundLicensesResponse,
+  ModifyProjectSecModeRequest,
+  GetDevicesRequest,
+  DeleteAnnotationTaskRequest,
+  DescribeDeviceSessionDetailsResponse,
+  DeleteAnnotationTaskResponse,
+  AnnotationContext,
+  BatchDeleteDevicesRequest,
+  BatchDeletePolicyResponse,
+  DeleteCloudRecordingResponse,
+  ModifyCallbackUrlResponse,
+  Device,
+  BatchS3SourceInfo,
+  CreateDeviceResponse,
+  ModifyProjectSecModeResponse,
+  DescribeRecentSessionListResponse,
+  VideoParams,
+  DescribeDeviceSessionListResponse,
+  OutputInfo,
   StopPublishLiveStreamRequest,
   DeleteCloudRecordingRequest,
-  DeleteProjectResponse,
-  DescribeDeviceListRequest,
-  SessionDeviceDetail,
-  GetTotalDurationResponse,
-  GetDeviceLicenseResponse,
-  CreateDeviceResponse,
-  MultiNet,
-  DescribeSessionStatisticsByIntervalRequest,
-  CreateDeviceRequest,
   StopPublishLiveStreamResponse,
   DescribeSessionStatisticsResponse,
   PublishParams,
-  GetDevicesResponse,
-  BoundLicensesResponse,
+  DescribeAnnotationTasksResponse,
+  DescribeDeviceSessionListRequest,
+  GetTotalDurationRequest,
+  CreateCloudRecordingRequest,
+  RetryAnnotationTaskRequest,
+  GetDeviceLicenseRequest,
+  ModifyDeviceResponse,
+  CreateVideoAnnotationJobRequest,
+  CreateBatchVideoAnnotationJobResponse,
+  StartPublishLiveStreamRequest,
+  DescribeRecentSessionListRequest,
+  ModifyPolicyRequest,
+  DescribeAnnotationJobsResponse,
+  ModifyProjectResponse,
+  CreateVideoAnnotationJobResponse,
+  DescribePolicyRequest,
+  ModifyProjectRequest,
+  License,
+  DescribeProjectListRequest,
+  BatchDeletePolicyRequest,
+  OutputStorage,
+  GetDeviceLicenseResponse,
+  SessionIntervalStatistic,
+  MultiNet,
   DescribeDeviceSessionDetailsRequest,
   GetLicensesResponse,
   DeviceInfo,
-  DurationDetails,
-  DescribeDeviceSessionListRequest,
-  ModifyCallbackUrlRequest,
   VideoList,
-  GetDevicesRequest,
-  GetTotalDurationRequest,
-  DescribeDeviceSessionListResponse,
-  VideoParams,
-  SessionIntervalStatistic,
-  ModifyCallbackUrlResponse,
-  GetDeviceLicenseRequest,
-  CreateProjectRequest,
 } from "./trro_models"
 
 /**
@@ -126,6 +152,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyCallbackUrlResponse) => void
   ): Promise<ModifyCallbackUrlResponse> {
     return this.request("ModifyCallbackUrl", req, cb)
+  }
+
+  /**
+   * 删除整个任务并级联删除其全部处理项。
+   */
+  async DeleteAnnotationJob(
+    req: DeleteAnnotationJobRequest,
+    cb?: (error: string, rep: DeleteAnnotationJobResponse) => void
+  ): Promise<DeleteAnnotationJobResponse> {
+    return this.request("DeleteAnnotationJob", req, cb)
   }
 
   /**
@@ -169,13 +205,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 用于查看权限配置
+   * 获取设备会话数据详单
    */
-  async DescribePolicy(
-    req: DescribePolicyRequest,
-    cb?: (error: string, rep: DescribePolicyResponse) => void
-  ): Promise<DescribePolicyResponse> {
-    return this.request("DescribePolicy", req, cb)
+  async DescribeDeviceSessionDetails(
+    req: DescribeDeviceSessionDetailsRequest,
+    cb?: (error: string, rep: DescribeDeviceSessionDetailsResponse) => void
+  ): Promise<DescribeDeviceSessionDetailsResponse> {
+    return this.request("DescribeDeviceSessionDetails", req, cb)
   }
 
   /**
@@ -219,13 +255,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 启动一个混流转推任务，将 TRTC 房间的多路音视频流混成一路音视频流，编码后推到直播 CDN 或者回推到 TRTC 房间。也支持不转码直接转推 TRTC 房间的单路流。启动成功后，会返回一个 SdkAppid 维度唯一的任务 Id（TaskId）。您需要保存该 TaskId，后续需要依赖此 TaskId 更新和结束任务。
+   * 查询单个处理项的标注结果详情，返回结果的完整 JSON 原文。仅处理成功（或需确认场景）返回内容。
    */
-  async StartPublishLiveStream(
-    req: StartPublishLiveStreamRequest,
-    cb?: (error: string, rep: StartPublishLiveStreamResponse) => void
-  ): Promise<StartPublishLiveStreamResponse> {
-    return this.request("StartPublishLiveStream", req, cb)
+  async DescribeAnnotationResults(
+    req: DescribeAnnotationResultsRequest,
+    cb?: (error: string, rep: DescribeAnnotationResultsResponse) => void
+  ): Promise<DescribeAnnotationResultsResponse> {
+    return this.request("DescribeAnnotationResults", req, cb)
+  }
+
+  /**
+   * 重跑超时或异常的处理项：重置回未处理状态重新等待执行，所属任务若为异常态自动恢复为处理中。其余状态不可重试。
+   */
+  async RetryAnnotationTask(
+    req: RetryAnnotationTaskRequest,
+    cb?: (error: string, rep: RetryAnnotationTaskResponse) => void
+  ): Promise<RetryAnnotationTaskResponse> {
+    return this.request("RetryAnnotationTask", req, cb)
   }
 
   /**
@@ -269,13 +315,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取设备会话数据详单
+   * 用于查看权限配置
    */
-  async DescribeDeviceSessionDetails(
-    req: DescribeDeviceSessionDetailsRequest,
-    cb?: (error: string, rep: DescribeDeviceSessionDetailsResponse) => void
-  ): Promise<DescribeDeviceSessionDetailsResponse> {
-    return this.request("DescribeDeviceSessionDetails", req, cb)
+  async DescribePolicy(
+    req: DescribePolicyRequest,
+    cb?: (error: string, rep: DescribePolicyResponse) => void
+  ): Promise<DescribePolicyResponse> {
+    return this.request("DescribePolicy", req, cb)
   }
 
   /**
@@ -286,6 +332,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyPolicyResponse) => void
   ): Promise<ModifyPolicyResponse> {
     return this.request("ModifyPolicy", req, cb)
+  }
+
+  /**
+   * 用于删除项目
+   */
+  async DeleteProject(
+    req: DeleteProjectRequest,
+    cb?: (error: string, rep: DeleteProjectResponse) => void
+  ): Promise<DeleteProjectResponse> {
+    return this.request("DeleteProject", req, cb)
   }
 
   /**
@@ -329,6 +385,26 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 启动一个混流转推任务，将 TRTC 房间的多路音视频流混成一路音视频流，编码后推到直播 CDN 或者回推到 TRTC 房间。也支持不转码直接转推 TRTC 房间的单路流。启动成功后，会返回一个 SdkAppid 维度唯一的任务 Id（TaskId）。您需要保存该 TaskId，后续需要依赖此 TaskId 更新和结束任务。
+   */
+  async StartPublishLiveStream(
+    req: StartPublishLiveStreamRequest,
+    cb?: (error: string, rep: StartPublishLiveStreamResponse) => void
+  ): Promise<StartPublishLiveStreamResponse> {
+    return this.request("StartPublishLiveStream", req, cb)
+  }
+
+  /**
+   * 分页查询当前用户的任务列表，支持按状态、输入路径前缀过滤。注意任务的聚合状态由后台周期刷新，处理项全部完成后任务状态有短暂延迟。
+   */
+  async DescribeAnnotationJobs(
+    req: DescribeAnnotationJobsRequest,
+    cb?: (error: string, rep: DescribeAnnotationJobsResponse) => void
+  ): Promise<DescribeAnnotationJobsResponse> {
+    return this.request("DescribeAnnotationJobs", req, cb)
+  }
+
+  /**
    * 用于获取指定设备信息
    */
   async DescribeDeviceInfo(
@@ -336,6 +412,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeDeviceInfoResponse) => void
   ): Promise<DescribeDeviceInfoResponse> {
     return this.request("DescribeDeviceInfo", req, cb)
+  }
+
+  /**
+   * 提交单个视频创建标注任务。支持 S3兼容 存储与 HTTP URL 两种输入源；通过后任务异步执行。
+   */
+  async CreateVideoAnnotationJob(
+    req: CreateVideoAnnotationJobRequest,
+    cb?: (error: string, rep: CreateVideoAnnotationJobResponse) => void
+  ): Promise<CreateVideoAnnotationJobResponse> {
+    return this.request("CreateVideoAnnotationJob", req, cb)
   }
 
   /**
@@ -358,6 +444,26 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeDeviceSessionListResponse) => void
   ): Promise<DescribeDeviceSessionListResponse> {
     return this.request("DescribeDeviceSessionList", req, cb)
+  }
+
+  /**
+   * 提交S3兼容存储桶数据源的目录前缀创建批量标注任务。创建后，服务端异步列举前缀下全部视频逐个建立处理项（受配额上限控制，超限截断）。
+   */
+  async CreateBatchVideoAnnotationJob(
+    req: CreateBatchVideoAnnotationJobRequest,
+    cb?: (error: string, rep: CreateBatchVideoAnnotationJobResponse) => void
+  ): Promise<CreateBatchVideoAnnotationJobResponse> {
+    return this.request("CreateBatchVideoAnnotationJob", req, cb)
+  }
+
+  /**
+   * 删除任务下的单个处理项。
+   */
+  async DeleteAnnotationTask(
+    req: DeleteAnnotationTaskRequest,
+    cb?: (error: string, rep: DeleteAnnotationTaskResponse) => void
+  ): Promise<DeleteAnnotationTaskResponse> {
+    return this.request("DeleteAnnotationTask", req, cb)
   }
 
   /**
@@ -401,13 +507,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 用于删除项目
+   * 分页查询某任务下的处理项列表（每个视频一项），支持按文件名前缀、状态过滤。
    */
-  async DeleteProject(
-    req: DeleteProjectRequest,
-    cb?: (error: string, rep: DeleteProjectResponse) => void
-  ): Promise<DeleteProjectResponse> {
-    return this.request("DeleteProject", req, cb)
+  async DescribeAnnotationTasks(
+    req: DescribeAnnotationTasksRequest,
+    cb?: (error: string, rep: DescribeAnnotationTasksResponse) => void
+  ): Promise<DescribeAnnotationTasksResponse> {
+    return this.request("DescribeAnnotationTasks", req, cb)
   }
 
   /**

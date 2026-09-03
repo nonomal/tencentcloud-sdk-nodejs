@@ -1535,6 +1535,10 @@ export interface MCPPluginConfig {
    * <p>授权信息</p>
    */
   AuthConfig?: AuthConfig
+  /**
+   * <p>是否支持交互界面（MCP Apps），插件级标签，默认false</p>
+   */
+  SupportsApps?: boolean
 }
 
 /**
@@ -1793,9 +1797,52 @@ export interface BackgroundImage {
 }
 
 /**
- * DescribeSkillCategoryList请求参数结构体
+ * TimerScheduleConfig
  */
-export type DescribeSkillCategoryListRequest = null
+export interface TimerScheduleConfig {
+  /**
+   * cron配置
+   */
+  Cron?: CronSchedule
+  /**
+   * 每日触发
+   */
+  Daily?: DailySchedule
+  /**
+   * 固定间隔
+   */
+  Interval?: IntervalSchedule
+  /**
+   * 仅手动
+   */
+  ManualOnly?: ManualOnlySchedule
+  /**
+   * 单次
+   */
+  Once?: OnceSchedule
+  /**
+   * 
+枚举值:
+| uint | 描述 |
+| --- | --- |
+| 0 |  |
+| 1 | 仅手动 |
+| 2 | 每天 |
+| 3 | 每周 |
+| 4 | 按间隔 |
+| 5 | 一次性 |
+| 6 | Cron |
+   */
+  ScheduleType?: number
+  /**
+   * 时区
+   */
+  Timezone?: string
+  /**
+   * 每周固定时间触发
+   */
+  Weekly?: WeeklySchedule
+}
 
 /**
  * 模型完整信息
@@ -2014,6 +2061,11 @@ export interface ConversationContent {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   WorkflowInput?: string
+  /**
+   * <p>MCP-APP调用信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  McpApp?: ConversationMcpApp
 }
 
 /**
@@ -2758,52 +2810,9 @@ export interface AppAppeal {
 }
 
 /**
- * TimerScheduleConfig
+ * DescribeSkillCategoryList请求参数结构体
  */
-export interface TimerScheduleConfig {
-  /**
-   * cron配置
-   */
-  Cron?: CronSchedule
-  /**
-   * 每日触发
-   */
-  Daily?: DailySchedule
-  /**
-   * 固定间隔
-   */
-  Interval?: IntervalSchedule
-  /**
-   * 仅手动
-   */
-  ManualOnly?: ManualOnlySchedule
-  /**
-   * 单次
-   */
-  Once?: OnceSchedule
-  /**
-   * 
-枚举值:
-| uint | 描述 |
-| --- | --- |
-| 0 |  |
-| 1 | 仅手动 |
-| 2 | 每天 |
-| 3 | 每周 |
-| 4 | 按间隔 |
-| 5 | 一次性 |
-| 6 | Cron |
-   */
-  ScheduleType?: number
-  /**
-   * 时区
-   */
-  Timezone?: string
-  /**
-   * 每周固定时间触发
-   */
-  Weekly?: WeeklySchedule
-}
+export type DescribeSkillCategoryListRequest = null
 
 /**
  * 数智人配置
@@ -3023,6 +3032,29 @@ export interface CreateWorkspaceCredentialResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * MCP App 内容，供历史会话重建可交互 App
+ */
+export interface ConversationMcpApp {
+  /**
+   * <p>能力边界：一次请求只能读该 plugin 的资源</p>
+   */
+  PluginId?: string
+  /**
+   * <p>ui:// 资源，前端据此调 ReadMCPResource 拉 HTML</p>
+   */
+  ResourceUri?: string
+  /**
+   * <p>agent-exec 侧 thread</p>
+   */
+  ThreadId?: string
+  /**
+   * <p>JSON：完整 CallToolResult 原文，供历史会话重建时重放</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ToolResult?: string
 }
 
 /**
@@ -3447,6 +3479,15 @@ export interface MCPToolConfig {
    * <p>输出参数</p>
    */
   Outputs?: Array<ResponseParam>
+  /**
+   * <p>工具meta信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Meta?: MCPToolMeta
+  /**
+   * <p>是否支持交互界面（MCP Apps），插件级标签  默认值：false</p>
+   */
+  SupportsApps?: boolean
 }
 
 /**
@@ -4519,6 +4560,16 @@ export interface ModelDeveloperBasic {
    * <p>作者显示名称</p>
    */
   Alias?: string
+}
+
+/**
+ * 对应 MCP 协议工具 _meta，承载 MCP Apps 工具的 UI 元信息（本期仅消费 resourceUri）
+ */
+export interface MCPToolMeta {
+  /**
+   * <p>工具的 UI 扩展元信息，对应 MCP 协议的 _meta.ui，声明工具关联的交互式界面资源（ResourceUri）及调用方可见性（Visibility）。仅当工具支持 MCP Apps 或声明了可见性时返回；纯文本工具该字段为空。详见 MCPToolUIMeta 结构定义。</p>
+   */
+  Ui?: MCPToolUIMeta
 }
 
 /**
@@ -6248,6 +6299,20 @@ export interface CreateSpaceRequest {
 }
 
 /**
+ * 对应 MCP 协议 _meta.ui，定义 MCP Apps 工具的交互界面元信息（本期仅消费 resourceUri，visibility）
+ */
+export interface MCPToolUIMeta {
+  /**
+   * <p>关联的 UI 资源 URI，ui:// scheme，格式为 ui://&lt;插件标识&gt;/&lt;资源名&gt;-&lt;版本&gt;。该字段是 MCP Apps 交互式界面的入口，非空时表示工具支持 Apps（&quot;文本 + 交互式界面&quot;展示），为空则为纯文本工具。由工具同步结果自动识别填充，不支持手工编辑。</p>
+   */
+  ResourceUri?: string
+  /**
+   * <p>工具的调用方可见性声明，取值范围：model（模型可调用）、app（应用界面可调用），可多选，如 [&quot;model&quot;,&quot;app&quot;]。与 ResourceUri 相互独立（SEP-1865），可单独存在，例如纯后端 app-only 工具为 [&quot;app&quot;]。当 ResourceUri 非空且本字段缺省时，按规范归一化为 [&quot;model&quot;,&quot;app&quot;]；存量非 Apps 工具保持为空。</p><p>枚举值：</p><ul><li>model： 支持model</li><li>app： 支持app</li></ul>
+   */
+  Visibility?: Array<string>
+}
+
+/**
  * 搜索资源状态信息
  */
 export interface SearchResourceStatusInfo {
@@ -6421,15 +6486,15 @@ export interface DescribeConversationMessageListResponse {
    */
   Messages?: Array<ConversationMessage>
   /**
-   * <p>最近一次重置信息</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  ResetInfo?: ConversationResetInfo
-  /**
    * <p>单次对话记录统计列表，与 message_list 通过 record_id / related_record_id 关联</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RecordSummaryList?: Array<ConversationRecordSummary>
+  /**
+   * <p>最近一次重置信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ResetInfo?: ConversationResetInfo
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

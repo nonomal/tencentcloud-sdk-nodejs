@@ -29,6 +29,7 @@ import {
   BudgetWarn,
   ModifyAllocationRuleRequest,
   DeleteAllocationRuleRequest,
+  DescribeAccountWarningResponse,
   CreateAllocationRuleResponse,
   BillTagInfo,
   AllocationOverviewTotal,
@@ -188,6 +189,7 @@ import {
   DescribeBillResourceSummaryRequest,
   DescribeRenewInstancesResponse,
   BillDetailComponent,
+  ModifyAccountWarningRequest,
   ConditionRegion,
   AllocationAverageData,
   ConsumptionResourceSummaryConditionValue,
@@ -196,6 +198,7 @@ import {
   BudgetSendInfoDto,
   RenewInstanceRequest,
   DescribeBillSummaryForOrganizationResponse,
+  ModifyAccountWarningResponse,
   BillOperateUin,
   DescribeTagListRequest,
   DescribeBillResourceSummaryForOrganizationResponse,
@@ -249,6 +252,7 @@ import {
   DeleteBudgetRequest,
   BillActionType,
   GatherResourceSummary,
+  DescribeAccountWarningRequest,
   DescribeSavingPlanResourceInfoResponse,
   DescribeDealsByCondRequest,
   DescribeAllocationSummaryByResourceResponse,
@@ -478,6 +482,19 @@ export class Client extends AbstractClient {
   }
 
   /**
+     * 注意事项：
+1、本接口支持对包年包月实例设置自动续费模式及周期
+2、可通过实例查询接口获取到产品编码、地域编码
+3、子用户使用该接口时，应具备QcloudFinanceRenewManageFullAccess权限策略。
+     */
+  async SetRenewal(
+    req: SetRenewalRequest,
+    cb?: (error: string, rep: SetRenewalResponse) => void
+  ): Promise<SetRenewalResponse> {
+    return this.request("SetRenewal", req, cb)
+  }
+
+  /**
    * 查看成本分析明细
    */
   async DescribeCostExplorerSummary(
@@ -511,16 +528,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 注意事项：
-1、本接口支持对包年包月实例设置自动续费模式及周期
-2、可通过实例查询接口获取到产品编码、地域编码
-3、子用户使用该接口时，应具备QcloudFinanceRenewManageFullAccess权限策略。
-     */
-  async SetRenewal(
-    req: SetRenewalRequest,
-    cb?: (error: string, rep: SetRenewalResponse) => void
-  ): Promise<SetRenewalResponse> {
-    return this.request("SetRenewal", req, cb)
+   * 云api查余额告警阈值接口，支持传入uin
+   */
+  async DescribeAccountWarning(
+    req?: DescribeAccountWarningRequest,
+    cb?: (error: string, rep: DescribeAccountWarningResponse) => void
+  ): Promise<DescribeAccountWarningResponse> {
+    return this.request("DescribeAccountWarning", req, cb)
   }
 
   /**
@@ -984,5 +998,15 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeCostDetailResponse) => void
   ): Promise<DescribeCostDetailResponse> {
     return this.request("DescribeCostDetail", req, cb)
+  }
+
+  /**
+   * 云api设置余额告警阈值接口
+   */
+  async ModifyAccountWarning(
+    req: ModifyAccountWarningRequest,
+    cb?: (error: string, rep: ModifyAccountWarningResponse) => void
+  ): Promise<ModifyAccountWarningResponse> {
+    return this.request("ModifyAccountWarning", req, cb)
   }
 }

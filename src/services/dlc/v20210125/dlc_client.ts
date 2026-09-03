@@ -18,10 +18,14 @@
 import { AbstractClient } from "../../../common/abstract_client"
 import { ClientConfig } from "../../../common/interface"
 import {
+  PrometheusInstanceItem,
   CheckDataEngineConfigPairsValidityResponse,
   DescribeResultDownloadResponse,
   AccessInfo,
   EngineNetworkInfo,
+  StartRayClusterResponse,
+  DescribeClsTopicsResponse,
+  NetworkConnection,
   DescribeDatabasesRequest,
   Asset,
   DescribeFlowDetailListRequest,
@@ -31,46 +35,57 @@ import {
   Other,
   RevokeDLCCatalogAccessRequest,
   CreateResourceConfigResponse,
-  MixedTablePartitions,
+  ListAvailableApiKeysResponse,
   ModifyGovernEventRuleResponse,
   DescribeNotebookSessionsRequest,
-  ListLabsResponse,
+  DeleteApiKeyResponse,
   DescribeDMSDatabaseResponse,
   DescribeTaskListResponse,
   Policys,
   DropDMSDatabaseRequest,
   NotebookSessionStatementBatchInformation,
-  DescribeTablesResponse,
+  ApiKeyInfo,
   DescribeDataEngineEventsResponse,
   SessionResourceTemplate,
   GetRayClusterResponse,
-  DescribePartitionsRequest,
+  DeleteNativeSparkSessionResponse,
   AlterTableCommentResponse,
+  ImportTkeClusterRequest,
   DescribeEngineUsageInfoRequest,
+  TrainingTuningParams,
   DescribeDMSTableResponse,
   AlterTableCommentRequest,
   CreateTasksInOrderRequest,
   ResourceQuota,
+  FailedItem,
   PersistentWorkDir,
+  DeleteModelResponse,
   RayClusterEntity,
   GetLabEventRequest,
-  ElasticsearchInfo,
+  AddDeploymentRequest,
   DescribeUpdatableDataEnginesResponse,
+  ElasticsearchInfo,
+  DeleteBenchmarkTaskResponse,
   DataEngineImageSessionParameter,
   CreateDatabaseRequest,
   DescribeDMSTablesResponse,
   Tag,
   CreateInferenceServiceRequest,
   DataMaskStrategy,
+  DeleteInferenceServiceResponse,
   DescribeAdvancedStoreLocationResponse,
   DescribeTablesNameResponse,
   GetLabPodYamlResponse,
   DescribeAdvancedStoreLocationRequest,
   DeletePartitionQueueResponse,
+  DeleteModelRequest,
   DeleteMetaDatabaseRequest,
+  DescribeTrainingJobInstanceResponse,
   GetRayClusterRequest,
   CancelNotebookSessionStatementBatchResponse,
   Label,
+  ListDeploymentReplicasRequest,
+  ImportExternalClusterRequest,
   CreateModelVersionRequest,
   BatchSqlTask,
   ModifySparkAppForTDLCResponse,
@@ -78,6 +93,8 @@ import {
   StartRayClusterRequest,
   UnboundDatasourceHouseRequest,
   CreatePartitionResponse,
+  DescribeEmrClusterInfoRequest,
+  DeleteModelVersionRequest,
   DeleteUserVpcConnectionResponse,
   GetRayJobYamlResponse,
   PartitionInfo,
@@ -98,6 +115,7 @@ import {
   UpdateEngineResourceGroupNetworkConfigInfoRequest,
   SmartOptimizerPolicy,
   UnboundDatasourceHouseResponse,
+  UpdateApiKeyStatusRequest,
   RunJobSpecResponse,
   GetLabHistoryRequest,
   DescribeUserInfoResponse,
@@ -107,6 +125,8 @@ import {
   NotebookSessionStatementInfo,
   CreateImportTaskRequest,
   ListRayClustersRequest,
+  DeleteApiKeyRequest,
+  StopBenchmarkTaskRequest,
   DescribeDataMaskStrategiesRequest,
   SmartOptimizerLifecyclePolicy,
   DeleteUsersFromWorkGroupResponse,
@@ -135,21 +155,27 @@ import {
   CreateStandardEngineResourceGroupRequest,
   QueryDashboardOverviewRequest,
   DescribeNotebookSessionStatementSqlResultRequest,
+  DescribeTablesResponse,
+  LbItem,
   GetLabPodYamlRequest,
   CreateSparkSubmitTaskRequest,
+  RecommendedKeyValue,
+  UpdateResourceConfigResponse,
   CreateTableResponse,
-  ListTaskJobLogNameRequest,
+  CreateBenchmarkTaskRequest,
   QueryMonitorOverviewRequest,
+  WorkGroups,
   DeleteStandardEngineResourceGroupResponse,
   DescribeTaskResultRequest,
-  UpdateUserDataEngineConfigRequest,
-  CreateNotebookSessionStatementRequest,
+  UpdateUDFPolicyRequest,
+  DeleteMetaDatabaseResponse,
   QueueInfo,
   OverviewItem,
   DescribeUsersResponse,
   CheckQueueNameRequest,
   DataGovernPolicy,
-  DeleteNativeSparkSessionResponse,
+  ListServiceApiKeysRequest,
+  DescribePartitionsRequest,
   CreateWorkGroupResponse,
   DescribeFlowDetailListResponse,
   DescribeEngineUsageInfoResponse,
@@ -157,13 +183,17 @@ import {
   DescribeTablesRequest,
   StartLabResponse,
   CreateStoreLocationRequest,
+  CheckApiKeyNameResponse,
   DescribeLakeFsInfoResponse,
   ElasticPlan,
   ModifyWorkGroupResponse,
+  ListRegionLbsRequest,
+  ModifyPartitionDescriptionRequest,
   ListExampleDifficultiesRequest,
   DescribeDMSPartitionsResponse,
   DeleteRayClusterRequest,
   GetInferenceServiceRequest,
+  ModifySparkAppBatchRequest,
   DescribeTableRequest,
   QueryDashboardOverviewResponse,
   Policy,
@@ -189,14 +219,17 @@ import {
   EngineResourceGroupConfigPair,
   FlowInfo,
   UnbindWorkGroupsFromUserRequest,
-  UpdateRowFilterResponse,
+  RenewDataEngineResponse,
+  BindApiKeyRequest,
   UserInfo,
   CreateDatabaseResponse,
   DeleteJobSpecRequest,
   GetLabPodsRequest,
   EngineCapabilities,
-  UpdateInferenceModelRequest,
+  UpdateUserDataEngineConfigResponse,
+  CheckpointMountInfo,
   GetRayJobRequest,
+  PostTrainingResources,
   DeleteDataMaskStrategyRequest,
   ListExampleTagsResponse,
   CreateWorkGroupRequest,
@@ -204,21 +237,25 @@ import {
   OtherDatasourceConnection,
   UpdateDataMaskStrategyRequest,
   DescribeDatasourceConnectionRequest,
+  ModifyTrainingJobSpecRequest,
   CheckDataEngineImageCanBeUpgradeRequest,
-  UpdateJobSpecPriorityResponse,
+  DescribeModelEnginesRequest,
   QueryInternalTableWarehouseRequest,
   CreateResultDownloadRequest,
   DescribeNotebookSessionStatementSqlResultResponse,
+  GrantDLCCatalogAccessResponse,
   PauseStandardEngineResourceGroupsRequest,
   GenerateInternalTableRequest,
   UpdateStandardEngineResourceGroupConfigInfoRequest,
   GetRayClusterHistoryResponse,
   LinkedServiceInfo,
-  UpdateUserDataEngineConfigResponse,
+  UpdateUserDataEngineConfigRequest,
   GetResourceConfigRequest,
   ListExampleCategoriesRequest,
+  DeleteModelVersionResponse,
   DescribeTasksCostInfoResponse,
-  DeleteRayJobRequest,
+  BindApiKeyResponse,
+  DescribeClusterGroupClustersResponse,
   ModifyClusterPriorityResponse,
   DataEngineBasicInfo,
   CancelNotebookSessionStatementRequest,
@@ -226,13 +263,15 @@ import {
   GPUInfo,
   GetRayClusterEventRequest,
   UpdateStandardEngineResourceGroupBaseInfoRequest,
-  SparkSessionBatchLogOperate,
+  ListMlflowServerTrainingInstancesResponse,
   DescribeTablePartitionsRequest,
+  SubmitTrainingJobResponse,
+  ResumeTrainingJobInstanceResponse,
   TaskResultInfo,
   SparkMonitorMetrics,
   CreateDMSDatabaseResponse,
   CreateStoreLocationResponse,
-  BatchSQLCostInfo,
+  DeleteMlflowServerRequest,
   DescribeTablesNameRequest,
   UnbindWorkGroupsFromUserResponse,
   DescribeTaskDetailRequest,
@@ -243,11 +282,13 @@ import {
   DeleteScriptResponse,
   Task,
   DataEngineConfigInstanceInfo,
-  DescribeSaleResourceInfoResponse,
+  CrontabResumeSuspendStrategy,
+  DescribeStandardEngineResourceGroupConfigInfoRequest,
   TableExpirationPolicy,
   CreateMetaDatabaseRequest,
   CustomConfig,
   NotebookSessions,
+  SparkSessionBatchLogOperate,
   CreateNotebookSessionStatementSupportBatchSQLRequest,
   UpgradeDataEngineImageResponse,
   DetachWorkGroupPolicyResponse,
@@ -255,9 +296,10 @@ import {
   ServiceMetricsItem,
   GetRayClusterPodsRequest,
   SwitchDataEngineResponse,
-  DescribeTaskResourceUsageRequest,
+  DeleteMlflowServerResponse,
   ListExampleTagsRequest,
   DescribeLakeFsInfoRequest,
+  DeleteDeploymentRequest,
   UpdateStandardEngineResourceGroupConfigInfoResponse,
   CreateCHDFSBindingProductResponse,
   DescribeUserInfoRequest,
@@ -269,15 +311,17 @@ import {
   GatewayInfo,
   ResourceUsage,
   DescribeUserTypeResponse,
-  ListJobsBySpecResponse,
+  DescribeRecommendedParamsResponse,
   QueryResultResponse,
+  SubmitTrainingJobRequest,
   RegisterThirdPartyAccessUserResponse,
   Env,
   DeleteThirdPartyAccessUserRequest,
-  ResourceConfig,
+  DescribeTrainingJobSpecRequest,
   FlowDetail,
   DescribePartitionsResponse,
   GetRayClusterYamlRequest,
+  DescribeModelTaskOptionsResponse,
   DeleteUserResponse,
   CreateUserRoleRequest,
   RestartInferenceServiceRequest,
@@ -293,17 +337,22 @@ import {
   CreateDataEngineRequest,
   QueryDashboardServiceListResponse,
   DescribeNotebookSessionRequest,
-  UpgradeDataEngineImageRequest,
+  CreateTrainingJobInstanceResponse,
+  TrainingJobInstance,
+  ListTkeCosBucketsResponse,
   CSV,
-  ModelVersionInfo,
+  DescribeTrainingJobInstanceRequest,
   GetRayClusterPodYamlRequest,
   DropDMSPartitionsResponse,
-  DeleteMetaDatabaseResponse,
+  DeleteBenchmarkTaskRequest,
   DescribeUsersRequest,
   TCHousePInfo,
+  UpdateDeploymentRequest,
+  DeploymentResourceInfo,
   CreateExportTaskResponse,
   AddUsersToWorkGroupRequest,
   CreateDataMaskStrategyRequest,
+  UpdateUDFPolicyResponse,
   ModifyAdvancedStoreLocationRequest,
   DescribeNotebookSessionLogRequest,
   DeleteClusterGroupResponse,
@@ -317,15 +366,20 @@ import {
   SuspendResumeDataEngineResponse,
   ModifyUserRequest,
   DatasourceConnectionLocation,
+  PodItem,
   WrittenAdvancePolicy,
   DescribeTCLakeMetaInstanceRequest,
   AttachUserPolicyRequest,
   CancelTaskRequest,
   TextFile,
-  WorkGroups,
+  EmrResourceUsage,
   CreateNotebookSessionStatementResponse,
-  ListTaskJobLogNameResponse,
+  DescribeMlflowServerPodsResponse,
   GenerateInternalTableResponse,
+  ListTkeCosBucketsRequest,
+  CheckApiKeyNameRequest,
+  RestartDeploymentResponse,
+  DescribeMlflowServerResponse,
   DescribeClusterMonitorInfosResponse,
   GetRayJobPodsResponse,
   DescribeLakeFsTaskResultRequest,
@@ -333,13 +387,18 @@ import {
   AlterDMSTableRequest,
   GpuSummaryItem,
   WorkerSpecDTO,
+  ListDeploymentReplicasResponse,
   SmartPolicy,
   CreateScriptRequest,
   DescribeUserVpcConnectionRequest,
-  StartRayClusterResponse,
-  GetRayClusterEventResponse,
+  DescribeTrainingCheckpointsResponse,
+  EvalDatasetConfig,
+  SharedMountFileItem,
+  DescribeMlflowServerPodsRequest,
+  ListRayClusterJobsResponse,
   DataFormat,
   DescribeNotebookSessionLogResponse,
+  RerunBenchmarkTaskRequest,
   DescribeForbiddenTableProResponse,
   DescribeWorkGroupInfoRequest,
   DescribeOtherCHDFSBindingListRequest,
@@ -352,40 +411,52 @@ import {
   JobPodEntity,
   DescribeSparkSessionBatchSQLCostResponse,
   ModifyPartitionQueueRequest,
+  TaskOptions,
   DescribeTasksOverviewResponse,
   GetJobSpecResponse,
   ListLabsRequest,
   KafkaInfo,
+  ListTrainingJobInstanceRequest,
   FavorInfo,
   StopInferenceServiceResponse,
   TaskFullRespInfo,
   SmartOptimizerChangeTablePolicy,
+  StartMlflowServerRequest,
   DeleteDataEngineRequest,
-  StopLabResponse,
+  DeleteInferenceServiceRequest,
   CreateSparkSessionBatchSQLResponse,
   DescribeDMSDatabaseRequest,
   DescribeLakeFsDirSummaryRequest,
   ScheduleElasticityConf,
   DescribeMCPSubUinResponse,
-  DeleteClusterGroupRequest,
+  CreateNotebookSessionStatementRequest,
   CreateSparkAppResponse,
   CreateTaskResponse,
   MountPointAssociates,
   GetRayJobEventResponse,
+  DeleteTrainingJobSpecResponse,
   AlterDMSPartitionResponse,
   UpdateStandardEngineResourceGroupResourceInfoResponse,
   DescribeTableResponse,
+  ListRegionLbsResponse,
+  DescribeLakeFsTaskResultResponse,
   CoreInfo,
   DetachUserPolicyResponse,
   UpdateLabResponse,
+  GetRayClusterEventResponse,
+  DescribeMlflowServerEventsResponse,
   GetOptimizerPolicyResponse,
+  ListDeploymentsResponse,
   AnalysisTaskResults,
+  RestartDeploymentRequest,
+  CheckModelIdentifierRequest,
   MessageItem,
   MetaDatabaseInfo,
   GetRayJobEventLogRequest,
   GetRayJobEventRequest,
   DescribePartitionQueuesResponse,
   AlterDMSDatabaseResponse,
+  BenchmarkTaskInfo,
   CancelNotebookSessionStatementResponse,
   DataEngineInfo,
   DescribeSessionImageVersionResponse,
@@ -395,15 +466,18 @@ import {
   CheckLockMetaDataResponse,
   CreateJobSpecRequest,
   AlterDMSDatabaseRequest,
+  ListLabsResponse,
   QueryDashboardServiceListRequest,
   DescribeOtherCHDFSBindingListResponse,
   GetLabHistoryResponse,
   DescribeDataEngineEventsRequest,
   DescribeDataEnginePythonSparkImagesResponse,
   DescribeViewsResponse,
+  UpdateInferenceModelRequest,
   DescribeDataEnginesResponse,
   ListRayClustersResponse,
   StandardEngineResourceGroupConfigInfo,
+  RecommendedAdvancedParams,
   CopyJobSpecRequest,
   DatasourceConnectionConfig,
   UpdateRowFilterRequest,
@@ -412,28 +486,35 @@ import {
   DeleteNativeSparkSessionRequest,
   AlterDMSTableResponse,
   PartitionDetail,
+  TrainingParams,
   ListModelVersionsRequest,
   CreateUserVpcConnectionResponse,
   DescribeMCPTaskResultResponse,
   DeleteUserRequest,
   DataEngineScaleInfoDetail,
-  DescribeClusterGroupClustersResponse,
+  DeleteRayJobRequest,
   DeleteDataEngineResponse,
   ReplicaInfo,
   DescribePartitionQueuesRequest,
   CosPermission,
   GetResourceConfigResponse,
   LockComponentInfo,
+  StartMlflowServerResponse,
   GetRayJobResponse,
   QueryMonitorOverviewResponse,
+  RerunBenchmarkTaskResponse,
   IpPortPair,
   PrestoMonitorMetrics,
-  ModifyClusterPriorityRequest,
+  DeploymentReplicaInfo,
+  StopMlflowServerResponse,
+  CheckModelIdentifierResponse,
+  DescribeMlflowServerEventsRequest,
   DescribeTasksAnalysisResponse,
   RestartDataEngineResponse,
   DescribeNativeSparkSessionsResponse,
   SwitchDataEngineImageResponse,
-  ModifyPartitionDescriptionRequest,
+  MlFlowResourceConfig,
+  DescribeClusterEventLogSwitchRequest,
   UnlockMetaDataResponse,
   ModifyDataEngineDescriptionRequest,
   ClusterPod,
@@ -442,9 +523,12 @@ import {
   CpuSummaryItem,
   DescribeUserRegisterTimeResponse,
   DropDMSTableResponse,
+  DescribeMlFlowConfigResponse,
   AddDMSPartitionsResponse,
+  DescribePostTrainingPresetRequest,
+  ListTaskJobLogNameResponse,
   RayClusterHistory,
-  TaskMonitorInfo,
+  ListMlflowServersResponse,
   DetachUserPolicyRequest,
   ModifySparkAppRequest,
   SpecInfo,
@@ -465,25 +549,33 @@ import {
   CheckResourceNameRequest,
   CreateInternalTableRequest,
   TasksInfo,
+  ResumeTrainingJobInstanceRequest,
   RollbackDataEngineImageRequest,
   AttachWorkGroupPolicyRequest,
   StatementOutput,
+  TagInfo,
   CreateUserResponse,
   DescribeNotebookSessionStatementsRequest,
+  ListDeploymentsRequest,
   UpdateDataEngineResponse,
   DescribeClusterGroupRequest,
   DescribeTasksOverviewRequest,
   TPartition,
   DeleteUserVpcConnectionRequest,
   ExampleEntity,
+  MixedTablePartitions,
   CreateClusterGroupResponse,
   ListClusterGroupsResponse,
   DescribeTaskMonitorInfosRequest,
+  CheckpointMetrics,
+  QueryResultRequest,
   LakeFsInfo,
   UpdateRayClusterRequest,
-  QueryResultRequest,
-  CheckDataEngineImageCanBeRollbackRequest,
+  ListServiceApiKeysResponse,
+  DescribeEmrClusterInfoResponse,
+  CheckJobSpecNameRequest,
   CreateTaskRequest,
+  DeleteTrainingJobInstanceResponse,
   SparkSessionInfo,
   ExampleCategories,
   DescribeMCPSubUinRequest,
@@ -494,9 +586,10 @@ import {
   DescribeSparkSessionBatchSqlLogRequest,
   GetLabDetailRequest,
   DescribeUpdatableDataEnginesRequest,
-  ModifySparkAppBatchRequest,
+  CancelSparkSessionBatchSQLResponse,
   ImageDto,
   DeleteTableRequest,
+  StopBenchmarkTaskResponse,
   DescribeStoreLocationRequest,
   AddUsersToWorkGroupResponse,
   StandardEngineResourceGroupInfo,
@@ -505,100 +598,126 @@ import {
   GrantDLCCatalogAccessRequest,
   ReportHeartbeatMetaDataRequest,
   DescribeEngineNetworksResponse,
+  BatchSQLCostInfo,
   DescribeNetworkConnectionsRequest,
   CreateTcIcebergTableRequest,
   AttachWorkGroupPolicyResponse,
+  ModifyTrainingJobSpecResponse,
   DescribeDMSTablesRequest,
   LaunchStandardEngineResourceGroupsResponse,
   UpdateNetworkConnectionResponse,
+  DescribeMlFlowConfigRequest,
+  CancelTrainingJobInstanceResponse,
   ListJobSpecsResponse,
   CreateSparkAppTaskResponse,
   RestartInferenceServiceResponse,
   UpdateRayJobPriorityRequest,
   DatasourceConnectionInfo,
   DescribeDataEngineImageVersionsRequest,
-  BindWorkGroupsToUserResponse,
+  CheckServiceNameResponse,
   GetRayJobPodYamlResponse,
   UpdateRayClusterResponse,
   ListExamplesResponse,
+  ApiKeyResponseInfo,
   SparkSessionBatchLog,
-  DeleteScriptRequest,
+  DeleteTrainingJobSpecRequest,
   AddDMSPartitionsRequest,
   ExampleDifficulties,
+  DeploymentInfo,
   DescribeUserRolesRequest,
+  MlFlowServerInfo,
+  MetricItem,
   ResourceInfo,
   CreateImportTaskResponse,
   DescribeClusterGroupResponse,
   StartLabRequest,
-  StopRayClusterResponse,
+  ImportTkeClusterResponse,
+  MlFlowConfig,
   DeleteJobSpecResponse,
   SmartOptimizerIndexPolicy,
   SwitchDataEngineRequest,
+  StopMlflowServerRequest,
   ModifySparkAppForTDLCRequest,
   RenewDataEngineRequest,
   DescribeDataEngineSessionParametersRequest,
   DescribeDataEngineSessionParametersResponse,
+  StopDeploymentResponse,
   DescribeScriptsResponse,
   GetExampleDetailRequest,
   UpdateStandardEngineResourceGroupResourceInfoRequest,
-  NetworkConnection,
+  DescribeRecommendedParamsRequest,
   CreateUserRequest,
   ModifyWorkGroupRequest,
+  CreateApiKeyResponse,
+  CreateMlflowServerResponse,
   DescribeStandardEngineResourceGroupConfigInfoResponse,
   RunJobSpecRequest,
   GetModelFilesResponse,
   WorkGroupIdSetOfUserId,
   ListResourceConfigsRequest,
+  ListMlflowServerTrainingInstancesRequest,
   DescribeDatabaseRequest,
   RayJobSubmitEntity,
+  ModelVersionInfo,
   UpdateStandardEngineResourceGroupBaseInfoResponse,
   SmartPolicyBaseInfo,
   DescribeDatabasesResponse,
   DMSTableInfo,
+  CreateTrainingJobInstanceRequest,
   GetRayJobPodsRequest,
+  AddDeploymentResponse,
   DMSPartition,
   UpdateJobSpecPriorityRequest,
   DeletePartitionQueueRequest,
   WorkGroupDetailInfo,
+  UpgradeDataEngineImageRequest,
   DescribeEngineNodeSpecRequest,
   DescribeThirdPartyAccessUserRequest,
   AssignMangedTablePropertiesResponse,
   ResourceSaleInfo,
+  TaskMonitorInfo,
   DataEngineImageVersion,
   ListModelVersionsResponse,
   ListInferenceEnginesRequest,
   ModifyPartitionDescriptionResponse,
-  UpdateUDFPolicyRequest,
+  UpdateClusterGroupResponse,
   MysqlInfo,
   CreateTasksRequest,
+  CreateBenchmarkTaskResponse,
   Sort,
   CreateResourceConfigRequest,
   StatementInformation,
   GetInferenceModelResponse,
   DeleteResourceConfigResponse,
   DeleteThirdPartyAccessUserResponse,
-  CrontabResumeSuspendStrategy,
+  ImportExternalClusterResponse,
+  DescribeSaleResourceInfoResponse,
   StopRayClusterRequest,
   DescribeViewsRequest,
   GetLabYamlRequest,
+  BenchmarkSummaryInfo,
   DescribeDataEngineImageVersionsResponse,
   DescribeSaleRegionsRequest,
   CreateTcIcebergTableResponse,
   DescribeWorkGroupsRequest,
   DescribeUserDataEngineConfigRequest,
   MCPTaskInfo,
+  TrainingJobSpec,
+  UpdateApiKeyStatusResponse,
   CopyJobSpecResponse,
   CreateTasksResponse,
   TccHive,
-  GrantDLCCatalogAccessResponse,
+  CheckJobSpecNameResponse,
   CreateSparkAppRequest,
   UpdateRayJobPriorityResponse,
   CreateSparkSessionBatchSQLRequest,
+  UpdateServiceAuthConfigResponse,
   DescribePartitionDetailResponse,
   ListInferenceEnginesResponse,
   ListTaskJobLogDetailResponse,
   CreateMetaDatabaseResponse,
   VpcInfo,
+  UpdateJobSpecPriorityResponse,
   DescribeMCPTaskResponse,
   DeleteResourceConfigRequest,
   DescribeSubUserAccessPolicyRequest,
@@ -611,11 +730,13 @@ import {
   CreateDMSDatabaseRequest,
   CheckModifyPartitionRequest,
   DeleteCHDFSBindingProductResponse,
-  UpdateConfContext,
+  DescribeTkeClusterImportInfoRequest,
   CancelNotebookSessionStatementBatchRequest,
   GetInferenceServiceResponse,
-  DescribeLakeFsTaskResultResponse,
+  CheckDataEngineImageCanBeRollbackRequest,
   CheckModifyPartitionResponse,
+  DescribeTkeClusterImportInfoResponse,
+  ListBenchmarkSummaryRequest,
   EngineSessionImage,
   DescribeTaskMonitorInfosResponse,
   DescribeTasksCostInfoRequest,
@@ -646,7 +767,7 @@ import {
   CreateScriptResponse,
   ModifyAdvancedStoreLocationResponse,
   CreateTasksInOrderResponse,
-  TagInfo,
+  DescribeTrainingCheckpointsRequest,
   GetModelReadmeResponse,
   LabResponse,
   DeleteSparkAppRequest,
@@ -661,11 +782,15 @@ import {
   DescribeTaskResourceUsageResponse,
   CommonMetrics,
   UserRole,
+  DescribeTaskResourceUsageRequest,
   JobStatusHistory,
+  DescribeBindablePrometheusResponse,
   DescribeUserTypeRequest,
+  ListTrainingJobSpecResponse,
   CheckDataEngineConfigPairsValidityRequest,
   DescribeTablePartitionsResponse,
   CSVSerde,
+  UpdateRowFilterResponse,
   GetModelConfigResponse,
   HiveInfo,
   CHDFSProductVpcInfo,
@@ -675,10 +800,12 @@ import {
   MetricsData,
   CheckLockMetaDataRequest,
   DeleteDataMaskStrategyResponse,
+  ListJobsBySpecResponse,
   TypeKVPair,
   AddOptimizerEnginesResponse,
   DescribeTasksRequest,
   CreateSparkAppTaskRequest,
+  ListApiKeysResponse,
   DeleteWorkGroupRequest,
   KVPair,
   TableBaseInfo,
@@ -686,46 +813,58 @@ import {
   GenerateCreateMangedTableSqlResponse,
   ListRayJobsResponse,
   ListTaskJobLogDetailRequest,
+  ClsTopicItem,
   DescribeSaleResourceInfoRequest,
   DescribeNativeSparkSessionsRequest,
   GetInferenceModelRequest,
   DescribeSessionImageVersionRequest,
   RevokeDLCCatalogAccessResponse,
   DeleteCHDFSBindingProductRequest,
-  RenewDataEngineResponse,
+  BindWorkGroupsToUserResponse,
   DataSourceInfo,
-  UpdateUDFPolicyResponse,
+  ListApiKeysRequest,
   DescribeNotebookSessionsResponse,
   DescribeDMSPartitionsRequest,
+  DeleteTrainingJobInstanceRequest,
   CreateDataMaskStrategyResponse,
+  UpdateServiceAuthConfigRequest,
   DataMaskStrategyInfo,
   RollbackDataEngineImageResponse,
   AddOptimizerEnginesRequest,
   CreateLabResponse,
   Partition,
+  CheckServiceNameRequest,
   ListRayJobsRequest,
+  BenchmarkResourceInfo,
   ListJobsBySpecRequest,
   MCPTaskResultInfo,
   LaunchStandardEngineResourceGroupsRequest,
   ListRayClusterJobsRequest,
+  DeleteScriptRequest,
   Property,
   UserVpcConnectionInfo,
+  ListMlflowServersRequest,
+  DescribePostTrainingPresetResponse,
   CancelRayJobResponse,
   DescribeWorkGroupsResponse,
   SparkJobInfo,
+  StopDeploymentRequest,
   DescribeScriptsRequest,
   ViewBaseInfo,
   DescribeSparkAppJobResponse,
   HiveTablePartition,
   UDFPolicyInfo,
+  DeleteClusterGroupRequest,
   DescribeNotebookSessionStatementResponse,
-  UpdateResourceConfigResponse,
+  CreateMlflowServerRequest,
   DropDMSTableRequest,
   InferenceServiceInfo,
   UpdateJobSpecRequest,
-  ListRayClusterJobsResponse,
-  DescribeStandardEngineResourceGroupConfigInfoRequest,
+  DescribeTrainingJobSpecResponse,
+  ListBenchmarkTasksRequest,
+  DescribeBindablePrometheusRequest,
   ListExampleCategoriesResponse,
+  DescribeMlflowServerRequest,
   StreamingStatistics,
   ListImagesResponse,
   TaskResponseInfo,
@@ -734,12 +873,16 @@ import {
   DescribeStoreLocationResponse,
   DescribeTCLakeMetaInstanceResponse,
   CreateInferenceServiceResponse,
+  StopRayClusterResponse,
   QueryTaskCostDetailResponse,
+  DescribeClusterEventLogSwitchResponse,
   UpdateInferenceModelResponse,
+  ListTrainingJobSpecRequest,
   NotebookSessionInfo,
   Execution,
   CreateNotebookSessionStatementSupportBatchSQLResponse,
   BindWorkGroupsToUserRequest,
+  ModifyClusterPriorityRequest,
   Column,
   Users,
   DescribeUDFPolicyRequest,
@@ -747,12 +890,14 @@ import {
   Filter,
   DescribeLakeFsDirSummaryResponse,
   GetRayJobYamlRequest,
+  DescribeModelTaskOptionsRequest,
   GetRayJobEventLogResponse,
   DescribeUserVpcConnectionResponse,
   GetModelFilesRequest,
   FileNode,
   ExampleTag,
   DeleteWorkGroupResponse,
+  UpdateDeploymentResponse,
   RegisterThirdPartyAccessUserRequest,
   ModifySparkAppBatchResponse,
   ModifyLabPriorityRequest,
@@ -762,14 +907,18 @@ import {
   DescribeThirdPartyAccessUserResponse,
   StopLabRequest,
   DescribeNotebookSessionStatementsResponse,
-  CancelSparkSessionBatchSQLResponse,
+  StopLabResponse,
+  ListTaskJobLogNameRequest,
+  DescribeClsTopicsRequest,
   ParallelKeyMapping,
   DatabaseInfo,
+  ListBenchmarkTasksResponse,
   CancelTasksResponse,
   EventLogItem,
   InitializeTCLakeResponse,
   ListImagesRequest,
   DescribeDataEnginesRequest,
+  CheckpointConfig,
   JobLogResult,
   DropDMSDatabaseResponse,
   VpcCidrBlock,
@@ -783,11 +932,16 @@ import {
   ResourceSpec,
   CreateSparkAppForTDLCRequest,
   GetRayClusterPodYamlResponse,
+  ResourceConfig,
   FlowActivityDetail,
+  ListTrainingJobInstanceResponse,
+  UpdateConfContext,
   DescribeResourceGroupUsageInfoRequest,
   RegionInfo,
   DescribeSparkSessionBatchSQLCostRequest,
+  DeleteDeploymentResponse,
   CreateNotebookSessionResponse,
+  ListBenchmarkSummaryResponse,
   DataMaskStrategyPolicy,
   ModifyPartitionQueueResponse,
   DescribeDataEngineResponse,
@@ -810,16 +964,20 @@ import {
   UserMessage,
   DescribeMCPTaskRequest,
   SwitchDataEngineImageRequest,
-  UpdateClusterGroupResponse,
+  ListAvailableApiKeysRequest,
+  CancelTrainingJobInstanceRequest,
   DescribeDMSTableRequest,
   ModifyGovernEventRuleRequest,
   GetLabServiceUrlsResponse,
   IcebergTablePartition,
+  DescribeResultDownloadRequest,
   DatabaseResponseInfo,
   DMSColumn,
   ListExamplesRequest,
   SortField,
-  DescribeResultDownloadRequest,
+  DatasetMount,
+  DescribeModelEnginesResponse,
+  CreateApiKeyRequest,
 } from "./dlc_models"
 
 /**
@@ -829,6 +987,16 @@ import {
 export class Client extends AbstractClient {
   constructor(clientConfig: ClientConfig) {
     super("dlc.tencentcloudapi.com", "2021-01-25", clientConfig)
+  }
+
+  /**
+   * 检查推理服务名称是否重复
+   */
+  async CheckServiceName(
+    req: CheckServiceNameRequest,
+    cb?: (error: string, rep: CheckServiceNameResponse) => void
+  ): Promise<CheckServiceNameResponse> {
+    return this.request("CheckServiceName", req, cb)
   }
 
   /**
@@ -842,53 +1010,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（CreateTask）用于创建并执行SQL任务。（推荐使用CreateTasks接口）
+   * 查询任务结果，仅支持30天以内的任务查询结果，且返回数据大小超过近50M会进行截断。
    */
-  async CreateTask(
-    req: CreateTaskRequest,
-    cb?: (error: string, rep: CreateTaskResponse) => void
-  ): Promise<CreateTaskResponse> {
-    return this.request("CreateTask", req, cb)
-  }
-
-  /**
-   * 修改用户信息
-   */
-  async ModifyUser(
-    req: ModifyUserRequest,
-    cb?: (error: string, rep: ModifyUserResponse) => void
-  ): Promise<ModifyUserResponse> {
-    return this.request("ModifyUser", req, cb)
-  }
-
-  /**
-   * 添加用户到工作组
-   */
-  async AddUsersToWorkGroup(
-    req: AddUsersToWorkGroupRequest,
-    cb?: (error: string, rep: AddUsersToWorkGroupResponse) => void
-  ): Promise<AddUsersToWorkGroupResponse> {
-    return this.request("AddUsersToWorkGroup", req, cb)
-  }
-
-  /**
-   * DMS元数据更新表
-   */
-  async AlterDMSTable(
-    req: AlterDMSTableRequest,
-    cb?: (error: string, rep: AlterDMSTableResponse) => void
-  ): Promise<AlterDMSTableResponse> {
-    return this.request("AlterDMSTable", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeForbiddenTablePro）用于查询被禁用的表属性列表（新）
-   */
-  async DescribeForbiddenTablePro(
-    req?: DescribeForbiddenTableProRequest,
-    cb?: (error: string, rep: DescribeForbiddenTableProResponse) => void
-  ): Promise<DescribeForbiddenTableProResponse> {
-    return this.request("DescribeForbiddenTablePro", req, cb)
+  async DescribeTaskResult(
+    req: DescribeTaskResultRequest,
+    cb?: (error: string, rep: DescribeTaskResultResponse) => void
+  ): Promise<DescribeTaskResultResponse> {
+    return this.request("DescribeTaskResult", req, cb)
   }
 
   /**
@@ -902,13 +1030,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取用户详细信息
+   * 列举用户角色信息
    */
-  async DescribeUserInfo(
-    req: DescribeUserInfoRequest,
-    cb?: (error: string, rep: DescribeUserInfoResponse) => void
-  ): Promise<DescribeUserInfoResponse> {
-    return this.request("DescribeUserInfo", req, cb)
+  async DescribeUserRoles(
+    req: DescribeUserRolesRequest,
+    cb?: (error: string, rep: DescribeUserRolesResponse) => void
+  ): Promise<DescribeUserRolesResponse> {
+    return this.request("DescribeUserRoles", req, cb)
   }
 
   /**
@@ -922,26 +1050,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 启动标准引擎资源组
-   */
-  async LaunchStandardEngineResourceGroups(
-    req: LaunchStandardEngineResourceGroupsRequest,
-    cb?: (error: string, rep: LaunchStandardEngineResourceGroupsResponse) => void
-  ): Promise<LaunchStandardEngineResourceGroupsResponse> {
-    return this.request("LaunchStandardEngineResourceGroups", req, cb)
-  }
-
-  /**
-   * 该接口（DescribleTasks）用于查询任务列表
-   */
-  async DescribeTaskList(
-    req: DescribeTaskListRequest,
-    cb?: (error: string, rep: DescribeTaskListResponse) => void
-  ): Promise<DescribeTaskListResponse> {
-    return this.request("DescribeTaskList", req, cb)
-  }
-
-  /**
    * 获取工作组详细信息
    */
   async DescribeWorkGroupInfo(
@@ -949,66 +1057,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeWorkGroupInfoResponse) => void
   ): Promise<DescribeWorkGroupInfoResponse> {
     return this.request("DescribeWorkGroupInfo", req, cb)
-  }
-
-  /**
-   * 查询任务监控指标信息
-   */
-  async DescribeTaskMonitorInfos(
-    req: DescribeTaskMonitorInfosRequest,
-    cb?: (error: string, rep: DescribeTaskMonitorInfosResponse) => void
-  ): Promise<DescribeTaskMonitorInfosResponse> {
-    return this.request("DescribeTaskMonitorInfos", req, cb)
-  }
-
-  /**
-   * 更新spark作业
-   */
-  async ModifySparkApp(
-    req: ModifySparkAppRequest,
-    cb?: (error: string, rep: ModifySparkAppResponse) => void
-  ): Promise<ModifySparkAppResponse> {
-    return this.request("ModifySparkApp", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeNotebookSession）用于查询交互式 session详情信息
-   */
-  async DescribeNotebookSession(
-    req: DescribeNotebookSessionRequest,
-    cb?: (error: string, rep: DescribeNotebookSessionResponse) => void
-  ): Promise<DescribeNotebookSessionResponse> {
-    return this.request("DescribeNotebookSession", req, cb)
-  }
-
-  /**
-   * 本接口（CreateNotebookSession）用于创建交互式session（notebook）
-   */
-  async CreateNotebookSession(
-    req: CreateNotebookSessionRequest,
-    cb?: (error: string, rep: CreateNotebookSessionResponse) => void
-  ): Promise<CreateNotebookSessionResponse> {
-    return this.request("CreateNotebookSession", req, cb)
-  }
-
-  /**
-   * 查询数据脱敏列表接口
-   */
-  async DescribeDataMaskStrategies(
-    req: DescribeDataMaskStrategiesRequest,
-    cb?: (error: string, rep: DescribeDataMaskStrategiesResponse) => void
-  ): Promise<DescribeDataMaskStrategiesResponse> {
-    return this.request("DescribeDataMaskStrategies", req, cb)
-  }
-
-  /**
-   * 本接口（DeleteMetaDatabase）用于一键删除元数据库
-   */
-  async DeleteMetaDatabase(
-    req: DeleteMetaDatabaseRequest,
-    cb?: (error: string, rep: DeleteMetaDatabaseResponse) => void
-  ): Promise<DeleteMetaDatabaseResponse> {
-    return this.request("DeleteMetaDatabase", req, cb)
   }
 
   /**
@@ -1032,16 +1080,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口根据名称用于获取数据引擎详细信息
-   */
-  async DescribeDataEngine(
-    req: DescribeDataEngineRequest,
-    cb?: (error: string, rep: DescribeDataEngineResponse) => void
-  ): Promise<DescribeDataEngineResponse> {
-    return this.request("DescribeDataEngine", req, cb)
-  }
-
-  /**
    * 该接口（CreateStoreLocation）新增或覆盖计算结果存储位置。
    */
   async CreateStoreLocation(
@@ -1049,76 +1087,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateStoreLocationResponse) => void
   ): Promise<CreateStoreLocationResponse> {
     return this.request("CreateStoreLocation", req, cb)
-  }
-
-  /**
-   * 新增资源队列：在指定分区下创建一个新的资源队列，支持设置队列名称、描述、资源规格列表和队列类型。
-   */
-  async CreatePartitionQueue(
-    req: CreatePartitionQueueRequest,
-    cb?: (error: string, rep: CreatePartitionQueueResponse) => void
-  ): Promise<CreatePartitionQueueResponse> {
-    return this.request("CreatePartitionQueue", req, cb)
-  }
-
-  /**
-   * 获取数据实验室Pod的YAML内容
-   */
-  async GetLabPodYaml(
-    req: GetLabPodYamlRequest,
-    cb?: (error: string, rep: GetLabPodYamlResponse) => void
-  ): Promise<GetLabPodYamlResponse> {
-    return this.request("GetLabPodYaml", req, cb)
-  }
-
-  /**
-   * 根据 exampleId 获取单个案例详情
-   */
-  async GetExampleDetail(
-    req: GetExampleDetailRequest,
-    cb?: (error: string, rep: GetExampleDetailResponse) => void
-  ): Promise<GetExampleDetailResponse> {
-    return this.request("GetExampleDetail", req, cb)
-  }
-
-  /**
-   * 本接口（CreateNotebookSessionStatementSupportBatchSQL）用于创建交互式session并执行SQL任务
-   */
-  async CreateNotebookSessionStatementSupportBatchSQL(
-    req: CreateNotebookSessionStatementSupportBatchSQLRequest,
-    cb?: (error: string, rep: CreateNotebookSessionStatementSupportBatchSQLResponse) => void
-  ): Promise<CreateNotebookSessionStatementSupportBatchSQLResponse> {
-    return this.request("CreateNotebookSessionStatementSupportBatchSQL", req, cb)
-  }
-
-  /**
-   * 案例列表
-   */
-  async ListExamples(
-    req: ListExamplesRequest,
-    cb?: (error: string, rep: ListExamplesResponse) => void
-  ): Promise<ListExamplesResponse> {
-    return this.request("ListExamples", req, cb)
-  }
-
-  /**
-   * 切换主备集群
-   */
-  async SwitchDataEngine(
-    req: SwitchDataEngineRequest,
-    cb?: (error: string, rep: SwitchDataEngineResponse) => void
-  ): Promise<SwitchDataEngineResponse> {
-    return this.request("SwitchDataEngine", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeDataEngines）用于查询DataEngines信息列表.
-   */
-  async DescribeDataEngines(
-    req: DescribeDataEnginesRequest,
-    cb?: (error: string, rep: DescribeDataEnginesResponse) => void
-  ): Promise<DescribeDataEnginesResponse> {
-    return this.request("DescribeDataEngines", req, cb)
   }
 
   /**
@@ -1132,16 +1100,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 该接口（DescribeTaskDetail）用于查询历史任务详情
-   */
-  async DescribeTaskDetail(
-    req: DescribeTaskDetailRequest,
-    cb?: (error: string, rep: DescribeTaskDetailResponse) => void
-  ): Promise<DescribeTaskDetailResponse> {
-    return this.request("DescribeTaskDetail", req, cb)
-  }
-
-  /**
    * 该接口（DescribeUserRegisterTime）用于查询当前用户注册时间，并判断是否是老用户。
    */
   async DescribeUserRegisterTime(
@@ -1149,16 +1107,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeUserRegisterTimeResponse) => void
   ): Promise<DescribeUserRegisterTimeResponse> {
     return this.request("DescribeUserRegisterTime", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeNotebookSessions）用于查询交互式 session列表
-   */
-  async DescribeNotebookSessions(
-    req: DescribeNotebookSessionsRequest,
-    cb?: (error: string, rep: DescribeNotebookSessionsResponse) => void
-  ): Promise<DescribeNotebookSessionsResponse> {
-    return this.request("DescribeNotebookSessions", req, cb)
   }
 
   /**
@@ -1172,26 +1120,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * DMS元数据获取分区
-   */
-  async DescribeDMSPartitions(
-    req: DescribeDMSPartitionsRequest,
-    cb?: (error: string, rep: DescribeDMSPartitionsResponse) => void
-  ): Promise<DescribeDMSPartitionsResponse> {
-    return this.request("DescribeDMSPartitions", req, cb)
-  }
-
-  /**
-   * 本接口（CancelTask），用于取消任务
-   */
-  async CancelTask(
-    req: CancelTaskRequest,
-    cb?: (error: string, rep: CancelTaskResponse) => void
-  ): Promise<CancelTaskResponse> {
-    return this.request("CancelTask", req, cb)
-  }
-
-  /**
    * 删除数据脱敏策略
    */
   async DeleteDataMaskStrategy(
@@ -1202,43 +1130,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询DLC Catalog授权列表
+   * 修改集群的调度优先级（1-9，数字越大优先级越高）
    */
-  async DescribeDLCCatalogAccess(
-    req: DescribeDLCCatalogAccessRequest,
-    cb?: (error: string, rep: DescribeDLCCatalogAccessResponse) => void
-  ): Promise<DescribeDLCCatalogAccessResponse> {
-    return this.request("DescribeDLCCatalogAccess", req, cb)
-  }
-
-  /**
-   * 列出所有资源配置模板
-   */
-  async ListResourceConfigs(
-    req: ListResourceConfigsRequest,
-    cb?: (error: string, rep: ListResourceConfigsResponse) => void
-  ): Promise<ListResourceConfigsResponse> {
-    return this.request("ListResourceConfigs", req, cb)
-  }
-
-  /**
-   * 删除数据引擎
-   */
-  async DeleteDataEngine(
-    req: DeleteDataEngineRequest,
-    cb?: (error: string, rep: DeleteDataEngineResponse) => void
-  ): Promise<DeleteDataEngineResponse> {
-    return this.request("DeleteDataEngine", req, cb)
-  }
-
-  /**
-   * 根据资源组获取spark session列表
-   */
-  async DescribeNativeSparkSessions(
-    req: DescribeNativeSparkSessionsRequest,
-    cb?: (error: string, rep: DescribeNativeSparkSessionsResponse) => void
-  ): Promise<DescribeNativeSparkSessionsResponse> {
-    return this.request("DescribeNativeSparkSessions", req, cb)
+  async ModifyClusterPriority(
+    req: ModifyClusterPriorityRequest,
+    cb?: (error: string, rep: ModifyClusterPriorityResponse) => void
+  ): Promise<ModifyClusterPriorityResponse> {
+    return this.request("ModifyClusterPriority", req, cb)
   }
 
   /**
@@ -1252,43 +1150,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 分页查询作业配置列表
+   * 创建性能评测任务
    */
-  async ListJobSpecs(
-    req: ListJobSpecsRequest,
-    cb?: (error: string, rep: ListJobSpecsResponse) => void
-  ): Promise<ListJobSpecsResponse> {
-    return this.request("ListJobSpecs", req, cb)
-  }
-
-  /**
-   * 获取工作组列表
-   */
-  async DescribeWorkGroups(
-    req: DescribeWorkGroupsRequest,
-    cb?: (error: string, rep: DescribeWorkGroupsResponse) => void
-  ): Promise<DescribeWorkGroupsResponse> {
-    return this.request("DescribeWorkGroups", req, cb)
-  }
-
-  /**
-   * 更新标准引擎资源组基础信息
-   */
-  async UpdateStandardEngineResourceGroupResourceInfo(
-    req: UpdateStandardEngineResourceGroupResourceInfoRequest,
-    cb?: (error: string, rep: UpdateStandardEngineResourceGroupResourceInfoResponse) => void
-  ): Promise<UpdateStandardEngineResourceGroupResourceInfoResponse> {
-    return this.request("UpdateStandardEngineResourceGroupResourceInfo", req, cb)
-  }
-
-  /**
-   * 续费数据引擎
-   */
-  async RenewDataEngine(
-    req: RenewDataEngineRequest,
-    cb?: (error: string, rep: RenewDataEngineResponse) => void
-  ): Promise<RenewDataEngineResponse> {
-    return this.request("RenewDataEngine", req, cb)
+  async CreateBenchmarkTask(
+    req: CreateBenchmarkTaskRequest,
+    cb?: (error: string, rep: CreateBenchmarkTaskResponse) => void
+  ): Promise<CreateBenchmarkTaskResponse> {
+    return this.request("CreateBenchmarkTask", req, cb)
   }
 
   /**
@@ -1302,26 +1170,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询网络配置列表
-   */
-  async DescribeNetworkConnections(
-    req: DescribeNetworkConnectionsRequest,
-    cb?: (error: string, rep: DescribeNetworkConnectionsResponse) => void
-  ): Promise<DescribeNetworkConnectionsResponse> {
-    return this.request("DescribeNetworkConnections", req, cb)
-  }
-
-  /**
-   * 创建标准引擎资源组
-   */
-  async CreateStandardEngineResourceGroup(
-    req: CreateStandardEngineResourceGroupRequest,
-    cb?: (error: string, rep: CreateStandardEngineResourceGroupResponse) => void
-  ): Promise<CreateStandardEngineResourceGroupResponse> {
-    return this.request("CreateStandardEngineResourceGroup", req, cb)
-  }
-
-  /**
    * 该接口（DescribeTasks）用于查询任务列表
    */
   async DescribeTasks(
@@ -1329,6 +1177,511 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeTasksResponse) => void
   ): Promise<DescribeTasksResponse> {
     return this.request("DescribeTasks", req, cb)
+  }
+
+  /**
+   * 通过 ClusterType 区分两种导入模式：TKE（直接导入裸 TKE 集群，ClusterId 为 TKE 集群 ID）或 EMR（通过 EMR 集群导入，ClusterId 为 EMR 集群 ID，底层会关联查询对应的 TKE 集群 ID 一并落库）。两种模式均将 TKE 集群 ID 存入 tke_cluster 表。接口是异步的，返回的 WorkflowId 可用于轮询注册进度；ResourcePoolId / ResourcePoolCode 为资源池的唯一标识。
+   */
+  async ImportExternalCluster(
+    req: ImportExternalClusterRequest,
+    cb?: (error: string, rep: ImportExternalClusterResponse) => void
+  ): Promise<ImportExternalClusterResponse> {
+    return this.request("ImportExternalCluster", req, cb)
+  }
+
+  /**
+   * 此接口（DescribeOtherCHDFSBindingList）用于查询其他产品元数据加速桶绑定列表
+   */
+  async DescribeOtherCHDFSBindingList(
+    req: DescribeOtherCHDFSBindingListRequest,
+    cb?: (error: string, rep: DescribeOtherCHDFSBindingListResponse) => void
+  ): Promise<DescribeOtherCHDFSBindingListResponse> {
+    return this.request("DescribeOtherCHDFSBindingList", req, cb)
+  }
+
+  /**
+   * 切换引擎镜像版本
+   */
+  async SwitchDataEngineImage(
+    req: SwitchDataEngineImageRequest,
+    cb?: (error: string, rep: SwitchDataEngineImageResponse) => void
+  ): Promise<SwitchDataEngineImageResponse> {
+    return this.request("SwitchDataEngineImage", req, cb)
+  }
+
+  /**
+   * 获取实验室的状态变更历史记录
+   */
+  async GetLabHistory(
+    req: GetLabHistoryRequest,
+    cb?: (error: string, rep: GetLabHistoryResponse) => void
+  ): Promise<GetLabHistoryResponse> {
+    return this.request("GetLabHistory", req, cb)
+  }
+
+  /**
+   * 创建用户
+   */
+  async CreateUser(
+    req: CreateUserRequest,
+    cb?: (error: string, rep: CreateUserResponse) => void
+  ): Promise<CreateUserResponse> {
+    return this.request("CreateUser", req, cb)
+  }
+
+  /**
+   * 更新推理服务的 API-Key 鉴权配置（启用/停用）
+   */
+  async UpdateServiceAuthConfig(
+    req: UpdateServiceAuthConfigRequest,
+    cb?: (error: string, rep: UpdateServiceAuthConfigResponse) => void
+  ): Promise<UpdateServiceAuthConfigResponse> {
+    return this.request("UpdateServiceAuthConfig", req, cb)
+  }
+
+  /**
+   * 添加数据优化资源
+   */
+  async AddOptimizerEngines(
+    req: AddOptimizerEnginesRequest,
+    cb?: (error: string, rep: AddOptimizerEnginesResponse) => void
+  ): Promise<AddOptimizerEnginesResponse> {
+    return this.request("AddOptimizerEngines", req, cb)
+  }
+
+  /**
+   * 查询spark作业列表
+   */
+  async DescribeSparkAppJobs(
+    req: DescribeSparkAppJobsRequest,
+    cb?: (error: string, rep: DescribeSparkAppJobsResponse) => void
+  ): Promise<DescribeSparkAppJobsResponse> {
+    return this.request("DescribeSparkAppJobs", req, cb)
+  }
+
+  /**
+   * 校验资源名称合法性
+   */
+  async CheckResourceName(
+    req: CheckResourceNameRequest,
+    cb?: (error: string, rep: CheckResourceNameResponse) => void
+  ): Promise<CheckResourceNameResponse> {
+    return this.request("CheckResourceName", req, cb)
+  }
+
+  /**
+   * 创建托管存储内表（该接口已废弃）
+   */
+  async CreateInternalTable(
+    req: CreateInternalTableRequest,
+    cb?: (error: string, rep: CreateInternalTableResponse) => void
+  ): Promise<CreateInternalTableResponse> {
+    return this.request("CreateInternalTable", req, cb)
+  }
+
+  /**
+   * 删除标准引擎资源组
+   */
+  async DeleteStandardEngineResourceGroup(
+    req: DeleteStandardEngineResourceGroupRequest,
+    cb?: (error: string, rep: DeleteStandardEngineResourceGroupResponse) => void
+  ): Promise<DeleteStandardEngineResourceGroupResponse> {
+    return this.request("DeleteStandardEngineResourceGroup", req, cb)
+  }
+
+  /**
+   * 复制一份已有的作业配置
+   */
+  async CopyJobSpec(
+    req: CopyJobSpecRequest,
+    cb?: (error: string, rep: CopyJobSpecResponse) => void
+  ): Promise<CopyJobSpecResponse> {
+    return this.request("CopyJobSpec", req, cb)
+  }
+
+  /**
+   * 本接口用于控制挂起或启动数据引擎
+   */
+  async SuspendResumeDataEngine(
+    req: SuspendResumeDataEngineRequest,
+    cb?: (error: string, rep: SuspendResumeDataEngineResponse) => void
+  ): Promise<SuspendResumeDataEngineResponse> {
+    return this.request("SuspendResumeDataEngine", req, cb)
+  }
+
+  /**
+   * 修改数据治理事件阈值
+   */
+  async ModifyGovernEventRule(
+    req?: ModifyGovernEventRuleRequest,
+    cb?: (error: string, rep: ModifyGovernEventRuleResponse) => void
+  ): Promise<ModifyGovernEventRuleResponse> {
+    return this.request("ModifyGovernEventRule", req, cb)
+  }
+
+  /**
+   * 列出空闲 API Key（未绑定服务）
+   */
+  async ListAvailableApiKeys(
+    req: ListAvailableApiKeysRequest,
+    cb?: (error: string, rep: ListAvailableApiKeysResponse) => void
+  ): Promise<ListAvailableApiKeysResponse> {
+    return this.request("ListAvailableApiKeys", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeNotebookSessionStatementSqlResult）用于获取statement运行结果。
+   */
+  async DescribeNotebookSessionStatementSqlResult(
+    req: DescribeNotebookSessionStatementSqlResultRequest,
+    cb?: (error: string, rep: DescribeNotebookSessionStatementSqlResultResponse) => void
+  ): Promise<DescribeNotebookSessionStatementSqlResultResponse> {
+    return this.request("DescribeNotebookSessionStatementSqlResult", req, cb)
+  }
+
+  /**
+   * 删除数据实验室
+   */
+  async DeleteLab(
+    req: DeleteLabRequest,
+    cb?: (error: string, rep: DeleteLabResponse) => void
+  ): Promise<DeleteLabResponse> {
+    return this.request("DeleteLab", req, cb)
+  }
+
+  /**
+     * 查询训练实例的 MLflow 接入配置。 
+MlFlowMode 表示接入的 mlflow 模式，支持 local=Sidecar / remote=已有 Server / none=不启用。云上默认为 remote。
+MlFlowUrl 表示访问的 MLflow URL。
+RunID, ExperimentID 对应MLflow 实验追踪用的参数 RunID, ExperimentID
+     */
+  async DescribeMlFlowConfig(
+    req: DescribeMlFlowConfigRequest,
+    cb?: (error: string, rep: DescribeMlFlowConfigResponse) => void
+  ): Promise<DescribeMlFlowConfigResponse> {
+    return this.request("DescribeMlFlowConfig", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeDataEngines）用于查询DataEngines信息列表.
+   */
+  async DescribeDataEngines(
+    req: DescribeDataEnginesRequest,
+    cb?: (error: string, rep: DescribeDataEnginesResponse) => void
+  ): Promise<DescribeDataEnginesResponse> {
+    return this.request("DescribeDataEngines", req, cb)
+  }
+
+  /**
+   * MlFlow Server Pod 列表响应
+   */
+  async DescribeMlflowServerPods(
+    req: DescribeMlflowServerPodsRequest,
+    cb?: (error: string, rep: DescribeMlflowServerPodsResponse) => void
+  ): Promise<DescribeMlflowServerPodsResponse> {
+    return this.request("DescribeMlflowServerPods", req, cb)
+  }
+
+  /**
+   * 修改用户引擎自定义配置
+   */
+  async UpdateUserDataEngineConfig(
+    req: UpdateUserDataEngineConfigRequest,
+    cb?: (error: string, rep: UpdateUserDataEngineConfigResponse) => void
+  ): Promise<UpdateUserDataEngineConfigResponse> {
+    return this.request("UpdateUserDataEngineConfig", req, cb)
+  }
+
+  /**
+   * 本接口（CancelNotebookSessionStatementBatch）用于批量取消Session 中执行的任务
+   */
+  async CancelNotebookSessionStatementBatch(
+    req: CancelNotebookSessionStatementBatchRequest,
+    cb?: (error: string, rep: CancelNotebookSessionStatementBatchResponse) => void
+  ): Promise<CancelNotebookSessionStatementBatchResponse> {
+    return this.request("CancelNotebookSessionStatementBatch", req, cb)
+  }
+
+  /**
+   * 获取所有案例分类
+   */
+  async ListExampleDifficulties(
+    req: ListExampleDifficultiesRequest,
+    cb?: (error: string, rep: ListExampleDifficultiesResponse) => void
+  ): Promise<ListExampleDifficultiesResponse> {
+    return this.request("ListExampleDifficulties", req, cb)
+  }
+
+  /**
+   * 更新推理模型（编辑标签、描述、参数量）
+   */
+  async UpdateInferenceModel(
+    req: UpdateInferenceModelRequest,
+    cb?: (error: string, rep: UpdateInferenceModelResponse) => void
+  ): Promise<UpdateInferenceModelResponse> {
+    return this.request("UpdateInferenceModel", req, cb)
+  }
+
+  /**
+   * 该接口（QueryTaskCostDetail）用于查询任务消耗明细
+   */
+  async QueryTaskCostDetail(
+    req: QueryTaskCostDetailRequest,
+    cb?: (error: string, rep: QueryTaskCostDetailResponse) => void
+  ): Promise<QueryTaskCostDetailResponse> {
+    return this.request("QueryTaskCostDetail", req, cb)
+  }
+
+  /**
+   * DMS元数据删除分区
+   */
+  async DropDMSPartitions(
+    req: DropDMSPartitionsRequest,
+    cb?: (error: string, rep: DropDMSPartitionsResponse) => void
+  ): Promise<DropDMSPartitionsResponse> {
+    return this.request("DropDMSPartitions", req, cb)
+  }
+
+  /**
+   * 此接口（CreateCHDFSBindingProduct）用于创建元数据加速桶和产品绑定关系
+   */
+  async CreateCHDFSBindingProduct(
+    req: CreateCHDFSBindingProductRequest,
+    cb?: (error: string, rep: CreateCHDFSBindingProductResponse) => void
+  ): Promise<CreateCHDFSBindingProductResponse> {
+    return this.request("CreateCHDFSBindingProduct", req, cb)
+  }
+
+  /**
+   * 本接口（CheckDataEngineImageCanBeRollback）用于查看集群是否能回滚。
+   */
+  async CheckDataEngineImageCanBeRollback(
+    req: CheckDataEngineImageCanBeRollbackRequest,
+    cb?: (error: string, rep: CheckDataEngineImageCanBeRollbackResponse) => void
+  ): Promise<CheckDataEngineImageCanBeRollbackResponse> {
+    return this.request("CheckDataEngineImageCanBeRollback", req, cb)
+  }
+
+  /**
+   * 查询 MlFlow Server K8s 事件
+   */
+  async DescribeMlflowServerEvents(
+    req: DescribeMlflowServerEventsRequest,
+    cb?: (error: string, rep: DescribeMlflowServerEventsResponse) => void
+  ): Promise<DescribeMlflowServerEventsResponse> {
+    return this.request("DescribeMlflowServerEvents", req, cb)
+  }
+
+  /**
+   * 本接口（CancelSparkSessionBatchSQL）用于取消Spark SQL批任务。
+   */
+  async CancelSparkSessionBatchSQL(
+    req: CancelSparkSessionBatchSQLRequest,
+    cb?: (error: string, rep: CancelSparkSessionBatchSQLResponse) => void
+  ): Promise<CancelSparkSessionBatchSQLResponse> {
+    return this.request("CancelSparkSessionBatchSQL", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeTable），用于查询单个表的详细信息。
+   */
+  async DescribeTable(
+    req: DescribeTableRequest,
+    cb?: (error: string, rep: DescribeTableResponse) => void
+  ): Promise<DescribeTableResponse> {
+    return this.request("DescribeTable", req, cb)
+  }
+
+  /**
+   * GetOptimizerPolicy
+   */
+  async GetOptimizerPolicy(
+    req: GetOptimizerPolicyRequest,
+    cb?: (error: string, rep: GetOptimizerPolicyResponse) => void
+  ): Promise<GetOptimizerPolicyResponse> {
+    return this.request("GetOptimizerPolicy", req, cb)
+  }
+
+  /**
+   * 查询指定分区的流程列表
+   */
+  async DescribeFlowList(
+    req: DescribeFlowListRequest,
+    cb?: (error: string, rep: DescribeFlowListResponse) => void
+  ): Promise<DescribeFlowListResponse> {
+    return this.request("DescribeFlowList", req, cb)
+  }
+
+  /**
+   * 删除数据引擎
+   */
+  async DeleteDataEngine(
+    req: DeleteDataEngineRequest,
+    cb?: (error: string, rep: DeleteDataEngineResponse) => void
+  ): Promise<DeleteDataEngineResponse> {
+    return this.request("DeleteDataEngine", req, cb)
+  }
+
+  /**
+   * 本接口根据引擎ID查询数据引擎资源使用情况
+   */
+  async DescribeEngineUsageInfo(
+    req: DescribeEngineUsageInfoRequest,
+    cb?: (error: string, rep: DescribeEngineUsageInfoResponse) => void
+  ): Promise<DescribeEngineUsageInfoResponse> {
+    return this.request("DescribeEngineUsageInfo", req, cb)
+  }
+
+  /**
+     * 废弃接口，申请下线
+
+按顺序创建任务（已经废弃，后期不再维护，请使用接口CreateTasks）
+     */
+  async CreateTasksInOrder(
+    req: CreateTasksInOrderRequest,
+    cb?: (error: string, rep: CreateTasksInOrderResponse) => void
+  ): Promise<CreateTasksInOrderResponse> {
+    return this.request("CreateTasksInOrder", req, cb)
+  }
+
+  /**
+   * 此接口用于更新行过滤规则。注意只能更新过滤规则，不能更新规格对象catalog，database和table。
+   */
+  async UpdateRowFilter(
+    req: UpdateRowFilterRequest,
+    cb?: (error: string, rep: UpdateRowFilterResponse) => void
+  ): Promise<UpdateRowFilterResponse> {
+    return this.request("UpdateRowFilter", req, cb)
+  }
+
+  /**
+   * 查询训练实例详情
+   */
+  async DescribeTrainingJobInstance(
+    req: DescribeTrainingJobInstanceRequest,
+    cb?: (error: string, rep: DescribeTrainingJobInstanceResponse) => void
+  ): Promise<DescribeTrainingJobInstanceResponse> {
+    return this.request("DescribeTrainingJobInstance", req, cb)
+  }
+
+  /**
+   * 升级引擎镜像
+   */
+  async UpgradeDataEngineImage(
+    req: UpgradeDataEngineImageRequest,
+    cb?: (error: string, rep: UpgradeDataEngineImageResponse) => void
+  ): Promise<UpgradeDataEngineImageResponse> {
+    return this.request("UpgradeDataEngineImage", req, cb)
+  }
+
+  /**
+   * 列出用户在指定地域下的 CLB 负载均衡实例，返回实例 ID、名称与网络类型（OPEN/INTERNAL）。
+   */
+  async ListRegionLbs(
+    req: ListRegionLbsRequest,
+    cb?: (error: string, rep: ListRegionLbsResponse) => void
+  ): Promise<ListRegionLbsResponse> {
+    return this.request("ListRegionLbs", req, cb)
+  }
+
+  /**
+   * 查询指定 TKE 集群是否开启了事件日志。已开启时同时返回关联的 CLS 日志集 ID、日志主题 ID 与主题所在地域。
+   */
+  async DescribeClusterEventLogSwitch(
+    req: DescribeClusterEventLogSwitchRequest,
+    cb?: (error: string, rep: DescribeClusterEventLogSwitchResponse) => void
+  ): Promise<DescribeClusterEventLogSwitchResponse> {
+    return this.request("DescribeClusterEventLogSwitch", req, cb)
+  }
+
+  /**
+   * 查询数据引擎事件
+   */
+  async DescribeDataEngineEvents(
+    req: DescribeDataEngineEventsRequest,
+    cb?: (error: string, rep: DescribeDataEngineEventsResponse) => void
+  ): Promise<DescribeDataEngineEventsResponse> {
+    return this.request("DescribeDataEngineEvents", req, cb)
+  }
+
+  /**
+   * 获取任务结果查询
+   */
+  async QueryResult(
+    req: QueryResultRequest,
+    cb?: (error: string, rep: QueryResultResponse) => void
+  ): Promise<QueryResultResponse> {
+    return this.request("QueryResult", req, cb)
+  }
+
+  /**
+   * 更新资源配置模板
+   */
+  async UpdateResourceConfig(
+    req: UpdateResourceConfigRequest,
+    cb?: (error: string, rep: UpdateResourceConfigResponse) => void
+  ): Promise<UpdateResourceConfigResponse> {
+    return this.request("UpdateResourceConfig", req, cb)
+  }
+
+  /**
+   * 查询可售卖的地域列表，仅返回状态为AVAILABLE的地域
+   */
+  async DescribeSaleRegions(
+    req?: DescribeSaleRegionsRequest,
+    cb?: (error: string, rep: DescribeSaleRegionsResponse) => void
+  ): Promise<DescribeSaleRegionsResponse> {
+    return this.request("DescribeSaleRegions", req, cb)
+  }
+
+  /**
+   * 该接口（CreateExportTask）用于创建导出任务
+   */
+  async CreateExportTask(
+    req: CreateExportTaskRequest,
+    cb?: (error: string, rep: CreateExportTaskResponse) => void
+  ): Promise<CreateExportTaskResponse> {
+    return this.request("CreateExportTask", req, cb)
+  }
+
+  /**
+   * 查询监控大盘服务列表
+   */
+  async QueryDashboardServiceList(
+    req: QueryDashboardServiceListRequest,
+    cb?: (error: string, rep: QueryDashboardServiceListResponse) => void
+  ): Promise<QueryDashboardServiceListResponse> {
+    return this.request("QueryDashboardServiceList", req, cb)
+  }
+
+  /**
+   * 从工作组中删除用户
+   */
+  async DeleteUsersFromWorkGroup(
+    req: DeleteUsersFromWorkGroupRequest,
+    cb?: (error: string, rep: DeleteUsersFromWorkGroupResponse) => void
+  ): Promise<DeleteUsersFromWorkGroupResponse> {
+    return this.request("DeleteUsersFromWorkGroup", req, cb)
+  }
+
+  /**
+   * 更新已有作业配置的字段
+   */
+  async UpdateJobSpec(
+    req: UpdateJobSpecRequest,
+    cb?: (error: string, rep: UpdateJobSpecResponse) => void
+  ): Promise<UpdateJobSpecResponse> {
+    return this.request("UpdateJobSpec", req, cb)
+  }
+
+  /**
+   * 就地更新训练作业配置
+   */
+  async ModifyTrainingJobSpec(
+    req: ModifyTrainingJobSpecRequest,
+    cb?: (error: string, rep: ModifyTrainingJobSpecResponse) => void
+  ): Promise<ModifyTrainingJobSpecResponse> {
+    return this.request("ModifyTrainingJobSpec", req, cb)
   }
 
   /**
@@ -1342,33 +1695,273 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 该接口（DeleteScript）用于删除sql脚本。
+   * 续费数据引擎
    */
-  async DeleteScript(
-    req: DeleteScriptRequest,
-    cb?: (error: string, rep: DeleteScriptResponse) => void
-  ): Promise<DeleteScriptResponse> {
-    return this.request("DeleteScript", req, cb)
+  async RenewDataEngine(
+    req: RenewDataEngineRequest,
+    cb?: (error: string, rep: RenewDataEngineResponse) => void
+  ): Promise<RenewDataEngineResponse> {
+    return this.request("RenewDataEngine", req, cb)
   }
 
   /**
-   * 本接口（DescribeDataEngineSessionParameters）用于获取指定小版本下的Session配置。
+   * 本接口（DescribeViews）用于查询数据视图列表。
    */
-  async DescribeDataEngineSessionParameters(
-    req: DescribeDataEngineSessionParametersRequest,
-    cb?: (error: string, rep: DescribeDataEngineSessionParametersResponse) => void
-  ): Promise<DescribeDataEngineSessionParametersResponse> {
-    return this.request("DescribeDataEngineSessionParameters", req, cb)
+  async DescribeViews(
+    req: DescribeViewsRequest,
+    cb?: (error: string, rep: DescribeViewsResponse) => void
+  ): Promise<DescribeViewsResponse> {
+    return this.request("DescribeViews", req, cb)
   }
 
   /**
-   * 获取所有案例分类
+   * 停止实验室
    */
-  async ListExampleCategories(
-    req: ListExampleCategoriesRequest,
-    cb?: (error: string, rep: ListExampleCategoriesResponse) => void
-  ): Promise<ListExampleCategoriesResponse> {
-    return this.request("ListExampleCategories", req, cb)
+  async StopLab(
+    req: StopLabRequest,
+    cb?: (error: string, rep: StopLabResponse) => void
+  ): Promise<StopLabResponse> {
+    return this.request("StopLab", req, cb)
+  }
+
+  /**
+   * 查询 TKE 集群可绑定的托管 Prometheus 实例列表。若 TKE 已绑定，返回 Bound=true 与 BoundInstance；若未绑定，返回 Bound=false 与候选列表 Instances（同 VPC 实例前置）。
+   */
+  async DescribeBindablePrometheus(
+    req: DescribeBindablePrometheusRequest,
+    cb?: (error: string, rep: DescribeBindablePrometheusResponse) => void
+  ): Promise<DescribeBindablePrometheusResponse> {
+    return this.request("DescribeBindablePrometheus", req, cb)
+  }
+
+  /**
+   * 绑定工作组到用户
+   */
+  async BindWorkGroupsToUser(
+    req: BindWorkGroupsToUserRequest,
+    cb?: (error: string, rep: BindWorkGroupsToUserResponse) => void
+  ): Promise<BindWorkGroupsToUserResponse> {
+    return this.request("BindWorkGroupsToUser", req, cb)
+  }
+
+  /**
+   * 获取训练作业配置的列表。
+   */
+  async ListTrainingJobSpec(
+    req: ListTrainingJobSpecRequest,
+    cb?: (error: string, rep: ListTrainingJobSpecResponse) => void
+  ): Promise<ListTrainingJobSpecResponse> {
+    return this.request("ListTrainingJobSpec", req, cb)
+  }
+
+  /**
+   * 获取数据实验室对应的RayCluster YAML内容
+   */
+  async GetLabYaml(
+    req: GetLabYamlRequest,
+    cb?: (error: string, rep: GetLabYamlResponse) => void
+  ): Promise<GetLabYamlResponse> {
+    return this.request("GetLabYaml", req, cb)
+  }
+
+  /**
+   * 创建数据脱敏策略
+   */
+  async CreateDataMaskStrategy(
+    req: CreateDataMaskStrategyRequest,
+    cb?: (error: string, rep: CreateDataMaskStrategyResponse) => void
+  ): Promise<CreateDataMaskStrategyResponse> {
+    return this.request("CreateDataMaskStrategy", req, cb)
+  }
+
+  /**
+   * 更新数据脱敏策略
+   */
+  async UpdateDataMaskStrategy(
+    req: UpdateDataMaskStrategyRequest,
+    cb?: (error: string, rep: UpdateDataMaskStrategyResponse) => void
+  ): Promise<UpdateDataMaskStrategyResponse> {
+    return this.request("UpdateDataMaskStrategy", req, cb)
+  }
+
+  /**
+   * 删除模型版本（平台托管模型同时删除 COS 文件，用户自带桶仅删除元数据）
+   */
+  async DeleteModelVersion(
+    req: DeleteModelVersionRequest,
+    cb?: (error: string, rep: DeleteModelVersionResponse) => void
+  ): Promise<DeleteModelVersionResponse> {
+    return this.request("DeleteModelVersion", req, cb)
+  }
+
+  /**
+   * 更新实验室配置：仅在 CREATED / STOPPED / FAILED 终态可用；变更落 MySQL，下次 Start 按新 spec 创建 K8s 资源
+   */
+  async UpdateLab(
+    req: UpdateLabRequest,
+    cb?: (error: string, rep: UpdateLabResponse) => void
+  ): Promise<UpdateLabResponse> {
+    return this.request("UpdateLab", req, cb)
+  }
+
+  /**
+   * 查询标准引擎资源组信息
+   */
+  async DescribeStandardEngineResourceGroupConfigInfo(
+    req: DescribeStandardEngineResourceGroupConfigInfoRequest,
+    cb?: (error: string, rep: DescribeStandardEngineResourceGroupConfigInfoResponse) => void
+  ): Promise<DescribeStandardEngineResourceGroupConfigInfoResponse> {
+    return this.request("DescribeStandardEngineResourceGroupConfigInfo", req, cb)
+  }
+
+  /**
+   * 添加用户到工作组
+   */
+  async AddUsersToWorkGroup(
+    req: AddUsersToWorkGroupRequest,
+    cb?: (error: string, rep: AddUsersToWorkGroupResponse) => void
+  ): Promise<AddUsersToWorkGroupResponse> {
+    return this.request("AddUsersToWorkGroup", req, cb)
+  }
+
+  /**
+   * DMS元数据更新表
+   */
+  async AlterDMSTable(
+    req: AlterDMSTableRequest,
+    cb?: (error: string, rep: AlterDMSTableResponse) => void
+  ): Promise<AlterDMSTableResponse> {
+    return this.request("AlterDMSTable", req, cb)
+  }
+
+  /**
+   * 开通TCLake
+   */
+  async InitializeTCLake(
+    req?: InitializeTCLakeRequest,
+    cb?: (error: string, rep: InitializeTCLakeResponse) => void
+  ): Promise<InitializeTCLakeResponse> {
+    return this.request("InitializeTCLake", req, cb)
+  }
+
+  /**
+   * 启动标准引擎资源组
+   */
+  async LaunchStandardEngineResourceGroups(
+    req: LaunchStandardEngineResourceGroupsRequest,
+    cb?: (error: string, rep: LaunchStandardEngineResourceGroupsResponse) => void
+  ): Promise<LaunchStandardEngineResourceGroupsResponse> {
+    return this.request("LaunchStandardEngineResourceGroups", req, cb)
+  }
+
+  /**
+   * 查询任务监控指标信息
+   */
+  async DescribeTaskMonitorInfos(
+    req: DescribeTaskMonitorInfosRequest,
+    cb?: (error: string, rep: DescribeTaskMonitorInfosResponse) => void
+  ): Promise<DescribeTaskMonitorInfosResponse> {
+    return this.request("DescribeTaskMonitorInfos", req, cb)
+  }
+
+  /**
+   * 更新集群配置：仅在 CREATED / STOPPED / FAILED 终态可用；变更落 MySQL，下次 Start 按新 spec 创建 K8s 资源
+   */
+  async UpdateRayCluster(
+    req: UpdateRayClusterRequest,
+    cb?: (error: string, rep: UpdateRayClusterResponse) => void
+  ): Promise<UpdateRayClusterResponse> {
+    return this.request("UpdateRayCluster", req, cb)
+  }
+
+  /**
+   * 查询可更新配置的引擎列表
+   */
+  async DescribeUpdatableDataEngines(
+    req: DescribeUpdatableDataEnginesRequest,
+    cb?: (error: string, rep: DescribeUpdatableDataEnginesResponse) => void
+  ): Promise<DescribeUpdatableDataEnginesResponse> {
+    return this.request("DescribeUpdatableDataEngines", req, cb)
+  }
+
+  /**
+   * 训练作业配置与普通 RayJob 配置共用 job_spec 表及 (appId, name) 唯一命名空间，重名检查统一挂在本接口，供两类前端表单复用
+   */
+  async CheckJobSpecName(
+    req: CheckJobSpecNameRequest,
+    cb?: (error: string, rep: CheckJobSpecNameResponse) => void
+  ): Promise<CheckJobSpecNameResponse> {
+    return this.request("CheckJobSpecName", req, cb)
+  }
+
+  /**
+   * 基于指定作业配置提交一次作业实例
+   */
+  async RunJobSpec(
+    req: RunJobSpecRequest,
+    cb?: (error: string, rep: RunJobSpecResponse) => void
+  ): Promise<RunJobSpecResponse> {
+    return this.request("RunJobSpec", req, cb)
+  }
+
+  /**
+   * 删除 MlFlow Server 请求
+   */
+  async DeleteMlflowServer(
+    req: DeleteMlflowServerRequest,
+    cb?: (error: string, rep: DeleteMlflowServerResponse) => void
+  ): Promise<DeleteMlflowServerResponse> {
+    return this.request("DeleteMlflowServer", req, cb)
+  }
+
+  /**
+   * 本接口（CreateSparkSubmitTask）用于提交SparkSbumit批流任务。
+   */
+  async CreateSparkSubmitTask(
+    req: CreateSparkSubmitTaskRequest,
+    cb?: (error: string, rep: CreateSparkSubmitTaskResponse) => void
+  ): Promise<CreateSparkSubmitTaskResponse> {
+    return this.request("CreateSparkSubmitTask", req, cb)
+  }
+
+  /**
+   * 分页查询作业配置列表
+   */
+  async ListJobSpecs(
+    req: ListJobSpecsRequest,
+    cb?: (error: string, rep: ListJobSpecsResponse) => void
+  ): Promise<ListJobSpecsResponse> {
+    return this.request("ListJobSpecs", req, cb)
+  }
+
+  /**
+   * 删除资源队列
+   */
+  async DeletePartitionQueue(
+    req: DeletePartitionQueueRequest,
+    cb?: (error: string, rep: DeletePartitionQueueResponse) => void
+  ): Promise<DeletePartitionQueueResponse> {
+    return this.request("DeletePartitionQueue", req, cb)
+  }
+
+  /**
+   * 绑定 API Key 到推理服务
+   */
+  async BindApiKey(
+    req: BindApiKeyRequest,
+    cb?: (error: string, rep: BindApiKeyResponse) => void
+  ): Promise<BindApiKeyResponse> {
+    return this.request("BindApiKey", req, cb)
+  }
+
+  /**
+   * 该接口（CreateScript）用于创建sql脚本。
+   */
+  async CreateScript(
+    req: CreateScriptRequest,
+    cb?: (error: string, rep: CreateScriptResponse) => void
+  ): Promise<CreateScriptResponse> {
+    return this.request("CreateScript", req, cb)
   }
 
   /**
@@ -1379,16 +1972,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateSparkAppTaskResponse) => void
   ): Promise<CreateSparkAppTaskResponse> {
     return this.request("CreateSparkAppTask", req, cb)
-  }
-
-  /**
-   * 此接口（DescribeOtherCHDFSBindingList）用于查询其他产品元数据加速桶绑定列表
-   */
-  async DescribeOtherCHDFSBindingList(
-    req: DescribeOtherCHDFSBindingListRequest,
-    cb?: (error: string, rep: DescribeOtherCHDFSBindingListResponse) => void
-  ): Promise<DescribeOtherCHDFSBindingListResponse> {
-    return this.request("DescribeOtherCHDFSBindingList", req, cb)
   }
 
   /**
@@ -1412,33 +1995,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 修改集群的调度优先级（1-9，数字越大优先级越高）
+   * 检查 API Key 名称是否重复
    */
-  async ModifyClusterPriority(
-    req: ModifyClusterPriorityRequest,
-    cb?: (error: string, rep: ModifyClusterPriorityResponse) => void
-  ): Promise<ModifyClusterPriorityResponse> {
-    return this.request("ModifyClusterPriority", req, cb)
-  }
-
-  /**
-   * 查询托管存储指定目录的Summary
-   */
-  async DescribeLakeFsDirSummary(
-    req?: DescribeLakeFsDirSummaryRequest,
-    cb?: (error: string, rep: DescribeLakeFsDirSummaryResponse) => void
-  ): Promise<DescribeLakeFsDirSummaryResponse> {
-    return this.request("DescribeLakeFsDirSummary", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeDatabases）用于查询数据库列表。
-   */
-  async DescribeDatabases(
-    req: DescribeDatabasesRequest,
-    cb?: (error: string, rep: DescribeDatabasesResponse) => void
-  ): Promise<DescribeDatabasesResponse> {
-    return this.request("DescribeDatabases", req, cb)
+  async CheckApiKeyName(
+    req: CheckApiKeyNameRequest,
+    cb?: (error: string, rep: CheckApiKeyNameResponse) => void
+  ): Promise<CheckApiKeyNameResponse> {
+    return this.request("CheckApiKeyName", req, cb)
   }
 
   /**
@@ -1452,16 +2015,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取实验室详情
-   */
-  async GetLabDetail(
-    req: GetLabDetailRequest,
-    cb?: (error: string, rep: GetLabDetailResponse) => void
-  ): Promise<GetLabDetailResponse> {
-    return this.request("GetLabDetail", req, cb)
-  }
-
-  /**
    * DMS元数据更新分区
    */
   async AlterDMSPartition(
@@ -1472,73 +2025,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 计算组关联 cluster 使用情况响应
+   * 查询 CLS 日志主题列表：TopicName 走模糊匹配，TopicId 走精确匹配，两者均可为空；分页返回。
    */
-  async DescribeClusterGroupClusters(
-    req: DescribeClusterGroupClustersRequest,
-    cb?: (error: string, rep: DescribeClusterGroupClustersResponse) => void
-  ): Promise<DescribeClusterGroupClustersResponse> {
-    return this.request("DescribeClusterGroupClusters", req, cb)
-  }
-
-  /**
-   * 获取集群Pod的YAML内容
-   */
-  async GetRayClusterPodYaml(
-    req: GetRayClusterPodYamlRequest,
-    cb?: (error: string, rep: GetRayClusterPodYamlResponse) => void
-  ): Promise<GetRayClusterPodYamlResponse> {
-    return this.request("GetRayClusterPodYaml", req, cb)
-  }
-
-  /**
-   * 本接口（RegisterThirdPartyAccessUser）查询开通第三方平台访问的用户信息
-   */
-  async DescribeThirdPartyAccessUser(
-    req?: DescribeThirdPartyAccessUserRequest,
-    cb?: (error: string, rep: DescribeThirdPartyAccessUserResponse) => void
-  ): Promise<DescribeThirdPartyAccessUserResponse> {
-    return this.request("DescribeThirdPartyAccessUser", req, cb)
-  }
-
-  /**
-   * 获取模型文件树（默认最新版本）
-   */
-  async GetModelFiles(
-    req: GetModelFilesRequest,
-    cb?: (error: string, rep: GetModelFilesResponse) => void
-  ): Promise<GetModelFilesResponse> {
-    return this.request("GetModelFiles", req, cb)
-  }
-
-  /**
-   * 获取实验室的状态变更历史记录
-   */
-  async GetLabHistory(
-    req: GetLabHistoryRequest,
-    cb?: (error: string, rep: GetLabHistoryResponse) => void
-  ): Promise<GetLabHistoryResponse> {
-    return this.request("GetLabHistory", req, cb)
-  }
-
-  /**
-   * 重启引擎
-   */
-  async RestartDataEngine(
-    req: RestartDataEngineRequest,
-    cb?: (error: string, rep: RestartDataEngineResponse) => void
-  ): Promise<RestartDataEngineResponse> {
-    return this.request("RestartDataEngine", req, cb)
-  }
-
-  /**
-   * 创建用户
-   */
-  async CreateUser(
-    req: CreateUserRequest,
-    cb?: (error: string, rep: CreateUserResponse) => void
-  ): Promise<CreateUserResponse> {
-    return this.request("CreateUser", req, cb)
+  async DescribeClsTopics(
+    req: DescribeClsTopicsRequest,
+    cb?: (error: string, rep: DescribeClsTopicsResponse) => void
+  ): Promise<DescribeClsTopicsResponse> {
+    return this.request("DescribeClsTopics", req, cb)
   }
 
   /**
@@ -1552,53 +2045,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取集群状态历史
+   * 停止 MlFlow Server
    */
-  async GetRayClusterHistory(
-    req: GetRayClusterHistoryRequest,
-    cb?: (error: string, rep: GetRayClusterHistoryResponse) => void
-  ): Promise<GetRayClusterHistoryResponse> {
-    return this.request("GetRayClusterHistory", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeTables）用于查询数据表列表。
-   */
-  async DescribeTables(
-    req: DescribeTablesRequest,
-    cb?: (error: string, rep: DescribeTablesResponse) => void
-  ): Promise<DescribeTablesResponse> {
-    return this.request("DescribeTables", req, cb)
-  }
-
-  /**
-   * 本接口（ListTaskJobLogName）用于获取spark-jar日志名称列表
-   */
-  async ListTaskJobLogName(
-    req: ListTaskJobLogNameRequest,
-    cb?: (error: string, rep: ListTaskJobLogNameResponse) => void
-  ): Promise<ListTaskJobLogNameResponse> {
-    return this.request("ListTaskJobLogName", req, cb)
-  }
-
-  /**
-   * 切换引擎镜像版本
-   */
-  async SwitchDataEngineImage(
-    req: SwitchDataEngineImageRequest,
-    cb?: (error: string, rep: SwitchDataEngineImageResponse) => void
-  ): Promise<SwitchDataEngineImageResponse> {
-    return this.request("SwitchDataEngineImage", req, cb)
-  }
-
-  /**
-   * 绑定数据源和队列
-   */
-  async AssociateDatasourceHouse(
-    req: AssociateDatasourceHouseRequest,
-    cb?: (error: string, rep: AssociateDatasourceHouseResponse) => void
-  ): Promise<AssociateDatasourceHouseResponse> {
-    return this.request("AssociateDatasourceHouse", req, cb)
+  async StopMlflowServer(
+    req: StopMlflowServerRequest,
+    cb?: (error: string, rep: StopMlflowServerResponse) => void
+  ): Promise<StopMlflowServerResponse> {
+    return this.request("StopMlflowServer", req, cb)
   }
 
   /**
@@ -1612,76 +2065,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取LakeFs上task执行结果访问信息
-   */
-  async DescribeLakeFsTaskResult(
-    req: DescribeLakeFsTaskResultRequest,
-    cb?: (error: string, rep: DescribeLakeFsTaskResultResponse) => void
-  ): Promise<DescribeLakeFsTaskResultResponse> {
-    return this.request("DescribeLakeFsTaskResult", req, cb)
-  }
-
-  /**
-   * 添加数据优化资源
-   */
-  async AddOptimizerEngines(
-    req: AddOptimizerEnginesRequest,
-    cb?: (error: string, rep: AddOptimizerEnginesResponse) => void
-  ): Promise<AddOptimizerEnginesResponse> {
-    return this.request("AddOptimizerEngines", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeDataEngineImageVersions）用于获取独享集群大版本镜像列表。
-   */
-  async DescribeDataEngineImageVersions(
-    req: DescribeDataEngineImageVersionsRequest,
-    cb?: (error: string, rep: DescribeDataEngineImageVersionsResponse) => void
-  ): Promise<DescribeDataEngineImageVersionsResponse> {
-    return this.request("DescribeDataEngineImageVersions", req, cb)
-  }
-
-  /**
-   * 查询sql查询界面高级设置
-   */
-  async DescribeAdvancedStoreLocation(
-    req?: DescribeAdvancedStoreLocationRequest,
-    cb?: (error: string, rep: DescribeAdvancedStoreLocationResponse) => void
-  ): Promise<DescribeAdvancedStoreLocationResponse> {
-    return this.request("DescribeAdvancedStoreLocation", req, cb)
-  }
-
-  /**
-   * 修改表备注
-   */
-  async AlterTableComment(
-    req: AlterTableCommentRequest,
-    cb?: (error: string, rep: AlterTableCommentResponse) => void
-  ): Promise<AlterTableCommentResponse> {
-    return this.request("AlterTableComment", req, cb)
-  }
-
-  /**
-   * 查询spark作业列表
-   */
-  async DescribeSparkAppJobs(
-    req: DescribeSparkAppJobsRequest,
-    cb?: (error: string, rep: DescribeSparkAppJobsResponse) => void
-  ): Promise<DescribeSparkAppJobsResponse> {
-    return this.request("DescribeSparkAppJobs", req, cb)
-  }
-
-  /**
-   * 分页查询某作业配置下产生的所有作业实例
-   */
-  async ListJobsBySpec(
-    req: ListJobsBySpecRequest,
-    cb?: (error: string, rep: ListJobsBySpecResponse) => void
-  ): Promise<ListJobsBySpecResponse> {
-    return this.request("ListJobsBySpec", req, cb)
-  }
-
-  /**
    * 获取用户列表信息
    */
   async DescribeUsers(
@@ -1692,23 +2075,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（CreateTasks），用于批量创建并执行SQL任务
+   * 为已有推理服务新增部署
    */
-  async CreateTasks(
-    req: CreateTasksRequest,
-    cb?: (error: string, rep: CreateTasksResponse) => void
-  ): Promise<CreateTasksResponse> {
-    return this.request("CreateTasks", req, cb)
-  }
-
-  /**
-   * 该接口（DescribeScripts）用于查询SQL脚本列表
-   */
-  async DescribeScripts(
-    req: DescribeScriptsRequest,
-    cb?: (error: string, rep: DescribeScriptsResponse) => void
-  ): Promise<DescribeScriptsResponse> {
-    return this.request("DescribeScripts", req, cb)
+  async AddDeployment(
+    req: AddDeploymentRequest,
+    cb?: (error: string, rep: AddDeploymentResponse) => void
+  ): Promise<AddDeploymentResponse> {
+    return this.request("AddDeployment", req, cb)
   }
 
   /**
@@ -1719,36 +2092,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: GenerateInternalTableResponse) => void
   ): Promise<GenerateInternalTableResponse> {
     return this.request("GenerateInternalTable", req, cb)
-  }
-
-  /**
-   * 更新标准引擎资源组基础信息
-   */
-  async UpdateStandardEngineResourceGroupConfigInfo(
-    req: UpdateStandardEngineResourceGroupConfigInfoRequest,
-    cb?: (error: string, rep: UpdateStandardEngineResourceGroupConfigInfoResponse) => void
-  ): Promise<UpdateStandardEngineResourceGroupConfigInfoResponse> {
-    return this.request("UpdateStandardEngineResourceGroupConfigInfo", req, cb)
-  }
-
-  /**
-   * 查询任务监控指标信息
-   */
-  async DescribeClusterMonitorInfos(
-    req: DescribeClusterMonitorInfosRequest,
-    cb?: (error: string, rep: DescribeClusterMonitorInfosResponse) => void
-  ): Promise<DescribeClusterMonitorInfosResponse> {
-    return this.request("DescribeClusterMonitorInfos", req, cb)
-  }
-
-  /**
-   * 创建实验室
-   */
-  async CreateLab(
-    req: CreateLabRequest,
-    cb?: (error: string, rep: CreateLabResponse) => void
-  ): Promise<CreateLabResponse> {
-    return this.request("CreateLab", req, cb)
   }
 
   /**
@@ -1772,73 +2115,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建推理模型（模型上传）
+   * 查询引擎可用的节点规格
    */
-  async CreateInferenceModel(
-    req: CreateInferenceModelRequest,
-    cb?: (error: string, rep: CreateInferenceModelResponse) => void
-  ): Promise<CreateInferenceModelResponse> {
-    return this.request("CreateInferenceModel", req, cb)
-  }
-
-  /**
-   * 暂停标准引擎session
-   */
-  async PauseStandardEngineResourceGroups(
-    req: PauseStandardEngineResourceGroupsRequest,
-    cb?: (error: string, rep: PauseStandardEngineResourceGroupsResponse) => void
-  ): Promise<PauseStandardEngineResourceGroupsResponse> {
-    return this.request("PauseStandardEngineResourceGroups", req, cb)
-  }
-
-  /**
-   * 上报元数据心跳
-   */
-  async ReportHeartbeatMetaData(
-    req: ReportHeartbeatMetaDataRequest,
-    cb?: (error: string, rep: ReportHeartbeatMetaDataResponse) => void
-  ): Promise<ReportHeartbeatMetaDataResponse> {
-    return this.request("ReportHeartbeatMetaData", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeSparkSessionBatchSQLCost）用于查询Spark SQL批任务消耗
-   */
-  async DescribeSparkSessionBatchSQLCost(
-    req: DescribeSparkSessionBatchSQLCostRequest,
-    cb?: (error: string, rep: DescribeSparkSessionBatchSQLCostResponse) => void
-  ): Promise<DescribeSparkSessionBatchSQLCostResponse> {
-    return this.request("DescribeSparkSessionBatchSQLCost", req, cb)
-  }
-
-  /**
-   * 查询可更新配置的引擎列表
-   */
-  async DescribeUpdatableDataEngines(
-    req: DescribeUpdatableDataEnginesRequest,
-    cb?: (error: string, rep: DescribeUpdatableDataEnginesResponse) => void
-  ): Promise<DescribeUpdatableDataEnginesResponse> {
-    return this.request("DescribeUpdatableDataEngines", req, cb)
-  }
-
-  /**
-   * 创建模型新版本
-   */
-  async CreateModelVersion(
-    req: CreateModelVersionRequest,
-    cb?: (error: string, rep: CreateModelVersionResponse) => void
-  ): Promise<CreateModelVersionResponse> {
-    return this.request("CreateModelVersion", req, cb)
-  }
-
-  /**
-   * 校验资源名称合法性
-   */
-  async CheckResourceName(
-    req: CheckResourceNameRequest,
-    cb?: (error: string, rep: CheckResourceNameResponse) => void
-  ): Promise<CheckResourceNameResponse> {
-    return this.request("CheckResourceName", req, cb)
+  async DescribeEngineNodeSpec(
+    req: DescribeEngineNodeSpecRequest,
+    cb?: (error: string, rep: DescribeEngineNodeSpecResponse) => void
+  ): Promise<DescribeEngineNodeSpecResponse> {
+    return this.request("DescribeEngineNodeSpec", req, cb)
   }
 
   /**
@@ -1852,23 +2135,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建托管存储内表（该接口已废弃）
+   * 该接口（DescribeTasksCostInfo）用于查询任务消耗
    */
-  async CreateInternalTable(
-    req: CreateInternalTableRequest,
-    cb?: (error: string, rep: CreateInternalTableResponse) => void
-  ): Promise<CreateInternalTableResponse> {
-    return this.request("CreateInternalTable", req, cb)
-  }
-
-  /**
-   * 生成创建托管表语句
-   */
-  async GenerateCreateMangedTableSql(
-    req: GenerateCreateMangedTableSqlRequest,
-    cb?: (error: string, rep: GenerateCreateMangedTableSqlResponse) => void
-  ): Promise<GenerateCreateMangedTableSqlResponse> {
-    return this.request("GenerateCreateMangedTableSql", req, cb)
+  async DescribeTasksCostInfo(
+    req: DescribeTasksCostInfoRequest,
+    cb?: (error: string, rep: DescribeTasksCostInfoResponse) => void
+  ): Promise<DescribeTasksCostInfoResponse> {
+    return this.request("DescribeTasksCostInfo", req, cb)
   }
 
   /**
@@ -1892,16 +2165,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取所有案例分类
-   */
-  async ListExampleDifficulties(
-    req: ListExampleDifficultiesRequest,
-    cb?: (error: string, rep: ListExampleDifficultiesResponse) => void
-  ): Promise<ListExampleDifficultiesResponse> {
-    return this.request("ListExampleDifficulties", req, cb)
-  }
-
-  /**
    * 创建spark作业
    */
   async CreateSparkApp(
@@ -1909,66 +2172,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateSparkAppResponse) => void
   ): Promise<CreateSparkAppResponse> {
     return this.request("CreateSparkApp", req, cb)
-  }
-
-  /**
-   * 创建用户vpc连接到指定引擎网络
-   */
-  async CreateUserVpcConnection(
-    req: CreateUserVpcConnectionRequest,
-    cb?: (error: string, rep: CreateUserVpcConnectionResponse) => void
-  ): Promise<CreateUserVpcConnectionResponse> {
-    return this.request("CreateUserVpcConnection", req, cb)
-  }
-
-  /**
-   * 此接口用于更新行过滤规则。注意只能更新过滤规则，不能更新规格对象catalog，database和table。
-   */
-  async UpdateRowFilter(
-    req: UpdateRowFilterRequest,
-    cb?: (error: string, rep: UpdateRowFilterResponse) => void
-  ): Promise<UpdateRowFilterResponse> {
-    return this.request("UpdateRowFilter", req, cb)
-  }
-
-  /**
-   * 基于指定作业配置提交一次作业实例
-   */
-  async RunJobSpec(
-    req: RunJobSpecRequest,
-    cb?: (error: string, rep: RunJobSpecResponse) => void
-  ): Promise<RunJobSpecResponse> {
-    return this.request("RunJobSpec", req, cb)
-  }
-
-  /**
-   * 删除标准引擎资源组
-   */
-  async DeleteStandardEngineResourceGroup(
-    req: DeleteStandardEngineResourceGroupRequest,
-    cb?: (error: string, rep: DeleteStandardEngineResourceGroupResponse) => void
-  ): Promise<DeleteStandardEngineResourceGroupResponse> {
-    return this.request("DeleteStandardEngineResourceGroup", req, cb)
-  }
-
-  /**
-   * 本接口（CreateDatabase）用于生成建库SQL语句。
-   */
-  async CreateDatabase(
-    req: CreateDatabaseRequest,
-    cb?: (error: string, rep: CreateDatabaseResponse) => void
-  ): Promise<CreateDatabaseResponse> {
-    return this.request("CreateDatabase", req, cb)
-  }
-
-  /**
-   * 回滚引擎镜像版本
-   */
-  async RollbackDataEngineImage(
-    req: RollbackDataEngineImageRequest,
-    cb?: (error: string, rep: RollbackDataEngineImageResponse) => void
-  ): Promise<RollbackDataEngineImageResponse> {
-    return this.request("RollbackDataEngineImage", req, cb)
   }
 
   /**
@@ -1982,143 +2185,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（DescribeSubUserAccessPolicy）用于开通了第三方平台访问的用户，查询其子用户的访问策略
+   * 创建 API Key
    */
-  async DescribeSubUserAccessPolicy(
-    req?: DescribeSubUserAccessPolicyRequest,
-    cb?: (error: string, rep: DescribeSubUserAccessPolicyResponse) => void
-  ): Promise<DescribeSubUserAccessPolicyResponse> {
-    return this.request("DescribeSubUserAccessPolicy", req, cb)
+  async CreateApiKey(
+    req: CreateApiKeyRequest,
+    cb?: (error: string, rep: CreateApiKeyResponse) => void
+  ): Promise<CreateApiKeyResponse> {
+    return this.request("CreateApiKey", req, cb)
   }
 
   /**
-   * 本接口（CreateSparkSessionBatchSQL）用于向Spark作业引擎提交Spark SQL批任务。
+   * 更新部署配置
    */
-  async CreateSparkSessionBatchSQL(
-    req: CreateSparkSessionBatchSQLRequest,
-    cb?: (error: string, rep: CreateSparkSessionBatchSQLResponse) => void
-  ): Promise<CreateSparkSessionBatchSQLResponse> {
-    return this.request("CreateSparkSessionBatchSQL", req, cb)
-  }
-
-  /**
-   * 创建集群组
-   */
-  async CreateClusterGroup(
-    req: CreateClusterGroupRequest,
-    cb?: (error: string, rep: CreateClusterGroupResponse) => void
-  ): Promise<CreateClusterGroupResponse> {
-    return this.request("CreateClusterGroup", req, cb)
-  }
-
-  /**
-   * 获取UDF权限信息
-   */
-  async DescribeUDFPolicy(
-    req: DescribeUDFPolicyRequest,
-    cb?: (error: string, rep: DescribeUDFPolicyResponse) => void
-  ): Promise<DescribeUDFPolicyResponse> {
-    return this.request("DescribeUDFPolicy", req, cb)
-  }
-
-  /**
-   * 更新处于 SUBMITTED/PENDING 状态的作业的优先级。仅 SUBMITTED/PENDING 状态的作业允许调整优先级。内部通过调用 Neutrino 的 UpdateJobConfig 接口更新 ENVIRONMENT 配置中的 priority 字段。
-   */
-  async UpdateRayJobPriority(
-    req: UpdateRayJobPriorityRequest,
-    cb?: (error: string, rep: UpdateRayJobPriorityResponse) => void
-  ): Promise<UpdateRayJobPriorityResponse> {
-    return this.request("UpdateRayJobPriority", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeNotebookSessionStatements）用于查询Session中执行的任务列表
-   */
-  async DescribeNotebookSessionStatements(
-    req: DescribeNotebookSessionStatementsRequest,
-    cb?: (error: string, rep: DescribeNotebookSessionStatementsResponse) => void
-  ): Promise<DescribeNotebookSessionStatementsResponse> {
-    return this.request("DescribeNotebookSessionStatements", req, cb)
-  }
-
-  /**
-   * 获取Ray集群详情请求
-   */
-  async GetRayCluster(
-    req: GetRayClusterRequest,
-    cb?: (error: string, rep: GetRayClusterResponse) => void
-  ): Promise<GetRayClusterResponse> {
-    return this.request("GetRayCluster", req, cb)
-  }
-
-  /**
-   * 授权访问DLC Catalog
-   */
-  async GrantDLCCatalogAccess(
-    req: GrantDLCCatalogAccessRequest,
-    cb?: (error: string, rep: GrantDLCCatalogAccessResponse) => void
-  ): Promise<GrantDLCCatalogAccessResponse> {
-    return this.request("GrantDLCCatalogAccess", req, cb)
-  }
-
-  /**
-   * 更新推理模型（编辑标签、描述、参数量）
-   */
-  async UpdateInferenceModel(
-    req: UpdateInferenceModelRequest,
-    cb?: (error: string, rep: UpdateInferenceModelResponse) => void
-  ): Promise<UpdateInferenceModelResponse> {
-    return this.request("UpdateInferenceModel", req, cb)
-  }
-
-  /**
-   * 更新集群配置：仅在 CREATED / STOPPED / FAILED 终态可用；变更落 MySQL，下次 Start 按新 spec 创建 K8s 资源
-   */
-  async UpdateRayCluster(
-    req: UpdateRayClusterRequest,
-    cb?: (error: string, rep: UpdateRayClusterResponse) => void
-  ): Promise<UpdateRayClusterResponse> {
-    return this.request("UpdateRayCluster", req, cb)
-  }
-
-  /**
-   * 复制一份已有的作业配置
-   */
-  async CopyJobSpec(
-    req: CopyJobSpecRequest,
-    cb?: (error: string, rep: CopyJobSpecResponse) => void
-  ): Promise<CopyJobSpecResponse> {
-    return this.request("CopyJobSpec", req, cb)
-  }
-
-  /**
-   * 该接口（QueryTaskCostDetail）用于查询任务消耗明细
-   */
-  async QueryTaskCostDetail(
-    req: QueryTaskCostDetailRequest,
-    cb?: (error: string, rep: QueryTaskCostDetailResponse) => void
-  ): Promise<QueryTaskCostDetailResponse> {
-    return this.request("QueryTaskCostDetail", req, cb)
-  }
-
-  /**
-   * 更新集群组
-   */
-  async UpdateClusterGroup(
-    req: UpdateClusterGroupRequest,
-    cb?: (error: string, rep: UpdateClusterGroupResponse) => void
-  ): Promise<UpdateClusterGroupResponse> {
-    return this.request("UpdateClusterGroup", req, cb)
-  }
-
-  /**
-   * 更新资源配置模板
-   */
-  async UpdateResourceConfig(
-    req: UpdateResourceConfigRequest,
-    cb?: (error: string, rep: UpdateResourceConfigResponse) => void
-  ): Promise<UpdateResourceConfigResponse> {
-    return this.request("UpdateResourceConfig", req, cb)
+  async UpdateDeployment(
+    req: UpdateDeploymentRequest,
+    cb?: (error: string, rep: UpdateDeploymentResponse) => void
+  ): Promise<UpdateDeploymentResponse> {
+    return this.request("UpdateDeployment", req, cb)
   }
 
   /**
@@ -2129,26 +2212,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: StartRayClusterResponse) => void
   ): Promise<StartRayClusterResponse> {
     return this.request("StartRayCluster", req, cb)
-  }
-
-  /**
-   * 本接口用于控制挂起或启动数据引擎
-   */
-  async SuspendResumeDataEngine(
-    req: SuspendResumeDataEngineRequest,
-    cb?: (error: string, rep: SuspendResumeDataEngineResponse) => void
-  ): Promise<SuspendResumeDataEngineResponse> {
-    return this.request("SuspendResumeDataEngine", req, cb)
-  }
-
-  /**
-   * 获取作业事件日志
-   */
-  async GetRayJobEventLog(
-    req: GetRayJobEventLogRequest,
-    cb?: (error: string, rep: GetRayJobEventLogResponse) => void
-  ): Promise<GetRayJobEventLogResponse> {
-    return this.request("GetRayJobEventLog", req, cb)
   }
 
   /**
@@ -2172,53 +2235,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取数据实验室的Pod列表
+   * 获取资源配置模板详情
    */
-  async GetLabPods(
-    req: GetLabPodsRequest,
-    cb?: (error: string, rep: GetLabPodsResponse) => void
-  ): Promise<GetLabPodsResponse> {
-    return this.request("GetLabPods", req, cb)
+  async GetResourceConfig(
+    req: GetResourceConfigRequest,
+    cb?: (error: string, rep: GetResourceConfigResponse) => void
+  ): Promise<GetResourceConfigResponse> {
+    return this.request("GetResourceConfig", req, cb)
   }
 
   /**
-   * 绑定鉴权策略到用户
+   * 修改实验室的调度优先级（1-9，数字越大优先级越高）
    */
-  async AttachUserPolicy(
-    req: AttachUserPolicyRequest,
-    cb?: (error: string, rep: AttachUserPolicyResponse) => void
-  ): Promise<AttachUserPolicyResponse> {
-    return this.request("AttachUserPolicy", req, cb)
-  }
-
-  /**
-   * 停止实验室
-   */
-  async StopLab(
-    req: StopLabRequest,
-    cb?: (error: string, rep: StopLabResponse) => void
-  ): Promise<StopLabResponse> {
-    return this.request("StopLab", req, cb)
-  }
-
-  /**
-   * 查询当前地域可售卖的资源规格、最大配额，以及库存情况。StatusCategory 与 DescribePartitionAvailableQuota 数据同源，将实时可新增数量映射为库存分级；当请求 Region 与资源池实际部署地域不一致，或服务 cold-start 快照尚未就绪时，StatusCategory 为 null。
-   */
-  async DescribeSaleResourceInfo(
-    req?: DescribeSaleResourceInfoRequest,
-    cb?: (error: string, rep: DescribeSaleResourceInfoResponse) => void
-  ): Promise<DescribeSaleResourceInfoResponse> {
-    return this.request("DescribeSaleResourceInfo", req, cb)
-  }
-
-  /**
-   * 创建查询结果下载任务
-   */
-  async CreateResultDownload(
-    req: CreateResultDownloadRequest,
-    cb?: (error: string, rep: CreateResultDownloadResponse) => void
-  ): Promise<CreateResultDownloadResponse> {
-    return this.request("CreateResultDownload", req, cb)
+  async ModifyLabPriority(
+    req: ModifyLabPriorityRequest,
+    cb?: (error: string, rep: ModifyLabPriorityResponse) => void
+  ): Promise<ModifyLabPriorityResponse> {
+    return this.request("ModifyLabPriority", req, cb)
   }
 
   /**
@@ -2232,26 +2265,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（DescribeNotebookSessionStatementSqlResult）用于获取statement运行结果。
-   */
-  async DescribeNotebookSessionStatementSqlResult(
-    req: DescribeNotebookSessionStatementSqlResultRequest,
-    cb?: (error: string, rep: DescribeNotebookSessionStatementSqlResultResponse) => void
-  ): Promise<DescribeNotebookSessionStatementSqlResultResponse> {
-    return this.request("DescribeNotebookSessionStatementSqlResult", req, cb)
-  }
-
-  /**
-   * 查询用户vpc到引擎网络的连接
-   */
-  async DescribeUserVpcConnection(
-    req: DescribeUserVpcConnectionRequest,
-    cb?: (error: string, rep: DescribeUserVpcConnectionResponse) => void
-  ): Promise<DescribeUserVpcConnectionResponse> {
-    return this.request("DescribeUserVpcConnection", req, cb)
-  }
-
-  /**
    * 获取账户子账户信息
    */
   async DescribeMCPSubUin(
@@ -2262,33 +2275,23 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 删除数据实验室
+   * 列出部署的副本列表
    */
-  async DeleteLab(
-    req: DeleteLabRequest,
-    cb?: (error: string, rep: DeleteLabResponse) => void
-  ): Promise<DeleteLabResponse> {
-    return this.request("DeleteLab", req, cb)
+  async ListDeploymentReplicas(
+    req: ListDeploymentReplicasRequest,
+    cb?: (error: string, rep: ListDeploymentReplicasResponse) => void
+  ): Promise<ListDeploymentReplicasResponse> {
+    return this.request("ListDeploymentReplicas", req, cb)
   }
 
   /**
-   * 本接口（CreateNotebookSessionStatement）用于在session中执行代码片段
+   * 删除性能评测任务
    */
-  async CreateNotebookSessionStatement(
-    req: CreateNotebookSessionStatementRequest,
-    cb?: (error: string, rep: CreateNotebookSessionStatementResponse) => void
-  ): Promise<CreateNotebookSessionStatementResponse> {
-    return this.request("CreateNotebookSessionStatement", req, cb)
-  }
-
-  /**
-   * 解绑数据源与队列
-   */
-  async UnboundDatasourceHouse(
-    req: UnboundDatasourceHouseRequest,
-    cb?: (error: string, rep: UnboundDatasourceHouseResponse) => void
-  ): Promise<UnboundDatasourceHouseResponse> {
-    return this.request("UnboundDatasourceHouse", req, cb)
+  async DeleteBenchmarkTask(
+    req: DeleteBenchmarkTaskRequest,
+    cb?: (error: string, rep: DeleteBenchmarkTaskResponse) => void
+  ): Promise<DeleteBenchmarkTaskResponse> {
+    return this.request("DeleteBenchmarkTask", req, cb)
   }
 
   /**
@@ -2302,23 +2305,873 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 列出推理服务（支持关键词和状态过滤 + 分页）
+   * 本接口（ModifySparkAppBatch）用于批量修改Spark作业参数配置
    */
-  async ListInferenceServices(
-    req: ListInferenceServicesRequest,
-    cb?: (error: string, rep: ListInferenceServicesResponse) => void
-  ): Promise<ListInferenceServicesResponse> {
-    return this.request("ListInferenceServices", req, cb)
+  async ModifySparkAppBatch(
+    req: ModifySparkAppBatchRequest,
+    cb?: (error: string, rep: ModifySparkAppBatchResponse) => void
+  ): Promise<ModifySparkAppBatchResponse> {
+    return this.request("ModifySparkAppBatch", req, cb)
   }
 
   /**
-   * 本接口（RegisterThirdPartyAccessUser）用于开通第三方平台访问
+   * 暂停（取消）实例
    */
-  async RegisterThirdPartyAccessUser(
-    req?: RegisterThirdPartyAccessUserRequest,
-    cb?: (error: string, rep: RegisterThirdPartyAccessUserResponse) => void
-  ): Promise<RegisterThirdPartyAccessUserResponse> {
-    return this.request("RegisterThirdPartyAccessUser", req, cb)
+  async CancelTrainingJobInstance(
+    req: CancelTrainingJobInstanceRequest,
+    cb?: (error: string, rep: CancelTrainingJobInstanceResponse) => void
+  ): Promise<CancelTrainingJobInstanceResponse> {
+    return this.request("CancelTrainingJobInstance", req, cb)
+  }
+
+  /**
+   * 返回标签去重列表，按出现频次从高到低排序。
+   */
+  async ListExampleTags(
+    req: ListExampleTagsRequest,
+    cb?: (error: string, rep: ListExampleTagsResponse) => void
+  ): Promise<ListExampleTagsResponse> {
+    return this.request("ListExampleTags", req, cb)
+  }
+
+  /**
+   * 查询 MlFlow Server 关联的训练实例列表
+   */
+  async ListMlflowServerTrainingInstances(
+    req: ListMlflowServerTrainingInstancesRequest,
+    cb?: (error: string, rep: ListMlflowServerTrainingInstancesResponse) => void
+  ): Promise<ListMlflowServerTrainingInstancesResponse> {
+    return this.request("ListMlflowServerTrainingInstances", req, cb)
+  }
+
+  /**
+   * DMS元数据获取表
+   */
+  async DescribeDMSTable(
+    req: DescribeDMSTableRequest,
+    cb?: (error: string, rep: DescribeDMSTableResponse) => void
+  ): Promise<DescribeDMSTableResponse> {
+    return this.request("DescribeDMSTable", req, cb)
+  }
+
+  /**
+   * 创建TIceberg表
+   */
+  async CreateTcIcebergTable(
+    req: CreateTcIcebergTableRequest,
+    cb?: (error: string, rep: CreateTcIcebergTableResponse) => void
+  ): Promise<CreateTcIcebergTableResponse> {
+    return this.request("CreateTcIcebergTable", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeDatasourceConnection）用于查询数据源信息
+   */
+  async DescribeDatasourceConnection(
+    req: DescribeDatasourceConnectionRequest,
+    cb?: (error: string, rep: DescribeDatasourceConnectionResponse) => void
+  ): Promise<DescribeDatasourceConnectionResponse> {
+    return this.request("DescribeDatasourceConnection", req, cb)
+  }
+
+  /**
+   * 获取实验室的事件流（基于 K8s Event + CLS 日志）
+   */
+  async GetLabEvent(
+    req: GetLabEventRequest,
+    cb?: (error: string, rep: GetLabEventResponse) => void
+  ): Promise<GetLabEventResponse> {
+    return this.request("GetLabEvent", req, cb)
+  }
+
+  /**
+   * 根据任务ID获取Ray任务的历史执行记录
+   */
+  async GetRayJobHistory(
+    req: GetRayJobHistoryRequest,
+    cb?: (error: string, rep: GetRayJobHistoryResponse) => void
+  ): Promise<GetRayJobHistoryResponse> {
+    return this.request("GetRayJobHistory", req, cb)
+  }
+
+  /**
+   * 更新spark作业
+   */
+  async ModifySparkApp(
+    req: ModifySparkAppRequest,
+    cb?: (error: string, rep: ModifySparkAppResponse) => void
+  ): Promise<ModifySparkAppResponse> {
+    return this.request("ModifySparkApp", req, cb)
+  }
+
+  /**
+   * 删除用户vpc到引擎网络的连接
+   */
+  async DeleteUserVpcConnection(
+    req: DeleteUserVpcConnectionRequest,
+    cb?: (error: string, rep: DeleteUserVpcConnectionResponse) => void
+  ): Promise<DeleteUserVpcConnectionResponse> {
+    return this.request("DeleteUserVpcConnection", req, cb)
+  }
+
+  /**
+   * 获取作业的Pod列表
+   */
+  async GetRayJobPods(
+    req: GetRayJobPodsRequest,
+    cb?: (error: string, rep: GetRayJobPodsResponse) => void
+  ): Promise<GetRayJobPodsResponse> {
+    return this.request("GetRayJobPods", req, cb)
+  }
+
+  /**
+   * 获取零代码后训练的推荐参数和资源规格配置
+   */
+  async DescribePostTrainingPreset(
+    req: DescribePostTrainingPresetRequest,
+    cb?: (error: string, rep: DescribePostTrainingPresetResponse) => void
+  ): Promise<DescribePostTrainingPresetResponse> {
+    return this.request("DescribePostTrainingPreset", req, cb)
+  }
+
+  /**
+   * 本接口（CheckDataEngineConfigPairsValidity）用于检查引擎用户自定义参数的有效性
+   */
+  async CheckDataEngineConfigPairsValidity(
+    req: CheckDataEngineConfigPairsValidityRequest,
+    cb?: (error: string, rep: CheckDataEngineConfigPairsValidityResponse) => void
+  ): Promise<CheckDataEngineConfigPairsValidityResponse> {
+    return this.request("CheckDataEngineConfigPairsValidity", req, cb)
+  }
+
+  /**
+   * 查询指定分区的所有队列列表
+   */
+  async DescribePartitionQueues(
+    req: DescribePartitionQueuesRequest,
+    cb?: (error: string, rep: DescribePartitionQueuesResponse) => void
+  ): Promise<DescribePartitionQueuesResponse> {
+    return this.request("DescribePartitionQueues", req, cb)
+  }
+
+  /**
+   * 删除集群
+   */
+  async DeleteRayCluster(
+    req: DeleteRayClusterRequest,
+    cb?: (error: string, rep: DeleteRayClusterResponse) => void
+  ): Promise<DeleteRayClusterResponse> {
+    return this.request("DeleteRayCluster", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeDataEngineSessionParameters）用于获取指定小版本下的Session配置。
+   */
+  async DescribeDataEngineSessionParameters(
+    req: DescribeDataEngineSessionParametersRequest,
+    cb?: (error: string, rep: DescribeDataEngineSessionParametersResponse) => void
+  ): Promise<DescribeDataEngineSessionParametersResponse> {
+    return this.request("DescribeDataEngineSessionParameters", req, cb)
+  }
+
+  /**
+   * 查看任务概览页
+   */
+  async DescribeTasksOverview(
+    req: DescribeTasksOverviewRequest,
+    cb?: (error: string, rep: DescribeTasksOverviewResponse) => void
+  ): Promise<DescribeTasksOverviewResponse> {
+    return this.request("DescribeTasksOverview", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeDataEngineImageVersions）用于获取独享集群大版本镜像列表。
+   */
+  async DescribeDataEngineImageVersions(
+    req: DescribeDataEngineImageVersionsRequest,
+    cb?: (error: string, rep: DescribeDataEngineImageVersionsResponse) => void
+  ): Promise<DescribeDataEngineImageVersionsResponse> {
+    return this.request("DescribeDataEngineImageVersions", req, cb)
+  }
+
+  /**
+   * 更新集群组
+   */
+  async UpdateClusterGroup(
+    req: UpdateClusterGroupRequest,
+    cb?: (error: string, rep: UpdateClusterGroupResponse) => void
+  ): Promise<UpdateClusterGroupResponse> {
+    return this.request("UpdateClusterGroup", req, cb)
+  }
+
+  /**
+   * UDP权限修改
+   */
+  async UpdateUDFPolicy(
+    req: UpdateUDFPolicyRequest,
+    cb?: (error: string, rep: UpdateUDFPolicyResponse) => void
+  ): Promise<UpdateUDFPolicyResponse> {
+    return this.request("UpdateUDFPolicy", req, cb)
+  }
+
+  /**
+   * 解绑工作组鉴权策略
+   */
+  async DetachWorkGroupPolicy(
+    req: DetachWorkGroupPolicyRequest,
+    cb?: (error: string, rep: DetachWorkGroupPolicyResponse) => void
+  ): Promise<DetachWorkGroupPolicyResponse> {
+    return this.request("DetachWorkGroupPolicy", req, cb)
+  }
+
+  /**
+   * 更新tdlc spark作业
+   */
+  async ModifySparkAppForTDLC(
+    req: ModifySparkAppForTDLCRequest,
+    cb?: (error: string, rep: ModifySparkAppForTDLCResponse) => void
+  ): Promise<ModifySparkAppForTDLCResponse> {
+    return this.request("ModifySparkAppForTDLC", req, cb)
+  }
+
+  /**
+   * 更新标准引擎资源组基础信息
+   */
+  async UpdateStandardEngineResourceGroupConfigInfo(
+    req: UpdateStandardEngineResourceGroupConfigInfoRequest,
+    cb?: (error: string, rep: UpdateStandardEngineResourceGroupConfigInfoResponse) => void
+  ): Promise<UpdateStandardEngineResourceGroupConfigInfoResponse> {
+    return this.request("UpdateStandardEngineResourceGroupConfigInfo", req, cb)
+  }
+
+  /**
+   * 本接口（CreateTable）用于生成建表SQL。
+   */
+  async CreateTable(
+    req: CreateTableRequest,
+    cb?: (error: string, rep: CreateTableResponse) => void
+  ): Promise<CreateTableResponse> {
+    return this.request("CreateTable", req, cb)
+  }
+
+  /**
+   * 创建tdlc spark作业
+   */
+  async CreateSparkAppForTDLC(
+    req: CreateSparkAppForTDLCRequest,
+    cb?: (error: string, rep: CreateSparkAppForTDLCResponse) => void
+  ): Promise<CreateSparkAppForTDLCResponse> {
+    return this.request("CreateSparkAppForTDLC", req, cb)
+  }
+
+  /**
+   * 删除训练作业实例（软删除本地元数据，仅终态实例可删除）
+   */
+  async DeleteTrainingJobInstance(
+    req: DeleteTrainingJobInstanceRequest,
+    cb?: (error: string, rep: DeleteTrainingJobInstanceResponse) => void
+  ): Promise<DeleteTrainingJobInstanceResponse> {
+    return this.request("DeleteTrainingJobInstance", req, cb)
+  }
+
+  /**
+   * 该接口用于洞察分析列表
+   */
+  async DescribeTasksAnalysis(
+    req: DescribeTasksAnalysisRequest,
+    cb?: (error: string, rep: DescribeTasksAnalysisResponse) => void
+  ): Promise<DescribeTasksAnalysisResponse> {
+    return this.request("DescribeTasksAnalysis", req, cb)
+  }
+
+  /**
+   * 更新网络配置
+   */
+  async UpdateNetworkConnection(
+    req: UpdateNetworkConnectionRequest,
+    cb?: (error: string, rep: UpdateNetworkConnectionResponse) => void
+  ): Promise<UpdateNetworkConnectionResponse> {
+    return this.request("UpdateNetworkConnection", req, cb)
+  }
+
+  /**
+   * 根据集群ID列出所有Ray任务
+   */
+  async ListRayJobs(
+    req: ListRayJobsRequest,
+    cb?: (error: string, rep: ListRayJobsResponse) => void
+  ): Promise<ListRayJobsResponse> {
+    return this.request("ListRayJobs", req, cb)
+  }
+
+  /**
+   * 创建用户角色
+   */
+  async CreateUserRole(
+    req: CreateUserRoleRequest,
+    cb?: (error: string, rep: CreateUserRoleResponse) => void
+  ): Promise<CreateUserRoleResponse> {
+    return this.request("CreateUserRole", req, cb)
+  }
+
+  /**
+   * 删除资源配置模板
+   */
+  async DeleteResourceConfig(
+    req: DeleteResourceConfigRequest,
+    cb?: (error: string, rep: DeleteResourceConfigResponse) => void
+  ): Promise<DeleteResourceConfigResponse> {
+    return this.request("DeleteResourceConfig", req, cb)
+  }
+
+  /**
+   * 断点续训（克隆实例）
+   */
+  async ResumeTrainingJobInstance(
+    req: ResumeTrainingJobInstanceRequest,
+    cb?: (error: string, rep: ResumeTrainingJobInstanceResponse) => void
+  ): Promise<ResumeTrainingJobInstanceResponse> {
+    return this.request("ResumeTrainingJobInstance", req, cb)
+  }
+
+  /**
+   * 启动实验室
+   */
+  async StartLab(
+    req: StartLabRequest,
+    cb?: (error: string, rep: StartLabResponse) => void
+  ): Promise<StartLabResponse> {
+    return this.request("StartLab", req, cb)
+  }
+
+  /**
+   * 查询任务监控指标信息
+   */
+  async DescribeClusterMonitorInfos(
+    req: DescribeClusterMonitorInfosRequest,
+    cb?: (error: string, rep: DescribeClusterMonitorInfosResponse) => void
+  ): Promise<DescribeClusterMonitorInfosResponse> {
+    return this.request("DescribeClusterMonitorInfos", req, cb)
+  }
+
+  /**
+   * 暂停标准引擎session
+   */
+  async PauseStandardEngineResourceGroups(
+    req: PauseStandardEngineResourceGroupsRequest,
+    cb?: (error: string, rep: PauseStandardEngineResourceGroupsResponse) => void
+  ): Promise<PauseStandardEngineResourceGroupsResponse> {
+    return this.request("PauseStandardEngineResourceGroups", req, cb)
+  }
+
+  /**
+   * 列出所有镜像
+   */
+  async ListImages(
+    req: ListImagesRequest,
+    cb?: (error: string, rep: ListImagesResponse) => void
+  ): Promise<ListImagesResponse> {
+    return this.request("ListImages", req, cb)
+  }
+
+  /**
+   * 获取模型 README 信息（默认最新版本）
+   */
+  async GetModelReadme(
+    req: GetModelReadmeRequest,
+    cb?: (error: string, rep: GetModelReadmeResponse) => void
+  ): Promise<GetModelReadmeResponse> {
+    return this.request("GetModelReadme", req, cb)
+  }
+
+  /**
+   * 修改用户信息
+   */
+  async ModifyUser(
+    req: ModifyUserRequest,
+    cb?: (error: string, rep: ModifyUserResponse) => void
+  ): Promise<ModifyUserResponse> {
+    return this.request("ModifyUser", req, cb)
+  }
+
+  /**
+   * 获取RayCluster的YAML内容
+   */
+  async GetRayClusterYaml(
+    req: GetRayClusterYamlRequest,
+    cb?: (error: string, rep: GetRayClusterYamlResponse) => void
+  ): Promise<GetRayClusterYamlResponse> {
+    return this.request("GetRayClusterYaml", req, cb)
+  }
+
+  /**
+   * 列出模型所有版本
+   */
+  async ListModelVersions(
+    req: ListModelVersionsRequest,
+    cb?: (error: string, rep: ListModelVersionsResponse) => void
+  ): Promise<ListModelVersionsResponse> {
+    return this.request("ListModelVersions", req, cb)
+  }
+
+  /**
+   * DMS元数据删除表
+   */
+  async DropDMSTable(
+    req: DropDMSTableRequest,
+    cb?: (error: string, rep: DropDMSTableResponse) => void
+  ): Promise<DropDMSTableResponse> {
+    return this.request("DropDMSTable", req, cb)
+  }
+
+  /**
+   * 本接口（CancelNotebookSessionStatement）用于取消session中执行的任务
+   */
+  async CancelNotebookSessionStatement(
+    req: CancelNotebookSessionStatementRequest,
+    cb?: (error: string, rep: CancelNotebookSessionStatementResponse) => void
+  ): Promise<CancelNotebookSessionStatementResponse> {
+    return this.request("CancelNotebookSessionStatement", req, cb)
+  }
+
+  /**
+   * 列出所有集群组
+   */
+  async ListClusterGroups(
+    req: ListClusterGroupsRequest,
+    cb?: (error: string, rep: ListClusterGroupsResponse) => void
+  ): Promise<ListClusterGroupsResponse> {
+    return this.request("ListClusterGroups", req, cb)
+  }
+
+  /**
+   * 查询Spark作业的运行任务列表
+   */
+  async DescribeSparkAppTasks(
+    req: DescribeSparkAppTasksRequest,
+    cb?: (error: string, rep: DescribeSparkAppTasksResponse) => void
+  ): Promise<DescribeSparkAppTasksResponse> {
+    return this.request("DescribeSparkAppTasks", req, cb)
+  }
+
+  /**
+   * 查询标准引擎资源组信息
+   */
+  async DescribeStandardEngineResourceGroups(
+    req: DescribeStandardEngineResourceGroupsRequest,
+    cb?: (error: string, rep: DescribeStandardEngineResourceGroupsResponse) => void
+  ): Promise<DescribeStandardEngineResourceGroupsResponse> {
+    return this.request("DescribeStandardEngineResourceGroups", req, cb)
+  }
+
+  /**
+   * 本接口用于更新数据引擎配置
+   */
+  async UpdateDataEngine(
+    req: UpdateDataEngineRequest,
+    cb?: (error: string, rep: UpdateDataEngineResponse) => void
+  ): Promise<UpdateDataEngineResponse> {
+    return this.request("UpdateDataEngine", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeForbiddenTablePro）用于查询被禁用的表属性列表（新）
+   */
+  async DescribeForbiddenTablePro(
+    req?: DescribeForbiddenTableProRequest,
+    cb?: (error: string, rep: DescribeForbiddenTableProResponse) => void
+  ): Promise<DescribeForbiddenTableProResponse> {
+    return this.request("DescribeForbiddenTablePro", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeNotebookSession）用于查询交互式 session详情信息
+   */
+  async DescribeNotebookSession(
+    req: DescribeNotebookSessionRequest,
+    cb?: (error: string, rep: DescribeNotebookSessionResponse) => void
+  ): Promise<DescribeNotebookSessionResponse> {
+    return this.request("DescribeNotebookSession", req, cb)
+  }
+
+  /**
+   * 本接口（CreateNotebookSession）用于创建交互式session（notebook）
+   */
+  async CreateNotebookSession(
+    req: CreateNotebookSessionRequest,
+    cb?: (error: string, rep: CreateNotebookSessionResponse) => void
+  ): Promise<CreateNotebookSessionResponse> {
+    return this.request("CreateNotebookSession", req, cb)
+  }
+
+  /**
+   * 本接口根据名称用于获取数据引擎详细信息
+   */
+  async DescribeDataEngine(
+    req: DescribeDataEngineRequest,
+    cb?: (error: string, rep: DescribeDataEngineResponse) => void
+  ): Promise<DescribeDataEngineResponse> {
+    return this.request("DescribeDataEngine", req, cb)
+  }
+
+  /**
+   * 新增资源队列：在指定分区下创建一个新的资源队列，支持设置队列名称、描述、资源规格列表和队列类型。
+   */
+  async CreatePartitionQueue(
+    req: CreatePartitionQueueRequest,
+    cb?: (error: string, rep: CreatePartitionQueueResponse) => void
+  ): Promise<CreatePartitionQueueResponse> {
+    return this.request("CreatePartitionQueue", req, cb)
+  }
+
+  /**
+   * 获取数据实验室Pod的YAML内容
+   */
+  async GetLabPodYaml(
+    req: GetLabPodYamlRequest,
+    cb?: (error: string, rep: GetLabPodYamlResponse) => void
+  ): Promise<GetLabPodYamlResponse> {
+    return this.request("GetLabPodYaml", req, cb)
+  }
+
+  /**
+   * 切换主备集群
+   */
+  async SwitchDataEngine(
+    req: SwitchDataEngineRequest,
+    cb?: (error: string, rep: SwitchDataEngineResponse) => void
+  ): Promise<SwitchDataEngineResponse> {
+    return this.request("SwitchDataEngine", req, cb)
+  }
+
+  /**
+   * 按 EMR 集群 ID 查询已导入的 TKE 集群详情，返回 tke_cluster 表中该条导入记录的核心字段，并对 LoadBalancerId / PrometheusInstanceId / ContainerLogTopicId 三个 ID 分别回查腾讯云 API 获取对应名称一并返回。名称查询失败或查不到时对应字段返回空字符串，不影响主接口返回。
+   */
+  async DescribeTkeClusterImportInfo(
+    req: DescribeTkeClusterImportInfoRequest,
+    cb?: (error: string, rep: DescribeTkeClusterImportInfoResponse) => void
+  ): Promise<DescribeTkeClusterImportInfoResponse> {
+    return this.request("DescribeTkeClusterImportInfo", req, cb)
+  }
+
+  /**
+   * 本接口（CancelTask），用于取消任务
+   */
+  async CancelTask(
+    req: CancelTaskRequest,
+    cb?: (error: string, rep: CancelTaskResponse) => void
+  ): Promise<CancelTaskResponse> {
+    return this.request("CancelTask", req, cb)
+  }
+
+  /**
+   * DMS元数据获取表列表
+   */
+  async DescribeDMSTables(
+    req: DescribeDMSTablesRequest,
+    cb?: (error: string, rep: DescribeDMSTablesResponse) => void
+  ): Promise<DescribeDMSTablesResponse> {
+    return this.request("DescribeDMSTables", req, cb)
+  }
+
+  /**
+   * 查询网络配置列表
+   */
+  async DescribeNetworkConnections(
+    req: DescribeNetworkConnectionsRequest,
+    cb?: (error: string, rep: DescribeNetworkConnectionsResponse) => void
+  ): Promise<DescribeNetworkConnectionsResponse> {
+    return this.request("DescribeNetworkConnections", req, cb)
+  }
+
+  /**
+   * 创建标准引擎资源组
+   */
+  async CreateStandardEngineResourceGroup(
+    req: CreateStandardEngineResourceGroupRequest,
+    cb?: (error: string, rep: CreateStandardEngineResourceGroupResponse) => void
+  ): Promise<CreateStandardEngineResourceGroupResponse> {
+    return this.request("CreateStandardEngineResourceGroup", req, cb)
+  }
+
+  /**
+   * 该接口（DeleteScript）用于删除sql脚本。
+   */
+  async DeleteScript(
+    req: DeleteScriptRequest,
+    cb?: (error: string, rep: DeleteScriptResponse) => void
+  ): Promise<DeleteScriptResponse> {
+    return this.request("DeleteScript", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeDatabases）用于查询数据库列表。
+   */
+  async DescribeDatabases(
+    req: DescribeDatabasesRequest,
+    cb?: (error: string, rep: DescribeDatabasesResponse) => void
+  ): Promise<DescribeDatabasesResponse> {
+    return this.request("DescribeDatabases", req, cb)
+  }
+
+  /**
+   * 获取实验室详情
+   */
+  async GetLabDetail(
+    req: GetLabDetailRequest,
+    cb?: (error: string, rep: GetLabDetailResponse) => void
+  ): Promise<GetLabDetailResponse> {
+    return this.request("GetLabDetail", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeNotebookSessions）用于查询交互式 session列表
+   */
+  async DescribeNotebookSessions(
+    req: DescribeNotebookSessionsRequest,
+    cb?: (error: string, rep: DescribeNotebookSessionsResponse) => void
+  ): Promise<DescribeNotebookSessionsResponse> {
+    return this.request("DescribeNotebookSessions", req, cb)
+  }
+
+  /**
+   * 本接口（CreateDatabase）用于生成建库SQL语句。
+   */
+  async CreateDatabase(
+    req: CreateDatabaseRequest,
+    cb?: (error: string, rep: CreateDatabaseResponse) => void
+  ): Promise<CreateDatabaseResponse> {
+    return this.request("CreateDatabase", req, cb)
+  }
+
+  /**
+   * 获取模型文件树（默认最新版本）
+   */
+  async GetModelFiles(
+    req: GetModelFilesRequest,
+    cb?: (error: string, rep: GetModelFilesResponse) => void
+  ): Promise<GetModelFilesResponse> {
+    return this.request("GetModelFiles", req, cb)
+  }
+
+  /**
+   * 本接口（ListTaskJobLogName）用于获取spark-jar日志名称列表
+   */
+  async ListTaskJobLogName(
+    req: ListTaskJobLogNameRequest,
+    cb?: (error: string, rep: ListTaskJobLogNameResponse) => void
+  ): Promise<ListTaskJobLogNameResponse> {
+    return this.request("ListTaskJobLogName", req, cb)
+  }
+
+  /**
+   * 绑定数据源和队列
+   */
+  async AssociateDatasourceHouse(
+    req: AssociateDatasourceHouseRequest,
+    cb?: (error: string, rep: AssociateDatasourceHouseResponse) => void
+  ): Promise<AssociateDatasourceHouseResponse> {
+    return this.request("AssociateDatasourceHouse", req, cb)
+  }
+
+  /**
+   * 获取LakeFs上task执行结果访问信息
+   */
+  async DescribeLakeFsTaskResult(
+    req: DescribeLakeFsTaskResultRequest,
+    cb?: (error: string, rep: DescribeLakeFsTaskResultResponse) => void
+  ): Promise<DescribeLakeFsTaskResultResponse> {
+    return this.request("DescribeLakeFsTaskResult", req, cb)
+  }
+
+  /**
+   * 列出 API Key
+   */
+  async ListApiKeys(
+    req: ListApiKeysRequest,
+    cb?: (error: string, rep: ListApiKeysResponse) => void
+  ): Promise<ListApiKeysResponse> {
+    return this.request("ListApiKeys", req, cb)
+  }
+
+  /**
+   * 查询sql查询界面高级设置
+   */
+  async DescribeAdvancedStoreLocation(
+    req?: DescribeAdvancedStoreLocationRequest,
+    cb?: (error: string, rep: DescribeAdvancedStoreLocationResponse) => void
+  ): Promise<DescribeAdvancedStoreLocationResponse> {
+    return this.request("DescribeAdvancedStoreLocation", req, cb)
+  }
+
+  /**
+   * 元数据锁
+   */
+  async LockMetaData(
+    req: LockMetaDataRequest,
+    cb?: (error: string, rep: LockMetaDataResponse) => void
+  ): Promise<LockMetaDataResponse> {
+    return this.request("LockMetaData", req, cb)
+  }
+
+  /**
+   * 列出所有集群
+   */
+  async ListRayClusters(
+    req: ListRayClustersRequest,
+    cb?: (error: string, rep: ListRayClustersResponse) => void
+  ): Promise<ListRayClustersResponse> {
+    return this.request("ListRayClusters", req, cb)
+  }
+
+  /**
+   * 创建推理模型（模型上传）
+   */
+  async CreateInferenceModel(
+    req: CreateInferenceModelRequest,
+    cb?: (error: string, rep: CreateInferenceModelResponse) => void
+  ): Promise<CreateInferenceModelResponse> {
+    return this.request("CreateInferenceModel", req, cb)
+  }
+
+  /**
+   * 将用户在控制台选择的 EMR-TKE 集群及配套的 COS Bucket、Prometheus 实例、负载均衡、容器日志主题等资源，注册为 DLC 的外部资源池（EXTERNAL_TKE）。接口是异步的，返回的 WorkflowId 可用于轮询注册进度；ResourcePoolId / ResourcePoolCode 为资源池的唯一标识。
+   */
+  async ImportTkeCluster(
+    req: ImportTkeClusterRequest,
+    cb?: (error: string, rep: ImportTkeClusterResponse) => void
+  ): Promise<ImportTkeClusterResponse> {
+    return this.request("ImportTkeCluster", req, cb)
+  }
+
+  /**
+   * 分配原生表表属性
+   */
+  async AssignMangedTableProperties(
+    req: AssignMangedTablePropertiesRequest,
+    cb?: (error: string, rep: AssignMangedTablePropertiesResponse) => void
+  ): Promise<AssignMangedTablePropertiesResponse> {
+    return this.request("AssignMangedTableProperties", req, cb)
+  }
+
+  /**
+   * 获取训练作业配置详情
+   */
+  async DescribeTrainingJobSpec(
+    req: DescribeTrainingJobSpecRequest,
+    cb?: (error: string, rep: DescribeTrainingJobSpecResponse) => void
+  ): Promise<DescribeTrainingJobSpecResponse> {
+    return this.request("DescribeTrainingJobSpec", req, cb)
+  }
+
+  /**
+   * 根据 exampleId 获取单个案例详情
+   */
+  async GetExampleDetail(
+    req: GetExampleDetailRequest,
+    cb?: (error: string, rep: GetExampleDetailResponse) => void
+  ): Promise<GetExampleDetailResponse> {
+    return this.request("GetExampleDetail", req, cb)
+  }
+
+  /**
+   * 删除指定部署
+   */
+  async DeleteDeployment(
+    req: DeleteDeploymentRequest,
+    cb?: (error: string, rep: DeleteDeploymentResponse) => void
+  ): Promise<DeleteDeploymentResponse> {
+    return this.request("DeleteDeployment", req, cb)
+  }
+
+  /**
+   * 本接口（RegisterThirdPartyAccessUser）查询开通第三方平台访问的用户信息
+   */
+  async DescribeThirdPartyAccessUser(
+    req?: DescribeThirdPartyAccessUserRequest,
+    cb?: (error: string, rep: DescribeThirdPartyAccessUserResponse) => void
+  ): Promise<DescribeThirdPartyAccessUserResponse> {
+    return this.request("DescribeThirdPartyAccessUser", req, cb)
+  }
+
+  /**
+   * 获取所有案例分类
+   */
+  async ListExampleCategories(
+    req: ListExampleCategoriesRequest,
+    cb?: (error: string, rep: ListExampleCategoriesResponse) => void
+  ): Promise<ListExampleCategoriesResponse> {
+    return this.request("ListExampleCategories", req, cb)
+  }
+
+  /**
+   * 创建用户vpc连接到指定引擎网络
+   */
+  async CreateUserVpcConnection(
+    req: CreateUserVpcConnectionRequest,
+    cb?: (error: string, rep: CreateUserVpcConnectionResponse) => void
+  ): Promise<CreateUserVpcConnectionResponse> {
+    return this.request("CreateUserVpcConnection", req, cb)
+  }
+
+  /**
+   * 获取UDF权限信息
+   */
+  async DescribeUDFPolicy(
+    req: DescribeUDFPolicyRequest,
+    cb?: (error: string, rep: DescribeUDFPolicyResponse) => void
+  ): Promise<DescribeUDFPolicyResponse> {
+    return this.request("DescribeUDFPolicy", req, cb)
+  }
+
+  /**
+   * 更新处于 SUBMITTED/PENDING 状态的作业的优先级。仅 SUBMITTED/PENDING 状态的作业允许调整优先级。内部通过调用 Neutrino 的 UpdateJobConfig 接口更新 ENVIRONMENT 配置中的 priority 字段。
+   */
+  async UpdateRayJobPriority(
+    req: UpdateRayJobPriorityRequest,
+    cb?: (error: string, rep: UpdateRayJobPriorityResponse) => void
+  ): Promise<UpdateRayJobPriorityResponse> {
+    return this.request("UpdateRayJobPriority", req, cb)
+  }
+
+  /**
+   * 绑定鉴权策略到用户
+   */
+  async AttachUserPolicy(
+    req: AttachUserPolicyRequest,
+    cb?: (error: string, rep: AttachUserPolicyResponse) => void
+  ): Promise<AttachUserPolicyResponse> {
+    return this.request("AttachUserPolicy", req, cb)
+  }
+
+  /**
+   * 本接口（CreateNotebookSessionStatement）用于在session中执行代码片段
+   */
+  async CreateNotebookSessionStatement(
+    req: CreateNotebookSessionStatementRequest,
+    cb?: (error: string, rep: CreateNotebookSessionStatementResponse) => void
+  ): Promise<CreateNotebookSessionStatementResponse> {
+    return this.request("CreateNotebookSessionStatement", req, cb)
+  }
+
+  /**
+   * 删除 API Key
+   */
+  async DeleteApiKey(
+    req: DeleteApiKeyRequest,
+    cb?: (error: string, rep: DeleteApiKeyResponse) => void
+  ): Promise<DeleteApiKeyResponse> {
+    return this.request("DeleteApiKey", req, cb)
+  }
+
+  /**
+   * 解绑数据源与队列
+   */
+  async UnboundDatasourceHouse(
+    req: UnboundDatasourceHouseRequest,
+    cb?: (error: string, rep: UnboundDatasourceHouseResponse) => void
+  ): Promise<UnboundDatasourceHouseResponse> {
+    return this.request("UnboundDatasourceHouse", req, cb)
   }
 
   /**
@@ -2332,16 +3185,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * DMS元数据更新库
-   */
-  async AlterDMSDatabase(
-    req: AlterDMSDatabaseRequest,
-    cb?: (error: string, rep: AlterDMSDatabaseResponse) => void
-  ): Promise<AlterDMSDatabaseResponse> {
-    return this.request("AlterDMSDatabase", req, cb)
-  }
-
-  /**
    * 本接口（DescribeSparkSessionBatchSQL）用于查询Spark SQL批任务运行状态
    */
   async DescribeSparkSessionBatchSQL(
@@ -2352,13 +3195,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建作业配置
+   * DMS元数据删除库
    */
-  async CreateJobSpec(
-    req: CreateJobSpecRequest,
-    cb?: (error: string, rep: CreateJobSpecResponse) => void
-  ): Promise<CreateJobSpecResponse> {
-    return this.request("CreateJobSpec", req, cb)
+  async DropDMSDatabase(
+    req: DropDMSDatabaseRequest,
+    cb?: (error: string, rep: DropDMSDatabaseResponse) => void
+  ): Promise<DropDMSDatabaseResponse> {
+    return this.request("DropDMSDatabase", req, cb)
   }
 
   /**
@@ -2369,36 +3212,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: AddDMSPartitionsResponse) => void
   ): Promise<AddDMSPartitionsResponse> {
     return this.request("AddDMSPartitions", req, cb)
-  }
-
-  /**
-   * 返回指定时间范围内所有推理服务的聚合 KPI 值。
-   */
-  async QueryDashboardOverview(
-    req: QueryDashboardOverviewRequest,
-    cb?: (error: string, rep: QueryDashboardOverviewResponse) => void
-  ): Promise<QueryDashboardOverviewResponse> {
-    return this.request("QueryDashboardOverview", req, cb)
-  }
-
-  /**
-   * 修改用户引擎自定义配置
-   */
-  async UpdateUserDataEngineConfig(
-    req: UpdateUserDataEngineConfigRequest,
-    cb?: (error: string, rep: UpdateUserDataEngineConfigResponse) => void
-  ): Promise<UpdateUserDataEngineConfigResponse> {
-    return this.request("UpdateUserDataEngineConfig", req, cb)
-  }
-
-  /**
-   * 本接口（CancelNotebookSessionStatementBatch）用于批量取消Session 中执行的任务
-   */
-  async CancelNotebookSessionStatementBatch(
-    req: CancelNotebookSessionStatementBatchRequest,
-    cb?: (error: string, rep: CancelNotebookSessionStatementBatchResponse) => void
-  ): Promise<CancelNotebookSessionStatementBatchResponse> {
-    return this.request("CancelNotebookSessionStatementBatch", req, cb)
   }
 
   /**
@@ -2432,63 +3245,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 返回标签去重列表，按出现频次从高到低排序。
+   * 修改作业配置的调度优先级（1-9，数字越大优先级越高）
    */
-  async ListExampleTags(
-    req: ListExampleTagsRequest,
-    cb?: (error: string, rep: ListExampleTagsResponse) => void
-  ): Promise<ListExampleTagsResponse> {
-    return this.request("ListExampleTags", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeNotebookSessionLog）用于查询交互式 session日志
-   */
-  async DescribeNotebookSessionLog(
-    req: DescribeNotebookSessionLogRequest,
-    cb?: (error: string, rep: DescribeNotebookSessionLogResponse) => void
-  ): Promise<DescribeNotebookSessionLogResponse> {
-    return this.request("DescribeNotebookSessionLog", req, cb)
-  }
-
-  /**
-   * 该接口（DescribeTasksCostInfo）用于查询任务消耗
-   */
-  async DescribeTasksCostInfo(
-    req: DescribeTasksCostInfoRequest,
-    cb?: (error: string, rep: DescribeTasksCostInfoResponse) => void
-  ): Promise<DescribeTasksCostInfoResponse> {
-    return this.request("DescribeTasksCostInfo", req, cb)
-  }
-
-  /**
-   * 查询结果下载任务
-   */
-  async DescribeResultDownload(
-    req: DescribeResultDownloadRequest,
-    cb?: (error: string, rep: DescribeResultDownloadResponse) => void
-  ): Promise<DescribeResultDownloadResponse> {
-    return this.request("DescribeResultDownload", req, cb)
-  }
-
-  /**
-   * 根据配置ID获取作业配置详情
-   */
-  async GetJobSpec(
-    req: GetJobSpecRequest,
-    cb?: (error: string, rep: GetJobSpecResponse) => void
-  ): Promise<GetJobSpecResponse> {
-    return this.request("GetJobSpec", req, cb)
-  }
-
-  /**
-   * DMS元数据获取表
-   */
-  async DescribeDMSTable(
-    req: DescribeDMSTableRequest,
-    cb?: (error: string, rep: DescribeDMSTableResponse) => void
-  ): Promise<DescribeDMSTableResponse> {
-    return this.request("DescribeDMSTable", req, cb)
+  async UpdateJobSpecPriority(
+    req: UpdateJobSpecPriorityRequest,
+    cb?: (error: string, rep: UpdateJobSpecPriorityResponse) => void
+  ): Promise<UpdateJobSpecPriorityResponse> {
+    return this.request("UpdateJobSpecPriority", req, cb)
   }
 
   /**
@@ -2502,23 +3265,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * DMS元数据删除分区
+   * 获取作业事件日志
    */
-  async DropDMSPartitions(
-    req: DropDMSPartitionsRequest,
-    cb?: (error: string, rep: DropDMSPartitionsResponse) => void
-  ): Promise<DropDMSPartitionsResponse> {
-    return this.request("DropDMSPartitions", req, cb)
-  }
-
-  /**
-   * 本接口（CreateMetaDatabase）用于创建元数据库
-   */
-  async CreateMetaDatabase(
-    req: CreateMetaDatabaseRequest,
-    cb?: (error: string, rep: CreateMetaDatabaseResponse) => void
-  ): Promise<CreateMetaDatabaseResponse> {
-    return this.request("CreateMetaDatabase", req, cb)
+  async GetRayJobEventLog(
+    req: GetRayJobEventLogRequest,
+    cb?: (error: string, rep: GetRayJobEventLogResponse) => void
+  ): Promise<GetRayJobEventLogResponse> {
+    return this.request("GetRayJobEventLog", req, cb)
   }
 
   /**
@@ -2532,26 +3285,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建TIceberg表
-   */
-  async CreateTcIcebergTable(
-    req: CreateTcIcebergTableRequest,
-    cb?: (error: string, rep: CreateTcIcebergTableResponse) => void
-  ): Promise<CreateTcIcebergTableResponse> {
-    return this.request("CreateTcIcebergTable", req, cb)
-  }
-
-  /**
-   * 此接口（CreateCHDFSBindingProduct）用于创建元数据加速桶和产品绑定关系
-   */
-  async CreateCHDFSBindingProduct(
-    req: CreateCHDFSBindingProductRequest,
-    cb?: (error: string, rep: CreateCHDFSBindingProductResponse) => void
-  ): Promise<CreateCHDFSBindingProductResponse> {
-    return this.request("CreateCHDFSBindingProduct", req, cb)
-  }
-
-  /**
    * 本接口（QueryInternalTableWarehouse）用于获取原生表warehouse路径
    */
   async QueryInternalTableWarehouse(
@@ -2562,33 +3295,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（DescribeDatasourceConnection）用于查询数据源信息
+   * 重新运行性能评测任务
    */
-  async DescribeDatasourceConnection(
-    req: DescribeDatasourceConnectionRequest,
-    cb?: (error: string, rep: DescribeDatasourceConnectionResponse) => void
-  ): Promise<DescribeDatasourceConnectionResponse> {
-    return this.request("DescribeDatasourceConnection", req, cb)
-  }
-
-  /**
-   * 查询指定 Ray 集群下提交的所有作业，分页返回。底层委托给 ListRayJobs，强制注入 ClusterId 作为过滤条件。
-   */
-  async ListRayClusterJobs(
-    req: ListRayClusterJobsRequest,
-    cb?: (error: string, rep: ListRayClusterJobsResponse) => void
-  ): Promise<ListRayClusterJobsResponse> {
-    return this.request("ListRayClusterJobs", req, cb)
-  }
-
-  /**
-   * 资源队列名称合法性检测：校验队列名称是否合法，包括非空校验、格式校验（以小写字母开头，只允许小写字母、数字和连字符，长度1~11）和同分区下重名校验。
-   */
-  async CheckQueueName(
-    req: CheckQueueNameRequest,
-    cb?: (error: string, rep: CheckQueueNameResponse) => void
-  ): Promise<CheckQueueNameResponse> {
-    return this.request("CheckQueueName", req, cb)
+  async RerunBenchmarkTask(
+    req: RerunBenchmarkTaskRequest,
+    cb?: (error: string, rep: RerunBenchmarkTaskResponse) => void
+  ): Promise<RerunBenchmarkTaskResponse> {
+    return this.request("RerunBenchmarkTask", req, cb)
   }
 
   /**
@@ -2612,53 +3325,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 修改作业配置的调度优先级（1-9，数字越大优先级越高）
+   * 删除训练作业配置
    */
-  async UpdateJobSpecPriority(
-    req: UpdateJobSpecPriorityRequest,
-    cb?: (error: string, rep: UpdateJobSpecPriorityResponse) => void
-  ): Promise<UpdateJobSpecPriorityResponse> {
-    return this.request("UpdateJobSpecPriority", req, cb)
-  }
-
-  /**
-   * 本接口（CheckDataEngineImageCanBeRollback）用于查看集群是否能回滚。
-   */
-  async CheckDataEngineImageCanBeRollback(
-    req: CheckDataEngineImageCanBeRollbackRequest,
-    cb?: (error: string, rep: CheckDataEngineImageCanBeRollbackResponse) => void
-  ): Promise<CheckDataEngineImageCanBeRollbackResponse> {
-    return this.request("CheckDataEngineImageCanBeRollback", req, cb)
-  }
-
-  /**
-   * 根据配置ID删除作业配置
-   */
-  async DeleteJobSpec(
-    req: DeleteJobSpecRequest,
-    cb?: (error: string, rep: DeleteJobSpecResponse) => void
-  ): Promise<DeleteJobSpecResponse> {
-    return this.request("DeleteJobSpec", req, cb)
-  }
-
-  /**
-   * 获取实验室的事件流（基于 K8s Event + CLS 日志）
-   */
-  async GetLabEvent(
-    req: GetLabEventRequest,
-    cb?: (error: string, rep: GetLabEventResponse) => void
-  ): Promise<GetLabEventResponse> {
-    return this.request("GetLabEvent", req, cb)
-  }
-
-  /**
-   * 本接口（CancelSparkSessionBatchSQL）用于取消Spark SQL批任务。
-   */
-  async CancelSparkSessionBatchSQL(
-    req: CancelSparkSessionBatchSQLRequest,
-    cb?: (error: string, rep: CancelSparkSessionBatchSQLResponse) => void
-  ): Promise<CancelSparkSessionBatchSQLResponse> {
-    return this.request("CancelSparkSessionBatchSQL", req, cb)
+  async DeleteTrainingJobSpec(
+    req: DeleteTrainingJobSpecRequest,
+    cb?: (error: string, rep: DeleteTrainingJobSpecResponse) => void
+  ): Promise<DeleteTrainingJobSpecResponse> {
+    return this.request("DeleteTrainingJobSpec", req, cb)
   }
 
   /**
@@ -2672,123 +3345,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 根据任务ID获取Ray任务的历史执行记录
+   * 获取用户详细信息
    */
-  async GetRayJobHistory(
-    req: GetRayJobHistoryRequest,
-    cb?: (error: string, rep: GetRayJobHistoryResponse) => void
-  ): Promise<GetRayJobHistoryResponse> {
-    return this.request("GetRayJobHistory", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeSparkSessionBatchSqlLog）用于查询Spark SQL批任务日志
-   */
-  async DescribeSparkSessionBatchSqlLog(
-    req: DescribeSparkSessionBatchSqlLogRequest,
-    cb?: (error: string, rep: DescribeSparkSessionBatchSqlLogResponse) => void
-  ): Promise<DescribeSparkSessionBatchSqlLogResponse> {
-    return this.request("DescribeSparkSessionBatchSqlLog", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeTable），用于查询单个表的详细信息。
-   */
-  async DescribeTable(
-    req: DescribeTableRequest,
-    cb?: (error: string, rep: DescribeTableResponse) => void
-  ): Promise<DescribeTableResponse> {
-    return this.request("DescribeTable", req, cb)
-  }
-
-  /**
-   * 是否成功开通TCLake
-   */
-  async DescribeTCLakeMetaInstance(
-    req?: DescribeTCLakeMetaInstanceRequest,
-    cb?: (error: string, rep: DescribeTCLakeMetaInstanceResponse) => void
-  ): Promise<DescribeTCLakeMetaInstanceResponse> {
-    return this.request("DescribeTCLakeMetaInstance", req, cb)
-  }
-
-  /**
-   * 本接口根据资源组ID查询资源组CU使用情况
-   */
-  async DescribeResourceGroupUsageInfo(
-    req: DescribeResourceGroupUsageInfoRequest,
-    cb?: (error: string, rep: DescribeResourceGroupUsageInfoResponse) => void
-  ): Promise<DescribeResourceGroupUsageInfoResponse> {
-    return this.request("DescribeResourceGroupUsageInfo", req, cb)
-  }
-
-  /**
-   * 删除用户vpc到引擎网络的连接
-   */
-  async DeleteUserVpcConnection(
-    req: DeleteUserVpcConnectionRequest,
-    cb?: (error: string, rep: DeleteUserVpcConnectionResponse) => void
-  ): Promise<DeleteUserVpcConnectionResponse> {
-    return this.request("DeleteUserVpcConnection", req, cb)
-  }
-
-  /**
-   * 获取作业的Pod列表
-   */
-  async GetRayJobPods(
-    req: GetRayJobPodsRequest,
-    cb?: (error: string, rep: GetRayJobPodsResponse) => void
-  ): Promise<GetRayJobPodsResponse> {
-    return this.request("GetRayJobPods", req, cb)
-  }
-
-  /**
-   * 根据spark session名称销毁eg spark session
-   */
-  async DeleteNativeSparkSession(
-    req: DeleteNativeSparkSessionRequest,
-    cb?: (error: string, rep: DeleteNativeSparkSessionResponse) => void
-  ): Promise<DeleteNativeSparkSessionResponse> {
-    return this.request("DeleteNativeSparkSession", req, cb)
-  }
-
-  /**
-   * 分页查询指定分区的流程详情列表，包含每个流程的基本信息和活动列表
-   */
-  async DescribeFlowDetailList(
-    req: DescribeFlowDetailListRequest,
-    cb?: (error: string, rep: DescribeFlowDetailListResponse) => void
-  ): Promise<DescribeFlowDetailListResponse> {
-    return this.request("DescribeFlowDetailList", req, cb)
-  }
-
-  /**
-   * 查询指定分区的流程列表
-   */
-  async DescribeFlowList(
-    req: DescribeFlowListRequest,
-    cb?: (error: string, rep: DescribeFlowListResponse) => void
-  ): Promise<DescribeFlowListResponse> {
-    return this.request("DescribeFlowList", req, cb)
-  }
-
-  /**
-   * 本接口（CheckDataEngineConfigPairsValidity）用于检查引擎用户自定义参数的有效性
-   */
-  async CheckDataEngineConfigPairsValidity(
-    req: CheckDataEngineConfigPairsValidityRequest,
-    cb?: (error: string, rep: CheckDataEngineConfigPairsValidityResponse) => void
-  ): Promise<CheckDataEngineConfigPairsValidityResponse> {
-    return this.request("CheckDataEngineConfigPairsValidity", req, cb)
-  }
-
-  /**
-   * 查询指定分区的所有队列列表
-   */
-  async DescribePartitionQueues(
-    req: DescribePartitionQueuesRequest,
-    cb?: (error: string, rep: DescribePartitionQueuesResponse) => void
-  ): Promise<DescribePartitionQueuesResponse> {
-    return this.request("DescribePartitionQueues", req, cb)
+  async DescribeUserInfo(
+    req: DescribeUserInfoRequest,
+    cb?: (error: string, rep: DescribeUserInfoResponse) => void
+  ): Promise<DescribeUserInfoResponse> {
+    return this.request("DescribeUserInfo", req, cb)
   }
 
   /**
@@ -2802,83 +3365,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 查询标准引擎资源组信息
+   * 查询用户vpc到引擎网络的连接
    */
-  async DescribeStandardEngineResourceGroupConfigInfo(
-    req: DescribeStandardEngineResourceGroupConfigInfoRequest,
-    cb?: (error: string, rep: DescribeStandardEngineResourceGroupConfigInfoResponse) => void
-  ): Promise<DescribeStandardEngineResourceGroupConfigInfoResponse> {
-    return this.request("DescribeStandardEngineResourceGroupConfigInfo", req, cb)
-  }
-
-  /**
-   * 删除集群
-   */
-  async DeleteRayCluster(
-    req: DeleteRayClusterRequest,
-    cb?: (error: string, rep: DeleteRayClusterResponse) => void
-  ): Promise<DeleteRayClusterResponse> {
-    return this.request("DeleteRayCluster", req, cb)
-  }
-
-  /**
-   * 删除用户
-   */
-  async DeleteUser(
-    req: DeleteUserRequest,
-    cb?: (error: string, rep: DeleteUserResponse) => void
-  ): Promise<DeleteUserResponse> {
-    return this.request("DeleteUser", req, cb)
-  }
-
-  /**
-   * DMS元数据获取表列表
-   */
-  async DescribeDMSTables(
-    req: DescribeDMSTablesRequest,
-    cb?: (error: string, rep: DescribeDMSTablesResponse) => void
-  ): Promise<DescribeDMSTablesResponse> {
-    return this.request("DescribeDMSTables", req, cb)
-  }
-
-  /**
-   * 删除表
-   */
-  async DeleteTable(
-    req: DeleteTableRequest,
-    cb?: (error: string, rep: DeleteTableResponse) => void
-  ): Promise<DeleteTableResponse> {
-    return this.request("DeleteTable", req, cb)
-  }
-
-  /**
-   * 本接口根据引擎ID查询数据引擎资源使用情况
-   */
-  async DescribeEngineUsageInfo(
-    req: DescribeEngineUsageInfoRequest,
-    cb?: (error: string, rep: DescribeEngineUsageInfoResponse) => void
-  ): Promise<DescribeEngineUsageInfoResponse> {
-    return this.request("DescribeEngineUsageInfo", req, cb)
-  }
-
-  /**
-   * 查看任务概览页
-   */
-  async DescribeTasksOverview(
-    req: DescribeTasksOverviewRequest,
-    cb?: (error: string, rep: DescribeTasksOverviewResponse) => void
-  ): Promise<DescribeTasksOverviewResponse> {
-    return this.request("DescribeTasksOverview", req, cb)
-  }
-
-  /**
-   * 更新数据脱敏策略
-   */
-  async UpdateDataMaskStrategy(
-    req: UpdateDataMaskStrategyRequest,
-    cb?: (error: string, rep: UpdateDataMaskStrategyResponse) => void
-  ): Promise<UpdateDataMaskStrategyResponse> {
-    return this.request("UpdateDataMaskStrategy", req, cb)
+  async DescribeUserVpcConnection(
+    req: DescribeUserVpcConnectionRequest,
+    cb?: (error: string, rep: DescribeUserVpcConnectionResponse) => void
+  ): Promise<DescribeUserVpcConnectionResponse> {
+    return this.request("DescribeUserVpcConnection", req, cb)
   }
 
   /**
@@ -2892,38 +3385,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 废弃接口，申请下线
-
-按顺序创建任务（已经废弃，后期不再维护，请使用接口CreateTasks）
-     */
-  async CreateTasksInOrder(
-    req: CreateTasksInOrderRequest,
-    cb?: (error: string, rep: CreateTasksInOrderResponse) => void
-  ): Promise<CreateTasksInOrderResponse> {
-    return this.request("CreateTasksInOrder", req, cb)
-  }
-
-  /**
-   * 删除集群组
-   */
-  async DeleteClusterGroup(
-    req: DeleteClusterGroupRequest,
-    cb?: (error: string, rep: DeleteClusterGroupResponse) => void
-  ): Promise<DeleteClusterGroupResponse> {
-    return this.request("DeleteClusterGroup", req, cb)
-  }
-
-  /**
-   * 元数据锁
-   */
-  async LockMetaData(
-    req: LockMetaDataRequest,
-    cb?: (error: string, rep: LockMetaDataResponse) => void
-  ): Promise<LockMetaDataResponse> {
-    return this.request("LockMetaData", req, cb)
-  }
-
-  /**
    * DMS元数据创建表
    */
   async CreateDMSTable(
@@ -2931,26 +3392,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateDMSTableResponse) => void
   ): Promise<CreateDMSTableResponse> {
     return this.request("CreateDMSTable", req, cb)
-  }
-
-  /**
-   * 分配原生表表属性
-   */
-  async AssignMangedTableProperties(
-    req: AssignMangedTablePropertiesRequest,
-    cb?: (error: string, rep: AssignMangedTablePropertiesResponse) => void
-  ): Promise<AssignMangedTablePropertiesResponse> {
-    return this.request("AssignMangedTableProperties", req, cb)
-  }
-
-  /**
-   * 升级引擎镜像
-   */
-  async UpgradeDataEngineImage(
-    req: UpgradeDataEngineImageRequest,
-    cb?: (error: string, rep: UpgradeDataEngineImageResponse) => void
-  ): Promise<UpgradeDataEngineImageResponse> {
-    return this.request("UpgradeDataEngineImage", req, cb)
   }
 
   /**
@@ -2964,86 +3405,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * UDP权限修改
-   */
-  async UpdateUDFPolicy(
-    req: UpdateUDFPolicyRequest,
-    cb?: (error: string, rep: UpdateUDFPolicyResponse) => void
-  ): Promise<UpdateUDFPolicyResponse> {
-    return this.request("UpdateUDFPolicy", req, cb)
-  }
-
-  /**
-   * 列出推理模型（支持关键词过滤 + 分页）
-   */
-  async ListInferenceModels(
-    req: ListInferenceModelsRequest,
-    cb?: (error: string, rep: ListInferenceModelsResponse) => void
-  ): Promise<ListInferenceModelsResponse> {
-    return this.request("ListInferenceModels", req, cb)
-  }
-
-  /**
-   * 查询数据引擎事件
-   */
-  async DescribeDataEngineEvents(
-    req: DescribeDataEngineEventsRequest,
-    cb?: (error: string, rep: DescribeDataEngineEventsResponse) => void
-  ): Promise<DescribeDataEngineEventsResponse> {
-    return this.request("DescribeDataEngineEvents", req, cb)
-  }
-
-  /**
-   * 解绑工作组鉴权策略
-   */
-  async DetachWorkGroupPolicy(
-    req: DetachWorkGroupPolicyRequest,
-    cb?: (error: string, rep: DetachWorkGroupPolicyResponse) => void
-  ): Promise<DetachWorkGroupPolicyResponse> {
-    return this.request("DetachWorkGroupPolicy", req, cb)
-  }
-
-  /**
-   * 根据任务ID获取Ray任务详情
-   */
-  async GetRayJob(
-    req: GetRayJobRequest,
-    cb?: (error: string, rep: GetRayJobResponse) => void
-  ): Promise<GetRayJobResponse> {
-    return this.request("GetRayJob", req, cb)
-  }
-
-  /**
-   * DMS元数据删除表
-   */
-  async DropDMSTable(
-    req: DropDMSTableRequest,
-    cb?: (error: string, rep: DropDMSTableResponse) => void
-  ): Promise<DropDMSTableResponse> {
-    return this.request("DropDMSTable", req, cb)
-  }
-
-  /**
-   * 获取任务结果查询
-   */
-  async QueryResult(
-    req: QueryResultRequest,
-    cb?: (error: string, rep: QueryResultResponse) => void
-  ): Promise<QueryResultResponse> {
-    return this.request("QueryResult", req, cb)
-  }
-
-  /**
-   * 更新tdlc spark作业
-   */
-  async ModifySparkAppForTDLC(
-    req: ModifySparkAppForTDLCRequest,
-    cb?: (error: string, rep: ModifySparkAppForTDLCResponse) => void
-  ): Promise<ModifySparkAppForTDLCResponse> {
-    return this.request("ModifySparkAppForTDLC", req, cb)
-  }
-
-  /**
    * 元数据锁检查
    */
   async CheckLockMetaData(
@@ -3051,16 +3412,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CheckLockMetaDataResponse) => void
   ): Promise<CheckLockMetaDataResponse> {
     return this.request("CheckLockMetaData", req, cb)
-  }
-
-  /**
-   * 该接口（CreateImportTask）用于创建导入任务
-   */
-  async CreateImportTask(
-    req: CreateImportTaskRequest,
-    cb?: (error: string, rep: CreateImportTaskResponse) => void
-  ): Promise<CreateImportTaskResponse> {
-    return this.request("CreateImportTask", req, cb)
   }
 
   /**
@@ -3074,26 +3425,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取集群的Pod列表
-   */
-  async GetRayClusterPods(
-    req: GetRayClusterPodsRequest,
-    cb?: (error: string, rep: GetRayClusterPodsResponse) => void
-  ): Promise<GetRayClusterPodsResponse> {
-    return this.request("GetRayClusterPods", req, cb)
-  }
-
-  /**
-   * 查询可售卖的地域列表，仅返回状态为AVAILABLE的地域
-   */
-  async DescribeSaleRegions(
-    req?: DescribeSaleRegionsRequest,
-    cb?: (error: string, rep: DescribeSaleRegionsResponse) => void
-  ): Promise<DescribeSaleRegionsResponse> {
-    return this.request("DescribeSaleRegions", req, cb)
-  }
-
-  /**
    * 批量取消任务
    */
   async CancelTasks(
@@ -3101,46 +3432,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CancelTasksResponse) => void
   ): Promise<CancelTasksResponse> {
     return this.request("CancelTasks", req, cb)
-  }
-
-  /**
-   * 修改数据治理事件阈值
-   */
-  async ModifyGovernEventRule(
-    req?: ModifyGovernEventRuleRequest,
-    cb?: (error: string, rep: ModifyGovernEventRuleResponse) => void
-  ): Promise<ModifyGovernEventRuleResponse> {
-    return this.request("ModifyGovernEventRule", req, cb)
-  }
-
-  /**
-   * 本接口（CreateTable）用于生成建表SQL。
-   */
-  async CreateTable(
-    req: CreateTableRequest,
-    cb?: (error: string, rep: CreateTableResponse) => void
-  ): Promise<CreateTableResponse> {
-    return this.request("CreateTable", req, cb)
-  }
-
-  /**
-   * 查询任务结果，仅支持30天以内的任务查询结果，且返回数据大小超过近50M会进行截断。
-   */
-  async DescribeTaskResult(
-    req: DescribeTaskResultRequest,
-    cb?: (error: string, rep: DescribeTaskResultResponse) => void
-  ): Promise<DescribeTaskResultResponse> {
-    return this.request("DescribeTaskResult", req, cb)
-  }
-
-  /**
-   * 该接口（CreateExportTask）用于创建导出任务
-   */
-  async CreateExportTask(
-    req: CreateExportTaskRequest,
-    cb?: (error: string, rep: CreateExportTaskResponse) => void
-  ): Promise<CreateExportTaskResponse> {
-    return this.request("CreateExportTask", req, cb)
   }
 
   /**
@@ -3154,203 +3445,53 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 创建tdlc spark作业
+   * 本接口（RegisterThirdPartyAccessUser）用于开通第三方平台访问
    */
-  async CreateSparkAppForTDLC(
-    req: CreateSparkAppForTDLCRequest,
-    cb?: (error: string, rep: CreateSparkAppForTDLCResponse) => void
-  ): Promise<CreateSparkAppForTDLCResponse> {
-    return this.request("CreateSparkAppForTDLC", req, cb)
+  async RegisterThirdPartyAccessUser(
+    req?: RegisterThirdPartyAccessUserRequest,
+    cb?: (error: string, rep: RegisterThirdPartyAccessUserResponse) => void
+  ): Promise<RegisterThirdPartyAccessUserResponse> {
+    return this.request("RegisterThirdPartyAccessUser", req, cb)
   }
 
   /**
-   * 查询监控大盘服务列表
+   * 获取Ray集群详情请求
    */
-  async QueryDashboardServiceList(
-    req: QueryDashboardServiceListRequest,
-    cb?: (error: string, rep: QueryDashboardServiceListResponse) => void
-  ): Promise<QueryDashboardServiceListResponse> {
-    return this.request("QueryDashboardServiceList", req, cb)
+  async GetRayCluster(
+    req: GetRayClusterRequest,
+    cb?: (error: string, rep: GetRayClusterResponse) => void
+  ): Promise<GetRayClusterResponse> {
+    return this.request("GetRayCluster", req, cb)
   }
 
   /**
-   * 列出所有集群组
+   * 根据资源组获取spark session列表
    */
-  async ListClusterGroups(
-    req: ListClusterGroupsRequest,
-    cb?: (error: string, rep: ListClusterGroupsResponse) => void
-  ): Promise<ListClusterGroupsResponse> {
-    return this.request("ListClusterGroups", req, cb)
+  async DescribeNativeSparkSessions(
+    req: DescribeNativeSparkSessionsRequest,
+    cb?: (error: string, rep: DescribeNativeSparkSessionsResponse) => void
+  ): Promise<DescribeNativeSparkSessionsResponse> {
+    return this.request("DescribeNativeSparkSessions", req, cb)
   }
 
   /**
-   * 列出所有集群
+   * 获取工作组列表
    */
-  async ListRayClusters(
-    req: ListRayClustersRequest,
-    cb?: (error: string, rep: ListRayClustersResponse) => void
-  ): Promise<ListRayClustersResponse> {
-    return this.request("ListRayClusters", req, cb)
+  async DescribeWorkGroups(
+    req: DescribeWorkGroupsRequest,
+    cb?: (error: string, rep: DescribeWorkGroupsResponse) => void
+  ): Promise<DescribeWorkGroupsResponse> {
+    return this.request("DescribeWorkGroups", req, cb)
   }
 
   /**
-   * 根据任务ID取消正在运行的Ray任务
+   * 案例列表
    */
-  async CancelRayJob(
-    req: CancelRayJobRequest,
-    cb?: (error: string, rep: CancelRayJobResponse) => void
-  ): Promise<CancelRayJobResponse> {
-    return this.request("CancelRayJob", req, cb)
-  }
-
-  /**
-   * 该接口用于洞察分析列表
-   */
-  async DescribeTasksAnalysis(
-    req: DescribeTasksAnalysisRequest,
-    cb?: (error: string, rep: DescribeTasksAnalysisResponse) => void
-  ): Promise<DescribeTasksAnalysisResponse> {
-    return this.request("DescribeTasksAnalysis", req, cb)
-  }
-
-  /**
-   * 列出实验室列表
-   */
-  async ListLabs(
-    req: ListLabsRequest,
-    cb?: (error: string, rep: ListLabsResponse) => void
-  ): Promise<ListLabsResponse> {
-    return this.request("ListLabs", req, cb)
-  }
-
-  /**
-   * 从工作组中删除用户
-   */
-  async DeleteUsersFromWorkGroup(
-    req: DeleteUsersFromWorkGroupRequest,
-    cb?: (error: string, rep: DeleteUsersFromWorkGroupResponse) => void
-  ): Promise<DeleteUsersFromWorkGroupResponse> {
-    return this.request("DeleteUsersFromWorkGroup", req, cb)
-  }
-
-  /**
-   * 更新网络配置
-   */
-  async UpdateNetworkConnection(
-    req: UpdateNetworkConnectionRequest,
-    cb?: (error: string, rep: UpdateNetworkConnectionResponse) => void
-  ): Promise<UpdateNetworkConnectionResponse> {
-    return this.request("UpdateNetworkConnection", req, cb)
-  }
-
-  /**
-   * 获取Pod的YAML内容
-   */
-  async GetRayJobPodYaml(
-    req: GetRayJobPodYamlRequest,
-    cb?: (error: string, rep: GetRayJobPodYamlResponse) => void
-  ): Promise<GetRayJobPodYamlResponse> {
-    return this.request("GetRayJobPodYaml", req, cb)
-  }
-
-  /**
-   * 根据集群ID列出所有Ray任务
-   */
-  async ListRayJobs(
-    req: ListRayJobsRequest,
-    cb?: (error: string, rep: ListRayJobsResponse) => void
-  ): Promise<ListRayJobsResponse> {
-    return this.request("ListRayJobs", req, cb)
-  }
-
-  /**
-   * 更新已有作业配置的字段
-   */
-  async UpdateJobSpec(
-    req: UpdateJobSpecRequest,
-    cb?: (error: string, rep: UpdateJobSpecResponse) => void
-  ): Promise<UpdateJobSpecResponse> {
-    return this.request("UpdateJobSpec", req, cb)
-  }
-
-  /**
-   * 查询Spark作业的运行任务列表
-   */
-  async DescribeSparkAppTasks(
-    req: DescribeSparkAppTasksRequest,
-    cb?: (error: string, rep: DescribeSparkAppTasksResponse) => void
-  ): Promise<DescribeSparkAppTasksResponse> {
-    return this.request("DescribeSparkAppTasks", req, cb)
-  }
-
-  /**
-   * 创建用户角色
-   */
-  async CreateUserRole(
-    req: CreateUserRoleRequest,
-    cb?: (error: string, rep: CreateUserRoleResponse) => void
-  ): Promise<CreateUserRoleResponse> {
-    return this.request("CreateUserRole", req, cb)
-  }
-
-  /**
-   * 解绑用户上的用户组
-   */
-  async UnbindWorkGroupsFromUser(
-    req: UnbindWorkGroupsFromUserRequest,
-    cb?: (error: string, rep: UnbindWorkGroupsFromUserResponse) => void
-  ): Promise<UnbindWorkGroupsFromUserResponse> {
-    return this.request("UnbindWorkGroupsFromUser", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeDataEnginePythonSparkImages）用于获取PYSPARK镜像列表
-   */
-  async DescribeDataEnginePythonSparkImages(
-    req: DescribeDataEnginePythonSparkImagesRequest,
-    cb?: (error: string, rep: DescribeDataEnginePythonSparkImagesResponse) => void
-  ): Promise<DescribeDataEnginePythonSparkImagesResponse> {
-    return this.request("DescribeDataEnginePythonSparkImages", req, cb)
-  }
-
-  /**
-   * 本接口（CreateSparkSubmitTask）用于提交SparkSbumit批流任务。
-   */
-  async CreateSparkSubmitTask(
-    req: CreateSparkSubmitTaskRequest,
-    cb?: (error: string, rep: CreateSparkSubmitTaskResponse) => void
-  ): Promise<CreateSparkSubmitTaskResponse> {
-    return this.request("CreateSparkSubmitTask", req, cb)
-  }
-
-  /**
-   * 删除资源队列
-   */
-  async DeletePartitionQueue(
-    req: DeletePartitionQueueRequest,
-    cb?: (error: string, rep: DeletePartitionQueueResponse) => void
-  ): Promise<DeletePartitionQueueResponse> {
-    return this.request("DeletePartitionQueue", req, cb)
-  }
-
-  /**
-   * 该接口（CreateScript）用于创建sql脚本。
-   */
-  async CreateScript(
-    req: CreateScriptRequest,
-    cb?: (error: string, rep: CreateScriptResponse) => void
-  ): Promise<CreateScriptResponse> {
-    return this.request("CreateScript", req, cb)
-  }
-
-  /**
-   * 该接口（DescribeTasks）用于查询任务列表
-   */
-  async DescribeMCPTask(
-    req: DescribeMCPTaskRequest,
-    cb?: (error: string, rep: DescribeMCPTaskResponse) => void
-  ): Promise<DescribeMCPTaskResponse> {
-    return this.request("DescribeMCPTask", req, cb)
+  async ListExamples(
+    req: ListExamplesRequest,
+    cb?: (error: string, rep: ListExamplesResponse) => void
+  ): Promise<ListExamplesResponse> {
+    return this.request("ListExamples", req, cb)
   }
 
   /**
@@ -3364,26 +3505,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 编辑资源队列：根据队列ID修改指定资源队列的名称、描述、资源规格列表和队列类型等信息。
-   */
-  async ModifyPartitionQueue(
-    req: ModifyPartitionQueueRequest,
-    cb?: (error: string, rep: ModifyPartitionQueueResponse) => void
-  ): Promise<ModifyPartitionQueueResponse> {
-    return this.request("ModifyPartitionQueue", req, cb)
-  }
-
-  /**
-   * 开通TCLake
-   */
-  async InitializeTCLake(
-    req?: InitializeTCLakeRequest,
-    cb?: (error: string, rep: InitializeTCLakeResponse) => void
-  ): Promise<InitializeTCLakeResponse> {
-    return this.request("InitializeTCLake", req, cb)
-  }
-
-  /**
    * 本接口（DescribeNotebookSessionStatement）用于查询session 中执行任务的详情
    */
   async DescribeNotebookSessionStatement(
@@ -3394,33 +3515,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 停止推理服务（操作所有部署）。
+   * 查询 MlFlow Server 状态
    */
-  async StopInferenceService(
-    req: StopInferenceServiceRequest,
-    cb?: (error: string, rep: StopInferenceServiceResponse) => void
-  ): Promise<StopInferenceServiceResponse> {
-    return this.request("StopInferenceService", req, cb)
-  }
-
-  /**
-   * 绑定数据脱敏策略
-   */
-  async AttachDataMaskPolicy(
-    req: AttachDataMaskPolicyRequest,
-    cb?: (error: string, rep: AttachDataMaskPolicyResponse) => void
-  ): Promise<AttachDataMaskPolicyResponse> {
-    return this.request("AttachDataMaskPolicy", req, cb)
-  }
-
-  /**
-   * 查询引擎可用的节点规格
-   */
-  async DescribeEngineNodeSpec(
-    req: DescribeEngineNodeSpecRequest,
-    cb?: (error: string, rep: DescribeEngineNodeSpecResponse) => void
-  ): Promise<DescribeEngineNodeSpecResponse> {
-    return this.request("DescribeEngineNodeSpec", req, cb)
+  async DescribeMlflowServer(
+    req: DescribeMlflowServerRequest,
+    cb?: (error: string, rep: DescribeMlflowServerResponse) => void
+  ): Promise<DescribeMlflowServerResponse> {
+    return this.request("DescribeMlflowServer", req, cb)
   }
 
   /**
@@ -3434,26 +3535,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 列出所有镜像
-   */
-  async ListImages(
-    req: ListImagesRequest,
-    cb?: (error: string, rep: ListImagesResponse) => void
-  ): Promise<ListImagesResponse> {
-    return this.request("ListImages", req, cb)
-  }
-
-  /**
-   * 本接口（DescribeViews）用于查询数据视图列表。
-   */
-  async DescribeViews(
-    req: DescribeViewsRequest,
-    cb?: (error: string, rep: DescribeViewsResponse) => void
-  ): Promise<DescribeViewsResponse> {
-    return this.request("DescribeViews", req, cb)
-  }
-
-  /**
    * 本接口（RegisterThirdPartyAccessUser）用于移除第三方平台访问
    */
   async DeleteThirdPartyAccessUser(
@@ -3464,76 +3545,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * GetOptimizerPolicy
-   */
-  async GetOptimizerPolicy(
-    req: GetOptimizerPolicyRequest,
-    cb?: (error: string, rep: GetOptimizerPolicyResponse) => void
-  ): Promise<GetOptimizerPolicyResponse> {
-    return this.request("GetOptimizerPolicy", req, cb)
-  }
-
-  /**
-   * 更新标准引擎资源组网络配置信息
-   */
-  async UpdateEngineResourceGroupNetworkConfigInfo(
-    req: UpdateEngineResourceGroupNetworkConfigInfoRequest,
-    cb?: (error: string, rep: UpdateEngineResourceGroupNetworkConfigInfoResponse) => void
-  ): Promise<UpdateEngineResourceGroupNetworkConfigInfoResponse> {
-    return this.request("UpdateEngineResourceGroupNetworkConfigInfo", req, cb)
-  }
-
-  /**
-   * 启动实验室
-   */
-  async StartLab(
-    req: StartLabRequest,
-    cb?: (error: string, rep: StartLabResponse) => void
-  ): Promise<StartLabResponse> {
-    return this.request("StartLab", req, cb)
-  }
-
-  /**
-   * 修改实验室的调度优先级（1-9，数字越大优先级越高）
-   */
-  async ModifyLabPriority(
-    req: ModifyLabPriorityRequest,
-    cb?: (error: string, rep: ModifyLabPriorityResponse) => void
-  ): Promise<ModifyLabPriorityResponse> {
-    return this.request("ModifyLabPriority", req, cb)
-  }
-
-  /**
-   * 列举用户角色信息
-   */
-  async DescribeUserRoles(
-    req: DescribeUserRolesRequest,
-    cb?: (error: string, rep: DescribeUserRolesResponse) => void
-  ): Promise<DescribeUserRolesResponse> {
-    return this.request("DescribeUserRoles", req, cb)
-  }
-
-  /**
-   * 本接口（ModifySparkAppBatch）用于批量修改Spark作业参数配置
-   */
-  async ModifySparkAppBatch(
-    req: ModifySparkAppBatchRequest,
-    cb?: (error: string, rep: ModifySparkAppBatchResponse) => void
-  ): Promise<ModifySparkAppBatchResponse> {
-    return this.request("ModifySparkAppBatch", req, cb)
-  }
-
-  /**
-   * DMS元数据获取库
-   */
-  async DescribeDMSDatabase(
-    req: DescribeDMSDatabaseRequest,
-    cb?: (error: string, rep: DescribeDMSDatabaseResponse) => void
-  ): Promise<DescribeDMSDatabaseResponse> {
-    return this.request("DescribeDMSDatabase", req, cb)
-  }
-
-  /**
    * 创建集群
    */
   async CreateRayCluster(
@@ -3541,36 +3552,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CreateRayClusterResponse) => void
   ): Promise<CreateRayClusterResponse> {
     return this.request("CreateRayCluster", req, cb)
-  }
-
-  /**
-   * 获取模型 README 信息（默认最新版本）
-   */
-  async GetModelReadme(
-    req: GetModelReadmeRequest,
-    cb?: (error: string, rep: GetModelReadmeResponse) => void
-  ): Promise<GetModelReadmeResponse> {
-    return this.request("GetModelReadme", req, cb)
-  }
-
-  /**
-   * 绑定工作组到用户
-   */
-  async BindWorkGroupsToUser(
-    req: BindWorkGroupsToUserRequest,
-    cb?: (error: string, rep: BindWorkGroupsToUserResponse) => void
-  ): Promise<BindWorkGroupsToUserResponse> {
-    return this.request("BindWorkGroupsToUser", req, cb)
-  }
-
-  /**
-   * 此接口（DeleteCHDFSBindingProduct）用于删除元数据加速桶和产品绑定关系
-   */
-  async DeleteCHDFSBindingProduct(
-    req: DeleteCHDFSBindingProductRequest,
-    cb?: (error: string, rep: DeleteCHDFSBindingProductResponse) => void
-  ): Promise<DeleteCHDFSBindingProductResponse> {
-    return this.request("DeleteCHDFSBindingProduct", req, cb)
   }
 
   /**
@@ -3591,106 +3572,6 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeTaskLogResponse) => void
   ): Promise<DescribeTaskLogResponse> {
     return this.request("DescribeTaskLog", req, cb)
-  }
-
-  /**
-   * 获取RayCluster的YAML内容
-   */
-  async GetRayClusterYaml(
-    req: GetRayClusterYamlRequest,
-    cb?: (error: string, rep: GetRayClusterYamlResponse) => void
-  ): Promise<GetRayClusterYamlResponse> {
-    return this.request("GetRayClusterYaml", req, cb)
-  }
-
-  /**
-   * 列出模型所有版本
-   */
-  async ListModelVersions(
-    req: ListModelVersionsRequest,
-    cb?: (error: string, rep: ListModelVersionsResponse) => void
-  ): Promise<ListModelVersionsResponse> {
-    return this.request("ListModelVersions", req, cb)
-  }
-
-  /**
-   * 获取数据实验室对应的RayCluster YAML内容
-   */
-  async GetLabYaml(
-    req: GetLabYamlRequest,
-    cb?: (error: string, rep: GetLabYamlResponse) => void
-  ): Promise<GetLabYamlResponse> {
-    return this.request("GetLabYaml", req, cb)
-  }
-
-  /**
-   * 获取资源配置模板详情
-   */
-  async GetResourceConfig(
-    req: GetResourceConfigRequest,
-    cb?: (error: string, rep: GetResourceConfigResponse) => void
-  ): Promise<GetResourceConfigResponse> {
-    return this.request("GetResourceConfig", req, cb)
-  }
-
-  /**
-   * 获取任务结果查询
-   */
-  async DescribeMCPTaskResult(
-    req: DescribeMCPTaskResultRequest,
-    cb?: (error: string, rep: DescribeMCPTaskResultResponse) => void
-  ): Promise<DescribeMCPTaskResultResponse> {
-    return this.request("DescribeMCPTaskResult", req, cb)
-  }
-
-  /**
-   * 修改引擎描述信息
-   */
-  async ModifyDataEngineDescription(
-    req: ModifyDataEngineDescriptionRequest,
-    cb?: (error: string, rep: ModifyDataEngineDescriptionResponse) => void
-  ): Promise<ModifyDataEngineDescriptionResponse> {
-    return this.request("ModifyDataEngineDescription", req, cb)
-  }
-
-  /**
-   * 本接口（DeleteNotebookSession）用于删除交互式session（notebook）
-   */
-  async DeleteNotebookSession(
-    req: DeleteNotebookSessionRequest,
-    cb?: (error: string, rep: DeleteNotebookSessionResponse) => void
-  ): Promise<DeleteNotebookSessionResponse> {
-    return this.request("DeleteNotebookSession", req, cb)
-  }
-
-  /**
-   * 本接口（CancelNotebookSessionStatement）用于取消session中执行的任务
-   */
-  async CancelNotebookSessionStatement(
-    req: CancelNotebookSessionStatementRequest,
-    cb?: (error: string, rep: CancelNotebookSessionStatementResponse) => void
-  ): Promise<CancelNotebookSessionStatementResponse> {
-    return this.request("CancelNotebookSessionStatement", req, cb)
-  }
-
-  /**
-   * 创建数据脱敏策略
-   */
-  async CreateDataMaskStrategy(
-    req: CreateDataMaskStrategyRequest,
-    cb?: (error: string, rep: CreateDataMaskStrategyResponse) => void
-  ): Promise<CreateDataMaskStrategyResponse> {
-    return this.request("CreateDataMaskStrategy", req, cb)
-  }
-
-  /**
-   * 查询计算结果存储位置。
-   */
-  async DescribeStoreLocation(
-    req?: DescribeStoreLocationRequest,
-    cb?: (error: string, rep: DescribeStoreLocationResponse) => void
-  ): Promise<DescribeStoreLocationResponse> {
-    return this.request("DescribeStoreLocation", req, cb)
   }
 
   /**
@@ -3724,43 +3605,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 删除资源配置模板
+   * 本接口（DescribeDataEnginePythonSparkImages）用于获取PYSPARK镜像列表
    */
-  async DeleteResourceConfig(
-    req: DeleteResourceConfigRequest,
-    cb?: (error: string, rep: DeleteResourceConfigResponse) => void
-  ): Promise<DeleteResourceConfigResponse> {
-    return this.request("DeleteResourceConfig", req, cb)
-  }
-
-  /**
-   * DMS元数据删除库
-   */
-  async DropDMSDatabase(
-    req: DropDMSDatabaseRequest,
-    cb?: (error: string, rep: DropDMSDatabaseResponse) => void
-  ): Promise<DropDMSDatabaseResponse> {
-    return this.request("DropDMSDatabase", req, cb)
-  }
-
-  /**
-   * 查询标准引擎资源组信息
-   */
-  async DescribeStandardEngineResourceGroups(
-    req: DescribeStandardEngineResourceGroupsRequest,
-    cb?: (error: string, rep: DescribeStandardEngineResourceGroupsResponse) => void
-  ): Promise<DescribeStandardEngineResourceGroupsResponse> {
-    return this.request("DescribeStandardEngineResourceGroups", req, cb)
-  }
-
-  /**
-   * 本接口（ListTaskJobLogDetail）用于获取spark 作业任务日志详情
-   */
-  async ListTaskJobLogDetail(
-    req: ListTaskJobLogDetailRequest,
-    cb?: (error: string, rep: ListTaskJobLogDetailResponse) => void
-  ): Promise<ListTaskJobLogDetailResponse> {
-    return this.request("ListTaskJobLogDetail", req, cb)
+  async DescribeDataEnginePythonSparkImages(
+    req: DescribeDataEnginePythonSparkImagesRequest,
+    cb?: (error: string, rep: DescribeDataEnginePythonSparkImagesResponse) => void
+  ): Promise<DescribeDataEnginePythonSparkImagesResponse> {
+    return this.request("DescribeDataEnginePythonSparkImages", req, cb)
   }
 
   /**
@@ -3774,16 +3625,6 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 更新实验室配置：仅在 CREATED / STOPPED / FAILED 终态可用；变更落 MySQL，下次 Start 按新 spec 创建 K8s 资源
-   */
-  async UpdateLab(
-    req: UpdateLabRequest,
-    cb?: (error: string, rep: UpdateLabResponse) => void
-  ): Promise<UpdateLabResponse> {
-    return this.request("UpdateLab", req, cb)
-  }
-
-  /**
    * 查询引擎网络信息
    */
   async DescribeEngineNetworks(
@@ -3791,6 +3632,956 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeEngineNetworksResponse) => void
   ): Promise<DescribeEngineNetworksResponse> {
     return this.request("DescribeEngineNetworks", req, cb)
+  }
+
+  /**
+   * 检查模型标识符是否重复
+   */
+  async CheckModelIdentifier(
+    req: CheckModelIdentifierRequest,
+    cb?: (error: string, rep: CheckModelIdentifierResponse) => void
+  ): Promise<CheckModelIdentifierResponse> {
+    return this.request("CheckModelIdentifier", req, cb)
+  }
+
+  /**
+   * 本接口（CreateTask）用于创建并执行SQL任务。（推荐使用CreateTasks接口）
+   */
+  async CreateTask(
+    req: CreateTaskRequest,
+    cb?: (error: string, rep: CreateTaskResponse) => void
+  ): Promise<CreateTaskResponse> {
+    return this.request("CreateTask", req, cb)
+  }
+
+  /**
+   * 该接口（DescribleTasks）用于查询任务列表
+   */
+  async DescribeTaskList(
+    req: DescribeTaskListRequest,
+    cb?: (error: string, rep: DescribeTaskListResponse) => void
+  ): Promise<DescribeTaskListResponse> {
+    return this.request("DescribeTaskList", req, cb)
+  }
+
+  /**
+   * 查询数据脱敏列表接口
+   */
+  async DescribeDataMaskStrategies(
+    req: DescribeDataMaskStrategiesRequest,
+    cb?: (error: string, rep: DescribeDataMaskStrategiesResponse) => void
+  ): Promise<DescribeDataMaskStrategiesResponse> {
+    return this.request("DescribeDataMaskStrategies", req, cb)
+  }
+
+  /**
+   * 本接口（DeleteMetaDatabase）用于一键删除元数据库
+   */
+  async DeleteMetaDatabase(
+    req: DeleteMetaDatabaseRequest,
+    cb?: (error: string, rep: DeleteMetaDatabaseResponse) => void
+  ): Promise<DeleteMetaDatabaseResponse> {
+    return this.request("DeleteMetaDatabase", req, cb)
+  }
+
+  /**
+   * 列出训练作业实例
+   */
+  async ListTrainingJobInstance(
+    req: ListTrainingJobInstanceRequest,
+    cb?: (error: string, rep: ListTrainingJobInstanceResponse) => void
+  ): Promise<ListTrainingJobInstanceResponse> {
+    return this.request("ListTrainingJobInstance", req, cb)
+  }
+
+  /**
+   * 本接口（CreateNotebookSessionStatementSupportBatchSQL）用于创建交互式session并执行SQL任务
+   */
+  async CreateNotebookSessionStatementSupportBatchSQL(
+    req: CreateNotebookSessionStatementSupportBatchSQLRequest,
+    cb?: (error: string, rep: CreateNotebookSessionStatementSupportBatchSQLResponse) => void
+  ): Promise<CreateNotebookSessionStatementSupportBatchSQLResponse> {
+    return this.request("CreateNotebookSessionStatementSupportBatchSQL", req, cb)
+  }
+
+  /**
+   * 该接口（DescribeTaskDetail）用于查询历史任务详情
+   */
+  async DescribeTaskDetail(
+    req: DescribeTaskDetailRequest,
+    cb?: (error: string, rep: DescribeTaskDetailResponse) => void
+  ): Promise<DescribeTaskDetailResponse> {
+    return this.request("DescribeTaskDetail", req, cb)
+  }
+
+  /**
+   * DMS元数据获取分区
+   */
+  async DescribeDMSPartitions(
+    req: DescribeDMSPartitionsRequest,
+    cb?: (error: string, rep: DescribeDMSPartitionsResponse) => void
+  ): Promise<DescribeDMSPartitionsResponse> {
+    return this.request("DescribeDMSPartitions", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeSparkSessionBatchSqlLog）用于查询Spark SQL批任务日志
+   */
+  async DescribeSparkSessionBatchSqlLog(
+    req: DescribeSparkSessionBatchSqlLogRequest,
+    cb?: (error: string, rep: DescribeSparkSessionBatchSqlLogResponse) => void
+  ): Promise<DescribeSparkSessionBatchSqlLogResponse> {
+    return this.request("DescribeSparkSessionBatchSqlLog", req, cb)
+  }
+
+  /**
+   * 查询DLC Catalog授权列表
+   */
+  async DescribeDLCCatalogAccess(
+    req: DescribeDLCCatalogAccessRequest,
+    cb?: (error: string, rep: DescribeDLCCatalogAccessResponse) => void
+  ): Promise<DescribeDLCCatalogAccessResponse> {
+    return this.request("DescribeDLCCatalogAccess", req, cb)
+  }
+
+  /**
+   * 列出所有资源配置模板
+   */
+  async ListResourceConfigs(
+    req: ListResourceConfigsRequest,
+    cb?: (error: string, rep: ListResourceConfigsResponse) => void
+  ): Promise<ListResourceConfigsResponse> {
+    return this.request("ListResourceConfigs", req, cb)
+  }
+
+  /**
+   * 更新标准引擎资源组基础信息
+   */
+  async UpdateStandardEngineResourceGroupResourceInfo(
+    req: UpdateStandardEngineResourceGroupResourceInfoRequest,
+    cb?: (error: string, rep: UpdateStandardEngineResourceGroupResourceInfoResponse) => void
+  ): Promise<UpdateStandardEngineResourceGroupResourceInfoResponse> {
+    return this.request("UpdateStandardEngineResourceGroupResourceInfo", req, cb)
+  }
+
+  /**
+   * 查询托管存储指定目录的Summary
+   */
+  async DescribeLakeFsDirSummary(
+    req?: DescribeLakeFsDirSummaryRequest,
+    cb?: (error: string, rep: DescribeLakeFsDirSummaryResponse) => void
+  ): Promise<DescribeLakeFsDirSummaryResponse> {
+    return this.request("DescribeLakeFsDirSummary", req, cb)
+  }
+
+  /**
+   * 查询指定模型类型下可选的任务类型列表。
+   */
+  async DescribeModelTaskOptions(
+    req: DescribeModelTaskOptionsRequest,
+    cb?: (error: string, rep: DescribeModelTaskOptionsResponse) => void
+  ): Promise<DescribeModelTaskOptionsResponse> {
+    return this.request("DescribeModelTaskOptions", req, cb)
+  }
+
+  /**
+   * 获取集群状态历史
+   */
+  async GetRayClusterHistory(
+    req: GetRayClusterHistoryRequest,
+    cb?: (error: string, rep: GetRayClusterHistoryResponse) => void
+  ): Promise<GetRayClusterHistoryResponse> {
+    return this.request("GetRayClusterHistory", req, cb)
+  }
+
+  /**
+   * 计算组关联 cluster 使用情况响应
+   */
+  async DescribeClusterGroupClusters(
+    req: DescribeClusterGroupClustersRequest,
+    cb?: (error: string, rep: DescribeClusterGroupClustersResponse) => void
+  ): Promise<DescribeClusterGroupClustersResponse> {
+    return this.request("DescribeClusterGroupClusters", req, cb)
+  }
+
+  /**
+   * 获取集群Pod的YAML内容
+   */
+  async GetRayClusterPodYaml(
+    req: GetRayClusterPodYamlRequest,
+    cb?: (error: string, rep: GetRayClusterPodYamlResponse) => void
+  ): Promise<GetRayClusterPodYamlResponse> {
+    return this.request("GetRayClusterPodYaml", req, cb)
+  }
+
+  /**
+   * 删除模型及其所有版本（平台托管模型同时删除 COS 文件，用户自带桶仅删除元数据）
+   */
+  async DeleteModel(
+    req: DeleteModelRequest,
+    cb?: (error: string, rep: DeleteModelResponse) => void
+  ): Promise<DeleteModelResponse> {
+    return this.request("DeleteModel", req, cb)
+  }
+
+  /**
+   * 根据模型 UID 查询该模型可选的推理引擎列表。后端自动根据模型的 SupportedEngines 声明或 ModelType 进行引擎过滤
+   */
+  async DescribeModelEngines(
+    req: DescribeModelEnginesRequest,
+    cb?: (error: string, rep: DescribeModelEnginesResponse) => void
+  ): Promise<DescribeModelEnginesResponse> {
+    return this.request("DescribeModelEngines", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeTables）用于查询数据表列表。
+   */
+  async DescribeTables(
+    req: DescribeTablesRequest,
+    cb?: (error: string, rep: DescribeTablesResponse) => void
+  ): Promise<DescribeTablesResponse> {
+    return this.request("DescribeTables", req, cb)
+  }
+
+  /**
+   * 查询指定 Ray 集群下提交的所有作业，分页返回。底层委托给 ListRayJobs，强制注入 ClusterId 作为过滤条件。
+   */
+  async ListRayClusterJobs(
+    req: ListRayClusterJobsRequest,
+    cb?: (error: string, rep: ListRayClusterJobsResponse) => void
+  ): Promise<ListRayClusterJobsResponse> {
+    return this.request("ListRayClusterJobs", req, cb)
+  }
+
+  /**
+   * 修改表备注
+   */
+  async AlterTableComment(
+    req: AlterTableCommentRequest,
+    cb?: (error: string, rep: AlterTableCommentResponse) => void
+  ): Promise<AlterTableCommentResponse> {
+    return this.request("AlterTableComment", req, cb)
+  }
+
+  /**
+   * 分页查询某作业配置下产生的所有作业实例
+   */
+  async ListJobsBySpec(
+    req: ListJobsBySpecRequest,
+    cb?: (error: string, rep: ListJobsBySpecResponse) => void
+  ): Promise<ListJobsBySpecResponse> {
+    return this.request("ListJobsBySpec", req, cb)
+  }
+
+  /**
+   * 该接口（DescribeScripts）用于查询SQL脚本列表
+   */
+  async DescribeScripts(
+    req: DescribeScriptsRequest,
+    cb?: (error: string, rep: DescribeScriptsResponse) => void
+  ): Promise<DescribeScriptsResponse> {
+    return this.request("DescribeScripts", req, cb)
+  }
+
+  /**
+   * 停止部署
+   */
+  async StopDeployment(
+    req: StopDeploymentRequest,
+    cb?: (error: string, rep: StopDeploymentResponse) => void
+  ): Promise<StopDeploymentResponse> {
+    return this.request("StopDeployment", req, cb)
+  }
+
+  /**
+   * 基于配置创建实例并提交 RayJob
+   */
+  async CreateTrainingJobInstance(
+    req: CreateTrainingJobInstanceRequest,
+    cb?: (error: string, rep: CreateTrainingJobInstanceResponse) => void
+  ): Promise<CreateTrainingJobInstanceResponse> {
+    return this.request("CreateTrainingJobInstance", req, cb)
+  }
+
+  /**
+   * 创建实验室
+   */
+  async CreateLab(
+    req: CreateLabRequest,
+    cb?: (error: string, rep: CreateLabResponse) => void
+  ): Promise<CreateLabResponse> {
+    return this.request("CreateLab", req, cb)
+  }
+
+  /**
+   * 列出推理服务（支持关键词和状态过滤 + 分页）
+   */
+  async ListInferenceServices(
+    req: ListInferenceServicesRequest,
+    cb?: (error: string, rep: ListInferenceServicesResponse) => void
+  ): Promise<ListInferenceServicesResponse> {
+    return this.request("ListInferenceServices", req, cb)
+  }
+
+  /**
+   * 上报元数据心跳
+   */
+  async ReportHeartbeatMetaData(
+    req: ReportHeartbeatMetaDataRequest,
+    cb?: (error: string, rep: ReportHeartbeatMetaDataResponse) => void
+  ): Promise<ReportHeartbeatMetaDataResponse> {
+    return this.request("ReportHeartbeatMetaData", req, cb)
+  }
+
+  /**
+   * 获取集群的Pod列表
+   */
+  async GetRayClusterPods(
+    req: GetRayClusterPodsRequest,
+    cb?: (error: string, rep: GetRayClusterPodsResponse) => void
+  ): Promise<GetRayClusterPodsResponse> {
+    return this.request("GetRayClusterPods", req, cb)
+  }
+
+  /**
+   * 本接口（ListTaskJobLogDetail）用于获取spark 作业任务日志详情
+   */
+  async ListTaskJobLogDetail(
+    req: ListTaskJobLogDetailRequest,
+    cb?: (error: string, rep: ListTaskJobLogDetailResponse) => void
+  ): Promise<ListTaskJobLogDetailResponse> {
+    return this.request("ListTaskJobLogDetail", req, cb)
+  }
+
+  /**
+   * 创建模型新版本
+   */
+  async CreateModelVersion(
+    req: CreateModelVersionRequest,
+    cb?: (error: string, rep: CreateModelVersionResponse) => void
+  ): Promise<CreateModelVersionResponse> {
+    return this.request("CreateModelVersion", req, cb)
+  }
+
+  /**
+   * 启动 MlFlow Server（apply K8s 资源，幂等可重试）
+   */
+  async StartMlflowServer(
+    req: StartMlflowServerRequest,
+    cb?: (error: string, rep: StartMlflowServerResponse) => void
+  ): Promise<StartMlflowServerResponse> {
+    return this.request("StartMlflowServer", req, cb)
+  }
+
+  /**
+   * 生成创建托管表语句
+   */
+  async GenerateCreateMangedTableSql(
+    req: GenerateCreateMangedTableSqlRequest,
+    cb?: (error: string, rep: GenerateCreateMangedTableSqlResponse) => void
+  ): Promise<GenerateCreateMangedTableSqlResponse> {
+    return this.request("GenerateCreateMangedTableSql", req, cb)
+  }
+
+  /**
+   * 查询结果下载任务
+   */
+  async DescribeResultDownload(
+    req: DescribeResultDownloadRequest,
+    cb?: (error: string, rep: DescribeResultDownloadResponse) => void
+  ): Promise<DescribeResultDownloadResponse> {
+    return this.request("DescribeResultDownload", req, cb)
+  }
+
+  /**
+   * 回滚引擎镜像版本
+   */
+  async RollbackDataEngineImage(
+    req: RollbackDataEngineImageRequest,
+    cb?: (error: string, rep: RollbackDataEngineImageResponse) => void
+  ): Promise<RollbackDataEngineImageResponse> {
+    return this.request("RollbackDataEngineImage", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeSubUserAccessPolicy）用于开通了第三方平台访问的用户，查询其子用户的访问策略
+   */
+  async DescribeSubUserAccessPolicy(
+    req?: DescribeSubUserAccessPolicyRequest,
+    cb?: (error: string, rep: DescribeSubUserAccessPolicyResponse) => void
+  ): Promise<DescribeSubUserAccessPolicyResponse> {
+    return this.request("DescribeSubUserAccessPolicy", req, cb)
+  }
+
+  /**
+   * 本接口（CreateSparkSessionBatchSQL）用于向Spark作业引擎提交Spark SQL批任务。
+   */
+  async CreateSparkSessionBatchSQL(
+    req: CreateSparkSessionBatchSQLRequest,
+    cb?: (error: string, rep: CreateSparkSessionBatchSQLResponse) => void
+  ): Promise<CreateSparkSessionBatchSQLResponse> {
+    return this.request("CreateSparkSessionBatchSQL", req, cb)
+  }
+
+  /**
+   * 创建集群组
+   */
+  async CreateClusterGroup(
+    req: CreateClusterGroupRequest,
+    cb?: (error: string, rep: CreateClusterGroupResponse) => void
+  ): Promise<CreateClusterGroupResponse> {
+    return this.request("CreateClusterGroup", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeNotebookSessionStatements）用于查询Session中执行的任务列表
+   */
+  async DescribeNotebookSessionStatements(
+    req: DescribeNotebookSessionStatementsRequest,
+    cb?: (error: string, rep: DescribeNotebookSessionStatementsResponse) => void
+  ): Promise<DescribeNotebookSessionStatementsResponse> {
+    return this.request("DescribeNotebookSessionStatements", req, cb)
+  }
+
+  /**
+   * 授权访问DLC Catalog
+   */
+  async GrantDLCCatalogAccess(
+    req: GrantDLCCatalogAccessRequest,
+    cb?: (error: string, rep: GrantDLCCatalogAccessResponse) => void
+  ): Promise<GrantDLCCatalogAccessResponse> {
+    return this.request("GrantDLCCatalogAccess", req, cb)
+  }
+
+  /**
+   * 停止性能评测任务
+   */
+  async StopBenchmarkTask(
+    req: StopBenchmarkTaskRequest,
+    cb?: (error: string, rep: StopBenchmarkTaskResponse) => void
+  ): Promise<StopBenchmarkTaskResponse> {
+    return this.request("StopBenchmarkTask", req, cb)
+  }
+
+  /**
+   * 列出性能评测任务
+   */
+  async ListBenchmarkTasks(
+    req: ListBenchmarkTasksRequest,
+    cb?: (error: string, rep: ListBenchmarkTasksResponse) => void
+  ): Promise<ListBenchmarkTasksResponse> {
+    return this.request("ListBenchmarkTasks", req, cb)
+  }
+
+  /**
+   * 列出推理服务的部署列表
+   */
+  async ListDeployments(
+    req: ListDeploymentsRequest,
+    cb?: (error: string, rep: ListDeploymentsResponse) => void
+  ): Promise<ListDeploymentsResponse> {
+    return this.request("ListDeployments", req, cb)
+  }
+
+  /**
+   * 本接口（CreateMetaDatabase）用于创建元数据库
+   */
+  async CreateMetaDatabase(
+    req: CreateMetaDatabaseRequest,
+    cb?: (error: string, rep: CreateMetaDatabaseResponse) => void
+  ): Promise<CreateMetaDatabaseResponse> {
+    return this.request("CreateMetaDatabase", req, cb)
+  }
+
+  /**
+   * 获取数据实验室的Pod列表
+   */
+  async GetLabPods(
+    req: GetLabPodsRequest,
+    cb?: (error: string, rep: GetLabPodsResponse) => void
+  ): Promise<GetLabPodsResponse> {
+    return this.request("GetLabPods", req, cb)
+  }
+
+  /**
+   * 查询当前地域可售卖的资源规格、最大配额，以及库存情况。StatusCategory 与 DescribePartitionAvailableQuota 数据同源，将实时可新增数量映射为库存分级；当请求 Region 与资源池实际部署地域不一致，或服务 cold-start 快照尚未就绪时，StatusCategory 为 null。
+   */
+  async DescribeSaleResourceInfo(
+    req?: DescribeSaleResourceInfoRequest,
+    cb?: (error: string, rep: DescribeSaleResourceInfoResponse) => void
+  ): Promise<DescribeSaleResourceInfoResponse> {
+    return this.request("DescribeSaleResourceInfo", req, cb)
+  }
+
+  /**
+   * 创建查询结果下载任务
+   */
+  async CreateResultDownload(
+    req: CreateResultDownloadRequest,
+    cb?: (error: string, rep: CreateResultDownloadResponse) => void
+  ): Promise<CreateResultDownloadResponse> {
+    return this.request("CreateResultDownload", req, cb)
+  }
+
+  /**
+   * 绑定数据脱敏策略
+   */
+  async AttachDataMaskPolicy(
+    req: AttachDataMaskPolicyRequest,
+    cb?: (error: string, rep: AttachDataMaskPolicyResponse) => void
+  ): Promise<AttachDataMaskPolicyResponse> {
+    return this.request("AttachDataMaskPolicy", req, cb)
+  }
+
+  /**
+   * 列出 MlFlow Server
+   */
+  async ListMlflowServers(
+    req: ListMlflowServersRequest,
+    cb?: (error: string, rep: ListMlflowServersResponse) => void
+  ): Promise<ListMlflowServersResponse> {
+    return this.request("ListMlflowServers", req, cb)
+  }
+
+  /**
+   * 删除推理服务（含所有部署）
+   */
+  async DeleteInferenceService(
+    req: DeleteInferenceServiceRequest,
+    cb?: (error: string, rep: DeleteInferenceServiceResponse) => void
+  ): Promise<DeleteInferenceServiceResponse> {
+    return this.request("DeleteInferenceService", req, cb)
+  }
+
+  /**
+   * 创建 MlFlow Server
+   */
+  async CreateMlflowServer(
+    req: CreateMlflowServerRequest,
+    cb?: (error: string, rep: CreateMlflowServerResponse) => void
+  ): Promise<CreateMlflowServerResponse> {
+    return this.request("CreateMlflowServer", req, cb)
+  }
+
+  /**
+   * DMS元数据更新库
+   */
+  async AlterDMSDatabase(
+    req: AlterDMSDatabaseRequest,
+    cb?: (error: string, rep: AlterDMSDatabaseResponse) => void
+  ): Promise<AlterDMSDatabaseResponse> {
+    return this.request("AlterDMSDatabase", req, cb)
+  }
+
+  /**
+   * 创建作业配置
+   */
+  async CreateJobSpec(
+    req: CreateJobSpecRequest,
+    cb?: (error: string, rep: CreateJobSpecResponse) => void
+  ): Promise<CreateJobSpecResponse> {
+    return this.request("CreateJobSpec", req, cb)
+  }
+
+  /**
+   * 返回指定时间范围内所有推理服务的聚合 KPI 值。
+   */
+  async QueryDashboardOverview(
+    req: QueryDashboardOverviewRequest,
+    cb?: (error: string, rep: QueryDashboardOverviewResponse) => void
+  ): Promise<QueryDashboardOverviewResponse> {
+    return this.request("QueryDashboardOverview", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeNotebookSessionLog）用于查询交互式 session日志
+   */
+  async DescribeNotebookSessionLog(
+    req: DescribeNotebookSessionLogRequest,
+    cb?: (error: string, rep: DescribeNotebookSessionLogResponse) => void
+  ): Promise<DescribeNotebookSessionLogResponse> {
+    return this.request("DescribeNotebookSessionLog", req, cb)
+  }
+
+  /**
+   * 根据配置ID获取作业配置详情
+   */
+  async GetJobSpec(
+    req: GetJobSpecRequest,
+    cb?: (error: string, rep: GetJobSpecResponse) => void
+  ): Promise<GetJobSpecResponse> {
+    return this.request("GetJobSpec", req, cb)
+  }
+
+  /**
+   * 列出训练实例 Checkpoint 文件列表的响应
+   */
+  async DescribeTrainingCheckpoints(
+    req: DescribeTrainingCheckpointsRequest,
+    cb?: (error: string, rep: DescribeTrainingCheckpointsResponse) => void
+  ): Promise<DescribeTrainingCheckpointsResponse> {
+    return this.request("DescribeTrainingCheckpoints", req, cb)
+  }
+
+  /**
+   * 资源队列名称合法性检测：校验队列名称是否合法，包括非空校验、格式校验（以小写字母开头，只允许小写字母、数字和连字符，长度1~11）和同分区下重名校验。
+   */
+  async CheckQueueName(
+    req: CheckQueueNameRequest,
+    cb?: (error: string, rep: CheckQueueNameResponse) => void
+  ): Promise<CheckQueueNameResponse> {
+    return this.request("CheckQueueName", req, cb)
+  }
+
+  /**
+   * 获取Pod的YAML内容
+   */
+  async GetRayJobPodYaml(
+    req: GetRayJobPodYamlRequest,
+    cb?: (error: string, rep: GetRayJobPodYamlResponse) => void
+  ): Promise<GetRayJobPodYamlResponse> {
+    return this.request("GetRayJobPodYaml", req, cb)
+  }
+
+  /**
+   * 根据配置ID删除作业配置
+   */
+  async DeleteJobSpec(
+    req: DeleteJobSpecRequest,
+    cb?: (error: string, rep: DeleteJobSpecResponse) => void
+  ): Promise<DeleteJobSpecResponse> {
+    return this.request("DeleteJobSpec", req, cb)
+  }
+
+  /**
+   * 获取推荐的高级参数
+   */
+  async DescribeRecommendedParams(
+    req: DescribeRecommendedParamsRequest,
+    cb?: (error: string, rep: DescribeRecommendedParamsResponse) => void
+  ): Promise<DescribeRecommendedParamsResponse> {
+    return this.request("DescribeRecommendedParams", req, cb)
+  }
+
+  /**
+   * 根据任务ID获取Ray任务详情
+   */
+  async GetRayJob(
+    req: GetRayJobRequest,
+    cb?: (error: string, rep: GetRayJobResponse) => void
+  ): Promise<GetRayJobResponse> {
+    return this.request("GetRayJob", req, cb)
+  }
+
+  /**
+   * 断点续训（克隆实例）
+   */
+  async SubmitTrainingJob(
+    req: SubmitTrainingJobRequest,
+    cb?: (error: string, rep: SubmitTrainingJobResponse) => void
+  ): Promise<SubmitTrainingJobResponse> {
+    return this.request("SubmitTrainingJob", req, cb)
+  }
+
+  /**
+   * 是否成功开通TCLake
+   */
+  async DescribeTCLakeMetaInstance(
+    req?: DescribeTCLakeMetaInstanceRequest,
+    cb?: (error: string, rep: DescribeTCLakeMetaInstanceResponse) => void
+  ): Promise<DescribeTCLakeMetaInstanceResponse> {
+    return this.request("DescribeTCLakeMetaInstance", req, cb)
+  }
+
+  /**
+   * 本接口根据资源组ID查询资源组CU使用情况
+   */
+  async DescribeResourceGroupUsageInfo(
+    req: DescribeResourceGroupUsageInfoRequest,
+    cb?: (error: string, rep: DescribeResourceGroupUsageInfoResponse) => void
+  ): Promise<DescribeResourceGroupUsageInfoResponse> {
+    return this.request("DescribeResourceGroupUsageInfo", req, cb)
+  }
+
+  /**
+   * 获取tke纳管cos列表
+   */
+  async ListTkeCosBuckets(
+    req: ListTkeCosBucketsRequest,
+    cb?: (error: string, rep: ListTkeCosBucketsResponse) => void
+  ): Promise<ListTkeCosBucketsResponse> {
+    return this.request("ListTkeCosBuckets", req, cb)
+  }
+
+  /**
+   * 根据spark session名称销毁eg spark session
+   */
+  async DeleteNativeSparkSession(
+    req: DeleteNativeSparkSessionRequest,
+    cb?: (error: string, rep: DeleteNativeSparkSessionResponse) => void
+  ): Promise<DeleteNativeSparkSessionResponse> {
+    return this.request("DeleteNativeSparkSession", req, cb)
+  }
+
+  /**
+   * 分页查询指定分区的流程详情列表，包含每个流程的基本信息和活动列表
+   */
+  async DescribeFlowDetailList(
+    req: DescribeFlowDetailListRequest,
+    cb?: (error: string, rep: DescribeFlowDetailListResponse) => void
+  ): Promise<DescribeFlowDetailListResponse> {
+    return this.request("DescribeFlowDetailList", req, cb)
+  }
+
+  /**
+   * 再次运行部署（以当前配置重新部署）
+   */
+  async RestartDeployment(
+    req: RestartDeploymentRequest,
+    cb?: (error: string, rep: RestartDeploymentResponse) => void
+  ): Promise<RestartDeploymentResponse> {
+    return this.request("RestartDeployment", req, cb)
+  }
+
+  /**
+   * 删除用户
+   */
+  async DeleteUser(
+    req: DeleteUserRequest,
+    cb?: (error: string, rep: DeleteUserResponse) => void
+  ): Promise<DeleteUserResponse> {
+    return this.request("DeleteUser", req, cb)
+  }
+
+  /**
+   * 删除表
+   */
+  async DeleteTable(
+    req: DeleteTableRequest,
+    cb?: (error: string, rep: DeleteTableResponse) => void
+  ): Promise<DeleteTableResponse> {
+    return this.request("DeleteTable", req, cb)
+  }
+
+  /**
+   * 删除集群组
+   */
+  async DeleteClusterGroup(
+    req: DeleteClusterGroupRequest,
+    cb?: (error: string, rep: DeleteClusterGroupResponse) => void
+  ): Promise<DeleteClusterGroupResponse> {
+    return this.request("DeleteClusterGroup", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeSparkSessionBatchSQLCost）用于查询Spark SQL批任务消耗
+   */
+  async DescribeSparkSessionBatchSQLCost(
+    req: DescribeSparkSessionBatchSQLCostRequest,
+    cb?: (error: string, rep: DescribeSparkSessionBatchSQLCostResponse) => void
+  ): Promise<DescribeSparkSessionBatchSQLCostResponse> {
+    return this.request("DescribeSparkSessionBatchSQLCost", req, cb)
+  }
+
+  /**
+   * 列出推理模型（支持关键词过滤 + 分页）
+   */
+  async ListInferenceModels(
+    req: ListInferenceModelsRequest,
+    cb?: (error: string, rep: ListInferenceModelsResponse) => void
+  ): Promise<ListInferenceModelsResponse> {
+    return this.request("ListInferenceModels", req, cb)
+  }
+
+  /**
+   * 本接口（DeleteNotebookSession）用于删除交互式session（notebook）
+   */
+  async DeleteNotebookSession(
+    req: DeleteNotebookSessionRequest,
+    cb?: (error: string, rep: DeleteNotebookSessionResponse) => void
+  ): Promise<DeleteNotebookSessionResponse> {
+    return this.request("DeleteNotebookSession", req, cb)
+  }
+
+  /**
+   * 该接口（CreateImportTask）用于创建导入任务
+   */
+  async CreateImportTask(
+    req: CreateImportTaskRequest,
+    cb?: (error: string, rep: CreateImportTaskResponse) => void
+  ): Promise<CreateImportTaskResponse> {
+    return this.request("CreateImportTask", req, cb)
+  }
+
+  /**
+   * 本接口（CreateTasks），用于批量创建并执行SQL任务
+   */
+  async CreateTasks(
+    req: CreateTasksRequest,
+    cb?: (error: string, rep: CreateTasksResponse) => void
+  ): Promise<CreateTasksResponse> {
+    return this.request("CreateTasks", req, cb)
+  }
+
+  /**
+   * 根据任务ID取消正在运行的Ray任务
+   */
+  async CancelRayJob(
+    req: CancelRayJobRequest,
+    cb?: (error: string, rep: CancelRayJobResponse) => void
+  ): Promise<CancelRayJobResponse> {
+    return this.request("CancelRayJob", req, cb)
+  }
+
+  /**
+   * 列出指定推理服务绑定的 API Key
+   */
+  async ListServiceApiKeys(
+    req: ListServiceApiKeysRequest,
+    cb?: (error: string, rep: ListServiceApiKeysResponse) => void
+  ): Promise<ListServiceApiKeysResponse> {
+    return this.request("ListServiceApiKeys", req, cb)
+  }
+
+  /**
+   * 列出实验室列表
+   */
+  async ListLabs(
+    req: ListLabsRequest,
+    cb?: (error: string, rep: ListLabsResponse) => void
+  ): Promise<ListLabsResponse> {
+    return this.request("ListLabs", req, cb)
+  }
+
+  /**
+   * 解绑用户上的用户组
+   */
+  async UnbindWorkGroupsFromUser(
+    req: UnbindWorkGroupsFromUserRequest,
+    cb?: (error: string, rep: UnbindWorkGroupsFromUserResponse) => void
+  ): Promise<UnbindWorkGroupsFromUserResponse> {
+    return this.request("UnbindWorkGroupsFromUser", req, cb)
+  }
+
+  /**
+   * 该接口（DescribeTasks）用于查询任务列表
+   */
+  async DescribeMCPTask(
+    req: DescribeMCPTaskRequest,
+    cb?: (error: string, rep: DescribeMCPTaskResponse) => void
+  ): Promise<DescribeMCPTaskResponse> {
+    return this.request("DescribeMCPTask", req, cb)
+  }
+
+  /**
+   * 按 EMR 集群 ID 精确查询单个 EMR 集群的详细信息，包含 VPC、COS Bucket、关联 TKE 集群 ID、资源用量等。
+   */
+  async DescribeEmrClusterInfo(
+    req: DescribeEmrClusterInfoRequest,
+    cb?: (error: string, rep: DescribeEmrClusterInfoResponse) => void
+  ): Promise<DescribeEmrClusterInfoResponse> {
+    return this.request("DescribeEmrClusterInfo", req, cb)
+  }
+
+  /**
+   * 编辑资源队列：根据队列ID修改指定资源队列的名称、描述、资源规格列表和队列类型等信息。
+   */
+  async ModifyPartitionQueue(
+    req: ModifyPartitionQueueRequest,
+    cb?: (error: string, rep: ModifyPartitionQueueResponse) => void
+  ): Promise<ModifyPartitionQueueResponse> {
+    return this.request("ModifyPartitionQueue", req, cb)
+  }
+
+  /**
+   * 重启引擎
+   */
+  async RestartDataEngine(
+    req: RestartDataEngineRequest,
+    cb?: (error: string, rep: RestartDataEngineResponse) => void
+  ): Promise<RestartDataEngineResponse> {
+    return this.request("RestartDataEngine", req, cb)
+  }
+
+  /**
+   * 更新标准引擎资源组网络配置信息
+   */
+  async UpdateEngineResourceGroupNetworkConfigInfo(
+    req: UpdateEngineResourceGroupNetworkConfigInfoRequest,
+    cb?: (error: string, rep: UpdateEngineResourceGroupNetworkConfigInfoResponse) => void
+  ): Promise<UpdateEngineResourceGroupNetworkConfigInfoResponse> {
+    return this.request("UpdateEngineResourceGroupNetworkConfigInfo", req, cb)
+  }
+
+  /**
+   * DMS元数据获取库
+   */
+  async DescribeDMSDatabase(
+    req: DescribeDMSDatabaseRequest,
+    cb?: (error: string, rep: DescribeDMSDatabaseResponse) => void
+  ): Promise<DescribeDMSDatabaseResponse> {
+    return this.request("DescribeDMSDatabase", req, cb)
+  }
+
+  /**
+   * 此接口（DeleteCHDFSBindingProduct）用于删除元数据加速桶和产品绑定关系
+   */
+  async DeleteCHDFSBindingProduct(
+    req: DeleteCHDFSBindingProductRequest,
+    cb?: (error: string, rep: DeleteCHDFSBindingProductResponse) => void
+  ): Promise<DeleteCHDFSBindingProductResponse> {
+    return this.request("DeleteCHDFSBindingProduct", req, cb)
+  }
+
+  /**
+   * 停止推理服务（操作所有部署）。
+   */
+  async StopInferenceService(
+    req: StopInferenceServiceRequest,
+    cb?: (error: string, rep: StopInferenceServiceResponse) => void
+  ): Promise<StopInferenceServiceResponse> {
+    return this.request("StopInferenceService", req, cb)
+  }
+
+  /**
+   * 更新 API Key 状态
+   */
+  async UpdateApiKeyStatus(
+    req: UpdateApiKeyStatusRequest,
+    cb?: (error: string, rep: UpdateApiKeyStatusResponse) => void
+  ): Promise<UpdateApiKeyStatusResponse> {
+    return this.request("UpdateApiKeyStatus", req, cb)
+  }
+
+  /**
+   * 获取任务结果查询
+   */
+  async DescribeMCPTaskResult(
+    req: DescribeMCPTaskResultRequest,
+    cb?: (error: string, rep: DescribeMCPTaskResultResponse) => void
+  ): Promise<DescribeMCPTaskResultResponse> {
+    return this.request("DescribeMCPTaskResult", req, cb)
+  }
+
+  /**
+   * 修改引擎描述信息
+   */
+  async ModifyDataEngineDescription(
+    req: ModifyDataEngineDescriptionRequest,
+    cb?: (error: string, rep: ModifyDataEngineDescriptionResponse) => void
+  ): Promise<ModifyDataEngineDescriptionResponse> {
+    return this.request("ModifyDataEngineDescription", req, cb)
+  }
+
+  /**
+   * 查询计算结果存储位置。
+   */
+  async DescribeStoreLocation(
+    req?: DescribeStoreLocationRequest,
+    cb?: (error: string, rep: DescribeStoreLocationResponse) => void
+  ): Promise<DescribeStoreLocationResponse> {
+    return this.request("DescribeStoreLocation", req, cb)
   }
 
   /**
@@ -3804,12 +4595,12 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口用于更新数据引擎配置
+   * 查询评测排行榜（所有模型的评测汇总数据）
    */
-  async UpdateDataEngine(
-    req: UpdateDataEngineRequest,
-    cb?: (error: string, rep: UpdateDataEngineResponse) => void
-  ): Promise<UpdateDataEngineResponse> {
-    return this.request("UpdateDataEngine", req, cb)
+  async ListBenchmarkSummary(
+    req: ListBenchmarkSummaryRequest,
+    cb?: (error: string, rep: ListBenchmarkSummaryResponse) => void
+  ): Promise<ListBenchmarkSummaryResponse> {
+    return this.request("ListBenchmarkSummary", req, cb)
   }
 }

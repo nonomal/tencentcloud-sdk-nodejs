@@ -598,6 +598,16 @@ it("tcb.v20180608.DescribeCloudAppList", async function () {
     }
 })
 
+it("tcb.v20180608.PushPGUserMigrations", async function () {
+    try {
+       const data = await client.PushPGUserMigrations({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("tcb.v20180608.CreateVmInstance", async function () {
     try {
        const data = await client.CreateVmInstance({})
@@ -958,9 +968,9 @@ it("tcb.v20180608.ModifyEnvPlan", async function () {
     }
 })
 
-it("tcb.v20180608.PushPGUserMigrations", async function () {
+it("tcb.v20180608.ModifyPGInstanceSpec", async function () {
     try {
-       const data = await client.PushPGUserMigrations({})
+       const data = await client.ModifyPGInstanceSpec({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

@@ -158,6 +158,16 @@ it("ioa.v20220601.DescribeVirtualDevices", async function () {
     }
 })
 
+it("ioa.v20220601.DeleteAccountGroup", async function () {
+    try {
+       const data = await client.DeleteAccountGroup({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("ioa.v20220601.ExportSoftwareInformationList", async function () {
     try {
        const data = await client.ExportSoftwareInformationList({})

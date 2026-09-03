@@ -167,6 +167,7 @@ import {
   ModifyCloudSliceTaskRequest,
   StopMCUMixTranscodeResponse,
   VoicePrint,
+  HotWord,
   DescribeMixTranscodingUsageResponse,
   AsrParam,
   McuFeedBackRoomParams,
@@ -237,6 +238,7 @@ import {
   StopPublishCdnStreamRequest,
   DescribeUnusualEventResponse,
   ModifyCloudRecordingResponse,
+  Vocab,
   SingleSubscribeParams,
   CreateCloudTranscriptionRequest,
   AsyncTextToSpeechResponse,
@@ -424,7 +426,7 @@ export class Client extends AbstractClient {
 用户通过本接口进行热词表的下载，获得词表权重文件形式的 base64 值，文件形式为通过 “|” 分割的词和权重，即 word|weight 的形式。
      */
   async DownloadRecognizeVocabV3(
-    req?: DownloadRecognizeVocabV3Request,
+    req: DownloadRecognizeVocabV3Request,
     cb?: (error: string, rep: DownloadRecognizeVocabV3Response) => void
   ): Promise<DownloadRecognizeVocabV3Response> {
     return this.request("DownloadRecognizeVocabV3", req, cb)
@@ -504,7 +506,7 @@ peakCurrentUsers：峰值同时在线人数。
 用户通过本接口进行热词表的更新。
      */
   async UpdateRecognizeVocabV3(
-    req?: UpdateRecognizeVocabV3Request,
+    req: UpdateRecognizeVocabV3Request,
     cb?: (error: string, rep: UpdateRecognizeVocabV3Response) => void
   ): Promise<UpdateRecognizeVocabV3Response> {
     return this.request("UpdateRecognizeVocabV3", req, cb)
@@ -515,7 +517,7 @@ peakCurrentUsers：峰值同时在线人数。
 用户通过该接口可以设置热词表的默认状态。初始状态为0，用户可设置状态为1，即为默认状态。默认状态表示用户在请求识别时，如不设置热词表ID，则默认使用状态为1的热词表。
      */
   async SetVocabStateV3(
-    req?: SetVocabStateV3Request,
+    req: SetVocabStateV3Request,
     cb?: (error: string, rep: SetVocabStateV3Response) => void
   ): Promise<SetVocabStateV3Response> {
     return this.request("SetVocabStateV3", req, cb)
@@ -624,7 +626,7 @@ TRTC AI对话功能内置语音转文本能力，同时提供通道服务，即�
 用户通过本接口进行热词表的删除。
      */
   async DeleteRecognizeVocabV3(
-    req?: DeleteRecognizeVocabV3Request,
+    req: DeleteRecognizeVocabV3Request,
     cb?: (error: string, rep: DeleteRecognizeVocabV3Response) => void
   ): Promise<DeleteRecognizeVocabV3Response> {
     return this.request("DeleteRecognizeVocabV3", req, cb)
@@ -1247,7 +1249,7 @@ peakCurrentUsers：峰值同时在线人数。
 用户通过本接口分页列举所有的热词表。
      */
   async GetRecognizeVocabListV3(
-    req?: GetRecognizeVocabListV3Request,
+    req: GetRecognizeVocabListV3Request,
     cb?: (error: string, rep: GetRecognizeVocabListV3Response) => void
   ): Promise<GetRecognizeVocabListV3Response> {
     return this.request("GetRecognizeVocabListV3", req, cb)
@@ -1349,7 +1351,7 @@ networkDelay ：网络延迟率。
 用户根据词表的ID可以获取对应的热词表信息
      */
   async GetRecognizeVocabV3(
-    req?: GetRecognizeVocabV3Request,
+    req: GetRecognizeVocabV3Request,
     cb?: (error: string, rep: GetRecognizeVocabV3Response) => void
   ): Promise<GetRecognizeVocabV3Response> {
     return this.request("GetRecognizeVocabV3", req, cb)

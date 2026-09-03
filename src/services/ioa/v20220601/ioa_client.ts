@@ -35,7 +35,8 @@ import {
   DescribeResourceGrantedAccountGroupsRequest,
   RulePayloadItem,
   DescribeDeviceDetailListData,
-  RuleItem,
+  DeleteAccountGroupRequest,
+  I18nString,
   DescribeDevicesResponse,
   DescribeAggrSoftDeviceListData,
   GrantResourcesByVirtualGroupsRequest,
@@ -49,13 +50,14 @@ import {
   DescribeLocalAccountsData,
   CreateDeviceTaskRequest,
   DeviceDetail,
+  DescribeResourceGrantedVirtualGroupsResponse,
   DescribeSoftCensusListByDeviceRequest,
   GrantedAccountItem,
   DescribeResourceGrantedAccountGroupsData,
   DescribeResourceGrantedAccountsResponse,
   DescribeResourceGrantedAccountGroupsResponse,
   DirectoryConfigResultData,
-  DescribeResourceGrantedVirtualGroupsResponse,
+  DeleteAccountGroupResponse,
   DescribeLocalAccountsRequest,
   CreateDeviceTaskResponse,
   CreateCompanyDirectoryConfigRequest,
@@ -167,6 +169,7 @@ import {
   DescribeSoftCensusListByDevicePageData,
   DeleteAccountGroupResourcesResponse,
   DescribeDevicesRequest,
+  RuleItem,
   DescribeAggrSoftCategorySoftListResponse,
   DescribeAggrSoftDetailResponse,
   CreateDLPFileDetectionTaskResponse,
@@ -329,6 +332,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeVirtualDevicesResponse) => void
   ): Promise<DescribeVirtualDevicesResponse> {
     return this.request("DescribeVirtualDevices", req, cb)
+  }
+
+  /**
+   * 管理员在目录管理页面删除一个分组，私有化调用path为：capi/Assets/DeleteAccountGroup
+   */
+  async DeleteAccountGroup(
+    req: DeleteAccountGroupRequest,
+    cb?: (error: string, rep: DeleteAccountGroupResponse) => void
+  ): Promise<DeleteAccountGroupResponse> {
+    return this.request("DeleteAccountGroup", req, cb)
   }
 
   /**

@@ -78,9 +78,9 @@ it("tdmysql.v20211122.ModifyMaintenanceWindow", async function () {
     }
 })
 
-it("tdmysql.v20211122.CancelIsolateDBInstances", async function () {
+it("tdmysql.v20211122.BreakStandbyDBInstanceRelation", async function () {
     try {
-       const data = await client.CancelIsolateDBInstances({})
+       const data = await client.BreakStandbyDBInstanceRelation({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -298,6 +298,16 @@ it("tdmysql.v20211122.DescribeSlowLogs", async function () {
     }
 })
 
+it("tdmysql.v20211122.CancelIsolateDBInstances", async function () {
+    try {
+       const data = await client.CancelIsolateDBInstances({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("tdmysql.v20211122.ModifyDBInstanceSecurityGroups", async function () {
     try {
        const data = await client.ModifyDBInstanceSecurityGroups({})
@@ -308,9 +318,9 @@ it("tdmysql.v20211122.ModifyDBInstanceSecurityGroups", async function () {
     }
 })
 
-it("tdmysql.v20211122.CreateUsers", async function () {
+it("tdmysql.v20211122.DescribeDBSAvailableRecoveryTime", async function () {
     try {
-       const data = await client.CreateUsers({})
+       const data = await client.DescribeDBSAvailableRecoveryTime({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -348,9 +358,9 @@ it("tdmysql.v20211122.CreateDBSBackup", async function () {
     }
 })
 
-it("tdmysql.v20211122.DescribeDBSAvailableRecoveryTime", async function () {
+it("tdmysql.v20211122.CreateStandbyDBInstance", async function () {
     try {
-       const data = await client.DescribeDBSAvailableRecoveryTime({})
+       const data = await client.CreateStandbyDBInstance({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -361,6 +371,16 @@ it("tdmysql.v20211122.DescribeDBSAvailableRecoveryTime", async function () {
 it("tdmysql.v20211122.DescribeUserPrivileges", async function () {
     try {
        const data = await client.DescribeUserPrivileges({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tdmysql.v20211122.CreateUsers", async function () {
+    try {
+       const data = await client.CreateUsers({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -401,6 +421,16 @@ it("tdmysql.v20211122.DescribeDBSBackupStatisticsDetail", async function () {
 it("tdmysql.v20211122.DescribeDatabases", async function () {
     try {
        const data = await client.DescribeDatabases({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tdmysql.v20211122.DescribeStandbyDBInstanceRelationDetail", async function () {
+    try {
+       const data = await client.DescribeStandbyDBInstanceRelationDetail({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

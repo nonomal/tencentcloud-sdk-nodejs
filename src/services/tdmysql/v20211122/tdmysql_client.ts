@@ -21,6 +21,7 @@ import {
   CreateDBInstancesRequest,
   ModifyDBInstanceVPortRequest,
   ExpandInstanceResponse,
+  DescribeStandbyDBInstanceRelationDetailResponse,
   DescribeSaleZonesInfo,
   BackupMethodStatisticsOutPut,
   DescribeDatabasesRequest,
@@ -48,6 +49,7 @@ import {
   DeleteDBSBackupSetsResponse,
   DescribeFlowResponse,
   MaintenanceWindowInfo,
+  DescribeStandbyDBInstanceRelationDetailRequest,
   DescribeDBSBackupStatisticsDetailResponse,
   ModifyDBSBackupSetCommentRequest,
   ParamConstraint,
@@ -79,13 +81,14 @@ import {
   DescribeDatabaseObjectsRequest,
   ModifyMaintenanceWindowRequest,
   DestroyInstancesResponse,
+  UserInfo,
   DescribeSaleInfoResponse,
   ResetUserPasswordInfo,
   DeleteUsersResponse,
   DatabaseTable,
   DescribeDBInstanceDetailRequest,
   ModifyAutoRenewFlagResponse,
-  DescribeUsersRequest,
+  CancelIsolateDBInstancesResponse,
   DatabaseView,
   DataBackupStatisticsModel,
   LogFilter,
@@ -118,7 +121,7 @@ import {
   DescribeDBSBackupStatisticsRequest,
   DescribeUsersResponse,
   LogBackupStatisticsModel,
-  CancelIsolateDBInstancesResponse,
+  DescribeUsersRequest,
   BackupMethodStatisticsModel,
   DescribeDBSBackupPolicyRequest,
   UpgradeInstanceResponse,
@@ -144,17 +147,21 @@ import {
   DescribeMaintenanceWindowRequest,
   DescribeSpecsRequest,
   ParamDesc,
+  CreateStandbyDBInstanceResponse,
   ModifyInstanceNetworkRequest,
   BackupPolicyModelInput,
   DescribeDBInstancesResponse,
   ConstraintRange,
-  UserInfo,
+  BreakStandbyDBInstanceRelationRequest,
+  CreateStandbyDBInstanceRequest,
   RestartDBInstancesRequest,
   DescribeDBSAvailableRecoveryTimeResponse,
   TablePrivileges,
   DescribeUserPrivilegesRequest,
+  StandbyDBInstanceRelation,
   DescribeDBSAvailableRecoveryTimeRequest,
   ModifyDBInstanceVPortResponse,
+  BreakStandbyDBInstanceRelationResponse,
   UpgradeInstanceRequest,
   BackupSetModel,
   InstanceParam,
@@ -232,13 +239,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（CancelIsolateDBInstances）提供批量解除隔离实例功能
+   * 本接口（BreakStandbyDBInstanceRelation）用于提供断开灾备实例主备连接功能
    */
-  async CancelIsolateDBInstances(
-    req: CancelIsolateDBInstancesRequest,
-    cb?: (error: string, rep: CancelIsolateDBInstancesResponse) => void
-  ): Promise<CancelIsolateDBInstancesResponse> {
-    return this.request("CancelIsolateDBInstances", req, cb)
+  async BreakStandbyDBInstanceRelation(
+    req: BreakStandbyDBInstanceRelationRequest,
+    cb?: (error: string, rep: BreakStandbyDBInstanceRelationResponse) => void
+  ): Promise<BreakStandbyDBInstanceRelationResponse> {
+    return this.request("BreakStandbyDBInstanceRelation", req, cb)
   }
 
   /**
@@ -452,6 +459,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 本接口（CancelIsolateDBInstances）提供批量解除隔离实例功能
+   */
+  async CancelIsolateDBInstances(
+    req: CancelIsolateDBInstancesRequest,
+    cb?: (error: string, rep: CancelIsolateDBInstancesResponse) => void
+  ): Promise<CancelIsolateDBInstancesResponse> {
+    return this.request("CancelIsolateDBInstances", req, cb)
+  }
+
+  /**
    * 本接口（ModifyDBInstanceSecurityGroups）用于修改云数据库安全组
    */
   async ModifyDBInstanceSecurityGroups(
@@ -462,13 +479,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 本接口（CreateUsers）用于批量创建用户
+   * 获取可恢复时间 DescribeDBSAvailableRecoveryTime
    */
-  async CreateUsers(
-    req: CreateUsersRequest,
-    cb?: (error: string, rep: CreateUsersResponse) => void
-  ): Promise<CreateUsersResponse> {
-    return this.request("CreateUsers", req, cb)
+  async DescribeDBSAvailableRecoveryTime(
+    req: DescribeDBSAvailableRecoveryTimeRequest,
+    cb?: (error: string, rep: DescribeDBSAvailableRecoveryTimeResponse) => void
+  ): Promise<DescribeDBSAvailableRecoveryTimeResponse> {
+    return this.request("DescribeDBSAvailableRecoveryTime", req, cb)
   }
 
   /**
@@ -502,13 +519,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 获取可恢复时间 DescribeDBSAvailableRecoveryTime
+   * 本接口（CreateStandbyDBInstances）提供批量创建灾备实例功能
    */
-  async DescribeDBSAvailableRecoveryTime(
-    req: DescribeDBSAvailableRecoveryTimeRequest,
-    cb?: (error: string, rep: DescribeDBSAvailableRecoveryTimeResponse) => void
-  ): Promise<DescribeDBSAvailableRecoveryTimeResponse> {
-    return this.request("DescribeDBSAvailableRecoveryTime", req, cb)
+  async CreateStandbyDBInstance(
+    req: CreateStandbyDBInstanceRequest,
+    cb?: (error: string, rep: CreateStandbyDBInstanceResponse) => void
+  ): Promise<CreateStandbyDBInstanceResponse> {
+    return this.request("CreateStandbyDBInstance", req, cb)
   }
 
   /**
@@ -519,6 +536,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeUserPrivilegesResponse) => void
   ): Promise<DescribeUserPrivilegesResponse> {
     return this.request("DescribeUserPrivileges", req, cb)
+  }
+
+  /**
+   * 本接口（CreateUsers）用于批量创建用户
+   */
+  async CreateUsers(
+    req: CreateUsersRequest,
+    cb?: (error: string, rep: CreateUsersResponse) => void
+  ): Promise<CreateUsersResponse> {
+    return this.request("CreateUsers", req, cb)
   }
 
   /**
@@ -559,6 +586,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeDatabasesResponse) => void
   ): Promise<DescribeDatabasesResponse> {
     return this.request("DescribeDatabases", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeStandbyDBinstanceRelations）用于查询实例灾备连接关系
+   */
+  async DescribeStandbyDBInstanceRelationDetail(
+    req: DescribeStandbyDBInstanceRelationDetailRequest,
+    cb?: (error: string, rep: DescribeStandbyDBInstanceRelationDetailResponse) => void
+  ): Promise<DescribeStandbyDBInstanceRelationDetailResponse> {
+    return this.request("DescribeStandbyDBInstanceRelationDetail", req, cb)
   }
 
   /**

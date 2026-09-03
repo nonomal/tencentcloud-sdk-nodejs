@@ -38,6 +38,16 @@ it("trro.v20220325.ModifyCallbackUrl", async function () {
     }
 })
 
+it("trro.v20220325.DeleteAnnotationJob", async function () {
+    try {
+       const data = await client.DeleteAnnotationJob({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("trro.v20220325.DescribeProjectInfo", async function () {
     try {
        const data = await client.DescribeProjectInfo({})
@@ -78,9 +88,9 @@ it("trro.v20220325.ModifyDevice", async function () {
     }
 })
 
-it("trro.v20220325.DescribePolicy", async function () {
+it("trro.v20220325.DescribeDeviceSessionDetails", async function () {
     try {
-       const data = await client.DescribePolicy({})
+       const data = await client.DescribeDeviceSessionDetails({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -128,9 +138,19 @@ it("trro.v20220325.BatchDeletePolicy", async function () {
     }
 })
 
-it("trro.v20220325.StartPublishLiveStream", async function () {
+it("trro.v20220325.DescribeAnnotationResults", async function () {
     try {
-       const data = await client.StartPublishLiveStream({})
+       const data = await client.DescribeAnnotationResults({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("trro.v20220325.RetryAnnotationTask", async function () {
+    try {
+       const data = await client.RetryAnnotationTask({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -178,9 +198,9 @@ it("trro.v20220325.ModifyProject", async function () {
     }
 })
 
-it("trro.v20220325.DescribeDeviceSessionDetails", async function () {
+it("trro.v20220325.DescribePolicy", async function () {
     try {
-       const data = await client.DescribeDeviceSessionDetails({})
+       const data = await client.DescribePolicy({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -191,6 +211,16 @@ it("trro.v20220325.DescribeDeviceSessionDetails", async function () {
 it("trro.v20220325.ModifyPolicy", async function () {
     try {
        const data = await client.ModifyPolicy({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("trro.v20220325.DeleteProject", async function () {
+    try {
+       const data = await client.DeleteProject({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -238,9 +268,39 @@ it("trro.v20220325.DescribeSessionStatistics", async function () {
     }
 })
 
+it("trro.v20220325.StartPublishLiveStream", async function () {
+    try {
+       const data = await client.StartPublishLiveStream({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("trro.v20220325.DescribeAnnotationJobs", async function () {
+    try {
+       const data = await client.DescribeAnnotationJobs({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("trro.v20220325.DescribeDeviceInfo", async function () {
     try {
        const data = await client.DescribeDeviceInfo({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("trro.v20220325.CreateVideoAnnotationJob", async function () {
+    try {
+       const data = await client.CreateVideoAnnotationJob({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -261,6 +321,26 @@ it("trro.v20220325.ModifyProjectSecMode", async function () {
 it("trro.v20220325.DescribeDeviceSessionList", async function () {
     try {
        const data = await client.DescribeDeviceSessionList({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("trro.v20220325.CreateBatchVideoAnnotationJob", async function () {
+    try {
+       const data = await client.CreateBatchVideoAnnotationJob({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("trro.v20220325.DeleteAnnotationTask", async function () {
+    try {
+       const data = await client.DeleteAnnotationTask({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -308,9 +388,9 @@ it("trro.v20220325.GetDeviceLicense", async function () {
     }
 })
 
-it("trro.v20220325.DeleteProject", async function () {
+it("trro.v20220325.DescribeAnnotationTasks", async function () {
     try {
-       const data = await client.DeleteProject({})
+       const data = await client.DescribeAnnotationTasks({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

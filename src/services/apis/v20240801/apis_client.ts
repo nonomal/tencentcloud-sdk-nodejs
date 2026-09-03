@@ -59,6 +59,7 @@ import {
   CreateAgentAppResp,
   CreateMcpServerResponse,
   SimpleCondition,
+  TimeRange,
   DescribeAgentAppsRequest,
   ToolConfigVO,
   DescribeAgentAppResponse,

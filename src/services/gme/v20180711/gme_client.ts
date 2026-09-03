@@ -590,7 +590,7 @@ GME AI对话功能内置语音转文本能力，同时提供通道服务，即�
   }
 
   /**
-   * 本接口(DescribeApplicationList)用于查询自己账号下的应用列表
+   * 本接口(DescribeApplicationList)用于查询自己账号下的应用列表，**默认只返回GME2.0应用，如果还需要包含GME3.0应用请将NewVersion置为1**
    */
   async DescribeApplicationList(
     req: DescribeApplicationListRequest,

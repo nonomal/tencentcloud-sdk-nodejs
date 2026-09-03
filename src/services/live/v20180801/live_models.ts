@@ -1972,108 +1972,93 @@ export interface DeleteLiveWatermarkRuleResponse {
  */
 export interface ChildTemplateInfo {
   /**
-   * 自适应码率转码模板，子模板Id。
-入参时候，填写此字段，表示更新子模板，否则是新增子模板。
+   * <p>自适应码率转码模板，子模板Id。<br>入参时候，填写此字段，表示更新子模板，否则是新增子模板。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TemplateId?: number
   /**
-   * 子模板名称。
+   * <p>子模板名称。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TemplateName?: string
   /**
-   * 视频编码：h264/h265/origin，默认origin。
-
-origin: 保持原始编码格式。
+   * <p>视频编码：h264/h265/origin，默认origin。</p><p>origin: 保持原始编码格式。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Vcodec?: string
   /**
-   * 视频码率。范围：0kbps - 8000kbps。
-0为保持原始码率。
-注: 转码模板有码率唯一要求，最终保存的码率可能与输入码率有所差别。
+   * <p>视频码率。范围：0kbps - 8000kbps。<br>0为保持原始码率。<br>注: 转码模板有码率唯一要求，最终保存的码率可能与输入码率有所差别。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   VideoBitrate?: number
   /**
-   * 宽，默认0。
-范围[0-3000]。
-数值必须是2的倍数，0是原始宽度。
+   * <p>宽，默认0。<br>范围[0-3000]。<br>数值必须是2的倍数，0是原始宽度。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Width?: number
   /**
-   * 高，默认0。
-范围[0-3000]
-数值必须是2的倍数，0是原始高度。
+   * <p>高，默认0。<br>范围[0-3000]<br>数值必须是2的倍数，0是原始高度。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Height?: number
   /**
-   * 帧率，默认0。
-范围0-60fps。
+   * <p>帧率，默认0。<br>范围0-60fps。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Fps?: number
   /**
-   * 关键帧间隔，单位：秒。
-默认原始的间隔。
-范围2-6。
-同一个父模板下面的所有子模板，gop必须相等且存在。
+   * <p>关键帧间隔，单位：秒。<br>默认原始的间隔。<br>范围2-6。<br>同一个父模板下面的所有子模板，gop必须相等且存在。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Gop?: number
   /**
-   * 是否保留视频，0：否，1：是。默认1。
+   * <p>是否保留视频，0：否，1：是。默认1。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   NeedVideo?: number
   /**
-   * 是否保留音频，0：否，1：是。默认1。
+   * <p>是否保留音频，0：否，1：是。默认1。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   NeedAudio?: number
   /**
-   * 当设置的码率>原始码率时，是否以原始码率为准。
-0：否， 1：是
-默认 0。
+   * <p>当设置的码率&gt;原始码率时，是否以原始码率为准。<br>0：否， 1：是<br>默认 0。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BitrateToOrig?: number
   /**
-   * 当设置的高度>原始高度时，是否以原始高度为准。
-0：否， 1：是
-默认 0。
+   * <p>当设置的高度&gt;原始高度时，是否以原始高度为准。<br>0：否， 1：是<br>默认 0。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HeightToOrig?: number
   /**
-   * 当设置的帧率>原始帧率时，是否以原始帧率为准。
-0：否， 1：是
-默认 0。
+   * <p>当设置的帧率&gt;原始帧率时，是否以原始帧率为准。<br>0：否， 1：是<br>默认 0。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FpsToOrig?: number
   /**
-   * 是否以短边作为高度，0：否，1：是。默认0。
+   * <p>是否以短边作为高度，0：否，1：是。默认0。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ShortEdgeAsHeight?: number
   /**
-   * HLS 分片类型。
-可选值：ts、fmp4。
-注：编码方式为 H.265 时生效。
+   * <p>HLS 分片类型。<br>可选值：ts、fmp4。<br>注：编码方式为 H.265 时生效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HlsContainerFormat?: string
   /**
-   * 编码标签。
-可选值：hvc1、hev1。
-注：HLS 分片类型选择 fmp4 时生效。
+   * <p>编码标签。<br>可选值：hvc1、hev1。<br>注：HLS 分片类型选择 fmp4 时生效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HlsMp4VideoCodecTag?: string
+  /**
+   * <p>子流音频编码类型。默认为&quot;自动适配&quot;</p>
+   */
+  Acodec?: string
+  /**
+   * <p>子流音频码率</p><p>单位：Kbps</p>
+   */
+  AudioBitrate?: number
 }
 
 /**
@@ -2402,7 +2387,7 @@ export interface ModifyLiveTranscodeTemplateRequest {
    */
   Vcodec?: string
   /**
-   * <p>音频编码：aac，默认aac。<br>注意：当前该参数未生效，待后续支持！</p>
+   * <p>音频编码。默认为自动适配</p>
    */
   Acodec?: string
   /**
@@ -2542,7 +2527,7 @@ export interface CreateLiveTranscodeTemplateRequest {
    */
   VideoBitrate: number
   /**
-   * <p>音频编码：aac，默认aac。<br>注意：当前该参数未生效，待后续支持！</p>
+   * <p>音频编码。默认为自动适配</p>
    */
   Acodec?: string
   /**
@@ -5675,7 +5660,7 @@ export interface TemplateInfo {
    */
   VideoBitrate?: number
   /**
-   * <p>音频编码：aac，默认aac。<br>注意：当前该参数未生效，待后续支持！</p>
+   * <p>音频编码。默认为自动适配</p>
    */
   Acodec?: string
   /**

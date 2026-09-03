@@ -68,6 +68,26 @@ it("thpc.v20230321.CreateWorkspaces", async function () {
     }
 })
 
+it("thpc.v20230321.DescribeClusterDedicatedProxy", async function () {
+    try {
+       const data = await client.DescribeClusterDedicatedProxy({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.GenerateRegisterCommand", async function () {
+    try {
+       const data = await client.GenerateRegisterCommand({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.DescribeAutoScalingConfiguration", async function () {
     try {
        const data = await client.DescribeAutoScalingConfiguration({})
@@ -118,9 +138,29 @@ it("thpc.v20230321.DescribeQueues", async function () {
     }
 })
 
-it("thpc.v20230321.ModifyWorkspacesRenewFlag", async function () {
+it("thpc.v20230321.GenerateRegisterCode", async function () {
     try {
-       const data = await client.ModifyWorkspacesRenewFlag({})
+       const data = await client.GenerateRegisterCode({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.SetQueueAutoScaling", async function () {
+    try {
+       const data = await client.SetQueueAutoScaling({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.BindClusterVpc", async function () {
+    try {
+       const data = await client.BindClusterVpc({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -268,6 +308,16 @@ it("thpc.v20230321.DescribeInstanceFamilies", async function () {
     }
 })
 
+it("thpc.v20230321.DisableClusterDedicatedProxy", async function () {
+    try {
+       const data = await client.DisableClusterDedicatedProxy({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("thpc.v20230321.DescribeInitNodeScripts", async function () {
     try {
        const data = await client.DescribeInitNodeScripts({})
@@ -321,6 +371,16 @@ it("thpc.v20230321.DescribeClusterActivities", async function () {
 it("thpc.v20230321.DetachNodes", async function () {
     try {
        const data = await client.DetachNodes({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("thpc.v20230321.EnableClusterDedicatedProxy", async function () {
+    try {
+       const data = await client.EnableClusterDedicatedProxy({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -408,9 +468,9 @@ it("thpc.v20230321.InquirePriceModifyWorkspacesChargeType", async function () {
     }
 })
 
-it("thpc.v20230321.SetQueueAutoScaling", async function () {
+it("thpc.v20230321.ModifyWorkspacesRenewFlag", async function () {
     try {
-       const data = await client.SetQueueAutoScaling({})
+       const data = await client.ModifyWorkspacesRenewFlag({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

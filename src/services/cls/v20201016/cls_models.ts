@@ -6514,46 +6514,49 @@ Limit：最大日志条数。 value示例： 5。
  */
 export interface CreateRemoteWriteTaskRequest {
   /**
-   * 日志主题 ID
+   * <p>日志主题 ID</p>
    */
   TopicId: string
   /**
-   * 任务名称
+   * <p>任务名称</p>
    */
   Name: string
   /**
-   * 目标服务名称
+   * <p>目标服务名称</p>
    */
   Target: string
   /**
-   * 目标地址
+   * <p>目标地址</p>
    */
   RemoteWriteURL: string
   /**
-   * 鉴权类型
-0: 无鉴权
-1: basic_auth 
-2: token
+   * <p>鉴权类型<br>0: 无鉴权<br>1: basic_auth<br>2: token</p>
    */
   AuthType: number
   /**
-   * 网络类型： 1 内网 2外网
+   * <p>网络类型： 1 内网 2外网</p>
    */
   NetType: number
   /**
-   * 私有网络id
+   * <p>私有网络id</p>
    */
   VpcId?: string
   /**
-   * 鉴权信息
+   * <p>鉴权信息</p>
    */
   AuthInfo?: RemoteWriteAuthInfo
   /**
-   * 后端服务类型
-0 CVM
-1025 CLB
+   * <p>后端服务类型<br>0 CVM<br>1025 CLB</p>
    */
   VirtualGatewayType?: number
+  /**
+   * <p>云时序数据库实例ID</p>
+   */
+  InstanceId?: string
+  /**
+   * <p>是否开启投递服务日志。1：关闭，2：开启。 默认值：2</p>
+   */
+  HasServicesLog?: number
 }
 
 /**
@@ -7289,15 +7292,15 @@ export interface DeleteAlarmRequest {
  */
 export interface DescribeLogContextResponse {
   /**
-   * 日志上下文信息集合
+   * <p>日志上下文信息集合</p>
    */
   LogContextInfos?: Array<LogContextInfo>
   /**
-   * 上文日志是否已经返回完成（当PrevOver为false，表示有上文日志还未全部返回）。
+   * <p>上文日志是否已经返回完成（当PrevOver为false，表示有上文日志还未全部返回）。</p>
    */
   PrevOver?: boolean
   /**
-   * 下文日志是否已经返回完成（当NextOver为false，表示有下文日志还未全部返回）。
+   * <p>下文日志是否已经返回完成（当NextOver为false，表示有下文日志还未全部返回）。</p>
    */
   NextOver?: boolean
   /**
@@ -7576,86 +7579,90 @@ export interface SearchViewInfo {
  */
 export interface RemoteWriteInfo {
   /**
-   * 任务id
+   * <p>任务id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskId?: string
   /**
-   * 日志主题ID
+   * <p>日志主题ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TopicId?: string
   /**
-   * Remote Write任务名称
+   * <p>Remote Write任务名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
   /**
-   * 网络类型
-1: 内网
-2:外网
+   * <p>网络类型<br>1: 内网<br>2:外网</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   NetType?: number
   /**
-   * 私有网络id
+   * <p>私有网络id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   VpcId?: string
   /**
-   * 任务运行状态
-1: 运行中
-2:暂停
-3: 失败
+   * <p>任务运行状态<br>1: 运行中<br>2:暂停<br>3: 失败</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Status?: number
   /**
-   * 创建时间
+   * <p>创建时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CreateTime?: string
   /**
-   * 更新时间
+   * <p>更新时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UpdateTime?: string
   /**
-   * 目标服务名称
+   * <p>目标服务名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Target?: string
   /**
-   * 目标地址
+   * <p>目标地址</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RemoteWriteURL?: string
   /**
-   * 鉴权类型
-0: 无鉴权 1: basic_auth 2: token
+   * <p>鉴权类型<br>0: 无鉴权 1: basic_auth 2: token</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AuthType?: number
   /**
-   * 鉴权信息
+   * <p>鉴权信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AuthInfo?: RemoteWriteAuthInfo
   /**
-   * 日志集
+   * <p>日志集</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LogsetId?: string
   /**
-   * 任务状态
+   * <p>任务状态</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Enable?: number
   /**
-   * 后端服务类型
+   * <p>后端服务类型</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   VirtualGatewayType?: number
+  /**
+   * <p>云时序数据库实例ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  InstanceId?: string
+  /**
+   * <p>是否开启投递服务日志。1：关闭，2：开启。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  HasServicesLog?: number
 }
 
 /**
@@ -10272,11 +10279,11 @@ export interface DashboardTemplateVariable {
  */
 export interface CancelRebuildIndexTaskRequest {
   /**
-   * 日志主题ID
+   * <p>日志主题ID</p><p>取值参考：<a href="https://cloud.tencent.com/document/api/614/56454">DescribeTopics</a></p>
    */
   TopicId: string
   /**
-   * 索引重建任务ID
+   * <p>索引重建任务ID</p><p>取值参考：<a href="https://cloud.tencent.com/document/api/614/127535">DescribeRebuildIndexTasks</a></p>
    */
   TaskId: string
 }
@@ -11064,53 +11071,57 @@ export type ModifyKafkaConsumerGroupOffsetRequest = null
  */
 export interface ModifyRemoteWriteTaskRequest {
   /**
-   * 任务id
+   * <p>任务id</p>
    */
   TaskId: string
   /**
-   * 日志主题id
+   * <p>日志主题id</p>
    */
   TopicId: string
   /**
-   * 任务状态
-0 关闭 1 开启
+   * <p>任务状态<br>0 关闭 1 开启</p>
    */
   Enable?: number
   /**
-   * RemoteWrite任务名称
+   * <p>RemoteWrite任务名称</p>
    */
   Name?: string
   /**
-   * 1 内网 2外网
+   * <p>1 内网 2外网</p>
    */
   NetType?: number
   /**
-   * 私有网络id
+   * <p>私有网络id</p>
    */
   VpcId?: string
   /**
-   * 目标服务名称
+   * <p>目标服务名称</p>
    */
   Target?: string
   /**
-   * 目标地址
+   * <p>目标地址</p>
    */
   RemoteWriteURL?: string
   /**
-   * 0: 无鉴权 1: basic_auth 2: token
+   * <p>0: 无鉴权 1: basic_auth 2: token</p>
    */
   AuthType?: number
   /**
-   * 鉴权信息
+   * <p>鉴权信息</p>
    */
   AuthInfo?: RemoteWriteAuthInfo
   /**
-   * 后端服务类型
--1 没有
-0 CVM
-1025 CLB
+   * <p>后端服务类型<br>-1 没有<br>0 CVM<br>1025 CLB</p>
    */
   VirtualGatewayType?: number
+  /**
+   * <p>云时序数据库实例ID</p>
+   */
+  InstanceId?: string
+  /**
+   * <p>是否开启投递服务日志。1：关闭，2：开启。</p>
+   */
+  HasServicesLog?: number
 }
 
 /**
@@ -12086,50 +12097,39 @@ export interface DescribeMetricSubscribesRequest {
  */
 export interface DescribeLogContextRequest {
   /**
-   * 要查询的日志主题Id。
-- 通过 [获取日志主题列表](https://cloud.tencent.com/document/product/614/56454) 获取日志主题Id。
-- 通过 [创建日志主题](https://cloud.tencent.com/document/product/614/56456) 获取日志主题Id。
+   * <p>要查询的日志主题Id。</p><ul><li>通过 <a href="https://cloud.tencent.com/document/product/614/56454">获取日志主题列表</a> 获取日志主题Id。</li><li>通过 <a href="https://cloud.tencent.com/document/product/614/56456">创建日志主题</a> 获取日志主题Id。</li></ul>
    */
   TopicId: string
   /**
-   * 日志时间,  即 [检索分析日志](https://cloud.tencent.com/document/product/614/56447) 接口返回信息中Results结构体中的Time，需按照 UTC+8 时区将该毫秒级Unix时间戳转换为 YYYY-mm-dd HH:MM:SS.FFF 格式的字符串。
+   * <p>日志时间,  即 <a href="https://cloud.tencent.com/document/product/614/56447">检索分析日志</a> 接口返回信息中Results结构体中的Time，需按照 UTC+8 时区将该毫秒级Unix时间戳转换为 YYYY-mm-dd HH:MM:SS.FFF 格式的字符串。</p>
    */
   BTime: string
   /**
-   * 日志包序号，即 [检索分析日志](https://cloud.tencent.com/document/product/614/56447) 接口返回信息中Results结构体中的PkgId。
+   * <p>日志包序号，即 <a href="https://cloud.tencent.com/document/product/614/56447">检索分析日志</a> 接口返回信息中Results结构体中的PkgId。</p>
    */
   PkgId: string
   /**
-   * 日志包内一条日志的序号，即 [检索分析日志](https://cloud.tencent.com/document/product/614/56447) 接口返回信息中Results结构中的PkgLogId。
+   * <p>日志包内一条日志的序号，即 <a href="https://cloud.tencent.com/document/product/614/56447">检索分析日志</a> 接口返回信息中Results结构中的PkgLogId。</p>
    */
   PkgLogId: number
   /**
-   * 前${PrevLogs}条日志，默认值10。
+   * <p>前${PrevLogs}条日志，默认值10，最大100。</p>
    */
   PrevLogs?: number
   /**
-   * 后${NextLogs}条日志，默认值10。
+   * <p>后${NextLogs}条日志，默认值10，最大100。</p>
    */
   NextLogs?: number
   /**
-   * 检索语句，对日志上下文进行过滤，最大长度为12KB
-语句由 <a href="https://cloud.tencent.com/document/product/614/47044" target="_blank">[检索条件]</a>构成，不支持SQL语句
+   * <p>检索语句，对日志上下文进行过滤，最大长度为12KB<br>语句由 <a href="https://cloud.tencent.com/document/product/614/47044" target="_blank">[检索条件]</a>构成，不支持SQL语句</p>
    */
   Query?: string
   /**
-   * 上下文检索的开始时间，单位：毫秒级时间戳
-注意：
-- From为空时，表示上下文检索的开始时间不做限制
-- From和To非空时，From < To
-- 暂时仅支持上海 / 弗吉尼亚/ 新加坡地域
+   * <p>上下文检索的开始时间，单位：毫秒级时间戳<br>注意：</p><ul><li>From为空时，表示上下文检索的开始时间不做限制</li><li>From和To非空时，From &lt; To</li></ul>
    */
   From?: number
   /**
-   * 上下文检索的结束时间，单位：毫秒级时间戳。
-注意：
-- To为空时，表示上下文检索的结束时间不做限制
-- From和To非空时，From < To
-- 暂时仅支持上海 / 弗吉尼亚/ 新加坡地域
+   * <p>上下文检索的结束时间，单位：毫秒级时间戳。<br>注意：</p><ul><li>To为空时，表示上下文检索的结束时间不做限制</li><li>From和To非空时，From &lt; To</li></ul>
    */
   To?: number
 }
@@ -12964,7 +12964,7 @@ export interface ConsumerGroupInfo {
  */
 export interface CreateRemoteWriteTaskResponse {
   /**
-   * remoteWrite任务id
+   * <p>remoteWrite任务id</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskId?: string

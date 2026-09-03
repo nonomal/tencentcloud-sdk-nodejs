@@ -195,11 +195,11 @@ export interface StopSandboxInstanceRequest {
  */
 export interface MetadataVar {
   /**
-   * <p>沙箱元数据名</p>
+   * <p>元数据名</p>
    */
   Name?: string
   /**
-   * <p>沙箱元数据值</p>
+   * <p>元数据值</p>
    */
   Value?: string
 }

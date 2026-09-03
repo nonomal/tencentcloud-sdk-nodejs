@@ -208,6 +208,16 @@ it("billing.v20180709.DescribeCostSummaryByProject", async function () {
     }
 })
 
+it("billing.v20180709.SetRenewal", async function () {
+    try {
+       const data = await client.SetRenewal({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("billing.v20180709.DescribeCostExplorerSummary", async function () {
     try {
        const data = await client.DescribeCostExplorerSummary({})
@@ -238,9 +248,9 @@ it("billing.v20180709.DescribeBillDetail", async function () {
     }
 })
 
-it("billing.v20180709.SetRenewal", async function () {
+it("billing.v20180709.DescribeAccountWarning", async function () {
     try {
-       const data = await client.SetRenewal({})
+       const data = await client.DescribeAccountWarning({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -701,6 +711,16 @@ it("billing.v20180709.ModifyAllocationRule", async function () {
 it("billing.v20180709.DescribeCostDetail", async function () {
     try {
        const data = await client.DescribeCostDetail({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("billing.v20180709.ModifyAccountWarning", async function () {
+    try {
+       const data = await client.ModifyAccountWarning({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

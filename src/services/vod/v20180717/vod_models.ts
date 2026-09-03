@@ -171,7 +171,7 @@ export interface AigcVideoOutputConfig {
    */
   FrameInterpolate?: string
   /**
-   * <p>是否开启图标水印。取值有： <li>Enabled：开启；</li> <li>Disabled：关闭；</li><br>目前支持的模型有 Vidu，其他模型暂不支持。</p>
+   * <p>是否开启图标水印。取值有： <li>Enabled：开启；</li> <li>Disabled：关闭；</li></p>
    */
   LogoAdd?: string
   /**
@@ -2837,17 +2837,33 @@ export interface RoundPlayInfo {
 }
 
 /**
- * DescribeLicenseUsageData返回参数结构体
+ * CloneVoiceSync请求参数结构体
  */
-export interface DescribeLicenseUsageDataResponse {
+export interface CloneVoiceSyncRequest {
   /**
-   * License 查询次数统计数据，展示所查询 License 次数的明细数据。
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
    */
-  LicenseUsageDataSet?: Array<LicenseUsageDataItem>
+  SubAppId?: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>克隆音频base64编码。</p>
    */
-  RequestId?: string
+  AudioData?: string
+  /**
+   * <p>克隆音频Url，AudioData为空时有效</p>
+   */
+  AudioUrl?: string
+  /**
+   * <p>克隆文件FileID，AudioData及AudioUrl为空时有效</p>
+   */
+  AudioFileId?: string
+  /**
+   * <p>语言增强，如 "zh" "en" "auto"，默认 "auto"</p>
+   */
+  LanguageBoost?: string
+  /**
+   * <p>同步音色克隆拓展参数。<code>ExtParam</code> 支持的字段：</p><ul>  <li><code>text</code> (string)：试听合成文本，最大 <code>1000</code> 字符；非空时必须同时传 <code>tts_model</code>，克隆成功后返回试听音频 <code>DemoAudio</code>。</li>  <li><code>model</code> (string)：克隆模型，缺省 <code>minimax-voice-clone</code>。</li>  <li><code>tts_model</code> (string)：合成试听音频用的模型，可选 <code>minimax-speech-2.8-hd</code>、<code>minimax-speech-2.8-turbo</code>、<code>minimax-speech-2.6-hd</code>、<code>minimax-speech-2.6-turbo</code>、<code>minimax-speech-02-hd</code>、<code>minimax-speech-02-turbo</code>；<code>text</code> 非空时必填。</li>  <li><code>text_lang</code> (string)：试听文本语言。</li>  <li><code>voice_profile</code> (object)：音色画像，可选字段：    <ul>      <li><code>name</code> (string)：音色名称。</li>      <li><code>description</code> (string)：音色描述。</li>      <li><code>gender</code> (string)：性别，可选 <code>male</code> / <code>female</code> / <code>unknown</code>。</li>      <li><code>age</code> (string)：年龄段，可选 <code>child</code> / <code>teenager</code> / <code>youth</code> / <code>middle_aged</code> / <code>senior</code> / <code>unknown</code>。</li>      <li><code>languages</code> (string[])：支持语言，如 <code>["zh", "en"]</code>。</li>      <li><code>labels</code> (string[])：音色标签，如 <code>["磁性"]</code>。</li>      <li><code>scenes</code> (string[])：适用场景，如 <code>["解说"]</code>。</li>    </ul>  </li></ul>
+   */
+  ExtParam?: string
 }
 
 /**
@@ -10728,6 +10744,36 @@ export interface RebuildMediaTaskInput {
 }
 
 /**
+ * TextToSpeechSync请求参数结构体
+ */
+export interface TextToSpeechSyncRequest {
+  /**
+   * <p>合成文本，语音合成时必填，文本长度不超过2000字节</p>
+   */
+  Text: string
+  /**
+   * <p>音色Id，指定音色合成时填写，支持系统音色和设计、克隆音色。</p>
+   */
+  VoiceId: string
+  /**
+   * <p>点播应用 ID。从2023年12月25日起开通点播的客户，如访问点播应用中的资源（无论是默认应用还是新创建的应用），必须将该字段填写为应用 ID。</p>
+   */
+  SubAppId?: string
+  /**
+   * <p>语言增强，如 "zh" "en" "auto"，默认 "auto"</p>
+   */
+  LanguageBoost?: string
+  /**
+   * <p>输出相关参数</p><p>可以指定输出形式等。默认输出音频base64。</p>
+   */
+  Output?: TextToSpeechSyncOutputOption
+  /**
+   * <p>同步语音合成拓展参数。<code>ExtParam</code> 支持的字段：</p><ul>  <li><code>model</code> (string)：合成模型，可选 <code>minimax-speech-2.8-hd</code>、<code>minimax-speech-2.8-turbo</code>、<code>minimax-speech-2.6-hd</code>、<code>minimax-speech-2.6-turbo</code>、<code>minimax-speech-02-hd</code>、<code>minimax-speech-02-turbo</code>；默认 <code>minimax-speech-2.8-hd</code>。</li>  <li><code>voice_setting</code> (object)：音色微调，可选字段：    <ul>      <li><code>speed</code> (float)：语速，<code>[0.5, 2.0]</code>，默认 <code>1.0</code>。</li>      <li><code>vol</code> (float)：音量，<code>(0, 10]</code>，默认 <code>1.0</code>。</li>      <li><code>pitch</code> (int)：音调，<code>[-12, 12]</code>，默认 <code>0</code>。</li>      <li><code>emotion</code> (string)：情绪，可选 <code>happy</code> / <code>sad</code> / <code>angry</code> / <code>fearful</code> / <code>disgusted</code> / <code>surprised</code> / <code>calm</code> / <code>fluent</code> / <code>whisper</code>。</li>    </ul>  </li>  <li><code>audio_setting</code> (object)：音频输出参数，可选字段：    <ul>      <li><code>sample_rate</code> (int)：采样率，可选 <code>8000</code> / <code>16000</code> / <code>22050</code> / <code>24000</code> / <code>32000</code> / <code>44100</code>，默认 <code>16000</code>。</li>      <li><code>format</code> (string)：音频格式，可选 <code>mp3</code> / <code>wav</code>，默认 <code>wav</code>。</li>      <li><code>duration</code> (float)：目标时长（秒）。</li>      <li><code>cut_silence</code> (bool)：是否裁剪静音段。</li>    </ul>  </li></ul>
+   */
+  ExtParam?: string
+}
+
+/**
  * AIGC 混元 3D 任务的输出信息。
  */
 export interface AigcHunyuan3DTaskOutput {
@@ -12139,46 +12185,25 @@ export interface MPSSubTaskResult {
 }
 
 /**
- * 片头片尾模板详情
+ * CloneVoiceSync返回参数结构体
  */
-export interface HeadTailTemplate {
+export interface CloneVoiceSyncResponse {
   /**
-   * 片头片尾模板号。
+   * <p>克隆得到的音色</p>
    */
-  Definition?: number
+  VoiceId?: string
   /**
-   * 模板名，最大支持 64 个字符。
+   * <p>试听音频</p>
    */
-  Name?: string
+  DemoAudio?: string
   /**
-   * 模板描述，最大支持 256 个字符。
+   * <p>拓展信息</p>
    */
-  Comment?: string
+  ExtInfo?: string
   /**
-   * 片头候选列表。使用时会选择跟正片分辨率最贴近的一个使用，当存在相同的候选时，选择第一个使用，最大支持 5 个。
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  HeadCandidateSet?: Array<string>
-  /**
-   * 片尾候选列表。使用时会选择跟正片分辨率最贴近的一个使用，当存在相同的候选时，选择第一个使用，最大支持 5 个。
-   */
-  TailCandidateSet?: Array<string>
-  /**
-   * 填充方式，当视频流配置宽高参数与原始视频的宽高比不一致时，对转码的处理方式，即为“填充”。可选填充方式：
-<li> stretch：拉伸，对每一帧进行拉伸，填满整个画面，可能导致转码后的视频被“压扁“或者“拉长“；</li>
-<li> gauss：高斯模糊，保持视频宽高比不变，边缘剩余部分使用高斯模糊；</li>
-<li> white：留白，保持视频宽高比不变，边缘剩余部分使用白色填充；</li>
-<li> black：留黑，保持视频宽高比不变，边缘剩余部分使用黑色填充。</li>
-默认值：stretch 。
-   */
-  FillType?: string
-  /**
-   * 模板创建时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
-   */
-  CreateTime?: string
-  /**
-   * 模板最后修改时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
-   */
-  UpdateTime?: string
+  RequestId?: string
 }
 
 /**
@@ -12825,6 +12850,28 @@ export interface AiRecognitionTaskSegmentResultOutput {
    * 视频拆条片段列表文件 URL 失效时间，使用  [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
    */
   SegmentSetFileUrlExpireTime: string
+}
+
+/**
+ * TextToSpeechSync返回参数结构体
+ */
+export interface TextToSpeechSyncResponse {
+  /**
+   * <p>合成音频的base64编码，wav格式。</p>
+   */
+  AudioData?: string
+  /**
+   * <p>合成音频url，有效期24小时</p>
+   */
+  AudioUrl?: string
+  /**
+   * <p>扩展信息，json字符串</p><p>duration: 结果音频时长，单位秒</p>
+   */
+  ExtInfo?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -16523,6 +16570,20 @@ export interface ProcedureTemplate {
    * <p>模板最后修改时间，使用 <a href="https://cloud.tencent.com/document/product/266/11732#I">ISO 日期格式</a>。</p>
    */
   UpdateTime?: string
+}
+
+/**
+ * DescribeLicenseUsageData返回参数结构体
+ */
+export interface DescribeLicenseUsageDataResponse {
+  /**
+   * License 查询次数统计数据，展示所查询 License 次数的明细数据。
+   */
+  LicenseUsageDataSet?: Array<LicenseUsageDataItem>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -28694,6 +28755,16 @@ export interface SubtitleFormatsOperation {
 }
 
 /**
+ * 同步语音合成输出参数设置
+ */
+export interface TextToSpeechSyncOutputOption {
+  /**
+   * <p>合成结果输出类型</p><p>枚举值：</p><ul><li>hex： 音频base64编码</li><li>url： 音频url，有效期24小时</li></ul>
+   */
+  Type?: string
+}
+
+/**
  * 第三方Drm 加密信息。
  */
 export interface ThirdPartyDrmInfo {
@@ -28998,6 +29069,49 @@ export interface MediaOutputInfo {
    * 输出文件目录，目录名必须以 "/" 结尾。
    */
   Dir?: string
+}
+
+/**
+ * 片头片尾模板详情
+ */
+export interface HeadTailTemplate {
+  /**
+   * 片头片尾模板号。
+   */
+  Definition?: number
+  /**
+   * 模板名，最大支持 64 个字符。
+   */
+  Name?: string
+  /**
+   * 模板描述，最大支持 256 个字符。
+   */
+  Comment?: string
+  /**
+   * 片头候选列表。使用时会选择跟正片分辨率最贴近的一个使用，当存在相同的候选时，选择第一个使用，最大支持 5 个。
+   */
+  HeadCandidateSet?: Array<string>
+  /**
+   * 片尾候选列表。使用时会选择跟正片分辨率最贴近的一个使用，当存在相同的候选时，选择第一个使用，最大支持 5 个。
+   */
+  TailCandidateSet?: Array<string>
+  /**
+   * 填充方式，当视频流配置宽高参数与原始视频的宽高比不一致时，对转码的处理方式，即为“填充”。可选填充方式：
+<li> stretch：拉伸，对每一帧进行拉伸，填满整个画面，可能导致转码后的视频被“压扁“或者“拉长“；</li>
+<li> gauss：高斯模糊，保持视频宽高比不变，边缘剩余部分使用高斯模糊；</li>
+<li> white：留白，保持视频宽高比不变，边缘剩余部分使用白色填充；</li>
+<li> black：留黑，保持视频宽高比不变，边缘剩余部分使用黑色填充。</li>
+默认值：stretch 。
+   */
+  FillType?: string
+  /**
+   * 模板创建时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+   */
+  CreateTime?: string
+  /**
+   * 模板最后修改时间，使用 [ISO 日期格式](https://cloud.tencent.com/document/product/266/11732#I)。
+   */
+  UpdateTime?: string
 }
 
 /**

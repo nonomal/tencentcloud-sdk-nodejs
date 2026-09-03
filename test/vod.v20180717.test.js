@@ -1088,6 +1088,16 @@ it("vod.v20180717.CreateRebuildMediaTemplate", async function () {
     }
 })
 
+it("vod.v20180717.CloneVoiceSync", async function () {
+    try {
+       const data = await client.CloneVoiceSync({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("vod.v20180717.DescribeCurrentPlaylist", async function () {
     try {
        const data = await client.DescribeCurrentPlaylist({})
@@ -1991,6 +2001,16 @@ it("vod.v20180717.DescribeReviewTemplates", async function () {
 it("vod.v20180717.CommitUpload", async function () {
     try {
        const data = await client.CommitUpload({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("vod.v20180717.TextToSpeechSync", async function () {
+    try {
+       const data = await client.TextToSpeechSync({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

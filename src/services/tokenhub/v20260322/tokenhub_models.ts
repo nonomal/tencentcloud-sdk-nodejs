@@ -615,6 +615,10 @@ export interface EndpointDetail {
    * <p>RPM（每分钟请求数限流）。当推理服务未单独设置时，回退为关联模型的默认 RPM 值。</p>
    */
   RPM?: number
+  /**
+   * <p>模型状态</p><p>枚举值：</p><ul><li>online： 在线</li><li>pre-offline： 预下线</li><li>discontinued： 停止新购</li><li>maintenance： 维护</li><li>offline： 下线</li></ul>
+   */
+  ModelStatus?: string
 }
 
 /**

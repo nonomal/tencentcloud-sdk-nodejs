@@ -2742,9 +2742,13 @@ export interface ModifyModelAttributesRequest {
    */
   ServiceProviderId: string
   /**
-   * <p>BYOK的自定义名字</p><p>入参限制：1～256个字符</p>
+   * <p>BYOK的自定义名字</p><p>入参限制：1～255个字符</p>
    */
   ServiceProviderName?: string
+  /**
+   * <p>多协议 Api Base URL</p>
+   */
+  ApiBases?: Array<ApiBaseItem>
 }
 
 /**

@@ -191,6 +191,16 @@ export interface SpacePlacement {
 }
 
 /**
+ * DisableClusterDedicatedProxy返回参数结构体
+ */
+export interface DisableClusterDedicatedProxyResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DescribeInitNodeScripts请求参数结构体
  */
 export interface DescribeInitNodeScriptsRequest {
@@ -277,33 +287,71 @@ export interface ModifyClusterDeletionProtectionResponse {
 }
 
 /**
- * 扩容方式配置，定义用什么创建节点。
+ * DescribeClusterDedicatedProxy返回参数结构体
  */
-export interface ExpansionPolicy {
+export interface DescribeClusterDedicatedProxyResponse {
   /**
-   * <p>扩容方式。可选值：LAUNCH_TEMPLATE（启动模板）、MULTI_CARD（多卡型混扩）。</p>
+   * <p>代理是否已开通。true表示已开通，false表示从未开通。</p>
    */
-  ExpansionMode?: string
+  Enabled?: boolean
   /**
-   * <p>启动模板 ID 列表，最多 10 个。ExpansionMode=LAUNCH_TEMPLATE 时使用。</p>
+   * <p>终端节点ID。未开通代理时为空。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  LaunchTemplateIds?: Array<string>
+  EndPointId?: string
   /**
-   * <p>参考实例 ID，根据已有实例配置生成启动模板。</p>
+   * <p>终端节点VIP地址。未开通代理时为空。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  ReferenceInstanceId?: string
+  EndPointVip?: string
   /**
-   * <p>启动模板扩容覆盖配置。ExpansionMode=MULTI_CARD 时使用。</p>
+   * <p>终端节点是否就绪。true表示已就绪可用，false表示未就绪或未开通。</p>
+   */
+  EndPointReady?: boolean
+  /**
+   * <p>终端节点状态。取值范围：<li>ACTIVE：已激活</li><li>BINDCHANGE：变更中</li><li>BINDINGCREATE：创建中</li><li>BINDINGDELETE：删除中</li><li>ABNORMAL：异常</li><li>UNKNOWN：未知</li><li>ASSUME_ROLE_FAILED：授权失败</li></p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  TemplateOverrides?: TemplateOverrides
+  EndPointStatus?: string
   /**
-   * <p>候选规格排序策略。</p>
+   * <p>上次同步的终端节点状态（DB记录值）。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  ExpansionPriority?: ExpansionPriority
+  LastKnownStatus?: string
+  /**
+   * <p>终端节点服务ID。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EndPointServiceId?: string
+  /**
+   * <p>私有网络ID。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  VpcId?: string
+  /**
+   * <p>子网ID。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SubnetId?: string
+  /**
+   * <p>代理创建时间。未开通时为空。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CreateTime?: string
+  /**
+   * <p>上次状态同步时间。cron未同步过时为null。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  LastSyncTime?: string
+  /**
+   * <p>本次实时查询时间。未开通时为空。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RealtimeQueryTime?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -318,6 +366,36 @@ export interface CreateWorkspacesResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * GenerateRegisterCommand请求参数结构体
+ */
+export interface GenerateRegisterCommandRequest {
+  /**
+   * <p>IDC集群ID，形如<code>hpc-xxxxxxxx</code>。</p>
+   */
+  ClusterId: string
+  /**
+   * <p>是否通过内网专线代理连接。</p><li>true：IDC机器需经PrivateLink代理接入</li><li>false：IDC机器可直连（默认值）</li><p></p>
+   */
+  Proxy?: boolean
+  /**
+   * <p>私有网络ID，形如<code>vpc-xxx</code>。仅当<code>Proxy=true</code>且集群未绑定VPC时必填。与SubnetId需同时指定或同时不指定。</p>
+   */
+  VpcId?: string
+  /**
+   * <p>私有网络子网ID，形如<code>subnet-xxx</code>。仅当<code>Proxy=true</code>且集群未绑定VPC时必填。与VpcId需同时指定或同时不指定。</p>
+   */
+  SubnetId?: string
+  /**
+   * <p>注册码绑定的队列名称。不指定时由系统取集群默认队列。</p>
+   */
+  QueueName?: string
+  /**
+   * <p>注册码有效期，单位：秒。默认值为604800（7天）。</p>
+   */
+  ExpireSeconds?: number
 }
 
 /**
@@ -462,6 +540,24 @@ export interface Task {
 }
 
 /**
+ * GenerateRegisterCode请求参数结构体
+ */
+export interface GenerateRegisterCodeRequest {
+  /**
+   * <p>集群ID。</p>
+   */
+  ClusterId: string
+  /**
+   * <p>队列名称。</p>
+   */
+  QueueName?: string
+  /**
+   * <p>指定生成的注册码的过期时间, 单位为秒</p><p>取值范围：[1, 604800]</p><p>默认值：604800</p>
+   */
+  ExpireSeconds?: number
+}
+
+/**
  * ModifyScheduledAction返回参数结构体
  */
 export interface ModifyScheduledActionResponse {
@@ -577,25 +673,21 @@ export interface Tag {
 }
 
 /**
- * 描述GooseFS挂载信息
+ * DescribeNodes返回参数结构体
  */
-export interface GooseFSOption {
+export interface DescribeNodesResponse {
   /**
-   * <p>文件系统本地挂载路径。</p>
+   * 节点概览信息列表。
    */
-  LocalPath: string
+  NodeSet?: Array<NodeOverview>
   /**
-   * <p>文件系统远程挂载路径; 远端路径为GooseFS控制台看到的命名空间的url;命名空间文档参考https://cloud.tencent.com/document/product/1424/117877</p>
+   * 符合条件的节点数量。
    */
-  RemotePath: string
+  TotalCount?: number
   /**
-   * <p>文件系统master的ip和端口，此参数和FileSystemId互斥。</p>
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Masters?: Array<string>
-  /**
-   * <p>GooseFS的文件ID；此参数和Masters 互斥。</p>
-   */
-  FileSystemId?: string
+  RequestId?: string
 }
 
 /**
@@ -628,6 +720,28 @@ export interface DescribeJobsOverviewRequest {
    * <p>集群ID</p>
    */
   ClusterId: string
+}
+
+/**
+ * BindClusterVpc返回参数结构体
+ */
+export interface BindClusterVpcResponse {
+  /**
+   * <p>集群ID。</p>
+   */
+  ClusterId?: string
+  /**
+   * <p>绑定的私有网络ID。</p>
+   */
+  VpcId?: string
+  /**
+   * <p>绑定的子网ID。</p>
+   */
+  SubnetId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -795,6 +909,36 @@ export interface AddQueueRequest {
    * 队列名称。<br><li>最多支持32个字符。</li>
    */
   QueueName: string
+}
+
+/**
+ * 扩容方式配置，定义用什么创建节点。
+ */
+export interface ExpansionPolicy {
+  /**
+   * <p>扩容方式。可选值：LAUNCH_TEMPLATE（启动模板）、MULTI_CARD（多卡型混扩）。</p>
+   */
+  ExpansionMode?: string
+  /**
+   * <p>启动模板 ID 列表，最多 10 个。ExpansionMode=LAUNCH_TEMPLATE 时使用。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  LaunchTemplateIds?: Array<string>
+  /**
+   * <p>参考实例 ID，根据已有实例配置生成启动模板。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ReferenceInstanceId?: string
+  /**
+   * <p>启动模板扩容覆盖配置。ExpansionMode=MULTI_CARD 时使用。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TemplateOverrides?: TemplateOverrides
+  /**
+   * <p>候选规格排序策略。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ExpansionPriority?: ExpansionPriority
 }
 
 /**
@@ -990,21 +1134,25 @@ export interface Placement {
 }
 
 /**
- * DescribeNodes返回参数结构体
+ * 描述GooseFS挂载信息
  */
-export interface DescribeNodesResponse {
+export interface GooseFSOption {
   /**
-   * 节点概览信息列表。
+   * <p>文件系统本地挂载路径。</p>
    */
-  NodeSet?: Array<NodeOverview>
+  LocalPath: string
   /**
-   * 符合条件的节点数量。
+   * <p>文件系统远程挂载路径; 远端路径为GooseFS控制台看到的命名空间的url;命名空间文档参考https://cloud.tencent.com/document/product/1424/117877</p>
    */
-  TotalCount?: number
+  RemotePath: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>文件系统master的ip和端口，此参数和FileSystemId互斥。</p>
    */
-  RequestId?: string
+  Masters?: Array<string>
+  /**
+   * <p>GooseFS的文件ID；此参数和Masters 互斥。</p>
+   */
+  FileSystemId?: string
 }
 
 /**
@@ -1023,6 +1171,16 @@ export interface GooseFSOptionOverview {
    * 文件系统master的ip和端口。
    */
   Masters?: Array<string>
+}
+
+/**
+ * DescribeClusterDedicatedProxy请求参数结构体
+ */
+export interface DescribeClusterDedicatedProxyRequest {
+  /**
+   * <p>集群ID。</p>
+   */
+  ClusterId: string
 }
 
 /**
@@ -1070,25 +1228,13 @@ export interface CosOption {
 }
 
 /**
- * DescribeJobs请求参数结构体
+ * DescribeQueueAutoScaling返回参数结构体
  */
-export interface DescribeJobsRequest {
+export interface DescribeQueueAutoScalingResponse {
   /**
-   * 作业任务ID列表
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  JobIds?: Array<string>
-  /**
-   * 过滤列表
-   */
-  Filters?: Array<Filter>
-  /**
-   * 偏移量，默认为0。 关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
-   */
-  Offset?: number
-  /**
-   * 返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
-   */
-  Limit?: number
+  RequestId?: string
 }
 
 /**
@@ -1138,6 +1284,28 @@ export interface RunMonitorServiceEnabled {
    * 是否开启[腾讯云可观测平台](/document/product/248)服务。取值范围：<br><li>TRUE：表示开启腾讯云可观测平台服务</li><br><li>FALSE：表示不开启腾讯云可观测平台服务</li><br><br>默认取值：TRUE。
    */
   Enabled?: boolean
+}
+
+/**
+ * DescribeJobs请求参数结构体
+ */
+export interface DescribeJobsRequest {
+  /**
+   * 作业任务ID列表
+   */
+  JobIds?: Array<string>
+  /**
+   * 过滤列表
+   */
+  Filters?: Array<Filter>
+  /**
+   * 偏移量，默认为0。 关于`Offset`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+   */
+  Offset?: number
+  /**
+   * 返回数量，默认为20，最大值为100。关于`Limit`的更进一步介绍请参考 API [简介](https://cloud.tencent.com/document/api/213/15688)中的相关小节。
+   */
+  Limit?: number
 }
 
 /**
@@ -1446,6 +1614,24 @@ export interface DataDisk {
 }
 
 /**
+ * BindClusterVpc请求参数结构体
+ */
+export interface BindClusterVpcRequest {
+  /**
+   * <p>集群ID。</p>
+   */
+  ClusterId: string
+  /**
+   * <p>私有网络ID，形如<code>vpc-xxx</code>。可通过调用<a href="https://cloud.tencent.com/document/api/215/15778">DescribeVpcs</a>获取。</p>
+   */
+  VpcId: string
+  /**
+   * <p>私有网络子网ID，形如<code>subnet-xxx</code>。可通过调用<a href="https://cloud.tencent.com/document/api/215/15784">DescribeSubnets</a>获取。</p>
+   */
+  SubnetId: string
+}
+
+/**
  * 队列信息概览。
  */
 export interface QueueOverview {
@@ -1604,6 +1790,11 @@ export interface ClusterActivity {
    * 集群活动结束时间。
    */
   EndTime?: string
+  /**
+   * 队列名称。集群级活动（如创建/删除集群）此字段为空，队列级活动（如扩容/缩容）为对应队列名。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  QueueName?: string
 }
 
 /**
@@ -1952,9 +2143,17 @@ export interface NodeScript {
 }
 
 /**
- * ModifyInitNodeScripts返回参数结构体
+ * GenerateRegisterCode返回参数结构体
  */
-export interface ModifyInitNodeScriptsResponse {
+export interface GenerateRegisterCodeResponse {
+  /**
+   * <p>集群队列的注册码,用于机器注册进入队列时使用</p><p>默认值：无</p>
+   */
+  RegisterCode?: string
+  /**
+   * <p>注册码的过期时间, unix时间戳格式</p>
+   */
+  ExpireAt?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -2024,6 +2223,24 @@ export interface DescribeJobSubmitInfoRequest {
 }
 
 /**
+ * EnableClusterDedicatedProxy请求参数结构体
+ */
+export interface EnableClusterDedicatedProxyRequest {
+  /**
+   * <p>集群ID。</p>
+   */
+  ClusterId: string
+  /**
+   * <p>私有网络ID，形如<code>vpc-xxx</code>。可通过调用<a href="https://cloud.tencent.com/document/api/215/15778">DescribeVpcs</a>获取。若不指定，则使用集群已绑定的VPC。</p>
+   */
+  VpcId?: string
+  /**
+   * <p>私有网络子网ID，形如<code>subnet-xxx</code>。可通过调用<a href="https://cloud.tencent.com/document/api/215/15784">DescribeSubnets</a>获取。与VpcId需同时指定或同时不指定。</p>
+   */
+  SubnetId?: string
+}
+
+/**
  * 输出重定向配置
  */
 export interface OutputRedirect {
@@ -2065,6 +2282,16 @@ export interface Filter {
    * 字段的过滤值。
    */
   Values: Array<string>
+}
+
+/**
+ * ModifyInitNodeScripts返回参数结构体
+ */
+export interface ModifyInitNodeScriptsResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -2249,6 +2476,44 @@ export interface TerminateWorkspacesRequest {
 }
 
 /**
+ * GenerateRegisterCommand返回参数结构体
+ */
+export interface GenerateRegisterCommandResponse {
+  /**
+   * <p>渲染好的节点注册命令，可直接在IDC机器上以root身份执行。</p>
+   */
+  RegisterCommand?: string
+  /**
+   * <p>节点注册码。作为不透明凭证使用，请妥善保管，仅在节点注册纳管时传入。</p>
+   */
+  RegisterCode?: string
+  /**
+   * <p>注册码到期的Unix时间戳，单位：秒。</p>
+   */
+  ExpireAt?: number
+  /**
+   * <p>回显本次是否走内网专线代理。</p>
+   */
+  Proxy?: boolean
+  /**
+   * <p>代理终端节点VIP地址。当<code>Proxy=true</code>且终端节点就绪时非空。</p>
+   */
+  EndPointVip?: string
+  /**
+   * <p>终端节点状态。取值范围：</p><li>ACTIVE：已激活</li><li>BINDCHANGE：变更中</li><li>BINDINGCREATE：创建中</li><li>BINDINGDELETE：删除中</li><p></p>
+   */
+  EndPointStatus?: string
+  /**
+   * <p>回显集群ID。</p>
+   */
+  ClusterId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 计算节点信息。
  */
 export interface ComputeNode {
@@ -2340,9 +2605,43 @@ export interface DescribeQueueAutoScalingRequest {
 }
 
 /**
- * DescribeQueueAutoScaling返回参数结构体
+ * DisableClusterDedicatedProxy请求参数结构体
  */
-export interface DescribeQueueAutoScalingResponse {
+export interface DisableClusterDedicatedProxyRequest {
+  /**
+   * <p>集群ID。</p>
+   */
+  ClusterId: string
+}
+
+/**
+ * EnableClusterDedicatedProxy返回参数结构体
+ */
+export interface EnableClusterDedicatedProxyResponse {
+  /**
+   * <p>终端节点ID。</p>
+   */
+  EndPointId?: string
+  /**
+   * <p>终端节点VIP地址。</p>
+   */
+  EndPointVip?: string
+  /**
+   * <p>终端节点是否就绪。true表示已就绪，false表示未就绪。</p>
+   */
+  EndPointReady?: boolean
+  /**
+   * <p>终端节点状态。取值范围：<li>ACTIVE：已激活</li><li>BINDCHANGE：变更中</li><li>BINDINGCREATE：创建中</li><li>BINDINGDELETE：删除中</li></p>
+   */
+  EndPointStatus?: string
+  /**
+   * <p>私有网络ID。</p>
+   */
+  VpcId?: string
+  /**
+   * <p>子网ID。</p>
+   */
+  SubnetId?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -2830,6 +3129,10 @@ export interface DescribeClusterActivitiesRequest {
    * <p>返回数量，默认为20，最大值为100。关于<code>Limit</code>的更进一步介绍请参考 API <a href="https://cloud.tencent.com/document/api/213/15688">简介</a>中的相关小节。</p>
    */
   Limit?: number
+  /**
+   * <li><strong>queue-name</strong></li> <p style="padding-left: 30px;">按照【<strong>队列名称</strong>】进行过滤。队列名称形如：compute。</p><p style="padding-left: 30px;">类型：String</p><p style="padding-left: 30px;">必选：否</p><p style="padding-left: 30px;">每次请求的<code>Filters</code>的上限为10，<code>Filter.Values</code>的上限为5。</p>
+   */
+  Filters?: Array<Filter>
 }
 
 /**

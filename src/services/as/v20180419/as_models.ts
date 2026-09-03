@@ -30,138 +30,113 @@ export interface DisableAutoScalingGroupResponse {
  */
 export interface ModifyLaunchConfigurationAttributesRequest {
   /**
-   * 启动配置ID。可通过登录 [控制台](https://console.cloud.tencent.com/autoscaling/config) 或调用接口 [DescribeLaunchConfigurations](https://cloud.tencent.com/document/api/377/20445) ，取返回信息中的 LaunchConfigurationId 获取启动配置ID。
+   * <p>启动配置ID。可通过登录 <a href="https://console.cloud.tencent.com/autoscaling/config">控制台</a> 或调用接口 <a href="https://cloud.tencent.com/document/api/377/20445">DescribeLaunchConfigurations</a> ，取返回信息中的 LaunchConfigurationId 获取启动配置ID。</p>
    */
   LaunchConfigurationId: string
   /**
-   * 指定有效的[镜像](https://cloud.tencent.com/document/product/213/4940)ID，格式形如`img-8toqc6s3`。镜像类型分为四种：<br/><li>公共镜像</li><li>自定义镜像</li><li>共享镜像</li><li>服务市场镜像</li><br/>可通过以下方式获取可用的镜像ID：<br/><li>`公共镜像`、`自定义镜像`、`共享镜像`的镜像ID可通过登录[控制台](https://console.cloud.tencent.com/cvm/image?rid=1&imageType=PUBLIC_IMAGE)查询；`服务镜像市场`的镜像ID可通过[云市场](https://market.cloud.tencent.com/list)查询。</li><li>通过调用接口 [DescribeImages](https://cloud.tencent.com/document/api/213/15715) ，取返回信息中的`ImageId`字段。</li>
+   * <p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-8toqc6s3</code>。镜像类型分为四种：<br><li>公共镜像</li><li>自定义镜像</li><li>共享镜像</li><li>服务市场镜像</li><br>可通过以下方式获取可用的镜像ID：<br><li><code>公共镜像</code>、<code>自定义镜像</code>、<code>共享镜像</code>的镜像ID可通过登录<a href="https://console.cloud.tencent.com/cvm/image?rid=1&amp;imageType=PUBLIC_IMAGE">控制台</a>查询；<code>服务镜像市场</code>的镜像ID可通过<a href="https://market.cloud.tencent.com/list">云市场</a>查询。</li><li>通过调用接口 <a href="https://cloud.tencent.com/document/api/213/15715">DescribeImages</a> ，取返回信息中的<code>ImageId</code>字段。</li></p>
    */
   ImageId?: string
   /**
-   * 实例类型列表，不同实例机型指定了不同的资源规格，最多支持10种实例机型。
-InstanceType 指定单一实例类型，通过设置 InstanceTypes可以指定多实例类型，并使原有的InstanceType失效。具体取值可通过调用接口[DescribeInstanceTypeConfigs](https://cloud.tencent.com/document/api/213/15749)来获得最新的规格表或参见[实例规格描述](https://cloud.tencent.com/document/product/213/11518)。
+   * <p>实例类型列表，不同实例机型指定了不同的资源规格，最多支持10种实例机型。<br>InstanceType 指定单一实例类型，通过设置 InstanceTypes可以指定多实例类型，并使原有的InstanceType失效。具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格描述</a>。</p>
    */
   InstanceTypes?: Array<string>
   /**
-   * 实例类型校验策略，在实际修改 InstanceTypes 时发挥作用，取值包括 ALL 和 ANY，默认取值为ANY。
-<li> ALL，所有实例类型（InstanceType）都可用则通过校验，否则校验报错。</li> 
-<li> ANY，存在任何一个实例类型（InstanceType）可用则通过校验，否则校验报错。</li> 
-实例类型不可用的常见原因包括该实例类型售罄、对应云盘售罄等。
-如果 InstanceTypes 中一款机型不存在或者已下线，则无论 InstanceTypesCheckPolicy 采用何种取值，都会校验报错。
+   * <p>实例类型校验策略，在实际修改 InstanceTypes 时发挥作用，取值包括 ALL 和 ANY，默认取值为ANY。</p><li> ALL，所有实例类型（InstanceType）都可用则通过校验，否则校验报错。</li> <li> ANY，存在任何一个实例类型（InstanceType）可用则通过校验，否则校验报错。</li> 实例类型不可用的常见原因包括该实例类型售罄、对应云盘售罄等。如果 InstanceTypes 中一款机型不存在或者已下线，则无论 InstanceTypesCheckPolicy 采用何种取值，都会校验报错。
    */
   InstanceTypesCheckPolicy?: string
   /**
-   * 启动配置显示名称。名称仅支持中文、英文、数字、下划线、分隔符"-"、小数点，最大长度不能超60个字节。
+   * <p>启动配置显示名称。名称仅支持中文、英文、数字、下划线、分隔符&quot;-&quot;、小数点，最大长度不能超60个字节。</p>
    */
   LaunchConfigurationName?: string
   /**
-   * 经过 Base64 编码后的自定义数据，最大长度不超过16KB。如果要清空UserData，则指定其为空字符串。
+   * <p>经过 Base64 编码后的自定义数据，最大长度不超过16KB。如果要清空UserData，则指定其为空字符串。</p>
    */
   UserData?: string
   /**
-   * 实例所属安全组。该参数可以通过调用 [DescribeSecurityGroups](https://cloud.tencent.com/document/api/215/15808) 的返回值中的`SecurityGroupId`字段来获取。
-若指定该参数，请至少提供一个安全组，列表顺序有先后。
+   * <p>实例所属安全组。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/215/15808">DescribeSecurityGroups</a> 的返回值中的<code>SecurityGroupId</code>字段来获取。<br>若指定该参数，请至少提供一个安全组，列表顺序有先后。</p>
    */
   SecurityGroupIds?: Array<string>
   /**
-   * 公网带宽相关信息设置。
-当公网出带宽上限为0Mbps时，不支持修改为开通分配公网IP；相应的，当前为开通分配公网IP时，修改的公网出带宽上限值必须大于0Mbps。
+   * <p>公网带宽相关信息设置。<br>当公网出带宽上限为0Mbps时，不支持修改为开通分配公网IP；相应的，当前为开通分配公网IP时，修改的公网出带宽上限值必须大于0Mbps。</p>
    */
   InternetAccessible?: InternetAccessible
   /**
-   * 实例计费类型。具体取值范围如下：
-<li>POSTPAID_BY_HOUR：按小时后付费</li>
-<li>SPOTPAID：竞价付费</li>
-<li>PREPAID：预付费，即包年包月</li>
-<li>CDCPAID：专用集群付费</li>
+   * <p>实例计费类型。具体取值范围如下：</p><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li><li>PREPAID：预付费，即包年包月</li><li>CDCPAID：专用集群付费</li>
    */
   InstanceChargeType?: string
   /**
-   * 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长、是否设置自动续费等属性。
-若修改实例的付费模式为预付费，则该参数必传；从预付费修改为其他付费模式时，本字段原信息会自动丢弃。
-当新增该字段时，必须传递购买实例的时长，其它未传递字段会设置为默认值。
-当修改本字段时，当前付费模式必须为预付费。
+   * <p>预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长、是否设置自动续费等属性。<br>若修改实例的付费模式为预付费，则该参数必传；从预付费修改为其他付费模式时，本字段原信息会自动丢弃。<br>当新增该字段时，必须传递购买实例的时长，其它未传递字段会设置为默认值。<br>当修改本字段时，当前付费模式必须为预付费。</p>
    */
   InstanceChargePrepaid?: InstanceChargePrepaid
   /**
-   * 实例的市场相关选项，如竞价实例相关参数。
-若修改实例的付费模式为竞价付费，则该参数必传；从竞价付费修改为其他付费模式时，本字段原信息会自动丢弃。
-当新增该字段时，必须传递竞价相关选项下的竞价出价，其它未传递字段会设置为默认值。
-当修改本字段时，当前付费模式必须为竞价付费。
+   * <p>实例的市场相关选项，如竞价实例相关参数。<br>若修改实例的付费模式为竞价付费，则该参数必传；从竞价付费修改为其他付费模式时，本字段原信息会自动丢弃。<br>当新增该字段时，必须传递竞价相关选项下的竞价出价，其它未传递字段会设置为默认值。<br>当修改本字段时，当前付费模式必须为竞价付费。</p>
    */
   InstanceMarketOptions?: InstanceMarketOptionsRequest
   /**
-   * 云盘类型选择策略，取值范围：
-<li>ORIGINAL：使用设置的云盘类型。</li>
-<li>AUTOMATIC：自动选择当前可用的云盘类型。</li>
+   * <p>云盘类型选择策略，取值范围：</p><li>ORIGINAL：使用设置的云盘类型。</li><li>AUTOMATIC：自动选择当前可用的云盘类型。</li>
    */
   DiskTypePolicy?: string
   /**
-   * 实例系统盘配置信息。
+   * <p>实例系统盘配置信息。</p>
    */
   SystemDisk?: SystemDisk
   /**
-   * 实例数据盘配置信息。
-最多支持指定11块数据盘。采取整体修改，因此请提供修改后的全部值。
-数据盘类型默认与系统盘类型保持一致。
+   * <p>实例数据盘配置信息。<br>最多支持指定11块数据盘。采取整体修改，因此请提供修改后的全部值。<br>数据盘类型默认与系统盘类型保持一致。</p>
    */
   DataDisks?: Array<DataDisk>
   /**
-   * 云服务器主机名（HostName）的相关设置。
-不支持windows实例设置主机名。
-新增该属性时，必须传递云服务器的主机名，其它未传递字段会设置为默认值。
-会校验主机名(如果存在后缀则加上后缀)是否超过最大位数46。
+   * <p>云服务器主机名（HostName）的相关设置。<br>不支持windows实例设置主机名。<br>新增该属性时，必须传递云服务器的主机名，其它未传递字段会设置为默认值。<br>会校验主机名(如果存在后缀则加上后缀)是否超过最大位数46。</p>
    */
   HostNameSettings?: HostNameSettings
   /**
-   * 云服务器（InstanceName）实例名的相关设置。 
-如果用户在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 参照此字段进行设置，并传递给 CVM；如果用户未在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 按照“as-{{ 伸缩组AutoScalingGroupName }}”进行设置，并传递给 CVM。
-新增该属性时，必须传递云服务器的实例名称，其它未传递字段会设置为默认值。
-会校验实例名(如果存在后缀则加上后缀)是否超过最大位数108。
+   * <p>云服务器（InstanceName）实例名的相关设置。<br>如果用户在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 参照此字段进行设置，并传递给 CVM；如果用户未在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 按照“as-{{ 伸缩组AutoScalingGroupName }}”进行设置，并传递给 CVM。<br>新增该属性时，必须传递云服务器的实例名称，其它未传递字段会设置为默认值。<br>会校验实例名(如果存在后缀则加上后缀)是否超过最大位数108。</p>
    */
   InstanceNameSettings?: InstanceNameSettings
   /**
-   * 增强服务。通过该参数可以指定是否开启云安全、云监控等服务。
+   * <p>增强服务。通过该参数可以指定是否开启云安全、云监控等服务。</p>
    */
   EnhancedService?: EnhancedService
   /**
-   * CAM角色名称。可通过[DescribeRoleList](https://cloud.tencent.com/document/product/598/36223)接口返回值中的roleName获取。
+   * <p>CAM角色名称。可通过<a href="https://cloud.tencent.com/document/product/598/36223">DescribeRoleList</a>接口返回值中的roleName获取。</p>
    */
   CamRoleName?: string
   /**
-   * 高性能计算集群ID。可通过调用[DescribeHpcClusters](https://cloud.tencent.com/document/product/213/83220)接口获取该参数。
-注意：此字段默认为空。
+   * <p>高性能计算集群ID。可通过调用<a href="https://cloud.tencent.com/document/product/213/83220">DescribeHpcClusters</a>接口获取该参数。<br>注意：此字段默认为空。</p>
    */
   HpcClusterId?: string
   /**
-   * IPv6公网带宽相关信息设置。若新建实例包含IPv6地址，该参数可为新建实例的IPv6地址分配公网带宽。关联启动配置的伸缩组Ipv6AddressCount参数为0时，该参数不会生效。
+   * <p>IPv6公网带宽相关信息设置。若新建实例包含IPv6地址，该参数可为新建实例的IPv6地址分配公网带宽。关联启动配置的伸缩组Ipv6AddressCount参数为0时，该参数不会生效。</p>
    */
   IPv6InternetAccessible?: IPv6InternetAccessible
   /**
-   * 置放群组id，仅支持指定一个。可通过调用[DescribeDisasterRecoverGroups](https://cloud.tencent.com/document/product/213/17810)接口获取该参数。
+   * <p>置放群组id，仅支持指定一个。可通过调用<a href="https://cloud.tencent.com/document/product/213/17810">DescribeDisasterRecoverGroups</a>接口获取该参数。</p>
    */
   DisasterRecoverGroupIds?: Array<string>
   /**
-   * 实例登录设置，包括密码、密钥或保持镜像的原始登录设置。<br>请注意，指定新的登录设置会覆盖原有登录设置。例如，如果您之前使用密码登录，使用该参数将登录设置修改为密钥，则原有密码被清除。
+   * <p>实例登录设置，包括密码、密钥或保持镜像的原始登录设置。<br>请注意，指定新的登录设置会覆盖原有登录设置。例如，如果您之前使用密码登录，使用该参数将登录设置修改为密钥，则原有密码被清除。</p>
    */
   LoginSettings?: LoginSettings
   /**
-   * 实例标签列表。通过指定该参数，可以为扩容的实例绑定标签。最多支持指定10个标签。
-该参数会覆盖原有的实例标签列表，如需新增标签，需将新标签和原有标签一并传入。
+   * <p>实例标签列表。通过指定该参数，可以为扩容的实例绑定标签。最多支持指定10个标签。<br>该参数会覆盖原有的实例标签列表，如需新增标签，需将新标签和原有标签一并传入。</p>
    */
   InstanceTags?: Array<InstanceTag>
   /**
-   * 镜像族名称。可通过调用[DescribeImages](https://cloud.tencent.com/document/product/213/15715)接口获取该参数。
+   * <p>镜像族名称。可通过调用<a href="https://cloud.tencent.com/document/product/213/15715">DescribeImages</a>接口获取该参数。</p>
    */
   ImageFamily?: string
   /**
-   * 本地专用集群ID。
+   * <p>本地专用集群ID。</p>
    */
   DedicatedClusterId?: string
   /**
-   * 自定义metadata。
+   * <p>自定义metadata。</p>
    */
   Metadata?: Metadata
+  /**
+   * <p>替换启动配置中的弹性网卡配置。</p><p>入参限制：最多 17 项；必须显式包含且只能包含一个 PRIMARY，AS 不自动补齐主网卡；显式空数组非法。</p><p>字段规则与 CreateLaunchConfiguration 一致。清除请调用 ClearLaunchConfigurationAttributes 并传 ClearNetworkInterfaces=true。</p>
+   */
+  NetworkInterfaces?: Array<NetworkInterface>
 }
 
 /**
@@ -217,7 +192,7 @@ export interface ModifyAutoScalingGroupRequest {
    */
   LaunchConfigurationId?: string
   /**
-   * <p>最大实例数，取值范围为 [0,2000]。需满足最大值大于等于期望值，期望值大于等于最小值。</p>
+   * <p>最大实例数，取值范围为 [0,2000]。需满足最大值大于等于期望值，期望值大于等于最小值。</p><p>取值范围：[0, 2000]</p>
    */
   MaxSize?: number
   /**
@@ -443,144 +418,143 @@ export interface DescribeAutoScalingGroupsRequest {
  */
 export interface LaunchConfiguration {
   /**
-   * 实例所属项目ID。
+   * <p>实例所属项目ID。</p>
    */
   ProjectId?: number
   /**
-   * 启动配置ID。
+   * <p>启动配置ID。</p>
    */
   LaunchConfigurationId?: string
   /**
-   * 启动配置名称。
+   * <p>启动配置名称。</p>
    */
   LaunchConfigurationName?: string
   /**
-   * 实例机型。
+   * <p>实例机型。</p>
    */
   InstanceType?: string
   /**
-   * 实例系统盘配置信息。
+   * <p>实例系统盘配置信息。</p>
    */
   SystemDisk?: SystemDisk
   /**
-   * 实例数据盘配置信息。
+   * <p>实例数据盘配置信息。</p>
    */
   DataDisks?: Array<DataDisk>
   /**
-   * 实例登录设置。
+   * <p>实例登录设置。</p>
    */
   LoginSettings?: LimitedLoginSettings
   /**
-   * 公网带宽相关信息设置。
+   * <p>公网带宽相关信息设置。</p>
    */
   InternetAccessible?: InternetAccessible
   /**
-   * 实例所属安全组。
+   * <p>实例所属安全组。</p>
    */
   SecurityGroupIds?: Array<string>
   /**
-   * 启动配置关联的伸缩组。
+   * <p>启动配置关联的伸缩组。</p>
    */
   AutoScalingGroupAbstractSet?: Array<AutoScalingGroupAbstract>
   /**
-   * 自定义数据。
+   * <p>自定义数据。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserData?: string
   /**
-   * 启动配置创建时间，为标准`UTC`时间。
+   * <p>启动配置创建时间，为标准<code>UTC</code>时间。</p>
    */
   CreatedTime?: string
   /**
-   * 实例的增强服务启用情况与其设置。
+   * <p>实例的增强服务启用情况与其设置。</p>
    */
   EnhancedService?: EnhancedService
   /**
-   * 镜像ID。
+   * <p>镜像ID。</p>
    */
   ImageId?: string
   /**
-   * 启动配置当前状态。取值范围：<li>NORMAL：正常</li><li>IMAGE_ABNORMAL：启动配置镜像异常</li><li>CBS_SNAP_ABNORMAL：启动配置数据盘快照异常</li><li>SECURITY_GROUP_ABNORMAL：启动配置安全组异常</li>
+   * <p>启动配置当前状态。取值范围：<li>NORMAL：正常</li><li>IMAGE_ABNORMAL：启动配置镜像异常</li><li>CBS_SNAP_ABNORMAL：启动配置数据盘快照异常</li><li>SECURITY_GROUP_ABNORMAL：启动配置安全组异常</li></p>
    */
   LaunchConfigurationStatus?: string
   /**
-   * 实例计费类型，取值范围如下：
-<li>POSTPAID_BY_HOUR：按小时后付费</li>
-<li>SPOTPAID：竞价付费</li>
-<li>PREPAID：预付费，即包年包月</li>
-<li>CDCPAID：专用集群付费</li>
+   * <p>实例计费类型，取值范围如下：</p><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li><li>PREPAID：预付费，即包年包月</li><li>CDCPAID：专用集群付费</li>
    */
   InstanceChargeType?: string
   /**
-   * 实例的市场相关选项，如竞价实例相关参数，若指定实例的付费模式为竞价付费则该参数必传。
+   * <p>实例的市场相关选项，如竞价实例相关参数，若指定实例的付费模式为竞价付费则该参数必传。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InstanceMarketOptions?: InstanceMarketOptionsRequest
   /**
-   * 实例机型列表。
+   * <p>实例机型列表。</p>
    */
   InstanceTypes?: Array<string>
   /**
-   * 实例标签列表。扩容出来的实例会自动带上标签，最多支持10个标签。
+   * <p>实例标签列表。扩容出来的实例会自动带上标签，最多支持10个标签。</p>
    */
   InstanceTags?: Array<InstanceTag>
   /**
-   * 标签列表，该参数内的标签仅用于绑定启动配置，不会传递给基于该启动配置扩容的 CVM 实例。
+   * <p>标签列表，该参数内的标签仅用于绑定启动配置，不会传递给基于该启动配置扩容的 CVM 实例。</p>
    */
   Tags?: Array<Tag>
   /**
-   * 版本号。
+   * <p>版本号。</p>
    */
   VersionNumber?: number
   /**
-   * 更新时间，为标准`UTC`时间。
+   * <p>更新时间，为标准<code>UTC</code>时间。</p>
    */
   UpdatedTime?: string
   /**
-   * CAM角色名称。可通过[DescribeRoleList](https://cloud.tencent.com/document/product/598/36223)接口返回值中的roleName获取。
+   * <p>CAM角色名称。可通过<a href="https://cloud.tencent.com/document/product/598/36223">DescribeRoleList</a>接口返回值中的roleName获取。</p>
    */
   CamRoleName?: string
   /**
-   * 上次操作时，InstanceTypesCheckPolicy 取值。
+   * <p>上次操作时，InstanceTypesCheckPolicy 取值。</p>
    */
   LastOperationInstanceTypesCheckPolicy?: string
   /**
-   * 云服务器主机名（HostName）的相关设置。
+   * <p>云服务器主机名（HostName）的相关设置。</p>
    */
   HostNameSettings?: HostNameSettings
   /**
-   * 云服务器实例名（InstanceName）的相关设置。
+   * <p>云服务器实例名（InstanceName）的相关设置。</p>
    */
   InstanceNameSettings?: InstanceNameSettings
   /**
-   * 预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长、是否设置自动续费等属性。若指定实例的付费模式为预付费则该参数必传。
+   * <p>预付费模式，即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长、是否设置自动续费等属性。若指定实例的付费模式为预付费则该参数必传。</p>
    */
   InstanceChargePrepaid?: InstanceChargePrepaid
   /**
-   * 云盘类型选择策略。取值范围：<li>ORIGINAL：使用设置的云盘类型</li><li>AUTOMATIC：自动选择当前可用区下可用的云盘类型</li>
+   * <p>云盘类型选择策略。取值范围：<li>ORIGINAL：使用设置的云盘类型</li><li>AUTOMATIC：自动选择当前可用区下可用的云盘类型</li></p>
    */
   DiskTypePolicy?: string
   /**
-   * 高性能计算集群ID。<br>
-注意：此字段默认为空。
+   * <p>高性能计算集群ID。<br><br>注意：此字段默认为空。</p>
    */
   HpcClusterId?: string
   /**
-   * IPv6公网带宽相关信息设置。
+   * <p>IPv6公网带宽相关信息设置。</p>
    */
   IPv6InternetAccessible?: IPv6InternetAccessible
   /**
-   * 置放群组id，仅支持指定一个。
+   * <p>置放群组id，仅支持指定一个。</p>
    */
   DisasterRecoverGroupIds?: Array<string>
   /**
-   * 镜像族名称。
+   * <p>镜像族名称。</p>
    */
   ImageFamily?: string
   /**
-   * 本地专用集群 ID。
+   * <p>本地专用集群 ID。</p>
    */
   DedicatedClusterId?: string
+  /**
+   * <p>启动配置的弹性网卡配置。</p>
+   */
+  NetworkInterfaces?: Array<NetworkInterface>
 }
 
 /**
@@ -808,22 +782,21 @@ export interface ExitStandbyRequest {
  */
 export interface SystemDisk {
   /**
-   * 系统盘类型。系统盘类型限制详见[云硬盘类型](https://cloud.tencent.com/document/product/362/2353)。取值范围
-<li>LOCAL_BASIC：本地硬盘</li>
-<li>LOCAL_SSD：本地SSD硬盘</li>
-<li>CLOUD_BASIC：普通云硬盘</li>
-<li>CLOUD_PREMIUM：高性能云硬盘</li>
-<li>CLOUD_SSD：SSD云硬盘</li>
-<li>CLOUD_BSSD：通用型SSD云硬盘</li>
-<li>CLOUD_HSSD：增强型SSD云硬盘</li>
-<li>CLOUD_TSSD：极速型SSD云硬盘</li>
-<li>默认取值：CLOUD_PREMIUM。</li>
+   * <p>系统盘类型。系统盘类型限制详见<a href="https://cloud.tencent.com/document/product/362/2353">云硬盘类型</a>。取值范围</p><li>LOCAL_BASIC：本地硬盘</li><li>LOCAL_SSD：本地SSD硬盘</li><li>CLOUD_BASIC：普通云硬盘</li><li>CLOUD_PREMIUM：高性能云硬盘</li><li>CLOUD_SSD：SSD云硬盘</li><li>CLOUD_BSSD：通用型SSD云硬盘</li><li>CLOUD_HSSD：增强型SSD云硬盘</li><li>CLOUD_TSSD：极速型SSD云硬盘</li><li>默认取值：CLOUD_PREMIUM。</li>
    */
   DiskType?: string
   /**
-   * 系统盘大小，单位：GB。默认值为 50
+   * <p>系统盘大小，单位：GB。默认值为 50</p>
    */
   DiskSize?: number
+  /**
+   * <p>是否加密系统盘。TRUE 表示加密，FALSE 表示不加密；具体盘型、地域及 KMS 规则由 CVM 校验。</p>
+   */
+  Encrypt?: boolean
+  /**
+   * <p>系统盘加密使用的 KMS 密钥 ID。密钥有效性、权限以及与盘型和地域的适配性由 CVM 校验。</p>
+   */
+  KmsKeyId?: string
 }
 
 /**
@@ -1365,19 +1338,19 @@ export interface ModifyLaunchConfigurationAttributesResponse {
  */
 export interface CreateLaunchConfigurationRequest {
   /**
-   * <p>启动配置显示名称。名称仅支持中文、英文、数字、下划线、分隔符"-"、小数点，最大长度不能超60个字节。</p>
+   * <p>启动配置显示名称。名称仅支持中文、英文、数字、下划线、分隔符&quot;-&quot;、小数点，最大长度不能超60个字节。</p>
    */
   LaunchConfigurationName: string
   /**
-   * <p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-8toqc6s3</code>。镜像Id与镜像族名称，二者必填一个且只能填写一个。镜像类型分为四种：<br/><li>公共镜像</li><li>自定义镜像</li><li>共享镜像</li><li>服务市场镜像</li><br/>可通过以下方式获取可用的镜像ID：<br/><li><code>公共镜像</code>、<code>自定义镜像</code>、<code>共享镜像</code>的镜像ID可通过登录<a href="https://console.cloud.tencent.com/cvm/image?rid=1&amp;imageType=PUBLIC_IMAGE">控制台</a>查询；<code>服务镜像市场</code>的镜像ID可通过<a href="https://market.cloud.tencent.com/list">云市场</a>查询。</li><li>通过调用接口 <a href="https://cloud.tencent.com/document/api/213/15715">DescribeImages</a> ，取返回信息中的<code>ImageId</code>字段。</li></p>
+   * <p>指定有效的<a href="https://cloud.tencent.com/document/product/213/4940">镜像</a>ID，格式形如<code>img-8toqc6s3</code>。镜像Id与镜像族名称，二者必填一个且只能填写一个。镜像类型分为四种：<br><li>公共镜像</li><li>自定义镜像</li><li>共享镜像</li><li>服务市场镜像</li><br>可通过以下方式获取可用的镜像ID：<br><li><code>公共镜像</code>、<code>自定义镜像</code>、<code>共享镜像</code>的镜像ID可通过登录<a href="https://console.cloud.tencent.com/cvm/image?rid=1&amp;imageType=PUBLIC_IMAGE">控制台</a>查询；<code>服务镜像市场</code>的镜像ID可通过<a href="https://market.cloud.tencent.com/list">云市场</a>查询。</li><li>通过调用接口 <a href="https://cloud.tencent.com/document/api/213/15715">DescribeImages</a> ，取返回信息中的<code>ImageId</code>字段。</li></p>
    */
   ImageId?: string
   /**
-   * <p>启动配置所属项目ID。默认值为0，表示使用默认项目。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/651/78725">DescribeProject</a> 的返回值中的 projectId 字段来获取。注意：伸缩组内实例所属项目ID取伸缩组项目ID，与这里取值无关。</p>
+   * <p>启动配置所属项目ID。默认值为0，表示使用默认项目。该参数可以通过调用 <a href="https://cloud.tencent.com/document/api/651/78725">DescribeProject</a> 的返回值中的 projectId 字段来获取。<br>注意：伸缩组内实例所属项目ID取伸缩组项目ID，与这里取值无关。</p>
    */
   ProjectId?: number
   /**
-   * <p>实例机型。不同实例机型指定了不同的资源规格，具体取值可通过调用接口 <a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a> 来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例类型</a>描述。<code>InstanceType</code>和<code>InstanceTypes</code>参数互斥，二者必填一个且只能填写一个。</p>
+   * <p>实例机型。不同实例机型指定了不同的资源规格，具体取值可通过调用接口 <a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a> 来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例类型</a>描述。<br><code>InstanceType</code>和<code>InstanceTypes</code>参数互斥，二者必填一个且只能填写一个。</p>
    */
   InstanceType?: string
   /**
@@ -1409,7 +1382,7 @@ export interface CreateLaunchConfigurationRequest {
    */
   UserData?: string
   /**
-   * <p>实例计费类型，CVM默认值按照POSTPAID_BY_HOUR处理。<li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li><li>PREPAID：预付费，即包年包月</li><li>CDCPAID：专用集群付费</li></p>
+   * <p>实例计费类型，CVM默认值按照POSTPAID_BY_HOUR处理。</p><li>POSTPAID_BY_HOUR：按小时后付费</li><li>SPOTPAID：竞价付费</li><li>PREPAID：预付费，即包年包月</li><li>CDCPAID：专用集群付费</li>
    */
   InstanceChargeType?: string
   /**
@@ -1417,7 +1390,7 @@ export interface CreateLaunchConfigurationRequest {
    */
   InstanceMarketOptions?: InstanceMarketOptionsRequest
   /**
-   * <p>实例机型列表，不同实例机型指定了不同的资源规格，最多支持10种实例机型。<code>InstanceType</code>和<code>InstanceTypes</code>参数互斥，二者必填一个且只能填写一个。具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格描述</a>。</p>
+   * <p>实例机型列表，不同实例机型指定了不同的资源规格，最多支持10种实例机型。<br><code>InstanceType</code>和<code>InstanceTypes</code>参数互斥，二者必填一个且只能填写一个。具体取值可通过调用接口<a href="https://cloud.tencent.com/document/api/213/15749">DescribeInstanceTypeConfigs</a>来获得最新的规格表或参见<a href="https://cloud.tencent.com/document/product/213/11518">实例规格描述</a>。</p>
    */
   InstanceTypes?: Array<string>
   /**
@@ -1425,7 +1398,7 @@ export interface CreateLaunchConfigurationRequest {
    */
   CamRoleName?: string
   /**
-   * <p>实例类型校验策略，取值包括 ALL 和 ANY，默认取值为ANY。该参数仅在 InstanceTypes 入参包含多个机型时生效。<li> ALL，所有实例类型（InstanceType）都可用则通过校验，否则校验报错。</li><li> ANY，存在任何一个实例类型（InstanceType）可用则通过校验，否则校验报错。</li></p><p>实例类型不可用的常见原因包括该实例类型售罄、对应云盘售罄等。如果 InstanceTypes 中一款机型不存在或者已下线，则无论 InstanceTypesCheckPolicy 采用何种取值，都会校验报错。</p>
+   * <p>实例类型校验策略，取值包括 ALL 和 ANY，默认取值为ANY。该参数仅在 InstanceTypes 入参包含多个机型时生效。</p><li> ALL，所有实例类型（InstanceType）都可用则通过校验，否则校验报错。</li><li> ANY，存在任何一个实例类型（InstanceType）可用则通过校验，否则校验报错。</li><p>实例类型不可用的常见原因包括该实例类型售罄、对应云盘售罄等。<br>如果 InstanceTypes 中一款机型不存在或者已下线，则无论 InstanceTypesCheckPolicy 采用何种取值，都会校验报错。</p>
    */
   InstanceTypesCheckPolicy?: string
   /**
@@ -1437,11 +1410,11 @@ export interface CreateLaunchConfigurationRequest {
    */
   Tags?: Array<Tag>
   /**
-   * <p>云服务器主机名（HostName）的相关设置。不支持windows实例设置主机名。 新增该属性时，必须传递云服务器的主机名，其它未传递字段会设置为默认值。会校验主机名(如果存在后缀则加上后缀)是否超过最大位数46。</p>
+   * <p>云服务器主机名（HostName）的相关设置。<br>不支持windows实例设置主机名。<br>新增该属性时，必须传递云服务器的主机名，其它未传递字段会设置为默认值。<br>会校验主机名(如果存在后缀则加上后缀)是否超过最大位数46。</p>
    */
   HostNameSettings?: HostNameSettings
   /**
-   * <p>云服务器实例名（InstanceName）的相关设置。如果用户在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 参照此字段进行设置，并传递给 CVM；如果用户未在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 按照“as-{{ 伸缩组AutoScalingGroupName }}”进行设置，并传递给 CVM。新增该属性时，必须传递云服务器的实例名称，其它未传递字段会设置为默认值。会校验实例名称(如果存在后缀则加上后缀)是否超过最大位数108。</p>
+   * <p>云服务器实例名（InstanceName）的相关设置。<br>如果用户在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 参照此字段进行设置，并传递给 CVM；如果用户未在启动配置中设置此字段，则伸缩组创建出的实例 InstanceName 按照“as-{{ 伸缩组AutoScalingGroupName }}”进行设置，并传递给 CVM。<br>新增该属性时，必须传递云服务器的实例名称，其它未传递字段会设置为默认值。<br>会校验实例名称(如果存在后缀则加上后缀)是否超过最大位数108。</p>
    */
   InstanceNameSettings?: InstanceNameSettings
   /**
@@ -1449,11 +1422,11 @@ export interface CreateLaunchConfigurationRequest {
    */
   InstanceChargePrepaid?: InstanceChargePrepaid
   /**
-   * <p>云盘类型选择策略，默认取值 ORIGINAL，取值范围：<li>ORIGINAL：使用设置的云盘类型</li><li>AUTOMATIC：自动选择当前可用的云盘类型</li></p>
+   * <p>云盘类型选择策略，默认取值 ORIGINAL，取值范围：</p><li>ORIGINAL：使用设置的云盘类型</li><li>AUTOMATIC：自动选择当前可用的云盘类型</li>
    */
   DiskTypePolicy?: string
   /**
-   * <p>高性能计算集群ID。可通过调用<a href="https://cloud.tencent.com/document/product/213/83220">DescribeHpcClusters</a>接口获取该参数。注意：此字段默认为空。</p>
+   * <p>高性能计算集群ID。可通过调用<a href="https://cloud.tencent.com/document/product/213/83220">DescribeHpcClusters</a>接口获取该参数。<br>注意：此字段默认为空。</p>
    */
   HpcClusterId?: string
   /**
@@ -1476,6 +1449,10 @@ export interface CreateLaunchConfigurationRequest {
    * <p>自定义metadata。</p>
    */
   Metadata?: Metadata
+  /**
+   * <p>扩容实例的弹性网卡配置。</p><p>入参限制：最多 17 项。配置该参数时必须显式包含且只能包含一个 PRIMARY，AS 不自动补齐主网卡；显式空数组非法；竞价实例不支持此参数。</p><p>VPC 和子网由伸缩组按当前候选子网自动注入；不配置时不传给 CVM。启动配置中的 SecurityGroupIds 参数仍保留。</p>
+   */
+  NetworkInterfaces?: Array<NetworkInterface>
 }
 
 /**
@@ -2174,6 +2151,39 @@ export interface DescribeAutoScalingAdvicesResponse {
 }
 
 /**
+ * 竞价混合模式下，各计费类型实例的分配策略。包括按量计费实例和竞价计费实例。
+ */
+export interface SpotMixedAllocationPolicy {
+  /**
+   * 混合模式下，基础容量的大小，基础容量部分固定为按量计费实例。默认值 0，最大不可超过伸缩组的最大实例数。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  BaseCapacity?: number
+  /**
+   * 超出基础容量部分，按量计费实例所占的比例。取值范围 [0, 100]，0 代表超出基础容量的部分仅生产竞价实例，100 代表仅生产按量实例，默认值为 70。按百分比计算按量实例数时，向上取整。
+比如，总期望实例数取 3，基础容量取 1，超基础部分按量百分比取 1，则最终按量 2 台（1 台来自基础容量，1 台按百分比向上取整得到），竞价 1台。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  OnDemandPercentageAboveBaseCapacity?: number
+  /**
+   * 混合模式下，竞价实例的分配策略。取值包括 COST_OPTIMIZED 和 CAPACITY_OPTIMIZED，默认取 COST_OPTIMIZED。
+<br><li> COST_OPTIMIZED，成本优化策略。对于启动配置内的所有机型，按照各机型在各可用区的每核单价由小到大依次尝试。优先尝试购买每核单价最便宜的，如果购买失败则尝试购买次便宜的，以此类推。
+<br><li> CAPACITY_OPTIMIZED，容量优化策略。对于启动配置内的所有机型，按照各机型在各可用区的库存情况由大到小依次尝试。优先尝试购买剩余库存最大的机型，这样可尽量降低竞价实例被动回收的发生概率。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SpotAllocationStrategy?: string
+  /**
+   * 按量实例替补功能。取值范围：
+<br><li> TRUE，开启该功能，当所有竞价机型因库存不足等原因全部购买失败后，尝试购买按量实例。
+<br><li> FALSE，不开启该功能，伸缩组在需要扩容竞价实例时仅尝试所配置的竞价机型。
+
+默认取值： TRUE。
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CompensateWithBaseInstance?: boolean
+}
+
+/**
  * CreateAutoScalingGroup请求参数结构体
  */
 export interface CreateAutoScalingGroupRequest {
@@ -2458,53 +2468,42 @@ export interface DescribeNotificationConfigurationsResponse {
  */
 export interface DataDisk {
   /**
-   * 数据盘类型。数据盘类型限制详见[云硬盘类型](https://cloud.tencent.com/document/product/362/2353)。取值范围：
-<li>LOCAL_BASIC：本地硬盘</li>
-<li>LOCAL_SSD：本地SSD硬盘</li>
-<li>CLOUD_BASIC：普通云硬盘</li>
-<li>CLOUD_PREMIUM：高性能云硬盘</li>
-<li>CLOUD_SSD：SSD云硬盘</li>
-<li>CLOUD_HSSD：增强型SSD云硬盘</li>
-<li>CLOUD_TSSD：极速型SSD云硬盘</li>
-<li>CLOUD_BSSD：通用型SSD云硬盘</li>
-默认取值与系统盘类型（SystemDisk.DiskType）保持一致。
+   * <p>数据盘类型。数据盘类型限制详见<a href="https://cloud.tencent.com/document/product/362/2353">云硬盘类型</a>。取值范围：</p><li>LOCAL_BASIC：本地硬盘</li><li>LOCAL_SSD：本地SSD硬盘</li><li>CLOUD_BASIC：普通云硬盘</li><li>CLOUD_PREMIUM：高性能云硬盘</li><li>CLOUD_SSD：SSD云硬盘</li><li>CLOUD_HSSD：增强型SSD云硬盘</li><li>CLOUD_TSSD：极速型SSD云硬盘</li><li>CLOUD_BSSD：通用型SSD云硬盘</li>默认取值与系统盘类型（SystemDisk.DiskType）保持一致。
    */
   DiskType?: string
   /**
-   * 数据盘大小，单位：GB。不同数据盘类型取值范围不同，具体限制详见：[CVM实例配置](https://cloud.tencent.com/document/product/213/2177)。默认值为0，表示不购买数据盘。更多限制详见[产品文档](https://cloud.tencent.com/document/product/362/5145)。
+   * <p>数据盘大小，单位：GB。不同数据盘类型取值范围不同，具体限制详见：<a href="https://cloud.tencent.com/document/product/213/2177">CVM实例配置</a>。默认值为0，表示不购买数据盘。更多限制详见<a href="https://cloud.tencent.com/document/product/362/5145">产品文档</a>。</p>
    */
   DiskSize?: number
   /**
-   * 数据盘快照 ID，可通过 [DescribeSnapshots](https://cloud.tencent.com/document/product/362/15647) 接口获取该参数。
+   * <p>数据盘快照 ID，可通过 <a href="https://cloud.tencent.com/document/product/362/15647">DescribeSnapshots</a> 接口获取该参数。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SnapshotId?: string
   /**
-   * 数据盘是否随子机销毁。取值范围：
-<li>TRUE：子机销毁时，销毁数据盘，只支持按小时后付费云盘</li>
-<li>FALSE：子机销毁时，保留数据盘</li>
+   * <p>数据盘是否随子机销毁。取值范围：</p><li>TRUE：子机销毁时，销毁数据盘，只支持按小时后付费云盘</li><li>FALSE：子机销毁时，保留数据盘</li>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DeleteWithInstance?: boolean
   /**
-   * 数据盘是否加密。取值范围：
-<li>TRUE：加密</li>
-<li>FALSE：不加密</li>
+   * <p>是否加密数据盘。TRUE 表示加密，FALSE 表示不加密；具体盘型、地域及 KMS 规则由 CVM 校验。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Encrypt?: boolean
   /**
-   * 云硬盘性能，单位：MB/s。使用此参数可给云硬盘购买额外的性能，功能介绍和类型限制详见：[增强型 SSD 云硬盘额外性能说明](https://cloud.tencent.com/document/product/362/51896#.E5.A2.9E.E5.BC.BA.E5.9E.8B-ssd-.E4.BA.91.E7.A1.AC.E7.9B.98.E9.A2.9D.E5.A4.96.E6.80.A7.E8.83.BD)。
-当前仅支持极速型云盘（CLOUD_TSSD）和增强型SSD云硬盘（CLOUD_HSSD）且 需容量 > 460GB。
+   * <p>云硬盘性能，单位：MB/s。使用此参数可给云硬盘购买额外的性能，功能介绍和类型限制详见：<a href="https://cloud.tencent.com/document/product/362/51896#.E5.A2.9E.E5.BC.BA.E5.9E.8B-ssd-.E4.BA.91.E7.A1.AC.E7.9B.98.E9.A2.9D.E5.A4.96.E6.80.A7.E8.83.BD">增强型 SSD 云硬盘额外性能说明</a>。<br>当前仅支持极速型云盘（CLOUD_TSSD）和增强型SSD云硬盘（CLOUD_HSSD）且 需容量 &gt; 460GB。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ThroughputPerformance?: number
   /**
-   * 突发性能。是否开启突发性能，默认取值为 false。当前该参数仅支持极速型云盘（CLOUD_TSSD）和增强型SSD云硬盘（CLOUD_HSSD）且需容量 > 460GB。
-注：内测中，需提单申请后使用。
+   * <p>突发性能。是否开启突发性能，默认取值为 false。当前该参数仅支持极速型云盘（CLOUD_TSSD）和增强型SSD云硬盘（CLOUD_HSSD）且需容量 &gt; 460GB。<br>注：内测中，需提单申请后使用。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BurstPerformance?: boolean
+  /**
+   * <p>数据盘加密使用的 KMS 密钥 ID。密钥有效性、权限以及与盘型和地域的适配性由 CVM 校验。</p>
+   */
+  KmsKeyId?: string
 }
 
 /**
@@ -3859,40 +3858,37 @@ export interface ForwardLoadBalancer {
  */
 export interface ClearLaunchConfigurationAttributesRequest {
   /**
-   * 启动配置ID。可通过如下方式获取：
-<li>通过登录 [控制台](https://console.cloud.tencent.com/autoscaling/config) 查询启动配置ID。</li>
-<li>通过调用接口 [DescribeLaunchConfigurations](https://cloud.tencent.com/document/api/377/20445) ，取返回信息中的 LaunchConfigurationId 获取启动配置ID。</li>
+   * <p>启动配置ID。可通过如下方式获取：</p><li>通过登录 [控制台](https://console.cloud.tencent.com/autoscaling/config) 查询启动配置ID。</li><li>通过调用接口 [DescribeLaunchConfigurations](https://cloud.tencent.com/document/api/377/20445) ，取返回信息中的 LaunchConfigurationId 获取启动配置ID。</li>
    */
   LaunchConfigurationId: string
   /**
-   * 是否清空数据盘信息，非必填，默认为 false。
-填 true 代表清空“数据盘”信息，清空后基于此新创建的云主机将不含有任何数据盘。
+   * <p>是否清空数据盘信息，非必填，默认为 false。<br>填 true 代表清空“数据盘”信息，清空后基于此新创建的云主机将不含有任何数据盘。</p>
    */
   ClearDataDisks?: boolean
   /**
-   * 是否清空云服务器主机名相关设置信息，非必填，默认为 false。
-填 true 代表清空主机名设置信息，清空后基于此新创建的云主机将不设置主机名。
+   * <p>是否清空云服务器主机名相关设置信息，非必填，默认为 false。<br>填 true 代表清空主机名设置信息，清空后基于此新创建的云主机将不设置主机名。</p>
    */
   ClearHostNameSettings?: boolean
   /**
-   * 是否清空云服务器实例名相关设置信息，非必填，默认为 false。
-填 true 代表清空主机名设置信息，清空后基于此新创建的云主机将按照“as-{{ 伸缩组AutoScalingGroupName }}”进行设置。
+   * <p>是否清空云服务器实例名相关设置信息，非必填，默认为 false。<br>填 true 代表清空主机名设置信息，清空后基于此新创建的云主机将按照“as-{{ 伸缩组AutoScalingGroupName }}”进行设置。</p>
    */
   ClearInstanceNameSettings?: boolean
   /**
-   * 是否清空置放群组信息，非必填，默认为 false。
-填 true 代表清空置放群组信息，清空后基于此新创建的云主机将不指定任何置放群组。
+   * <p>是否清空置放群组信息，非必填，默认为 false。<br>填 true 代表清空置放群组信息，清空后基于此新创建的云主机将不指定任何置放群组。</p>
    */
   ClearDisasterRecoverGroupIds?: boolean
   /**
-   * 是否清空实例标签列表，非必填，默认为 false。
-填 true 代表清空实例标签列表，清空后基于此新创建的云主机将不会绑定列表中的标签。
+   * <p>是否清空实例标签列表，非必填，默认为 false。<br>填 true 代表清空实例标签列表，清空后基于此新创建的云主机将不会绑定列表中的标签。</p>
    */
   ClearInstanceTags?: boolean
   /**
-   * 是否清空 MetaData，非必填，默认为 false。填 true 代表清空 MetaData，清空后基于此新创建的云主机将不会关联自定义的 Metadata。
+   * <p>是否清空 MetaData，非必填，默认为 false。填 true 代表清空 MetaData，清空后基于此新创建的云主机将不会关联自定义的 Metadata。</p>
    */
   ClearMetadata?: boolean
+  /**
+   * <p>是否清除启动配置中的 NetworkInterfaces。取值 TRUE 时清除；未传或 FALSE 时不处理该字段。</p>
+   */
+  ClearNetworkInterfaces?: boolean
 }
 
 /**
@@ -4011,36 +4007,25 @@ export interface AttachLoadBalancersRequest {
 }
 
 /**
- * 竞价混合模式下，各计费类型实例的分配策略。包括按量计费实例和竞价计费实例。
+ * 启动配置中的弹性网卡配置。
  */
-export interface SpotMixedAllocationPolicy {
+export interface NetworkInterface {
   /**
-   * 混合模式下，基础容量的大小，基础容量部分固定为按量计费实例。默认值 0，最大不可超过伸缩组的最大实例数。
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>网卡类型。本字段在每个网卡项的请求中必填。</p><p>枚举值：</p><ul><li>PRIMARY： 主网卡</li><li>SECONDARY： 辅助网卡</li></ul><p>配置上层 NetworkInterfaces 时，数组必须显式包含且只能包含一个 PRIMARY，AS 不自动补齐主网卡。</p>
    */
-  BaseCapacity?: number
+  InterfaceType: string
   /**
-   * 超出基础容量部分，按量计费实例所占的比例。取值范围 [0, 100]，0 代表超出基础容量的部分仅生产竞价实例，100 代表仅生产按量实例，默认值为 70。按百分比计算按量实例数时，向上取整。
-比如，总期望实例数取 3，基础容量取 1，超基础部分按量百分比取 1，则最终按量 2 台（1 台来自基础容量，1 台按百分比向上取整得到），竞价 1台。
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>网卡请求分配的内网 IPv4 地址总数，包含主 IP。</p><p>取值范围：[1, 40]</p><p>SECONDARY 网卡请求时必填；PRIMARY 网卡请求时可选，未填写时仅在实际扩容构造 CVM 请求副本时按 1 处理，不写回启动配置。显式传入的值由 AS 透传给 CVM，最终由 CVM/VPC 校验。</p>
    */
-  OnDemandPercentageAboveBaseCapacity?: number
+  PrivateIpv4AddressCount?: number
   /**
-   * 混合模式下，竞价实例的分配策略。取值包括 COST_OPTIMIZED 和 CAPACITY_OPTIMIZED，默认取 COST_OPTIMIZED。
-<br><li> COST_OPTIMIZED，成本优化策略。对于启动配置内的所有机型，按照各机型在各可用区的每核单价由小到大依次尝试。优先尝试购买每核单价最便宜的，如果购买失败则尝试购买次便宜的，以此类推。
-<br><li> CAPACITY_OPTIMIZED，容量优化策略。对于启动配置内的所有机型，按照各机型在各可用区的库存情况由大到小依次尝试。优先尝试购买剩余库存最大的机型，这样可尽量降低竞价实例被动回收的发生概率。
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>弹性网卡绑定的安全组 ID 列表。</p><p>入参限制：最多 10 个。</p><p>对于 PRIMARY，网卡中显式配置的非空列表优先于启动配置中的 SecurityGroupIds 参数；网卡中未配置时使用启动配置中的 SecurityGroupIds 参数，两处均未配置时 AS 不指定安全组，继续按 CVM 缺省规则处理。对于 SECONDARY，仅透传网卡中显式配置的非空列表，不继承启动配置中的 SecurityGroupIds 参数。</p>
    */
-  SpotAllocationStrategy?: string
+  SecurityGroupIds?: Array<string>
   /**
-   * 按量实例替补功能。取值范围：
-<br><li> TRUE，开启该功能，当所有竞价机型因库存不足等原因全部购买失败后，尝试购买按量实例。
-<br><li> FALSE，不开启该功能，伸缩组在需要扩容竞价实例时仅尝试所配置的竞价机型。
-
-默认取值： TRUE。
-注意：此字段可能返回 null，表示取不到有效值。
+   * <p>实例销毁时是否保留辅助网卡，仅对 SECONDARY 有效。</p><p>枚举值：</p><ul><li>false： 不保留辅助网卡，辅助网卡随实例销毁</li><li>true： 保留辅助网卡</li></ul><p>默认值：false</p><p>PRIMARY 不允许配置 true。</p>
    */
-  CompensateWithBaseInstance?: boolean
+  IsKeepENI?: boolean
 }
 
 /**

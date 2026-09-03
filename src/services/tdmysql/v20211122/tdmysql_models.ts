@@ -190,6 +190,21 @@ export interface ExpandInstanceResponse {
 }
 
 /**
+ * DescribeStandbyDBInstanceRelationDetail返回参数结构体
+ */
+export interface DescribeStandbyDBInstanceRelationDetailResponse {
+  /**
+   * 灾备关系
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RelationInfos?: Array<StandbyDBInstanceRelation>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * 查询售卖接口，zone信息返回类型
  */
 export interface DescribeSaleZonesInfo {
@@ -810,6 +825,16 @@ export interface MaintenanceWindowInfo {
    *
    */
   WeekDays?: Array<string>
+}
+
+/**
+ * DescribeStandbyDBInstanceRelationDetail请求参数结构体
+ */
+export interface DescribeStandbyDBInstanceRelationDetailRequest {
+  /**
+   * 实例 ID
+   */
+  InstanceIds: Array<string>
 }
 
 /**
@@ -1823,6 +1848,33 @@ export interface DestroyInstancesResponse {
 }
 
 /**
+ * 用户信息类型
+ */
+export interface UserInfo {
+  /**
+   * 用户名
+   */
+  UserName?: string
+  /**
+   * 用户描述
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Description?: string
+  /**
+   * 主机IP，IP段以%结尾，表示允许该IP段的所有IP
+   */
+  Host?: string
+  /**
+   * 创建时间
+   */
+  CreateTime?: string
+  /**
+   * 更新时间
+   */
+  UpdateTime?: string
+}
+
+/**
  * DescribeSaleInfo返回参数结构体
  */
 export interface DescribeSaleInfoResponse {
@@ -1903,13 +1955,21 @@ export interface ModifyAutoRenewFlagResponse {
 }
 
 /**
- * DescribeUsers请求参数结构体
+ * CancelIsolateDBInstances返回参数结构体
  */
-export interface DescribeUsersRequest {
+export interface CancelIsolateDBInstancesResponse {
   /**
-   * 实例ID
+   * 解除隔离成功实例Id列表
    */
-  InstanceId: string
+  SuccessInstanceIds: Array<string>
+  /**
+   * 解除隔离失败实例Id列表
+   */
+  FailedInstanceIds: Array<string>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -3065,21 +3125,13 @@ export interface LogBackupStatisticsModel {
 }
 
 /**
- * CancelIsolateDBInstances返回参数结构体
+ * DescribeUsers请求参数结构体
  */
-export interface CancelIsolateDBInstancesResponse {
+export interface DescribeUsersRequest {
   /**
-   * 解除隔离成功实例Id列表
+   * 实例ID
    */
-  SuccessInstanceIds: Array<string>
-  /**
-   * 解除隔离失败实例Id列表
-   */
-  FailedInstanceIds: Array<string>
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
+  InstanceId: string
 }
 
 /**
@@ -3624,6 +3676,24 @@ export interface ParamDesc {
 }
 
 /**
+ * CreateStandbyDBInstance返回参数结构体
+ */
+export interface CreateStandbyDBInstanceResponse {
+  /**
+   * <p>实例 ID</p>
+   */
+  InstanceId?: string
+  /**
+   * <p>任务ID</p>
+   */
+  FlowId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * ModifyInstanceNetwork请求参数结构体
  */
 export interface ModifyInstanceNetworkRequest {
@@ -3728,30 +3798,131 @@ export interface ConstraintRange {
 }
 
 /**
- * 用户信息类型
+ * BreakStandbyDBInstanceRelation请求参数结构体
  */
-export interface UserInfo {
+export interface BreakStandbyDBInstanceRelationRequest {
   /**
-   * 用户名
+   * 备实例 ID
    */
-  UserName?: string
+  InstanceId: string
   /**
-   * 用户描述
-注意：此字段可能返回 null，表示取不到有效值。
+   * 是否强制断开
    */
-  Description?: string
+  IsForce?: boolean
   /**
-   * 主机IP，IP段以%结尾，表示允许该IP段的所有IP
+   *  时延，单位是秒,0不检查
    */
-  Host?: string
+  SyncDelay?: number
+}
+
+/**
+ * CreateStandbyDBInstance请求参数结构体
+ */
+export interface CreateStandbyDBInstanceRequest {
   /**
-   * 创建时间
+   * <p>主实例 id</p>
    */
-  CreateTime?: string
+  PrimaryInstanceId: string
   /**
-   * 更新时间
+   * <p>创建实例区域</p>
    */
-  UpdateTime?: string
+  Zone: string
+  /**
+   * <p>字符型vpcid</p>
+   */
+  VpcId: string
+  /**
+   * <p>字符型subnetid</p>
+   */
+  SubnetId: string
+  /**
+   * <p>购买规格</p>
+   */
+  SpecCode: string
+  /**
+   * <p>存储节点磁盘容量，单位GB</p>
+   */
+  Disk: number
+  /**
+   * <p>存储节点数量</p>
+   */
+  StorageNodeNum: number
+  /**
+   * <p>存储节点副本数量，最大为5，要求为奇数</p>
+   */
+  Replications: number
+  /**
+   * <p>全能型副本数</p>
+   */
+  FullReplications?: number
+  /**
+   * <p>实例名称，要求长度1-60，允许包含中文、英文大小写、数字、-、_</p>
+   */
+  InstanceName?: string
+  /**
+   * <p>时间单位，y：年，m：月，d：日</p>
+   */
+  TimeUnit?: string
+  /**
+   * <p>商品的时间大小</p>
+   */
+  TimeSpan?: number
+  /**
+   * <p>存储节点CPU核数</p>
+   */
+  StorageNodeCpu?: number
+  /**
+   * <p>存储节点内存大小</p>
+   */
+  StorageNodeMem?: number
+  /**
+   * <p>付费模式，0表示按需计费/后付费，1表示预付费</p>
+   */
+  PayMode?: string
+  /**
+   * <p>自定义端口</p>
+   */
+  Vport?: number
+  /**
+   * <p>多AZ可用区列表</p>
+   */
+  Zones?: Array<string>
+  /**
+   * <p>是否使用优惠卷</p>
+   */
+  AutoVoucher?: boolean
+  /**
+   * <p>优惠卷列表</p>
+   */
+  VoucherIds?: Array<string>
+  /**
+   * <p>实例架构类型，19.0.0 起支持 &quot;hybrid&quot;&quot;</p>
+   */
+  InstanceType?: string
+  /**
+   * <p>磁盘类型,CLOUD_HSSD增强型SSD,CLOUD_TCS本地SSD盘</p>
+   */
+  StorageType?: string
+  /**
+   * <p>标签键值对数组</p>
+   */
+  ResourceTags?: Array<ResourceTag>
+  /**
+   * <p>主实例地域</p>
+   */
+  PrimaryInstanceRegion?: string
+  /**
+   * <p>实例模式，normal:标准型；enhanced:加强型</p>
+   */
+  InstanceMode?: string
+  /**
+   * <p>dbaadmin密码</p>
+   */
+  Password?: string
+  /**
+   * <p>绑定安全组id列表</p>
+   */
+  SecurityGroupIds?: Array<string>
 }
 
 /**
@@ -3846,6 +4017,104 @@ export interface DescribeUserPrivilegesRequest {
 }
 
 /**
+ * 灾备实例关系
+ */
+export interface StandbyDBInstanceRelation {
+  /**
+   * 主实例 ID
+   */
+  PrimaryInstanceId?: string
+  /**
+   * 主实例名称
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PrimaryInstanceName?: string
+  /**
+   * 主实例地域
+   */
+  PrimaryRegion?: string
+  /**
+   * 主实例子网 IP
+   */
+  PrimaryVip?: string
+  /**
+   * 主实例子网端口
+   */
+  PrimaryVport?: number
+  /**
+   * 主实例可用区
+   */
+  PrimaryZones?: Array<string>
+  /**
+   * 主实例运行状态
+   */
+  PrimaryStatus?: string
+  /**
+   * 备实例 ID
+   */
+  SecondaryInstanceId?: string
+  /**
+   * 备实例名称
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SecondaryInstanceName?: string
+  /**
+   * 备实例地域
+   */
+  SecondaryRegion?: string
+  /**
+   * 备实例子网 IP
+   */
+  SecondaryVip?: string
+  /**
+   * 备实例子网端口
+   */
+  SecondaryVport?: number
+  /**
+   * 备实例可用区
+   */
+  SecondaryZones?: Array<string>
+  /**
+   * 备实例运行状态
+   */
+  SecondaryStatus?: string
+  /**
+   * 连接类型，log_service 或 raft
+   */
+  ConnType?: string
+  /**
+   * 同步类型，sync 或 async
+   */
+  SyncMode?: string
+  /**
+   * 同步状态，1: 正在同步；2: 同步异常
+   */
+  SyncStatus?: number
+  /**
+   * 同步状态描述，同步状态异常时的错误信息
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SyncStatusDesc?: string
+  /**
+   * 灾备状态描述，"creating" "running" "modifying"，无灾备关系时为空
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  StandbyStatus?: string
+  /**
+   * 主实例版本
+   */
+  PrimaryCreateVersion?: string
+  /**
+   * 备实例版本
+   */
+  SecondaryCreateVersion?: string
+  /**
+   * 时延 单位为秒
+   */
+  SyncDelay?: number
+}
+
+/**
  * DescribeDBSAvailableRecoveryTime请求参数结构体
  */
 export interface DescribeDBSAvailableRecoveryTimeRequest {
@@ -3861,6 +4130,20 @@ export interface DescribeDBSAvailableRecoveryTimeRequest {
 export interface ModifyDBInstanceVPortResponse {
   /**
    * 返回异步任务FlowId
+   */
+  FlowId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * BreakStandbyDBInstanceRelation返回参数结构体
+ */
+export interface BreakStandbyDBInstanceRelationResponse {
+  /**
+   * 任务 ID
    */
   FlowId?: number
   /**

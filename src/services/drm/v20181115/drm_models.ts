@@ -320,6 +320,10 @@ export interface PlaybackPolicy {
    * <p>开始播放后，允许最长播放时间</p><p>单位：秒</p>
    */
   PlaybackDurationSeconds?: number
+  /**
+   * <p>是否允许下发离线license</p><p>默认值：false</p><p>widevine方案，<br>当CanPersistent为true时，根据license request中请求的是online还是offline license自动匹配下发。<br>当CanPersistent为false时，只下发online license。</p><p>fairplay方案。<br>当CanPersistent为true时，只下发offline license。<br>当CanPersistent为false时，只下发online license。</p>
+   */
+  CanPersistent?: boolean
 }
 
 /**

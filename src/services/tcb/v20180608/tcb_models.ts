@@ -4092,17 +4092,21 @@ export interface CreateHostingDomainResponse {
 }
 
 /**
- * MySql 任务状态
+ * ModifyPGInstanceSpec返回参数结构体
  */
-export interface MySQLTaskStatus {
+export interface ModifyPGInstanceSpecResponse {
   /**
-   * SUCCESS | FAILED | PENDING
+   * <p>账单名</p>
    */
-  Status?: string
+  DealName?: string
   /**
-   * 状态描述
+   * <p>账单标识</p>
    */
-  StatusDesc?: string
+  BillId?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -4295,17 +4299,33 @@ export interface DescribeBaasPackageListResponse {
 }
 
 /**
- * SearchClsLog返回参数结构体
+ * PushPGUserMigrations请求参数结构体
  */
-export interface SearchClsLogResponse {
+export interface PushPGUserMigrationsRequest {
   /**
-   * 日志内容结果
+   * <p>云开发环境ID</p>
    */
-  LogResults?: LogResObject
+  EnvId: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>结构化 SQL migration 列表；每项包含 Query SQL 内容</p>
    */
-  RequestId?: string
+  Migrations: Array<MigrationInput>
+  /**
+   * <p>等待获取数据库锁的最长时间</p><p>单位：毫秒</p><p>默认值：5000</p>
+   */
+  LockTimeoutMs?: number
+  /**
+   * <p>单条 SQL 执行最长时间，超过后由 PostgreSQL 取消该语句</p><p>单位：毫秒</p><p>默认值：300000</p>
+   */
+  StatementTimeoutMs?: number
+  /**
+   * <p>标记请求来源</p><p>deprecated</p>
+   */
+  Source?: string
+  /**
+   * <p>为true时允许 out-of-order local migrations</p><p>默认值：false</p>
+   */
+  IncludeAll?: boolean
 }
 
 /**
@@ -5878,33 +5898,41 @@ export interface CreateStaticStoreResponse {
 }
 
 /**
- * PushPGUserMigrations请求参数结构体
+ * ModifyPGInstanceSpec请求参数结构体
  */
-export interface PushPGUserMigrationsRequest {
+export interface ModifyPGInstanceSpecRequest {
   /**
-   * <p>云开发环境ID</p>
+   * <p>环境 id</p>
    */
   EnvId: string
   /**
-   * <p>结构化 SQL migration 列表；每项包含 Query SQL 内容</p>
+   * <p>cpu 核数</p><p>单位：核数</p>
    */
-  Migrations: Array<MigrationInput>
+  Cpu?: number
   /**
-   * <p>等待获取数据库锁的最长时间</p><p>单位：毫秒</p><p>默认值：5000</p>
+   * <p>内存容量</p><p>单位：GB</p>
    */
-  LockTimeoutMs?: number
+  Memory?: number
   /**
-   * <p>单条 SQL 执行最长时间，超过后由 PostgreSQL 取消该语句</p><p>单位：毫秒</p><p>默认值：300000</p>
+   * <p>磁盘容量</p><p>单位：GB</p>
    */
-  StatementTimeoutMs?: number
+  Storage?: number
   /**
-   * <p>标记请求来源</p><p>deprecated</p>
+   * <p>类型</p><p>枚举值：</p><ul><li>0： 立即执行</li><li>1： 指定时间执行</li><li>2： 维护时间执行</li></ul>
    */
-  Source?: string
+  SwitchTag?: number
   /**
-   * <p>为true时允许 out-of-order local migrations</p><p>默认值：false</p>
+   * <p>SwitchTag=1 时，启动时间</p><p>参数格式：YYYY-MM-dd HH:mm:ss</p>
    */
-  IncludeAll?: boolean
+  SwitchStartTime?: string
+  /**
+   * <p>SwitchTag=1 时结束时间</p><p>参数格式：YYYY-MM-dd HH:mm:ss</p>
+   */
+  SwitchEndTime?: string
+  /**
+   * <p>预检</p>
+   */
+  DryRun?: boolean
 }
 
 /**
@@ -6706,6 +6734,20 @@ export interface DescribeManagedAIModelListResponse {
 }
 
 /**
+ * SearchClsLog返回参数结构体
+ */
+export interface SearchClsLogResponse {
+  /**
+   * 日志内容结果
+   */
+  LogResults?: LogResObject
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DeleteVmInstance返回参数结构体
  */
 export interface DeleteVmInstanceResponse {
@@ -6900,6 +6942,20 @@ export interface MySQLClusterDetail {
    * 数据库详情
    */
   DbInfo?: ClusterDetail
+}
+
+/**
+ * MySql 任务状态
+ */
+export interface MySQLTaskStatus {
+  /**
+   * SUCCESS | FAILED | PENDING
+   */
+  Status?: string
+  /**
+   * 状态描述
+   */
+  StatusDesc?: string
 }
 
 /**

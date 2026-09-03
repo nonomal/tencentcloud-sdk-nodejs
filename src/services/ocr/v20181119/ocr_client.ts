@@ -201,11 +201,12 @@ import {
   DetailInformationOfAirTicketTupleList,
   TextVehicleFront,
   AdvertiseTextDetection,
-  SceneWarnInfo,
+  PermanentResidencePermitInfo,
   EraseHandwrittenImageOCRResponse,
   ElectronicTrainTicket,
   ArithmeticOCRRequest,
   NonTaxIncomeBill,
+  SceneWarnInfo,
   VerifyOfdVatInvoiceOCRRequest,
   GetOCRTokenRequest,
   RecognizeGeneralCardWarnResponse,
@@ -275,6 +276,7 @@ import {
   MainlandPermitOCRResponse,
   VatInvoice,
   PermitOCRRequest,
+  SubmitQuestionSplitJobResponse,
   AirTransport,
   QuestionInfo,
   TaxiTicket,
@@ -286,6 +288,7 @@ import {
   RideHailingTransportLicenseOCRResponse,
   CandWord,
   TollInvoice,
+  SubmitQuestionSplitJobRequest,
   EnterpriseLicenseInfo,
   QrcodeOCRRequest,
   IDCardResult,
@@ -308,14 +311,15 @@ import {
   RecognizeTableOCRRequest,
   EstateCertOCRRequest,
   SaleInventory,
-  PermanentResidencePermitInfo,
+  DescribeQuestionSplitJobResponse,
   BizLicenseOCRResponse,
   ResultList,
-  VatInvoiceOCRResponse,
+  DescribeQuestionSplitJobRequest,
   InvoiceSealInfo,
   BankCardOCRResponse,
   SubmitQuestionMarkAgentJobRequest,
   BusinessCardOCRRequest,
+  VatInvoiceOCRResponse,
   RecognizeValidIDCardOCRResponse,
   DescribeMarkEssayAgentJobRequest,
   GeneralFastOCRResponse,
@@ -476,15 +480,17 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 本接口支持条形码和二维码的识别（包括 DataMatrix 和 PDF417）。
+     * <b>此接口为护照识别（中国大陆地区护照）的旧版本服务，不再进行服务升级，建议您使用识别能力更强、服务性能更优的<a href="https://cloud.tencent.com/document/product/866/37657">护照识别（多国多地区护照）</a>。</b>
 
-默认接口请求频率限制：5次/秒。
+本接口支持中国大陆地区护照个人资料页多个字段的检测与识别。已支持字段包括英文姓名、中文姓名、国家码、护照号、出生地、出生日期、国籍英文、性别英文、有效期、签发地点英文、签发日期、持证人签名、护照机读码（MRZ码）等。
+
+默认接口请求频率限制：10次/秒。
      */
-  async QrcodeOCR(
-    req: QrcodeOCRRequest,
-    cb?: (error: string, rep: QrcodeOCRResponse) => void
-  ): Promise<QrcodeOCRResponse> {
-    return this.request("QrcodeOCR", req, cb)
+  async PassportOCR(
+    req: PassportOCRRequest,
+    cb?: (error: string, rep: PassportOCRResponse) => void
+  ): Promise<PassportOCRResponse> {
+    return this.request("PassportOCR", req, cb)
   }
 
   /**
@@ -562,6 +568,18 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: VerifyBizLicenseEnterprise4Response) => void
   ): Promise<VerifyBizLicenseEnterprise4Response> {
     return this.request("VerifyBizLicenseEnterprise4", req, cb)
+  }
+
+  /**
+     * 本接口支持条形码和二维码的识别（包括 DataMatrix 和 PDF417）。
+
+默认接口请求频率限制：5次/秒。
+     */
+  async QrcodeOCR(
+    req: QrcodeOCRRequest,
+    cb?: (error: string, rep: QrcodeOCRResponse) => void
+  ): Promise<QrcodeOCRResponse> {
+    return this.request("QrcodeOCR", req, cb)
   }
 
   /**
@@ -1108,15 +1126,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * 本接口支持对中国大陆机动车车牌的自动定位和识别，返回地域编号和车牌号码与车牌颜色信息。 
-
-默认接口请求频率限制：10次/秒。
-     */
-  async LicensePlateOCR(
-    req: LicensePlateOCRRequest,
-    cb?: (error: string, rep: LicensePlateOCRResponse) => void
-  ): Promise<LicensePlateOCRResponse> {
-    return this.request("LicensePlateOCR", req, cb)
+   * 异步试卷切题识别可将整页练习册、试卷或教辅中的题目进行自动切题，并识别出其中的文字内容和坐标位置，是试卷切题的接口补充。主要解决试卷录题这类多页场景、单题跨页场景。需要 SubmitQuestionSplitOCRJob（提交任务）、DescribeQuestionSplitOCRJob（查询任务）两个接口配套使用，计费发生在提交任务后。
+   */
+  async DescribeQuestionSplitJob(
+    req: DescribeQuestionSplitJobRequest,
+    cb?: (error: string, rep: DescribeQuestionSplitJobResponse) => void
+  ): Promise<DescribeQuestionSplitJobResponse> {
+    return this.request("DescribeQuestionSplitJob", req, cb)
   }
 
   /**
@@ -1429,17 +1445,15 @@ export class Client extends AbstractClient {
   }
 
   /**
-     * <b>此接口为护照识别（中国大陆地区护照）的旧版本服务，不再进行服务升级，建议您使用识别能力更强、服务性能更优的<a href="https://cloud.tencent.com/document/product/866/37657">护照识别（多国多地区护照）</a>。</b>
-
-本接口支持中国大陆地区护照个人资料页多个字段的检测与识别。已支持字段包括英文姓名、中文姓名、国家码、护照号、出生地、出生日期、国籍英文、性别英文、有效期、签发地点英文、签发日期、持证人签名、护照机读码（MRZ码）等。
+     * 本接口支持对中国大陆机动车车牌的自动定位和识别，返回地域编号和车牌号码与车牌颜色信息。 
 
 默认接口请求频率限制：10次/秒。
      */
-  async PassportOCR(
-    req: PassportOCRRequest,
-    cb?: (error: string, rep: PassportOCRResponse) => void
-  ): Promise<PassportOCRResponse> {
-    return this.request("PassportOCR", req, cb)
+  async LicensePlateOCR(
+    req: LicensePlateOCRRequest,
+    cb?: (error: string, rep: LicensePlateOCRResponse) => void
+  ): Promise<LicensePlateOCRResponse> {
+    return this.request("LicensePlateOCR", req, cb)
   }
 
   /**
@@ -1473,6 +1487,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: VerifyBizLicenseEnterprise3Response) => void
   ): Promise<VerifyBizLicenseEnterprise3Response> {
     return this.request("VerifyBizLicenseEnterprise3", req, cb)
+  }
+
+  /**
+   * 异步试卷切题识别可将整页练习册、试卷或教辅中的题目进行自动切题，并识别出其中的文字内容和坐标位置，是试卷切题的接口补充。主要解决试卷录题这类多页场景、单题跨页场景。需要 SubmitQuestionSplitOCRJob（提交任务）、DescribeQuestionSplitOCRJob（查询任务）两个接口配套使用，计费发生在提交任务后。
+   */
+  async SubmitQuestionSplitJob(
+    req: SubmitQuestionSplitJobRequest,
+    cb?: (error: string, rep: SubmitQuestionSplitJobResponse) => void
+  ): Promise<SubmitQuestionSplitJobResponse> {
+    return this.request("SubmitQuestionSplitJob", req, cb)
   }
 
   /**

@@ -98,6 +98,7 @@ import {
   MetadataLoadAttrs,
   DescribeFileSystemsResponse,
   BatchDeleteClientNodesResponse,
+  LoadDataAttrs,
   QueryCrossVpcSubnetSupportForClientNodeRequest,
   DeleteCrossVpcSubnetSupportForClientNodeRequest,
   AttachFileSystemBucketResponse,

@@ -2844,7 +2844,7 @@ export interface ModifyComputeEnvRequest {
 }
 
 /**
- * 描述了实例的公网可访问性，声明了实例的公网使用计费模式，最大带宽等
+ * 描述了实例的主网卡公网可访问性，声明了实例的公网使用计费模式，最大带宽等
  */
 export interface InternetAccessible {
   /**

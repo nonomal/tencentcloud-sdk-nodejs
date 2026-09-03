@@ -118,7 +118,7 @@ import {
   ComposeMediaResponse,
   VideoDubbingAsyncTask,
   RoundPlayInfo,
-  DescribeLicenseUsageDataResponse,
+  CloneVoiceSyncRequest,
   AigcFaceIdentityInfo,
   DeleteMPSTemplateRequest,
   DrmStreamingsInfoForUpdate,
@@ -420,6 +420,7 @@ import {
   CoverBySnapshotTaskInput,
   DescribeMediaProcessUsageDataRequest,
   RebuildMediaTaskInput,
+  TextToSpeechSyncRequest,
   AigcHunyuan3DTaskOutput,
   UserDefineConfigureInfo,
   QualityInspectLLMDetectionReport,
@@ -481,7 +482,7 @@ import {
   SplitMediaOutputConfig,
   ModifyProcessImageAsyncTemplateResponse,
   MPSSubTaskResult,
-  HeadTailTemplate,
+  CloneVoiceSyncResponse,
   ImportMediaKnowledgeResponse,
   RestoreMediaResponse,
   ImageUnderstandingItem,
@@ -510,6 +511,7 @@ import {
   EditMediaVideoStream,
   ExtractTraceWatermarkTask,
   AiRecognitionTaskSegmentResultOutput,
+  TextToSpeechSyncResponse,
   ImageSpriteTaskInput,
   MPSSmartSubtitlesTaskInput,
   DeleteContentReviewTemplateResponse,
@@ -658,6 +660,7 @@ import {
   OutputVideoStream,
   ModifyDefaultDistributionConfigRequest,
   ProcedureTemplate,
+  DescribeLicenseUsageDataResponse,
   DomainDetailInfo,
   CreateAigcSubjectOutput,
   SemanticsSearchResult,
@@ -1119,6 +1122,7 @@ import {
   DescribeStorageDetailsRequest,
   EnhanceMediaQualityResponse,
   SubtitleFormatsOperation,
+  TextToSpeechSyncOutputOption,
   ThirdPartyDrmInfo,
   AiRecognitionTaskSegmentResultInput,
   TextToSpeechAsyncRequest,
@@ -1131,6 +1135,7 @@ import {
   DesignVoiceAsyncOutput,
   QualityInspectResultItem,
   MediaOutputInfo,
+  HeadTailTemplate,
   EditMediaTaskOutput,
   HighlightSegmentItem,
   CreateReviewTemplateResponse,
@@ -2398,6 +2403,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 发起音色克隆任务，基于参考音频克隆生成专属音色，生成的音色可供后续语音合成使用。
+   */
+  async CloneVoiceSync(
+    req: CloneVoiceSyncRequest,
+    cb?: (error: string, rep: CloneVoiceSyncResponse) => void
+  ): Promise<CloneVoiceSyncResponse> {
+    return this.request("CloneVoiceSync", req, cb)
+  }
+
+  /**
    * 查询轮播当前播放列表。
    */
   async DescribeCurrentPlaylist(
@@ -3398,6 +3413,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CommitUploadResponse) => void
   ): Promise<CommitUploadResponse> {
     return this.request("CommitUpload", req, cb)
+  }
+
+  /**
+   * 发起语音合成任务，将文本合成为语音。
+   */
+  async TextToSpeechSync(
+    req: TextToSpeechSyncRequest,
+    cb?: (error: string, rep: TextToSpeechSyncResponse) => void
+  ): Promise<TextToSpeechSyncResponse> {
+    return this.request("TextToSpeechSync", req, cb)
   }
 
   /**

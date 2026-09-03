@@ -561,29 +561,33 @@ export interface DeleteCustomizationResponse {
  */
 export interface DescribeApplicationListRequest {
   /**
-   * 项目ID，0表示默认项目，-1表示所有项目，如果需要查找具体项目下的应用列表，请填入具体项目ID，项目ID在项目管理中查看 https://console.cloud.tencent.com/project
+   * <p>项目ID，0表示默认项目，-1表示所有项目，如果需要查找具体项目下的应用列表，请填入具体项目ID，项目ID在项目管理中查看 https://console.cloud.tencent.com/project</p>
    */
   ProjectId: number
   /**
-   * 页码ID，0表示第一页，以此后推。默认填0
+   * <p>页码ID，0表示第一页，以此后推。默认填0</p>
    */
   PageNo: number
   /**
-   * 每页展示应用数量。默认填200
+   * <p>每页展示应用数量。默认填200</p>
    */
   PageSize: number
   /**
-   * 所查找应用名称的关键字，支持模糊匹配查找。空串表示查询所有应用
+   * <p>所查找应用名称的关键字，支持模糊匹配查找。空串表示查询所有应用</p>
    */
   SearchText: string
   /**
-   * 标签列表
+   * <p>标签列表</p>
    */
   TagSet?: Array<Tag>
   /**
-   * 查找过滤关键字列表
+   * <p>查找过滤关键字列表</p>
    */
   Filters?: Array<Filter>
+  /**
+   * <p>是否查询GME3.0应用</p><p>取值范围：[0, 1]</p><p>默认值：0</p>
+   */
+  NewVersion?: number
 }
 
 /**
@@ -813,11 +817,11 @@ export interface UserMicStatus {
  */
 export interface DescribeApplicationListResponse {
   /**
-   * 获取应用列表返回
+   * <p>获取应用列表返回</p>
    */
   ApplicationList?: Array<ApplicationList>
   /**
-   * 应用总数
+   * <p>应用总数</p>
    */
   Total?: number
   /**

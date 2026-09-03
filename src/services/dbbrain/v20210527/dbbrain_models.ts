@@ -589,7 +589,7 @@ export interface ScoreItem {
  */
 export interface CreateRedisBigKeyAnalysisTaskResponse {
   /**
-   * 异步任务ID。
+   * <p>异步任务ID。</p>
    */
   AsyncRequestId?: number
   /**
@@ -1402,22 +1402,25 @@ export interface DescribeIndexRecommendInfoResponse {
  */
 export interface CreateRedisBigKeyAnalysisTaskRequest {
   /**
-   * 实例 ID。可通过 [DescribeDiagDBInstances](https://cloud.tencent.com/document/api/1130/57798) 接口获取。
+   * <p>实例 ID。可通过 <a href="https://cloud.tencent.com/document/api/1130/57798">DescribeDiagDBInstances</a> 接口获取。</p>
    */
   InstanceId: string
   /**
-   * 服务产品类型，支持值包括 "redis" - 云数据库 Redis。
+   * <p>服务产品类型，支持值包括 &quot;redis&quot; - 云数据库 Redis。</p>
    */
   Product: string
   /**
-   * 分片节点序号列表。当列表为空时，选择所有分片节点。
+   * <p>分片节点序号列表。当列表为空时，选择所有分片节点。</p>
    */
   ShardIds?: Array<number | bigint>
   /**
-   * Top Key前缀的分隔符列表。
-目前仅支持以下分割符：[",", ";", ":", "_", "-", "+", "@", "=", "|", "#", "."]，当列表为空时，默认选择所有分隔符。
+   * <p>Top Key前缀的分隔符列表。<br>目前仅支持以下分割符：[&quot;,&quot;, &quot;;&quot;, &quot;:&quot;, &quot;_&quot;, &quot;-&quot;, &quot;+&quot;, &quot;@&quot;, &quot;=&quot;, &quot;|&quot;, &quot;#&quot;, &quot;.&quot;]，当列表为空时，默认选择所有分隔符。</p>
    */
   KeyDelimiterList?: Array<string>
+  /**
+   * <p>历史备份文件ID</p>
+   */
+  BackupId?: string
 }
 
 /**

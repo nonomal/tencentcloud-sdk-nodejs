@@ -98,9 +98,9 @@ it("ocr.v20181119.VatInvoiceVerifyNew", async function () {
     }
 })
 
-it("ocr.v20181119.QrcodeOCR", async function () {
+it("ocr.v20181119.PassportOCR", async function () {
     try {
-       const data = await client.QrcodeOCR({})
+       const data = await client.PassportOCR({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -121,6 +121,16 @@ it("ocr.v20181119.GeneralAccurateOCR", async function () {
 it("ocr.v20181119.VerifyBizLicenseEnterprise4", async function () {
     try {
        const data = await client.VerifyBizLicenseEnterprise4({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ocr.v20181119.QrcodeOCR", async function () {
+    try {
+       const data = await client.QrcodeOCR({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -488,9 +498,9 @@ it("ocr.v20181119.ArithmeticOCR", async function () {
     }
 })
 
-it("ocr.v20181119.LicensePlateOCR", async function () {
+it("ocr.v20181119.DescribeQuestionSplitJob", async function () {
     try {
-       const data = await client.LicensePlateOCR({})
+       const data = await client.DescribeQuestionSplitJob({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -698,9 +708,9 @@ it("ocr.v20181119.EraseHandwrittenImageOCR", async function () {
     }
 })
 
-it("ocr.v20181119.PassportOCR", async function () {
+it("ocr.v20181119.LicensePlateOCR", async function () {
     try {
-       const data = await client.PassportOCR({})
+       const data = await client.LicensePlateOCR({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -731,6 +741,16 @@ it("ocr.v20181119.VerifyGeneralCardWarn", async function () {
 it("ocr.v20181119.VerifyBizLicenseEnterprise3", async function () {
     try {
        const data = await client.VerifyBizLicenseEnterprise3({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("ocr.v20181119.SubmitQuestionSplitJob", async function () {
+    try {
+       const data = await client.SubmitQuestionSplitJob({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

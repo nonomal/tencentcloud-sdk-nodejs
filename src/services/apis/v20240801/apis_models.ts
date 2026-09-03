@@ -143,6 +143,14 @@ export interface CreateModelServiceRequest {
    * <p>任务复杂度路由策略</p>
    */
   TaskComplexityRoute?: TaskComplexityRouteDTO
+  /**
+   * <p>访问域名</p>
+   */
+  Domain?: string
+  /**
+   * <p>访问协议</p>
+   */
+  RequestProtocolType?: string
 }
 
 /**
@@ -763,6 +771,24 @@ export interface DescribeMcpServerResponseVO {
    * <p>是否忽略健康检查</p>
    */
   IgnoreHealthCheck?: boolean
+  /**
+   * <p>凭据ID</p>
+   */
+  CredentialID?: string
+  /**
+   * <p>凭据名称</p>
+   */
+  CredentialName?: string
+  /**
+   * <p>访问域名</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Domain?: string
+  /**
+   * <p>访问协议</p><p>枚举值：</p><ul><li>http： http</li><li>https： https</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RequestProtocolType?: string
 }
 
 /**
@@ -1000,6 +1026,14 @@ export interface ModifyModelServiceRequest {
    * <p>任务复杂度路由策略</p>
    */
   TaskComplexityRoute?: TaskComplexityRouteDTO
+  /**
+   * <p>访问域名</p>
+   */
+  Domain?: string
+  /**
+   * <p>访问协议</p>
+   */
+  RequestProtocolType?: string
 }
 
 /**
@@ -1211,6 +1245,20 @@ export interface SimpleCondition {
 }
 
 /**
+ * 时间区间配置
+ */
+export interface TimeRange {
+  /**
+   * <p>起始时间</p><p>参数格式：格式：09:00:00</p>
+   */
+  Start?: string
+  /**
+   * <p>结束时间</p><p>参数格式：格式：12:00:00</p>
+   */
+  End?: string
+}
+
+/**
  * DescribeAgentApps请求参数结构体
  */
 export interface DescribeAgentAppsRequest {
@@ -1308,15 +1356,25 @@ export interface ResultIDVO {
  */
 export interface LimitWindowsDTO {
   /**
-   * 时间窗口，分钟
+   * <p>时间窗口，分钟</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Interval?: number
   /**
-   * 累计上限，k
+   * <p>累计上限，k</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Limit?: number
+  /**
+   * <p>限流类型</p><p>枚举值：</p><ul><li>minute： 时间窗口</li><li>day： 自然日</li><li>month： 自然月</li><li>timeRange： 时间范围</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Type?: string
+  /**
+   * <p>时间区间配置</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TimeRange?: TimeRange
 }
 
 /**
@@ -1976,6 +2034,18 @@ export interface CreateMcpServerRequest {
    * <p>是否忽略健康检查</p>
    */
   IgnoreHealthCheck?: boolean
+  /**
+   * <p>凭据ID</p>
+   */
+  CredentialID?: string
+  /**
+   * <p>访问域名</p>
+   */
+  Domain?: string
+  /**
+   * <p>访问协议</p><p>枚举值：</p><ul><li>http： http</li><li>https： https</li></ul>
+   */
+  RequestProtocolType?: string
 }
 
 /**
@@ -2927,6 +2997,19 @@ export interface ServiceVO {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   McpServerNum?: number
+  /**
+   * <p>凭据ID</p>
+   */
+  CredentialID?: string
+  /**
+   * <p>凭据名称</p>
+   */
+  CredentialName?: string
+  /**
+   * <p>访问协议</p><p>枚举值：</p><ul><li>http： http</li><li>https： https</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RequestProtocolType?: string
 }
 
 /**
@@ -3367,11 +3450,13 @@ export interface AgentAppServiceDTO {
    */
   InvokeLimitConfig?: InvokeLimitConfigDTO
   /**
-   * <p>是否要认证</p>
+   * <p>是否要认证（已废弃，请勿使用）</p>
+   * @deprecated
    */
   NeedAuth?: boolean
   /**
-   * <p>凭据ID</p>
+   * <p>凭据ID（已废弃，请勿使用）</p>
+   * @deprecated
    */
   AgentCredentialID?: string
 }
@@ -3549,6 +3634,18 @@ export interface ModifyMcpServerRequest {
    * <p>是否忽略健康检查</p>
    */
   IgnoreHealthCheck?: boolean
+  /**
+   * <p>凭据ID</p>
+   */
+  CredentialID?: string
+  /**
+   * <p>访问域名</p>
+   */
+  Domain?: string
+  /**
+   * <p>访问协议</p><p>枚举值：</p><ul><li>http： http</li><li>https： https</li></ul>
+   */
+  RequestProtocolType?: string
 }
 
 /**
@@ -3618,26 +3715,28 @@ export interface DescribeAgentAppServicesVO {
  */
 export interface AgentAppMcpServerDTO {
   /**
-   * mcp server id
+   * <p>mcp server id</p>
    */
   ID: string
   /**
-   * 是否需要鉴权
+   * <p>是否需要鉴权（已废弃，请勿使用）</p>
 注意：此字段可能返回 null，表示取不到有效值。
+   * @deprecated
    */
   NeedAuth?: boolean
   /**
-   * 凭据代填的ID
+   * <p>凭据代填的ID（已废弃，请勿使用）</p>
 注意：此字段可能返回 null，表示取不到有效值。
+   * @deprecated
    */
   AgentCredentialID?: string
   /**
-   * 应用为OAuth2认证时，sse模式请求mcp时的资源标识
+   * <p>应用为OAuth2认证时，sse模式请求mcp时的资源标识</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SSEResourceIdentifier?: string
   /**
-   * 应用为OAuth2认证时，streamable模式请求mcp时的资源标识
+   * <p>应用为OAuth2认证时，streamable模式请求mcp时的资源标识</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StreamableResourceIdentifier?: string
@@ -3668,6 +3767,7 @@ export interface TokenLimitConfigDTO {
   /**
    * <p>限流类型</p><p>枚举值：</p><ul><li>minute： 时间窗口</li><li>day： 自然日</li><li>month： 自然月</li></ul>
 注意：此字段可能返回 null，表示取不到有效值。
+   * @deprecated
    */
   Type?: string
   /**
@@ -3954,6 +4054,16 @@ export interface DescribeModelServiceResponseVO {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaskComplexityRoute?: TaskComplexityRouteDTO
+  /**
+   * <p>访问域名</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Domain?: string
+  /**
+   * <p>访问协议</p><p>枚举值：</p><ul><li>http： http</li><li>https： https</li></ul>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RequestProtocolType?: string
 }
 
 /**

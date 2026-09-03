@@ -232,6 +232,7 @@ import {
   DescribeDynamicInstanceListRequest,
   ModifyInstanceBasicResponse,
   Filter,
+  ArchitectureInfo,
   DescribeTrinoQueryInfoRequest,
   ModifyResourcePoolsRequest,
   TerminateInstanceResponse,

@@ -175,6 +175,10 @@ export interface ModifyCompanyDirectoryConfigRequest {
    * <p>描述</p>
    */
   Description?: string
+  /**
+   * <p>名称多语言</p>
+   */
+  NameI18n?: Array<I18nString>
 }
 
 /**
@@ -436,112 +440,118 @@ export interface RulePayloadItem {
  */
 export interface DescribeDeviceDetailListData {
   /**
-   * 账号名
+   * <p>账号名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserName?: string
   /**
-   * 计算机名
+   * <p>计算机名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ComputerName?: string
   /**
-   * 名称
+   * <p>名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
   /**
-   * 用户组IdPath
+   * <p>用户组IdPath</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AccountGroupIdPath?: string
   /**
-   * 用户组id(只支持32位)
+   * <p>用户组id(只支持32位)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AccountGroupId?: number
   /**
-   * 终端组名path
+   * <p>终端组名path</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupNamePath?: string
   /**
-   * Ip地址
+   * <p>Ip地址</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Ip?: string
   /**
-   * 用户组名
+   * <p>用户组名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AccountGroupName?: string
   /**
-   * 终端组IdPath
+   * <p>终端组IdPath</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupIdPath?: string
   /**
-   * 唯一标识Mid
+   * <p>唯一标识Mid</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Mid?: string
   /**
-   * IOA账号名
+   * <p>IOA账号名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   IoaUserName?: string
   /**
-   * 所在分组Id(只支持32位)
+   * <p>所在分组Id(只支持32位)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupId?: number
   /**
-   * 所在分组Name
+   * <p>所在分组Name</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupName?: string
   /**
-   * Mac地址
+   * <p>Mac地址</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Mac?: string
   /**
-   * 软件版本
+   * <p>软件版本</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Version?: string
   /**
-   * 用户组名Path
+   * <p>用户组名Path</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AccountGroupNamePath?: string
   /**
-   * 列表Id(只支持32位)
+   * <p>列表Id(只支持32位)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Id?: number
 }
 
 /**
- * 规则元数据
+ * DeleteAccountGroup请求参数结构体
  */
-export interface RuleItem {
+export interface DeleteAccountGroupRequest {
   /**
-   * 字段名称
+   * 管理域实例ID，用于CAM管理域权限分配。若企业未进行管理域的划分，可直接传入根域"1"，此时表示针对当前企业的全部设备和账号进行接口CRUD，具体CRUD的影响范围限制于相应接口的入参。
    */
-  Key?: string
+  DomainInstanceId?: string
   /**
-   * 操作关系（等于、不等于、包含、不包含）
+   * <p>分组或者目录id(只支持32位)</p>
    */
-  Operate?: string
+  AccountGroupId?: number
+}
+
+/**
+ * I18nString 国际化字符串（对齐云API平台已注册数据结构 ID:131745，用途：入参/出参） 使用方式：通常以 repeated I18nString 数组承载多语言，一条元素装一种语言。 出参示例：[{"Lang":"zh-CN","Value":"策略名"},{"Lang":"en-US","Value":"Policy Name"}] 入参约定：客户端至少提供 zh-CN 一条；后端建议在业务层调用 i18n.MustZhCn 校验。
+ */
+export interface I18nString {
   /**
-   * 内容
+   * <p>语言枚举</p><p>枚举值：</p><ul><li>zh-CN： 简体中文</li><li>en-US： 英文</li></ul>
+   */
+  Lang?: string
+  /**
+   * <p>这是一段业务字符串</p>
    */
   Value?: string
-  /**
-   * 内容，v2多值版本使用
-   */
-  Values?: Array<string>
 }
 
 /**
@@ -594,87 +604,87 @@ export interface GrantResourcesByVirtualGroupsRequest {
  */
 export interface DescribeAccountGroupsData {
   /**
-   * 账号分组名全路径，点分格式
+   * <p>账号分组名全路径，点分格式</p>
    */
   NamePath?: string
   /**
-   * 账号分组ID全路径，数组格式
+   * <p>账号分组ID全路径，数组格式</p>
    */
   IdPathArr?: Array<number | bigint>
   /**
-   * 扩展信息
+   * <p>扩展信息</p>
    */
   ExtraInfo?: string
   /**
-   * 最后更新时间
+   * <p>最后更新时间</p>
    */
   Utime?: string
   /**
-   * 父分组ID
+   * <p>父分组ID</p>
    */
   ParentId?: number
   /**
-   * 源账号组织ID。使用第三方导入用户源时，记录该分组在源组织架构下的分组ID
+   * <p>源账号组织ID。使用第三方导入用户源时，记录该分组在源组织架构下的分组ID</p>
    */
   OrgId?: string
   /**
-   * 分组名称
+   * <p>分组名称</p>
    */
   Name?: string
   /**
-   * 分组ID
+   * <p>分组ID</p>
    */
   Id?: number
   /**
-   * 分组描述
+   * <p>分组描述</p>
    */
   Description?: string
   /**
-   * 同步数据源
+   * <p>同步数据源</p>
    */
   Source?: number
   /**
-   * 账号分组ID全路径，点分格式
+   * <p>账号分组ID全路径，点分格式</p>
    */
   IdPath?: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
    */
   Itime?: string
   /**
-   * 父源账号组织ID。使用第三方导入用户源时，记录该分组在源组织架构下的分组ID
+   * <p>父源账号组织ID。使用第三方导入用户源时，记录该分组在源组织架构下的分组ID</p>
    */
   ParentOrgId?: string
   /**
-   * 导入类型
+   * <p>导入类型</p>
    */
   ImportType?: string
   /**
-   * miniIAM id
+   * <p>miniIAM id</p>
    */
   MiniIamId?: string
   /**
-   * 该分组下含子组的所有用户总数
+   * <p>该分组下含子组的所有用户总数</p>
    */
   UserTotal?: number
   /**
-   * 是否叶子节点
+   * <p>是否叶子节点</p>
    */
   IsLeaf?: boolean
   /**
-   * 是否该账户的直接权限
+   * <p>是否该账户的直接权限</p>
    */
   ReadOnly?: boolean
   /**
-   * 最新一次同步任务的结果
+   * <p>最新一次同步任务的结果</p>
    */
   LatestSyncResult?: string
   /**
-   * 最新一次同步任务的结束时间
+   * <p>最新一次同步任务的结束时间</p>
    */
   LatestSyncTime?: string
   /**
-   * 分组名称数组
+   * <p>分组名称数组</p>
    */
   NamePathArr?: Array<string>
 }
@@ -684,7 +694,11 @@ export interface DescribeAccountGroupsData {
  */
 export interface DescribeAccountGroupsRequest {
   /**
-   * 搜索范围：0-仅当前分组的直接子组，1-当前分组的所有子组。默认为0。
+   * 管理域实例ID，用于CAM管理域权限分配。若企业未进行管理域的划分，可直接传入根域"1"，此时表示针对当前企业的全部设备和账号进行接口CRUD，具体CRUD的影响范围限制于相应接口的入参。
+   */
+  DomainInstanceId?: string
+  /**
+   * （仅SaaS版本适用）搜索范围：0-仅当前分组的直接子组，1-当前分组的所有子组。默认为0。
    */
   Deepin?: number
   /**
@@ -836,83 +850,83 @@ export interface CreateDeviceVirtualGroupRequest {
  */
 export interface DescribeLocalAccountsData {
   /**
-   * uid，数据库中唯一
+   * <p>uid，数据库中唯一</p>
    */
   Id?: number
   /**
-   * 账号，登录账号
+   * <p>账号，登录账号</p>
    */
   UserId?: string
   /**
-   * 用户名
+   * <p>用户名</p>
    */
   UserName?: string
   /**
-   * 账号id，同Id字段
+   * <p>账号id，同Id字段</p>
    */
   AccountId?: number
   /**
-   * 账号所在的分组id
+   * <p>账号所在的分组id</p>
    */
   GroupId?: number
   /**
-   * 账号所在的分组名称
+   * <p>账号所在的分组名称</p>
    */
   GroupName?: string
   /**
-   * 账号所在的分组名称路径，用英文.分割
+   * <p>账号所在的分组名称路径，用英文.分割</p>
    */
   NamePath?: string
   /**
-   * 账号来源,0表示本地账号(只支持32位)
+   * <p>账号来源,0表示本地账号(只支持32位)</p>
    */
   Source?: number
   /**
-   * 账号状态,0禁用，1启用(只支持32位)
+   * <p>账号状态,0禁用，1启用(只支持32位)</p>
    */
   Status?: number
   /**
-   * 账号的创建时间
+   * <p>账号的创建时间</p>
    */
   Itime?: string
   /**
-   * 账号的最后更新时间
+   * <p>账号的最后更新时间</p>
    */
   Utime?: string
   /**
-   * 账号的扩展信息，包含邮箱、手机号、身份证、职位等信息
+   * <p>账号的扩展信息，包含邮箱、手机号、身份证、职位等信息</p>
    */
   ExtraInfo?: string
   /**
-   * 用户风险等级，枚举：none, low, middle, high
+   * <p>用户风险等级，枚举：none, low, middle, high</p>
    */
   RiskLevel?: string
   /**
-   * 所属组
+   * <p>所属组</p>
    */
   AccountGroups?: Array<DescribeLocalAccountAccountGroupsData>
   /**
-   * 绑定手机端设备数
+   * <p>绑定手机端设备数</p>
    */
   MobileBindNum?: number
   /**
-   * 绑定Pc端设备数
+   * <p>绑定Pc端设备数</p>
    */
   PcBindNum?: number
   /**
-   * 账号在线状态 1：在线 2：离线
+   * <p>账号在线状态 1：在线 2：离线</p>
    */
   OnlineStatus?: number
   /**
-   * 账号活跃状态 1：活跃 2：非活跃
+   * <p>账号活跃状态 1：活跃 2：非活跃</p>
    */
   ActiveStatus?: number
   /**
-   * 账号登录时间
+   * <p>账号登录时间</p>
    */
   LoginTime?: string
   /**
-   * 账号登出时间
+   * <p>账号登出时间</p>
    */
   LogoutTime?: string
 }
@@ -1146,6 +1160,20 @@ export interface DeviceDetail {
 }
 
 /**
+ * DescribeResourceGrantedVirtualGroups返回参数结构体
+ */
+export interface DescribeResourceGrantedVirtualGroupsResponse {
+  /**
+   * 查询的数据集合
+   */
+  Data?: DescribeResourceGrantedVirtualGroupsData
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DescribeSoftCensusListByDevice请求参数结构体
  */
 export interface DescribeSoftCensusListByDeviceRequest {
@@ -1288,16 +1316,16 @@ export interface DirectoryConfigResultData {
    * <p>认证方式，授权认证/扫码认证 等</p>
    */
   AuthMethods?: Array<string>
+  /**
+   * <p>名称多语言支持</p>
+   */
+  NameI18n?: Array<I18nString>
 }
 
 /**
- * DescribeResourceGrantedVirtualGroups返回参数结构体
+ * DeleteAccountGroup返回参数结构体
  */
-export interface DescribeResourceGrantedVirtualGroupsResponse {
-  /**
-   * 查询的数据集合
-   */
-  Data?: DescribeResourceGrantedVirtualGroupsData
+export interface DeleteAccountGroupResponse {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -1396,6 +1424,10 @@ export interface CreateCompanyDirectoryConfigRequest {
    * <p>使用场景：API 创建，快速上手，普通配置等</p>
    */
   Scene?: string
+  /**
+   * <p>名称多语言</p>
+   */
+  NameI18n?: Array<I18nString>
 }
 
 /**
@@ -1539,67 +1571,67 @@ export interface DeleteResourceData {
  */
 export interface DescribeSoftCensusListByDeviceData {
   /**
-   * 终端用户名
+   * <p>终端用户名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserName?: string
   /**
-   * mac地址
+   * <p>mac地址</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   MacAddr?: string
   /**
-   * 终端计算机名称
+   * <p>终端计算机名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Name?: string
   /**
-   * 终端组路径名
+   * <p>终端组路径名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupNamePath?: string
   /**
-   * IP地址
+   * <p>IP地址</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Ip?: string
   /**
-   * 唯一标识Mid
+   * <p>唯一标识Mid</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Mid?: string
   /**
-   * 企业账户名
+   * <p>企业账户名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   IoaUserName?: string
   /**
-   * 终端分组Id(只支持32位)
+   * <p>终端分组Id(只支持32位)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupId?: number
   /**
-   * 终端组名
+   * <p>终端组名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   GroupName?: string
   /**
-   * 终端列表Id(只支持32位)
+   * <p>终端列表Id(只支持32位)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Id?: number
   /**
-   * 软件数量(只支持32位)
+   * <p>软件数量(只支持32位)</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SoftNum?: number
   /**
-   * 盗版风险（1=风险;2=未知）
+   * <p>盗版风险（1=风险;2=未知）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PiracyRisk?: number
   /**
-   * 终端备注名
+   * <p>终端备注名</p>
    */
   RemarkName?: string
 }
@@ -2782,102 +2814,102 @@ export interface CreateCompanyDirectoryConfigResponse {
  */
 export interface AggrSoftDeviceRow {
   /**
-   * 终端名
+   * <p>终端名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DeviceName?: string
   /**
-   * 最近登录账号
+   * <p>最近登录账号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   LastLoginAccount?: string
   /**
-   * 终端用户名
+   * <p>终端用户名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DeviceUserName?: string
   /**
-   * 软件版本
+   * <p>软件版本</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Version?: string
   /**
-   * 是否盗版
+   * <p>是否盗版</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PiracyRisk?: number
   /**
-   * 盗版原因
+   * <p>盗版原因</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PiracyReason?: string
   /**
-   * 安装时间
+   * <p>安装时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   InstallTime?: string
   /**
-   * 用户目录
+   * <p>用户目录</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserPath?: string
   /**
-   * 所在分组
+   * <p>所在分组</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UserGroup?: string
   /**
-   * IP
+   * <p>IP</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   IP?: string
   /**
-   * MAC
+   * <p>MAC</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   MAC?: string
   /**
-   * 使用时长
+   * <p>使用时长</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   UseTime?: number
   /**
-   * 设备ID
+   * <p>设备ID</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DeviceId?: number
   /**
-   * 软件全名
+   * <p>软件全名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FullSoftName?: string
   /**
-   * 数据ID（唯一）
+   * <p>数据ID（唯一）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Id?: number
   /**
-   * 该终端此款软件可升级到的目标版本号
+   * <p>该终端此款软件可升级到的目标版本号</p>
    */
   NewVersion?: string
   /**
-   * 该软件对应运营配置的可升级id
+   * <p>该软件对应运营配置的可升级id</p>
    */
   UpgradeSoftId?: number
   /**
-   * 终端备注名
+   * <p>终端备注名</p>
    */
   RemarkName?: string
   /**
-   * 软件id
+   * <p>软件id</p>
    */
   SoftwareId?: number
   /**
-   * 0:win 2:mac
+   * <p>0:win 2:mac</p>
    */
   OsType?: number
   /**
-   * 所有权
+   * <p>所有权</p>
    */
   AssetType?: string
 }
@@ -3055,27 +3087,27 @@ export interface DescribeAccountGroupsResponse {
  */
 export interface DeviceVirtualDeviceGroupsDetail {
   /**
-   * 终端自定义分组id
+   * <p>终端自定义分组id</p>
    */
   Id?: number
   /**
-   * 自定义分组名称
+   * <p>自定义分组名称</p>
    */
   DeviceVirtualGroupName?: string
   /**
-   * 设备数
+   * <p>设备数</p>
    */
   DeviceCount?: number
   /**
-   * 系统类型（0: win，1：linux，2: mac，4：android，5：ios  ）
+   * <p>系统类型（0: win，1：linux，2: mac，4：android，5：ios  ）</p>
    */
   OsType?: number
   /**
-   * 创建时间
+   * <p>创建时间</p>
    */
   Itime?: string
   /**
-   * 更新时间
+   * <p>更新时间</p>
    */
   Utime?: string
 }
@@ -3185,21 +3217,25 @@ export interface DeleteDeviceVirtualGroupRequest {
  */
 export interface DescribeDLPEdgeNodeGroupsRspItem {
   /**
-   * 自增id，数据库中唯一
+   * <p>自增id，数据库中唯一</p>
    */
   Id?: number
   /**
-   * 节点分组名称
+   * <p>节点分组名称</p>
    */
   GroupName?: string
   /**
-   * 节点分组id
+   * <p>节点分组id</p>
    */
   GroupId?: string
   /**
-   * 包含边缘节点数量
+   * <p>包含边缘节点数量</p>
    */
   EdgeCount?: number
+  /**
+   * <p>分组中英文</p>
+   */
+  GroupNameI18n?: Array<I18nString>
 }
 
 /**
@@ -3406,7 +3442,7 @@ export interface DeviceServiceInfo {
  */
 export interface DescribeLocalAccountAccountGroupsData {
   /**
-   * 组Id(只支持32位)
+   * <p>组Id(只支持32位)</p>
    */
   AccountGroupId?: number
 }
@@ -3499,6 +3535,10 @@ export interface DirectoryConfigData {
    * <p>是否在登录页展示</p>
    */
   DisplayOnLoginPage?: boolean
+  /**
+   * <p>名称多语言</p>
+   */
+  NameI18n?: Array<I18nString>
 }
 
 /**
@@ -3532,71 +3572,71 @@ export interface ModifyVirtualDeviceGroupsRequest {
  */
 export interface GetAccountGroupData {
   /**
-   * 分组名称全路径，点分格式
+   * <p>分组名称全路径，点分格式</p>
    */
   NamePath?: string
   /**
-   * 分组ID全路径，数组格式
+   * <p>分组ID全路径，数组格式</p>
    */
   IdPathArr?: Array<number | bigint>
   /**
-   * 分组扩展信息
+   * <p>分组扩展信息</p>
    */
   ExtraInfo?: string
   /**
-   * 最后更新时间
+   * <p>最后更新时间</p>
    */
   Utime?: string
   /**
-   * 当前分组的父分组ID
+   * <p>当前分组的父分组ID</p>
    */
   ParentId?: number
   /**
-   * 源账号组ID，该字段仅适用于第三方同步的组织架构，通过OrgId-Id构成源组织架构分组ID-现组织架构分组ID映射关系
+   * <p>源账号组ID，该字段仅适用于第三方同步的组织架构，通过OrgId-Id构成源组织架构分组ID-现组织架构分组ID映射关系</p>
    */
   OrgId?: string
   /**
-   * 分组名称
+   * <p>分组名称</p>
    */
   Name?: string
   /**
-   * 分组ID
+   * <p>分组ID</p>
    */
   Id?: number
   /**
-   * 分组描述
+   * <p>分组描述</p>
    */
   Description?: string
   /**
-   * 分组导入源(只支持32位)
+   * <p>分组导入源(只支持32位)</p>
    */
   Source?: number
   /**
-   * 分组ID全路径，点分格式
+   * <p>分组ID全路径，点分格式</p>
    */
   IdPath?: string
   /**
-   * 创建时间
+   * <p>创建时间</p>
    */
   Itime?: string
   /**
-   * 父源账号组ID，该字段仅适用于第三方同步的组织架构
+   * <p>父源账号组ID，该字段仅适用于第三方同步的组织架构</p>
    */
   ParentOrgId?: string
   /**
-   * 导入信息,json格式
+   * <p>导入信息,json格式</p>
    */
   Import?: string
   /**
-   * 是否开启导入架构
+   * <p>是否开启导入架构</p>
    */
   ImportEnable?: boolean
   /**
-   * 导入类型
+   * <p>导入类型</p>
    */
   ImportType?: string
   /**
-   * miniIAMId，MiniIAM源才有
+   * <p>miniIAMId，MiniIAM源才有</p>
    */
   MiniIamId?: string
 }
@@ -3786,75 +3826,75 @@ export interface DeviceDownloadTask {
  */
 export interface DeviceGroupDetail {
   /**
-   * 设备组id
+   * <p>设备组id</p>
    */
   Id?: number
   /**
-   * 设备组名称
+   * <p>设备组名称</p>
    */
   Name?: string
   /**
-   * 设备组描述
+   * <p>设备组描述</p>
    */
   Description?: string
   /**
-   * 父节点id
+   * <p>父节点id</p>
    */
   ParentId?: number
   /**
-   * 基于id的节点路径
+   * <p>基于id的节点路径</p>
    */
   IdPath?: string
   /**
-   * 基于名称的节点路径
+   * <p>基于名称的节点路径</p>
    */
   NamePath?: string
   /**
-   * 分组锁定状态
+   * <p>分组锁定状态</p>
    */
   Locked?: number
   /**
-   * 系统类型（0: win，1：linux，2: mac，4：android，5：ios   ）
+   * <p>系统类型（0: win，1：linux，2: mac，4：android，5：ios   ）</p>
    */
   OsType?: number
   /**
-   * 排序
+   * <p>排序</p>
    */
   Sort?: number
   /**
-   * 是否自动调整
+   * <p>是否自动调整</p>
    */
   FromAuto?: number
   /**
-   * 子节点数量
+   * <p>子节点数量</p>
    */
   Count?: number
   /**
-   * 图标
+   * <p>图标</p>
    */
   Icon?: string
   /**
-   * 是否有ip
+   * <p>是否有ip</p>
    */
   WithIp?: number
   /**
-   * 是否有组ip
+   * <p>是否有组ip</p>
    */
   HasIp?: boolean
   /**
-   * 是否是叶子节点
+   * <p>是否是叶子节点</p>
    */
   IsLeaf?: boolean
   /**
-   * 是否只读
+   * <p>是否只读</p>
    */
   ReadOnly?: boolean
   /**
-   * 对应绑定的账号id
+   * <p>对应绑定的账号id</p>
    */
   BindAccount?: number
   /**
-   * 绑定账号的用户名
+   * <p>绑定账号的用户名</p>
    */
   BindAccountName?: string
 }
@@ -3933,6 +3973,28 @@ export interface DescribeDevicesRequest {
    * <p>【和GroupId必须有一个填写】设备分组id列表（需要和OsType匹配）</p>
    */
   GroupIds?: Array<number | bigint>
+}
+
+/**
+ * 规则元数据
+ */
+export interface RuleItem {
+  /**
+   * 字段名称
+   */
+  Key?: string
+  /**
+   * 操作关系（等于、不等于、包含、不包含）
+   */
+  Operate?: string
+  /**
+   * 内容
+   */
+  Value?: string
+  /**
+   * 内容，v2多值版本使用
+   */
+  Values?: Array<string>
 }
 
 /**
@@ -4204,35 +4266,35 @@ export interface GrantResourceOperationByAccountGroups {
 }
 
 /**
- * GrantedAccountItem
+ * 账号分组授权信息
  */
 export interface GrantedAccountGroupItem {
   /**
-   * 账户组Id
+   * <p>账户组Id</p>
    */
   AccountGroupId?: number
   /**
-   * 分组名称
+   * <p>分组名称</p>
    */
   Name?: string
   /**
-   * 所属分组Id
+   * <p>所属分组Id</p>
    */
   IdPathArray?: Array<number | bigint>
   /**
-   * 所属分组NamePathArray
+   * <p>所属分组NamePathArray</p>
    */
   NamePathArray?: Array<string>
   /**
-   * 目录id
+   * <p>目录id</p>
    */
   AccountCount?: number
   /**
-   * 过期时间
+   * <p>过期时间</p>
    */
   ExpireTime?: number
   /**
-   * 关联id
+   * <p>关联id</p>
    */
   RelationId?: number
 }

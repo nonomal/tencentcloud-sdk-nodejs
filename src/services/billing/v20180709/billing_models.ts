@@ -278,6 +278,26 @@ export interface DeleteAllocationRuleRequest {
 }
 
 /**
+ * DescribeAccountWarning返回参数结构体
+ */
+export interface DescribeAccountWarningResponse {
+  /**
+   * 余额阈值（单位：国内分、国际美分）
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Threshold?: string
+  /**
+   * 是否开启余额告警 1 开启 0 关闭
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Open?: string
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * CreateAllocationRule返回参数结构体
  */
 export interface CreateAllocationRuleResponse {
@@ -1186,11 +1206,11 @@ export interface DescribeBillSummaryRequest {
  */
 export interface DescribeBillResourceSummaryResponse {
   /**
-   * 资源汇总列表
+   * <p>资源汇总列表</p>
    */
   ResourceSummarySet?: Array<BillResourceSummary>
   /**
-   * 资源汇总列表总数，入参NeedRecordNum为0时不返回
+   * <p>资源汇总列表总数，入参NeedRecordNum为0时不返回</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Total?: number
@@ -6225,83 +6245,52 @@ export interface DescribeVoucherUsageDetailsRequest {
  */
 export interface DescribeBillResourceSummaryRequest {
   /**
-   * 分页偏移量，Offset=0表示第一页，如果Limit=100，则Offset=100表示第二页，Offset=200表示第三页，依次类推
+   * <p>分页偏移量，Offset=0表示第一页，如果Limit=100，则Offset=100表示第二页，Offset=200表示第三页，依次类推</p>
    */
   Offset: number
   /**
-   * 数量，最大值为1000
+   * <p>数量，最大值为1000</p>
    */
   Limit: number
   /**
-   * 月份，格式为yyyy-mm。不能早于开通账单2.0的月份
+   * <p>月份，格式为yyyy-mm。不能早于开通账单2.0的月份</p>
    */
   Month: string
   /**
-   * 周期类型，byUsedTime按计费周期/byPayTime按扣费周期。需要与费用中心该月份账单的周期保持一致。您可前往[账单概览](https://console.cloud.tencent.com/expense/bill/overview)页面顶部查看确认您的账单统计周期类型。
+   * <p>周期类型，byUsedTime按计费周期/byPayTime按扣费周期。需要与费用中心该月份账单的周期保持一致。您可前往<a href="https://console.cloud.tencent.com/expense/bill/overview">账单概览</a>页面顶部查看确认您的账单统计周期类型。</p>
    * @deprecated
    */
   PeriodType?: string
   /**
-   * 是否需要访问列表的总记录数，用于前端分页
-1-表示需要， 0-表示不需要
+   * <p>是否需要访问列表的总记录数，用于前端分页<br>1-表示需要， 0-表示不需要</p>
    */
   NeedRecordNum?: number
   /**
-   * 查询交易类型（请使用交易类型名称入参），入参示例枚举如下：
-包年包月新购
-包年包月续费
-包年包月配置变更
-包年包月退款 
-按量计费扣费 
-线下项目扣费 
-线下产品扣费 
-调账扣费 
-调账补偿 
-按量计费小时结 
-按量计费日结 
-按量计费月结 
-竞价实例小时结 
-线下项目调账补偿 
-线下产品调账补偿 
-优惠扣费 
-优惠补偿 
-按量计费迁入资源 
-按量计费迁出资源 
-包年包月迁入资源 
-包年包月迁出资源 
-预付费用 
-小时费用 
-预留实例退款 
-按量计费冲正 
-包年包月转按量 
-保底扣款 
-节省计划小时费用
+   * <p>查询交易类型（请使用交易类型名称入参），入参示例枚举如下：<br>包年包月新购<br>包年包月续费<br>包年包月配置变更<br>包年包月退款<br>按量计费扣费<br>线下项目扣费<br>线下产品扣费<br>调账扣费<br>调账补偿<br>按量计费小时结<br>按量计费日结<br>按量计费月结<br>竞价实例小时结<br>线下项目调账补偿<br>线下产品调账补偿<br>优惠扣费<br>优惠补偿<br>按量计费迁入资源<br>按量计费迁出资源<br>包年包月迁入资源<br>包年包月迁出资源<br>预付费用<br>小时费用<br>预留实例退款<br>按量计费冲正<br>包年包月转按量<br>保底扣款<br>节省计划小时费用</p>
    */
   ActionType?: string
   /**
-   * 查询指定资源信息
+   * <p>查询指定资源信息</p>
    */
   ResourceId?: string
   /**
-   * 付费模式 prePay/postPay
+   * <p>付费模式 prePay/postPay</p>
    */
   PayMode?: string
   /**
-   * 产品名称代码
-备注：如需获取当月使用过的BusinessCode，请调用API：<a href="https://cloud.tencent.com/document/product/555/35761">获取产品汇总费用分布</a>
+   * <p>产品名称代码<br>备注：如需获取当月使用过的BusinessCode，请调用API：<a href="https://cloud.tencent.com/document/product/555/35761">获取产品汇总费用分布</a></p>
    */
   BusinessCode?: string
   /**
-   * 支付者的账号 ID（账号 ID 是用户在腾讯云的唯一账号标识），默认查询本账号账单，如集团管理账号需查询成员账号自付的账单，该字段需入参成员账号UIN
+   * <p>支付者的账号 ID（账号 ID 是用户在腾讯云的唯一账号标识），默认查询本账号账单，如集团管理账号需查询成员账号自付的账单，该字段需入参成员账号UIN</p>
    */
   PayerUin?: string
   /**
-   * 分账标签键，用户自定义（支持2021-01以后账单查询）
+   * <p>分账标签键，用户自定义（支持2021-01以后账单查询）</p>
    */
   TagKey?: string
   /**
-   * 分账标签值，该参数为空表示该标签键下未设置标签值的记录
-（支持2021-01以后账单查询）
+   * <p>分账标签值，该参数为空表示该标签键下未设置标签值的记录<br>（支持2021-01以后账单查询）</p>
    */
   TagValue?: string
 }
@@ -6452,6 +6441,20 @@ export interface BillDetailComponent {
    * 配置描述：资源配置规格信息
    */
   ComponentConfig?: Array<BillDetailComponentConfig>
+}
+
+/**
+ * ModifyAccountWarning请求参数结构体
+ */
+export interface ModifyAccountWarningRequest {
+  /**
+   * 余额阈值（单位：国内分、国际美分）
+   */
+  Threshold: number
+  /**
+   * 是否开启余额告警 1 开启 0 关闭
+   */
+  Open: number
 }
 
 /**
@@ -6696,6 +6699,26 @@ export interface DescribeBillSummaryForOrganizationResponse {
    * <p>账单多维度汇总消费详情</p>
    */
   SummaryDetail?: Array<SummaryDetail>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * ModifyAccountWarning返回参数结构体
+ */
+export interface ModifyAccountWarningResponse {
+  /**
+   * 余额阈值（单位：国内分、国际美分）
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Threshold: string
+  /**
+   * 是否开启余额告警 1 开启 0 关闭
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Open: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -8473,6 +8496,11 @@ export interface GatherResourceSummary {
    */
   EffectiveMode?: string
 }
+
+/**
+ * DescribeAccountWarning请求参数结构体
+ */
+export type DescribeAccountWarningRequest = null
 
 /**
  * DescribeSavingPlanResourceInfo返回参数结构体

@@ -187,7 +187,7 @@ import {
   ListTablesRequest,
   CreateAuthDomainRequest,
   CreateHostingDomainResponse,
-  MySQLTaskStatus,
+  ModifyPGInstanceSpecResponse,
   DescribeEnvPlansRequest,
   DescribeCreateMySQLResult,
   DeleteCloudAppRequest,
@@ -198,7 +198,7 @@ import {
   ModifyUserRequest,
   DeleteUsersRequest,
   DescribeBaasPackageListResponse,
-  SearchClsLogResponse,
+  PushPGUserMigrationsRequest,
   TkeClusterInfo,
   VerifyHTTPServiceRouteRequest,
   Provider,
@@ -265,7 +265,7 @@ import {
   GetProvidersResponse,
   DescribeQuotaDataRequest,
   CreateStaticStoreResponse,
-  PushPGUserMigrationsRequest,
+  ModifyPGInstanceSpecRequest,
   DescribePGUserMigrationRequest,
   DescribeVmInstancesResponse,
   ApiKeyToken,
@@ -302,6 +302,7 @@ import {
   HTTPServiceCacheRule,
   PermissionInfo,
   DescribeManagedAIModelListResponse,
+  SearchClsLogResponse,
   DeleteVmInstanceResponse,
   PlanInfo,
   StaticEnvironment,
@@ -312,6 +313,7 @@ import {
   RunCommandsRequest,
   IndexAccesses,
   MySQLClusterDetail,
+  MySQLTaskStatus,
   BuildSource,
   DescribeAuthDomainsRequest,
   DescribeVmSpecResponse,
@@ -1037,6 +1039,16 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
+   * 本接口（PushPGUserMigrations）用于批量应用Migrations。
+   */
+  async PushPGUserMigrations(
+    req: PushPGUserMigrationsRequest,
+    cb?: (error: string, rep: PushPGUserMigrationsResponse) => void
+  ): Promise<PushPGUserMigrationsResponse> {
+    return this.request("PushPGUserMigrations", req, cb)
+  }
+
+  /**
      * 创建虚拟服务器
 创建流程为先调用[DescribeVmSpec](https://cloud.tencent.com/document/product/876/129360)获取可购买的规格，同时调用[DescribeBlueprints](https://cloud.tencent.com/document/product/1207/47689)拉取镜像列表，选中一个规格和一个镜像后，调用[InquireVmPrice](https://cloud.tencent.com/document/product/876/129759)询价，如果价格可接受，调用此接口创建实例
      */
@@ -1465,13 +1477,13 @@ Id、Secret、CreatedAt、Meta 等字段在该接口中不可修改，当客户�
   }
 
   /**
-   * 本接口（PushPGUserMigrations）用于批量应用Migrations。
+   * 对 PG 独享实例变配
    */
-  async PushPGUserMigrations(
-    req: PushPGUserMigrationsRequest,
-    cb?: (error: string, rep: PushPGUserMigrationsResponse) => void
-  ): Promise<PushPGUserMigrationsResponse> {
-    return this.request("PushPGUserMigrations", req, cb)
+  async ModifyPGInstanceSpec(
+    req: ModifyPGInstanceSpecRequest,
+    cb?: (error: string, rep: ModifyPGInstanceSpecResponse) => void
+  ): Promise<ModifyPGInstanceSpecResponse> {
+    return this.request("ModifyPGInstanceSpec", req, cb)
   }
 
   /**

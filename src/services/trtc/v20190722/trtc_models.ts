@@ -299,12 +299,29 @@ export interface AudioEncodeParams {
 /**
  * DeleteRecognizeVocabV3请求参数结构体
  */
-export type DeleteRecognizeVocabV3Request = null
+export interface DeleteRecognizeVocabV3Request {
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId: string
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
+}
 
 /**
  * GetRecognizeVocabListV3返回参数结构体
  */
 export interface GetRecognizeVocabListV3Response {
+  /**
+   * <p>词表列表</p>
+   */
+  VocabList?: Array<Vocab>
+  /**
+   * <p>词表个数</p><p>单位：个</p>
+   */
+  TotalCount?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -324,7 +341,8 @@ export interface McuRecordParams {
    */
   UniRecord?: number
   /**
-   * 录制任务 key，标识一个录制任务；您可以通过该参数，将多个转推任务录制成一个文件。不指定该参数时，只录制当前转推任务。
+   * 录制任务标识 key，显式关联多个转推任务到一个录制任务；一般不需设置，默认录制本次转推内容。
+如果有特殊需求，比如将多段转推内容分时录制到同一个文件，可以通过设置此参数来控制。举例: 时间点10:00 发起转推任务:A + RecorderKey:abc，10:05分发起转推任务B+ RecorderKey:abc，那么录制文件会包含，转推A(10:00~10:05分的内容)+转推B的内容。
 【限制长度为128字节，只允许包含大小写英文字母（a-zA-Z）、数字（0-9）及下划线(_)和连词符(-)】
    */
   RecordKey?: string
@@ -1786,6 +1804,10 @@ export interface StopAITranscriptionRequest {
  */
 export interface SetVocabStateV3Response {
   /**
+   * <p>词表 id</p>
+   */
+  VocabId?: string
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -1864,9 +1886,25 @@ export interface AmbientSound {
  */
 export interface CreateRecognizeVocabV3Request {
   /**
+   * <p>词表名称（同 SdkAppId 下唯一）</p>
+   */
+  Name: string
+  /**
    * <p>客户维度唯一标识</p>
    */
   SdkAppId: number
+  /**
+   * <p>描述</p>
+   */
+  Description?: string
+  /**
+   * <p>热词+权重数组</p>
+   */
+  WordWeights?: Array<HotWord>
+  /**
+   * <p>文本形式热词</p>
+   */
+  WordWeightStr?: string
 }
 
 /**
@@ -2782,6 +2820,34 @@ export interface DescribeUserInfoResponse {
  */
 export interface GetRecognizeVocabV3Response {
   /**
+   * <p>词表名称</p>
+   */
+  Name?: string
+  /**
+   * <p>描述</p>
+   */
+  Description?: string
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId?: string
+  /**
+   * <p>热词+权重数组</p>
+   */
+  WordWeights?: Array<HotWord>
+  /**
+   * <p>创建时间</p>
+   */
+  CreateTime?: string
+  /**
+   * <p>更新时间</p>
+   */
+  UpdateTime?: string
+  /**
+   * <p>是否设置默认词表</p><p>枚举值：</p><ul><li>0： 否</li><li>1： 是</li></ul>
+   */
+  State?: number
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -2947,7 +3013,7 @@ export interface McuWaterMarkImage {
  */
 export interface StartPublishCdnStreamResponse {
   /**
-   * 用于唯一标识转推任务，由腾讯云服务端生成，后续更新和停止请求都需要携带TaskID参数。
+   * <p>用于唯一标识转推任务，由腾讯云服务端生成，后续更新和停止请求都需要携带TaskID参数。</p>
    */
   TaskId?: string
   /**
@@ -3461,6 +3527,20 @@ export interface VoicePrint {
 }
 
 /**
+ * 热词的词和权重
+ */
+export interface HotWord {
+  /**
+   * <p>热词</p>
+   */
+  Word: string
+  /**
+   * <p>权重</p>
+   */
+  Weight: number
+}
+
+/**
  * DescribeMixTranscodingUsage返回参数结构体
  */
 export interface DescribeMixTranscodingUsageResponse {
@@ -3762,7 +3842,16 @@ export interface DescribeUnusualEventRequest {
 /**
  * GetRecognizeVocabV3请求参数结构体
  */
-export type GetRecognizeVocabV3Request = null
+export interface GetRecognizeVocabV3Request {
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId: string
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
+}
 
 /**
  * DescribeCloudRecording请求参数结构体
@@ -4636,7 +4725,16 @@ export interface TTSParam {
 /**
  * DownloadRecognizeVocabV3请求参数结构体
  */
-export type DownloadRecognizeVocabV3Request = null
+export interface DownloadRecognizeVocabV3Request {
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId: string
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
+}
 
 /**
  * ModifyCloudModeration返回参数结构体
@@ -5025,6 +5123,40 @@ export interface ModifyCloudRecordingResponse {
 }
 
 /**
+ * 词表内容
+ */
+export interface Vocab {
+  /**
+   * <p>热词表名称</p>
+   */
+  Name?: string
+  /**
+   * <p>热词表描述</p>
+   */
+  Description?: string
+  /**
+   * <p>热词表ID</p>
+   */
+  VocabId?: string
+  /**
+   * <p>词权重列表</p>
+   */
+  WordWeights?: Array<HotWord>
+  /**
+   * <p>词表创建时间</p>
+   */
+  CreateTime?: string
+  /**
+   * <p>词表更新时间</p>
+   */
+  UpdateTime?: string
+  /**
+   * <p>热词表状态，1为默认状态即在识别时默认加载该热词表进行识别，0为初始状态</p>
+   */
+  State?: number
+}
+
+/**
  * 单流旁路转推的用户上行信息。
  */
 export interface SingleSubscribeParams {
@@ -5085,7 +5217,20 @@ export interface AsyncTextToSpeechResponse {
 /**
  * GetRecognizeVocabListV3请求参数结构体
  */
-export type GetRecognizeVocabListV3Request = null
+export interface GetRecognizeVocabListV3Request {
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
+  /**
+   * <p>分页偏移</p>
+   */
+  Offset?: number
+  /**
+   * <p>分页大小</p>
+   */
+  Limit?: number
+}
 
 /**
  * 云端审核的控制参数。
@@ -5176,7 +5321,20 @@ export interface StartMCUMixTranscodeByStrRoomIdRequest {
 /**
  * SetVocabStateV3请求参数结构体
  */
-export type SetVocabStateV3Request = null
+export interface SetVocabStateV3Request {
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId: string
+  /**
+   * <p>是否设置为默认词表</p>
+   */
+  State: number
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
+}
 
 /**
  * TRTC用户参数。
@@ -5256,43 +5414,43 @@ export interface DeleteCloudTranscriptionRequest {
  */
 export interface UpdatePublishCdnStreamRequest {
   /**
-   * TRTC的[SdkAppId](https://cloud.tencent.com/document/product/647/46351#sdkappid)，和转推的房间所对应的SdkAppId相同。
+   * <p>TRTC的<a href="https://cloud.tencent.com/document/product/647/46351#sdkappid">SdkAppId</a>，和转推的房间所对应的SdkAppId相同。</p>
    */
   SdkAppId: number
   /**
-   * 唯一标识转推任务。
+   * <p>唯一标识转推任务。</p>
    */
   TaskId: string
   /**
-   * 客户保证同一个任务，每次更新请求中的SequenceNumber递增，防止请求乱序。
+   * <p>客户保证同一个任务，每次更新请求中的SequenceNumber递增，防止请求乱序。</p>
    */
   SequenceNumber: number
   /**
-   * 是否转码，0表示无需转码，1表示需要转码。 WithTranscoding为0，表示旁路转推，默认不转码；WithTranscoding为1，表示混流转推，此时一定会转码，并收取转码费用。 注： 1，混流是必须转码的，这个参数需设置为1。 2，WithTranscoding=0时，视频输出Codec默认跟随上行视频Codec，如果上行视频Codec发生变化，CDN会断流重推。
+   * <p>是否转码，0表示无需转码，1表示需要转码。 WithTranscoding为0，表示旁路转推，默认不转码；WithTranscoding为1，表示混流转推，此时一定会转码，并收取转码费用。 注： 1，混流是必须转码的，这个参数需设置为1。 2，WithTranscoding=0时，视频输出Codec默认跟随上行视频Codec，如果上行视频Codec发生变化，CDN会断流重推。</p>
    */
   WithTranscoding: number
   /**
-   * 更新相关参数，只支持更新参与混音的主播列表参数，不支持更新Codec、采样率、码率和声道数。不填表示不更新此参数。
+   * <p>更新相关参数，只支持更新参与混音的主播列表参数，不支持更新Codec、采样率、码率和声道数。不填表示不更新此参数。</p>
    */
   AudioParams?: McuAudioParams
   /**
-   * 更新视频相关参数，转码时支持更新除编码类型之外的编码参数，视频布局参数，背景图片和背景颜色参数，水印参数。不填表示不更新此参数。
+   * <p>更新视频相关参数，转码时支持更新除编码类型之外的编码参数，视频布局参数，背景图片和背景颜色参数，水印参数。不填表示不更新此参数。</p>
    */
   VideoParams?: McuVideoParams
   /**
-   * 更新单流转推的用户上行参数，仅在非转码时有效。不填表示不更新此参数。
+   * <p>更新单流转推的用户上行参数，仅在非转码时有效。不填表示不更新此参数。</p>
    */
   SingleSubscribeParams?: SingleSubscribeParams
   /**
-   * 更新转推的CDN参数。不填表示不更新此参数。
+   * <p>更新转推的CDN参数。不填表示不更新此参数。</p>
    */
   PublishCdnParams?: Array<McuPublishCdnParam>
   /**
-   * 混流SEI参数
+   * <p>混流SEI参数</p>
    */
   SeiParams?: McuSeiParams
   /**
-   * 回推房间信息
+   * <p>回推房间信息</p>
    */
   FeedBackRoomParams?: Array<McuFeedBackRoomParams>
 }
@@ -5558,55 +5716,51 @@ export interface UpdateVoicePrintRequest {
  */
 export interface StartPublishCdnStreamRequest {
   /**
-   * TRTC的[SdkAppId](https://cloud.tencent.com/document/product/647/46351#sdkappid)，和转推的房间所对应的SdkAppId相同。
+   * <p>TRTC的<a href="https://cloud.tencent.com/document/product/647/46351#sdkappid">SdkAppId</a>，和转推的房间所对应的SdkAppId相同。</p>
    */
   SdkAppId: number
   /**
-   * 主房间信息RoomId，转推的TRTC房间所对应的RoomId。
+   * <p>主房间信息RoomId，转推的TRTC房间所对应的RoomId。</p>
    */
   RoomId: string
   /**
-   * 主房间信息RoomType，必须和转推的房间所对应的RoomId类型相同，0为整型房间号，1为字符串房间号。
+   * <p>主房间信息RoomType，必须和转推的房间所对应的RoomId类型相同，0为整型房间号，1为字符串房间号。</p>
    */
   RoomIdType: number
   /**
-   * 转推服务加入TRTC房间的机器人参数。
+   * <p>转推服务加入TRTC房间的机器人参数。</p>
    */
   AgentParams: AgentParams
   /**
-   * 是否转码，0表示无需转码，1表示需要转码。
-WithTranscoding为0，表示旁路转推，默认不转码；WithTranscoding为1，表示混流转推，此时一定会转码，并收取转码费用。
-注：
-1，混流是必须转码的，这个参数需设置为1。
-2，WithTranscoding=0时，视频输出Codec默认跟随上行视频Codec，如果上行视频Codec发生变化，CDN会断流重推。
+   * <p>是否转码，0表示无需转码，1表示需要转码。<br>WithTranscoding为0，表示旁路转推，默认不转码；WithTranscoding为1，表示混流转推，此时一定会转码，并收取转码费用。<br>注：<br>1，混流是必须转码的，这个参数需设置为1。<br>2，WithTranscoding=0时，视频输出Codec默认跟随上行视频Codec，如果上行视频Codec发生变化，CDN会断流重推。</p>
    */
   WithTranscoding: number
   /**
-   * 转推流的音频编码参数。由于音频是必转码的（不会收取转码费用），所以启动任务的时候，必须填写。
+   * <p>转推流的音频编码参数。由于音频是必转码的（不会收取转码费用），所以启动任务的时候，必须填写。</p>
    */
   AudioParams?: McuAudioParams
   /**
-   * 转推流的视频编码参数，不填表示纯音频转推。
+   * <p>转推流的视频编码参数，不填表示纯音频转推。</p>
    */
   VideoParams?: McuVideoParams
   /**
-   * 需要单流旁路转推的用户上行参数，单流旁路转推时，WithTranscoding需要设置为0。
+   * <p>需要单流旁路转推的用户上行参数，单流旁路转推时，WithTranscoding需要设置为0。</p>
    */
   SingleSubscribeParams?: SingleSubscribeParams
   /**
-   * 转推的CDN参数，一个任务最多支持10个推流URL。和回推房间参数必须要有一个。
+   * <p>转推的CDN参数，一个任务最多支持10个推流URL。和回推房间参数必须要有一个。</p>
    */
   PublishCdnParams?: Array<McuPublishCdnParam>
   /**
-   * 混流SEI参数
+   * <p>混流SEI参数</p>
    */
   SeiParams?: McuSeiParams
   /**
-   * 回推房间信息，一个任务最多支持回推10个房间，和转推CDN参数必须要有一个。注：回推房间需使用10.4及以上SDK版本，如您有需求，请联系腾讯云技术支持。
+   * <p>回推房间信息，一个任务最多支持回推10个房间，和转推CDN参数必须要有一个。注：回推房间需使用10.4及以上SDK版本，如您有需求，请联系腾讯云技术支持。</p>
    */
   FeedBackRoomParams?: Array<McuFeedBackRoomParams>
   /**
-   * 转推录制参数，[参考文档](https://cloud.tencent.com/document/product/647/111748)。
+   * <p>转推录制参数，<a href="https://cloud.tencent.com/document/product/647/111748">参考文档</a>。</p>
    */
   RecordParams?: McuRecordParams
 }
@@ -5676,7 +5830,7 @@ export interface UpdateAIConversationRequest {
  */
 export interface UpdatePublishCdnStreamResponse {
   /**
-   * 转推任务唯一的String Id
+   * <p>转推任务唯一的String Id</p>
    */
   TaskId?: string
   /**
@@ -5844,6 +5998,10 @@ export interface WaterMarkTimestamp {
  */
 export interface UpdateRecognizeVocabV3Response {
   /**
+   * <p>词表 id</p>
+   */
+  VocabId?: string
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -5852,7 +6010,32 @@ export interface UpdateRecognizeVocabV3Response {
 /**
  * UpdateRecognizeVocabV3请求参数结构体
  */
-export type UpdateRecognizeVocabV3Request = null
+export interface UpdateRecognizeVocabV3Request {
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId: string
+  /**
+   * <p>客户维度唯一标识</p>
+   */
+  SdkAppId: number
+  /**
+   * <p>词表名称</p>
+   */
+  Name?: string
+  /**
+   * <p>词表描述</p>
+   */
+  Description?: string
+  /**
+   * <p>热词数组</p>
+   */
+  WordWeights?: Array<HotWord>
+  /**
+   * <p>base64 编码的词表文本</p>
+   */
+  WordWeightStr?: string
+}
 
 /**
  * 指定动态布局中悬浮布局和屏幕分享布局的大画面信息，只在悬浮布局和屏幕分享布局有效。
@@ -6023,6 +6206,14 @@ export interface EncodeParams {
  */
 export interface DownloadRecognizeVocabV3Response {
   /**
+   * <p>词表 id</p>
+   */
+  VocabId?: string
+  /**
+   * <p>文本形式热词</p>
+   */
+  WordWeightStr?: string
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -6127,6 +6318,10 @@ export interface SeriesInfo {
  * CreateRecognizeVocabV3返回参数结构体
  */
 export interface CreateRecognizeVocabV3Response {
+  /**
+   * <p>词表 id</p>
+   */
+  VocabId?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

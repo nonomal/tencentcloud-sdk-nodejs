@@ -3160,16 +3160,6 @@ export interface ReverseShellRule {
 }
 
 /**
- * DescribeAESKey返回参数结构体
- */
-export interface DescribeAESKeyResponse {
-  /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
-   */
-  RequestId?: string
-}
-
-/**
  * DescribeBashRules返回参数结构体
  */
 export interface DescribeBashRulesResponse {
@@ -4062,20 +4052,21 @@ export interface DescribeRansomDefenseBackupListRequest {
  */
 export interface OrderDetail {
   /**
-   * 资源ID
+   * <p>资源ID</p>
    */
   ResourceID?: string
   /**
-   * 计费项
+   * <p>计费项</p>
    */
   InquireKey?: string
   /**
-   * 订单状态
-- 1 正常
-- 2 隔离期
-- 3 已销毁
+   * <p>订单状态</p><ul><li>1 正常</li><li>2 隔离期</li><li>3 已销毁</li></ul>
    */
   Status?: number
+  /**
+   * <p>源类型</p>
+   */
+  SourceType?: number
 }
 
 /**
@@ -8156,7 +8147,17 @@ export interface DescribeReverseShellEventsRequest {
   Offset?: number
   /**
    * 过滤条件。
-<li>Keywords - String - 是否必填：否 - 关键字(主机内网IP|进程名)</li>
+<li>ProcName - String - 是否必填：否 - 进程名(模糊匹配进程名或父进程名)</li>
+<li>MachineName - String - 是否必填：否 - 主机名称(模糊匹配)</li>
+<li>InstanceID - String - 是否必填：否 - 实例ID(模糊匹配)</li>
+<li>IP - String - 是否必填：否 - 主机IP(内网IP或公网IP,模糊匹配)</li>
+<li>Quuid - String - 是否必填：否 - 主机QUUID(支持多个)</li>
+<li>Uuid - String - 是否必填：否 - 主机UUID</li>
+<li>Status - String - 是否必填：否 - 处理状态(0:待处理 2:已加入白名单 3:已处理 4:已忽略)</li>
+<li>DetectBy - String - 是否必填：否 - 检测方式(0:行为分析 1:命令特征检测)</li>
+<li>ID - String - 是否必填：否 - 事件ID(支持多个)</li>
+<li>CreateBeginTime - String - 是否必填：否 - 发生开始时间</li>
+<li>CreateEndTime - String - 是否必填：否 - 发生结束时间</li>
    */
   Filters?: Array<Filter>
   /**
@@ -9917,51 +9918,21 @@ export interface DescribeWebHookReceiverRequest {
 }
 
 /**
- * 漏洞仓库列表信息
+ * RecoverMalwares返回参数结构体
  */
-export interface VulStoreListInfo {
+export interface RecoverMalwaresResponse {
   /**
-   * 漏洞ID
+   * 恢复成功id数组，若无则返回空数组
    */
-  VulId?: number
+  SuccessIds?: Array<number | bigint>
   /**
-   * 漏洞级别
+   * 恢复失败id数组，若无则返回空数组
    */
-  Level?: number
+  FailedIds?: Array<number | bigint>
   /**
-   * 漏洞名称
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
-  Name?: string
-  /**
-   * cve编号
-   */
-  CveId?: string
-  /**
-   * 1: web-cms漏洞 2:应用漏洞  4: Linux软件漏洞 5: Windows系统漏洞 0= 应急漏洞
-   */
-  VulCategory?: number
-  /**
-   * 发布时间
-   */
-  PublishDate?: string
-  /**
-   * 漏洞检测方法 0 - 版本比对, 1 - POC验证
-   */
-  Method?: number
-  /**
-   * 漏洞攻击热度
-   */
-  AttackLevel?: number
-  /**
-   * 漏洞是否支持自动修复
-0-Windows/Linux均关闭; 1-Windows/Linux均打开; 2-仅Linux; 3-仅Windows
-   */
-  FixSwitch?: number
-  /**
-   * 漏洞是否支持防御
-0:不支持 1:支持
-   */
-  SupportDefense?: number
+  RequestId?: string
 }
 
 /**
@@ -10259,17 +10230,13 @@ export interface SetLocalStorageExpireResponse {
 }
 
 /**
- * DescribeBaselineDownloadList返回参数结构体
+ * DescribeBanRegions返回参数结构体
  */
-export interface DescribeBaselineDownloadListResponse {
+export interface DescribeBanRegionsResponse {
   /**
-   * 无
+   * 地域信息列表
    */
-  List?: Array<BaselineDownload>
-  /**
-   * 总数
-   */
-  Total?: number
+  RegionSet?: Array<RegionSet>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -13612,6 +13579,54 @@ export interface DescribeESAggregationsRequest {
 }
 
 /**
+ * 漏洞仓库列表信息
+ */
+export interface VulStoreListInfo {
+  /**
+   * 漏洞ID
+   */
+  VulId?: number
+  /**
+   * 漏洞级别
+   */
+  Level?: number
+  /**
+   * 漏洞名称
+   */
+  Name?: string
+  /**
+   * cve编号
+   */
+  CveId?: string
+  /**
+   * 1: web-cms漏洞 2:应用漏洞  4: Linux软件漏洞 5: Windows系统漏洞 0= 应急漏洞
+   */
+  VulCategory?: number
+  /**
+   * 发布时间
+   */
+  PublishDate?: string
+  /**
+   * 漏洞检测方法 0 - 版本比对, 1 - POC验证
+   */
+  Method?: number
+  /**
+   * 漏洞攻击热度
+   */
+  AttackLevel?: number
+  /**
+   * 漏洞是否支持自动修复
+0-Windows/Linux均关闭; 1-Windows/Linux均打开; 2-仅Linux; 3-仅Windows
+   */
+  FixSwitch?: number
+  /**
+   * 漏洞是否支持防御
+0:不支持 1:支持
+   */
+  SupportDefense?: number
+}
+
+/**
  * 基线影响服务器列表数据
  */
 export interface BaselineHostTopList {
@@ -13812,6 +13827,7 @@ export interface DescribeRaspLicenseListRequest {
 - NodeName 容器节点名称
 - ClusterID 容器集群ID
 - ClusterName 容器集群名称
+- CWPTags 主机标签(值为标签ID,多个取并集,仅AssetType=CWP/TCSS_HOST生效)
    */
   Filters?: Array<Filters>
   /**
@@ -15573,21 +15589,21 @@ export interface DeleteMalwaresRequest {
 }
 
 /**
- * RecoverMalwares返回参数结构体
+ * 主机标签
  */
-export interface RecoverMalwaresResponse {
+export interface CWPTags {
   /**
-   * 恢复成功id数组，若无则返回空数组
+   * <p>记录ID</p>
    */
-  SuccessIds?: Array<number | bigint>
+  Rid: number
   /**
-   * 恢复失败id数组，若无则返回空数组
+   * <p>标签名</p>
    */
-  FailedIds?: Array<number | bigint>
+  Name: string
   /**
-   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   * <p>标签ID</p>
    */
-  RequestId?: string
+  TagId: number
 }
 
 /**
@@ -18073,129 +18089,111 @@ export interface DescribeVulTrendResponse {
  */
 export interface RaspLicenseList {
   /**
-   * 机器唯一ID
+   * <p>机器唯一ID</p>
    */
   QUUID?: string
   /**
-   * 实例名称
+   * <p>实例名称</p>
    */
   InstanceName?: string
   /**
-   * 实例ID
+   * <p>实例ID</p>
    */
   InstanceId?: string
   /**
-   * 公网IP
+   * <p>公网IP</p>
    */
   PublicIP?: string
   /**
-   * 内网IP
+   * <p>内网IP</p>
    */
   PrivateIP?: string
   /**
-   * 云标签信息
+   * <p>云标签信息</p>
    */
   Tags?: Array<Tags>
   /**
-   * 防护版本信息
-- CriticalProtection 重保防护包
-- Pro 容器安全-专业版
-- Ultimate 主机安全-旗舰版
+   * <p>主机标签信息(仅AssetType=CWP/TCSS_HOST有值)</p>
+   */
+  CWPTags?: Array<CWPTags>
+  /**
+   * <p>防护版本信息</p><ul><li>CriticalProtection 重保防护包</li><li>Pro 容器安全-专业版</li><li>Ultimate 主机安全-旗舰版</li></ul>
    */
   ProtectionVersion?: Array<string>
   /**
-   * 防护设置
-- 0 未配置
-- 1 已配置
+   * <p>防护设置</p><ul><li>0 未配置</li><li>1 已配置</li></ul>
    */
   ConfigurationSetting?: number
   /**
-   * 总开关
-- 0 未开启
-- 1已开启
+   * <p>总开关</p><ul><li>0 未开启</li><li>1已开启</li></ul>
    */
   Enable?: number
   /**
-   * 漏洞防御开关
-- 0 未开启
-- 1 开启
+   * <p>漏洞防御开关</p><ul><li>0 未开启</li><li>1 开启</li></ul>
    */
   VulDefEnable?: number
   /**
-   * 漏洞防御模式
-- 0 标准
-- 1 重保
+   * <p>漏洞防御模式</p><ul><li>0 标准</li><li>1 重保</li></ul>
    */
   VulDefMode?: number
   /**
-   * 漏洞防御动作
-- 0 仅检测
-- 1 检测+防御
+   * <p>漏洞防御动作</p><ul><li>0 仅检测</li><li>1 检测+防御</li></ul>
    */
   VulDefAction?: number
   /**
-   * 内存马防御开关
-- 0 未开启
-- 1 开启
+   * <p>内存马防御开关</p><ul><li>0 未开启</li><li>1 开启</li></ul>
    */
   MemShellDefEnable?: number
   /**
-   * 更多防护
-- 0 不注入会重启的进程 
-- 1 注入会重启的进程
+   * <p>更多防护</p><ul><li>0 不注入会重启的进程 </li><li>1 注入会重启的进程</li></ul>
    */
   SafeInject?: number
   /**
-   * 性能阈值配置开关
-- 0 未开启
-- 1 开启
+   * <p>性能阈值配置开关</p><ul><li>0 未开启</li><li>1 开启</li></ul>
    */
   PerformanceLimit?: number
   /**
-   * CPU阈值,取值1-99
+   * <p>CPU阈值,取值1-99</p>
    */
   PerformanceLimitCpu?: number
   /**
-   * 内存阈值,取值1-99
+   * <p>内存阈值,取值1-99</p>
    */
   PerformanceLimitMem?: number
   /**
-   * 内存剩余阈值
+   * <p>内存剩余阈值</p>
    */
   PerformanceLimitMemAmount?: number
   /**
-   * 插件状态
-- 0 使用正常
-- 1 存在异常
-- 2 未使用
+   * <p>插件状态</p><ul><li>0 使用正常</li><li>1 存在异常</li><li>2 未使用</li></ul>
    */
   RaspException?: number
   /**
-   * 最近更新时间
+   * <p>最近更新时间</p>
    */
   LatestUpdateTime?: string
   /**
-   * 集群ID,仅容器资产有值
+   * <p>集群ID,仅容器资产有值</p>
    */
   ClusterName?: string
   /**
-   * 集群名称,仅容器资产有值
+   * <p>集群名称,仅容器资产有值</p>
    */
   ClusterId?: string
   /**
-   * 订单信息
+   * <p>订单信息</p>
    */
   OrderDetail?: OrderDetail
   /**
-   * 是否允许解绑,fasle 不允许 true 允许
+   * <p>是否允许解绑,fasle 不允许 true 允许</p>
    */
   IsUnBind?: boolean
   /**
-   * uuid 机器唯一ID,仅AssetType = CWP 时有值
+   * <p>uuid 机器唯一ID,仅AssetType = CWP 时有值</p>
    */
   UUID?: string
   /**
-   * 无注入/注入失败原因
+   * <p>无注入/注入失败原因</p>
    */
   Reason?: string
 }
@@ -19448,13 +19446,9 @@ export interface DescribeBaselinePolicyListResponse {
 }
 
 /**
- * DescribeBanRegions返回参数结构体
+ * DeleteBashPolicies返回参数结构体
  */
-export interface DescribeBanRegionsResponse {
-  /**
-   * 地域信息列表
-   */
-  RegionSet?: Array<RegionSet>
+export interface DeleteBashPoliciesResponse {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -22413,9 +22407,9 @@ export interface DeleteSearchTemplateResponse {
 }
 
 /**
- * DeleteBashPolicies返回参数结构体
+ * DescribeAESKey返回参数结构体
  */
-export interface DeleteBashPoliciesResponse {
+export interface DescribeAESKeyResponse {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -24882,14 +24876,13 @@ export interface ExportBaselineWeakPasswordListRequest {
 }
 
 /**
- * 描述键值对过滤器，用于条件过滤查询。例如过滤ID、名称、状态等
+ * 描述键值对过滤器，用于条件过滤查询。例如过滤ID、名称、状态、时间等
 
 若存在多个Filter时，Filter间的关系为逻辑与（AND）关系。
 若同一个Filter存在多个Values，同一Filter下Values间的关系为逻辑或（OR）关系。
 
 * 最多只能有5个Filter
 * 同一个Filter存在多个Values，Values值数量最多不能超过5个。
-
  */
 export interface Filter {
   /**
@@ -25691,6 +25684,24 @@ export interface RaspEventDetail {
    * 入侵状态： 1 攻击事件，2 防御成功
    */
   EventType?: number
+}
+
+/**
+ * DescribeBaselineDownloadList返回参数结构体
+ */
+export interface DescribeBaselineDownloadListResponse {
+  /**
+   * 无
+   */
+  List?: Array<BaselineDownload>
+  /**
+   * 总数
+   */
+  Total?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -28204,11 +28215,11 @@ export interface VulFixStatusInfo {
  */
 export interface Tags {
   /**
-   * 标签键
+   * <p>标签键</p>
    */
   TagKey: string
   /**
-   * 标签值
+   * <p>标签值</p>
    */
   TagValue: string
 }

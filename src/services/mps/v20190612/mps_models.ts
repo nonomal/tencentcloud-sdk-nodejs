@@ -2673,6 +2673,20 @@ export interface VideoEnhanceConfig {
 }
 
 /**
+ * 智能分析通用结果信息
+ */
+export interface AiAnalysisTaskGenericOutput {
+  /**
+   * <p>存储位置。</p>
+   */
+  OutputStorage?: TaskOutputStorage
+  /**
+   * <p>任务结果。</p>
+   */
+  Result?: string
+}
+
+/**
  * DeleteContentReviewTemplate请求参数结构体
  */
 export interface DeleteContentReviewTemplateRequest {
@@ -3356,33 +3370,30 @@ export interface ParseLiveStreamProcessNotificationResponse {
 }
 
 /**
- * 字幕压制模块文字阴影配置
+ * 智能分析通用结果类型
  */
-export interface SubtitleShadowConfig {
+export interface AiAnalysisTaskGenericResult {
   /**
-   * 文字阴影配置开关，0关闭，1开启，默认0
+   * <p>任务状态，有 PROCESSING，SUCCESS 和 FAIL 三种。</p><p>枚举值：</p><ul><li>PROCESSING： 处理中</li><li>SUCCESS： 成功</li><li>FAIL： 失败</li></ul>
    */
-  SubtitleShadowConfigSwitch?: number
+  Status?: string
   /**
-   * 阴影宽度，默认单位像素，底层默认值为0，无阴影
-
+   * <p>错误码，0：成功，其他值：失败。</p>
    */
-  ShadowWidth?: number
+  ErrCode?: number
   /**
-   * 阴影宽度单位， 0 像素，1百分比，默认为0，像素
-
+   * <p>错误信息。</p>
    */
-  ShadowWidthUnit?: number
+  Message?: string
   /**
-   * 阴影颜色。6位16进制RGB。不填默认黑色（有设置阴影的情况下）
-
+   * <p>智能分析任务输入。</p>
    */
-  ShadowColor?: string
+  Input?: AiAnalysisTaskGenericInput
   /**
-   * 阴影透明度。(0，1] 正浮点数。不填默认1，完全不透明（有设置阴影的情况下）
-
+   * <p>智能分析任务输出。</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  ShadowAlpha?: number
+  Output?: AiAnalysisTaskGenericOutput
 }
 
 /**
@@ -5236,6 +5247,10 @@ export interface DescribeAgentRecordTaskResponse {
    */
   RecordUrls?: Array<string>
   /**
+   * <p>直播状态</p><p>枚举值：</p><ul><li>LIVE： 直播中</li><li>PAUSED： 直播暂停</li><li>ENDED： 直播结束</li></ul>
+   */
+  LiveStatus?: string
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -6305,16 +6320,87 @@ export interface CreateOutputRtmpSettingsDestinations {
 }
 
 /**
- * 音频降噪配置
+ * 视频编辑/合成任务 字幕样式。
  */
-export interface AudioDenoiseConfig {
+export interface ComposeSubtitleStyle {
   /**
-   * 能力配置开关，可选值：
-<li>ON：开启；</li>
-<li>OFF：关闭。</li>
-默认值：ON。
+   * 字幕高度。支持 %、px 两种格式：
+<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
+<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
+默认为 FontSize 大小。
    */
-  Switch?: string
+  Height?: string
+  /**
+   * 字幕距离下边框距离，支持 %、px 两种格式：
+<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
+<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
+默认：0px
+   */
+  MarginBottom?: string
+  /**
+   * 字体类型，支持：
+<li>SimHei：黑体（默认）。</li>
+<li>SimSun：宋体。</li>
+   */
+  FontType?: string
+  /**
+   * 字体大小，支持 %、px 两种格式：
+<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
+<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
+默认：2%
+   */
+  FontSize?: string
+  /**
+   * 是否使用粗体，和字体相关，可选值：
+<li>0：否（默认）。</li>
+<li>1：是。</li>
+   */
+  FontBold?: number
+  /**
+   * 是否使用斜体，和字体相关，可选值：
+<li>0：否（默认）。</li>
+<li>1：是。</li>
+   */
+  FontItalic?: number
+  /**
+   * 字体颜色，格式：#RRGGBBAA。  
+默认值：0x000000FF（黑色）。  
+注意：其中 AA 部分指的是透明度，为可选。
+
+   */
+  FontColor?: string
+  /**
+   * 文字对齐方式：
+<li>Center：居中（默认）。</li>
+<li>Left：左对齐。</li>
+<li>Right：右对齐。</li>
+   */
+  FontAlign?: string
+  /**
+   * 用于字幕对齐留白：
+<li>FontAlign=Left 时，表示距离左边距离。</li>
+<li>FontAlign=Right时，表示距离右边距离。</li>
+支持 %、px 两种格式：
+<li>当字符串以 % 结尾，表示为画布宽度的百分比大小，如 10% 表示为画布宽度的 10%。</li>
+<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
+   */
+  FontAlignMargin?: string
+  /**
+   * 字体边框宽度，支持 %、px 两种格式：
+<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
+<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
+默认： 0，表示不需要边框。
+   */
+  BorderWidth?: string
+  /**
+   * 边框颜色，当 BorderWidth 不为 0 时生效，其值格式和 FontColor 一致。
+   */
+  BorderColor?: string
+  /**
+   * 文字底色，其值格式和 FontColor 一致。  
+默认为空， 表示不使用底色。
+   */
+  BottomColor?: string
 }
 
 /**
@@ -7202,7 +7288,7 @@ export interface SmartEraseWatermarkConfig {
  */
 export interface CreateMediaEvaluationResponse {
   /**
-   * 任务 ID。
+   * <p>任务 ID。</p>
    */
   TaskId?: string
   /**
@@ -9381,87 +9467,16 @@ low_compress：画质优先：优先保证画质，压缩出来的文件体积�
 }
 
 /**
- * 视频编辑/合成任务 字幕样式。
+ * 音频降噪配置
  */
-export interface ComposeSubtitleStyle {
+export interface AudioDenoiseConfig {
   /**
-   * 字幕高度。支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
-<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
-默认为 FontSize 大小。
+   * 能力配置开关，可选值：
+<li>ON：开启；</li>
+<li>OFF：关闭。</li>
+默认值：ON。
    */
-  Height?: string
-  /**
-   * 字幕距离下边框距离，支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
-<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
-默认：0px
-   */
-  MarginBottom?: string
-  /**
-   * 字体类型，支持：
-<li>SimHei：黑体（默认）。</li>
-<li>SimSun：宋体。</li>
-   */
-  FontType?: string
-  /**
-   * 字体大小，支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
-<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
-默认：2%
-   */
-  FontSize?: string
-  /**
-   * 是否使用粗体，和字体相关，可选值：
-<li>0：否（默认）。</li>
-<li>1：是。</li>
-   */
-  FontBold?: number
-  /**
-   * 是否使用斜体，和字体相关，可选值：
-<li>0：否（默认）。</li>
-<li>1：是。</li>
-   */
-  FontItalic?: number
-  /**
-   * 字体颜色，格式：#RRGGBBAA。  
-默认值：0x000000FF（黑色）。  
-注意：其中 AA 部分指的是透明度，为可选。
-
-   */
-  FontColor?: string
-  /**
-   * 文字对齐方式：
-<li>Center：居中（默认）。</li>
-<li>Left：左对齐。</li>
-<li>Right：右对齐。</li>
-   */
-  FontAlign?: string
-  /**
-   * 用于字幕对齐留白：
-<li>FontAlign=Left 时，表示距离左边距离。</li>
-<li>FontAlign=Right时，表示距离右边距离。</li>
-支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示为画布宽度的百分比大小，如 10% 表示为画布宽度的 10%。</li>
-<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
-   */
-  FontAlignMargin?: string
-  /**
-   * 字体边框宽度，支持 %、px 两种格式：
-<li>当字符串以 % 结尾，表示为画布高度的百分比大小，如 10% 表示为画布高度的 10%。</li>
-<li>当字符串以 px 结尾，表示单位为像素，如 100px 表示为100像素。</li>
-默认： 0，表示不需要边框。
-   */
-  BorderWidth?: string
-  /**
-   * 边框颜色，当 BorderWidth 不为 0 时生效，其值格式和 FontColor 一致。
-   */
-  BorderColor?: string
-  /**
-   * 文字底色，其值格式和 FontColor 一致。  
-默认为空， 表示不使用底色。
-   */
-  BottomColor?: string
+  Switch?: string
 }
 
 /**
@@ -9627,11 +9642,11 @@ export interface DescribeStreamPackageSourceLocationResponse {
  */
 export interface CreateAigcAudioTaskRequest {
   /**
-   * <p>模型名称。生音乐当前支持的模型: GL、MiniMaxMusic。</p>
+   * <p>模型名称。生音乐当前支持的模型: GL、MiniMaxMusic、EL、Mureka。</p>
    */
   ModelName?: string
   /**
-   * <p>指定模型特定版本号。默认使用系统当前所支持的模型稳定版本。<br>模型GL支持的版本号：3.0-clip、3.0-pro。<br>模型MiniMaxMusic支持的版本号：2.0、2.5、2.6。</p>
+   * <p>指定模型特定版本号。默认使用系统当前所支持的模型稳定版本。模型GL支持的版本号：3.0-clip、3.0-pro。模型MiniMaxMusic支持的版本号：2.0、2.5、2.6， 3.0。模型EL支持的版本号: compose_v2、sound_t2s_v2。模型Mureka支持的版本号: song_8、song_9、song_9.5、instrumental_8、instrumental_9、instrumental_9.5。</p>
    */
   ModelVersion?: string
   /**
@@ -9639,21 +9654,17 @@ export interface CreateAigcAudioTaskRequest {
    */
   SceneType?: string
   /**
-   * <p>生成视频的描述。(注：最大支持2000字符)。当未传入图片时，此参数必填。</p>
+   * <p>生成音乐的描述。(注：最大支持2000字符)。</p>
    */
   Prompt?: string
   /**
-   * <p>参考视频信息。仅部分模型支持。</p>
+   * <p>参考视频信息。仅部分模型支持。</p><ol><li>Kling的视频生音效。</li><li>EL的视频配背景音乐。</li></ol>
    */
   VideoInfos?: Array<AigcAudioReferenceVideoInfo>
   /**
-   * <p>传入参考音频信息。</p><p>比如传入音频生成音乐时需要传入。</p>
+   * <p>传入参考音频信息。</p><ol><li>MiniMaxMusic的翻唱功能使用。</li></ol><p>比如传入音频生成音乐时需要传入。</p>
    */
   AudioInfos?: Array<AigcAudioReferenceAudioInfo>
-  /**
-   * <p>输出音频格式，默认不填。mp3、wav。</p>
-   */
-  OutputAudioFormat?: string
   /**
    * <p>文件结果指定存储Cos桶信息。 注意：需开通Cos，创建并授权MPS_QcsRole角色。</p>
    */
@@ -9663,7 +9674,7 @@ export interface CreateAigcAudioTaskRequest {
    */
   ExtraParameters?: AigcAudioExtraParam
   /**
-   * <p>用于传入一些模型需要的特殊场景参数，Json格式序列化成字符串。<br>示例MinimaxMusic模型传入歌词时：<br>{"lyric":{"小马在快乐奔跑，花儿在开放"}}</p><ol><li>MiniMaxMusic生纯音乐参数使用示例: &quot;AdditionalParameters&quot;:&quot;{"is_instrumental":true}&quot;</li></ol>
+   * <p>用于传入一些模型需要的特殊场景参数，Json格式序列化成字符串。<br>示例MinimaxMusic模型传入歌词时：<br>{"lyric":{"小马在快乐奔跑，花儿在开放"}}</p><ol><li>MiniMaxMusic生纯音乐参数使用示例: &quot;AdditionalParameters&quot;:&quot;{"is_instrumental":true}&quot;。<br>支持的透传参数有: lyrics，is_instrumental，aigc_watermark，sample_rate，bitrate。</li><li>EL生音乐支持透传的参数有:<br>PromptInfluence，WithTimestamps，CompositionPlan，ForceInstrumental等参数。</li></ol>
    */
   AdditionalParameters?: string
   /**
@@ -11391,6 +11402,10 @@ export interface CreateAigcVideoTaskRequest {
    * <p>部分模型支持参考音频传入，使用URL传入。</p>
    */
   AudioInfos?: Array<AigcVideoReferenceAudioInfo>
+  /**
+   * <p>主体信息。</p>
+   */
+  SubjectInfos?: Array<AigcVideoReferenceSubjectInfo>
   /**
    * <p>生成视频的时长。<br>注意：</p><ol><li>Kling，默认：5 秒。<ul><li>O1 支持 3-10 秒。</li><li>3.0-Omni 支持 3-15 秒，当使用视频参考时只支持 3-10 秒。</li><li>3.0 支持 3-15 秒。</li><li>其他版本支持 5、10 秒。</li></ul></li><li>Hailuo 的 std 模式可支持 6、10 秒，其他仅 6 秒。默认：6 秒。</li><li>Vidu，默认：5 秒。<ul><li>q3-pro、q3-turbo、q3、q3-mix 支持 3-16 秒。</li><li>q2-pro、q2-turbo、q2 支持 1-10 秒。 </li></ul></li><li>PixVerse，默认：5 秒。<ul><li>v5.6 支持 5、8、10 秒。</li><li>v6、c1 支持 1-15 秒。</li></ul></li><li>H2，支持 3-15 秒，默认 ：5 秒。</li></ol>
    */
@@ -13526,35 +13541,35 @@ export interface AdvancedSuperResolutionConfig {
  */
 export interface CreateMediaEvaluationRequest {
   /**
-   * 评测的原文件输入信息。目前输入对象的类型有 COS 和 URL。
+   * <p>评测的原文件输入信息。目前输入对象的类型有 COS 和 URL。</p>
    */
   InputInfo: MediaInputInfo
   /**
-   * 评测任务参数。
+   * <p>评测任务参数。</p>
    */
   EvaluationTask: EvaluationTaskInput
   /**
-   * 评测的输出文件的目标存储。不填则继承 InputInfo 中的存储位置。目前输出对象存储位置的类型有COS。
+   * <p>评测的输出文件的目标存储。不填则继承 InputInfo 中的存储位置。目前输出对象存储位置的类型有COS。</p>
    */
   OutputStorage?: TaskOutputStorage
   /**
-   * 评测生成文件的输出目录，必选以 / 开头和结尾，如/movie/201907/。 如果不填，表示与 InputInfo 中文件所在的目录一致。
+   * <p>评测生成文件的输出目录，必选以 / 开头和结尾，如/movie/201907/。 如果不填，表示与 InputInfo 中文件所在的目录一致。</p>
    */
   OutputDir?: string
   /**
-   * 任务的事件通知信息，不填代表不获取事件通知。
+   * <p>任务的事件通知信息，不填代表不获取事件通知。</p>
    */
   TaskNotifyConfig?: TaskNotifyConfig
   /**
-   * 任务优先级，数值越大优先级越高，取值范围是-10到 10，不填代表0。
+   * <p>任务优先级，数值越大优先级越高，取值范围是-10到 10，不填代表0。</p>
    */
   TasksPriority?: number
   /**
-   * 用于去重的识别码，如果三天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。
+   * <p>用于去重的识别码，如果三天内曾有过相同的识别码的请求，则本次的请求会返回错误。最长 50 个字符，不带或者带空字符串表示不做去重。</p>
    */
   SessionId?: string
   /**
-   * 来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。
+   * <p>来源上下文，用于透传用户请求信息，任务流状态变更回调将返回该字段值，最长 1000 个字符。</p>
    */
   SessionContext?: string
 }
@@ -14736,96 +14751,89 @@ export interface DescribeAsrHotwordsListResponse {
  */
 export interface AiAnalysisResult {
   /**
-   * 任务的类型，可以取的值有：
-<li>Classification：智能分类</li>
-<li>Cover：智能封面</li>
-<li>Tag：智能标签</li>
-<li>FrameTag：智能按帧标签</li>
-<li>Highlight：智能精彩集锦</li>
-<li>DeLogo：智能擦除</li>
-<li>Description：大模型摘要</li>
-<li>Dubbing：智能译制</li>
-<li>VideoRemake: 视频去重</li>
-<li>VideoComprehension: 视频（音频）理解</li>
-<li>Cutout：视频抠图</li>
-<li>Reel：智能成片</li>
+   * <p>任务的类型，可以取的值有：</p><li>Classification：智能分类</li><li>Cover：智能封面</li><li>Tag：智能标签</li><li>FrameTag：智能按帧标签</li><li>Highlight：智能精彩集锦</li><li>DeLogo：智能擦除</li><li>Description：大模型摘要</li><li>Dubbing：智能译制</li><li>VideoRemake: 视频去重</li><li>VideoComprehension: 视频（音频）理解</li><li>Cutout：视频抠图</li><li>Reel：智能成片</li>
    */
   Type?: string
   /**
-   * 视频内容分析智能分类任务的查询结果，当任务类型为 Classification 时有效。
+   * <p>视频内容分析智能分类任务的查询结果，当任务类型为 Classification 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ClassificationTask?: AiAnalysisTaskClassificationResult
   /**
-   * 视频内容分析智能封面任务的查询结果，当任务类型为 Cover 时有效。
+   * <p>视频内容分析智能封面任务的查询结果，当任务类型为 Cover 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CoverTask?: AiAnalysisTaskCoverResult
   /**
-   * 视频内容分析智能标签任务的查询结果，当任务类型为 Tag 时有效。
+   * <p>视频内容分析智能标签任务的查询结果，当任务类型为 Tag 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TagTask?: AiAnalysisTaskTagResult
   /**
-   * 视频内容分析智能按帧标签任务的查询结果，当任务类型为 FrameTag 时有效。
+   * <p>视频内容分析智能按帧标签任务的查询结果，当任务类型为 FrameTag 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FrameTagTask?: AiAnalysisTaskFrameTagResult
   /**
-   * 视频内容分析集锦任务的查询结果，当任务类型为 Highlight时有效。
+   * <p>视频内容分析集锦任务的查询结果，当任务类型为 Highlight时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HighlightTask?: AiAnalysisTaskHighlightResult
   /**
-   * 视频内容分析智能擦除任务的查询结果，当任务类型为 DeLogo 时有效。
+   * <p>视频内容分析智能擦除任务的查询结果，当任务类型为 DeLogo 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DeLogoTask?: AiAnalysisTaskDelLogoResult
   /**
-   * 视频内容分析拆条任务的查询结果，当任务类型为 SegmentRecognition 时有效。
+   * <p>视频内容分析拆条任务的查询结果，当任务类型为 SegmentRecognition 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SegmentTask?: AiAnalysisTaskSegmentResult
   /**
-   * 视频内容分析片头片尾任务的查询结果，当任务类型为 HeadTailRecognition 时有效。
+   * <p>视频内容分析片头片尾任务的查询结果，当任务类型为 HeadTailRecognition 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HeadTailTask?: AiAnalysisTaskHeadTailResult
   /**
-   * 视频内容分析摘要任务的查询结果，当任务类型为 Description 时有效。
+   * <p>视频内容分析摘要任务的查询结果，当任务类型为 Description 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DescriptionTask?: AiAnalysisTaskDescriptionResult
   /**
-   * 视频内容分析横转竖任务的查询结果，当任务类型为 HorizontalToVertical 时有效。
+   * <p>视频内容分析横转竖任务的查询结果，当任务类型为 HorizontalToVertical 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HorizontalToVerticalTask?: AiAnalysisTaskHorizontalToVerticalResult
   /**
-   * 视频内容分析译制任务的查询结果，当任务类型为 Dubbing 时有效。
+   * <p>视频内容分析译制任务的查询结果，当任务类型为 Dubbing 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DubbingTask?: AiAnalysisTaskDubbingResult
   /**
-   * 视频内容分析去重任务的查询结果，当任务类型为 VideoRemake 时有效。
+   * <p>视频内容分析去重任务的查询结果，当任务类型为 VideoRemake 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   VideoRemakeTask?: AiAnalysisTaskVideoRemakeResult
   /**
-   * 视频（音频）理解任务的查询结果，当任务类型为 VideoComprehension 时有效。
+   * <p>视频（音频）理解任务的查询结果，当任务类型为 VideoComprehension 时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   VideoComprehensionTask?: AiAnalysisTaskVideoComprehensionResult
   /**
-   * 视频内容分析智能抠图任务的查询结果，当任务类型为Cutout时有效。
+   * <p>视频内容分析智能抠图任务的查询结果，当任务类型为Cutout时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CutoutTask?: AiAnalysisTaskCutoutResult
   /**
-   * 视频内容分析AI解说二创任务的查询结果，当任务类型为Reel时有效。
+   * <p>视频内容分析AI解说二创任务的查询结果，当任务类型为Reel时有效。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ReelTask?: AiAnalysisTaskReelResult
+  /**
+   * <p>智能分析通用任务的查询结果，当任务类型为Generic时有效。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  GenericTask?: AiAnalysisTaskGenericResult
 }
 
 /**
@@ -14945,6 +14953,20 @@ export interface BatchSubTaskResult {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SmartSubtitlesTaskResult?: BatchSmartSubtitlesResult
+}
+
+/**
+ * 智能分析通用任务输入类型
+ */
+export interface AiAnalysisTaskGenericInput {
+  /**
+   * <p>智能分析模板 ID。</p>
+   */
+  Definition?: number
+  /**
+   * <p>扩展参数。</p>
+   */
+  ExtendedParameter?: string
 }
 
 /**
@@ -15485,106 +15507,109 @@ export interface AiReviewTaskTerrorismResult {
  */
 export interface DescribeOutput {
   /**
-   * 输出Id。
+   * <p>输出Id。</p>
    */
   OutputId?: string
   /**
-   * 输出名称。
+   * <p>输出名称。</p>
    */
   OutputName?: string
   /**
-   * 输出类型。
+   * <p>输出类型。</p>
    */
   OutputType?: string
   /**
-   * 输出模块类型，包括Pinpoint（单点输出，最多支持四路并发输出）；MultiMesh（多路输出，支持大于四路的并发输出，目前可以达到200路）。默认类型为 Pinpoint 输出。对于单个 Flow 一个区域最多只能有一个 MultiMesh 输出。
+   * <p>输出模块类型，包括Pinpoint（单点输出，最多支持四路并发输出）；MultiMesh（多路输出，支持大于四路的并发输出，目前可以达到200路）。默认类型为 Pinpoint 输出。对于单个 Flow 一个区域最多只能有一个 MultiMesh 输出。</p>
    */
   OutputKind?: string
   /**
-   * 输出描述。
+   * <p>输出描述。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Description?: string
   /**
-   * 输出协议。
+   * <p>输出协议。</p>
    */
   Protocol?: string
   /**
-   * 输出的出口地址信息列表。
+   * <p>输出的出口地址信息列表。</p>
    */
   OutputAddressList?: Array<OutputAddress>
   /**
-   * 输出的地区。
+   * <p>输出的地区。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   OutputRegion?: string
   /**
-   * 输出的SRT配置信息。
+   * <p>输出的SRT配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SRTSettings?: DescribeOutputSRTSettings
   /**
-   * 输出的RTP配置信息。
+   * <p>输出的RTP配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTPSettings?: DescribeOutputRTPSettings
   /**
-   * 输出的RTMP配置信息。
+   * <p>输出的RTMP配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTMPSettings?: DescribeOutputRTMPSettings
   /**
-   * 输出的RTMP拉流配置信息。
+   * <p>输出的RTMP拉流配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTMPPullSettings?: DescribeOutputRTMPPullSettings
   /**
-   * CIDR白名单列表。
-当Protocol为RTMP_PULL有效，为空代表不限制客户端IP。
+   * <p>CIDR白名单列表。<br>当Protocol为RTMP_PULL有效，为空代表不限制客户端IP。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   AllowIpList?: Array<string>
   /**
-   * 输出的RTSP拉流配置信息。
+   * <p>输出的RTSP拉流配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RTSPPullSettings?: DescribeOutputRTSPPullSettings
   /**
-   * 输出的HLS拉流配置信息。
+   * <p>输出的HLS拉流配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   HLSPullSettings?: DescribeOutputHLSPullSettings
   /**
-   * 最大拉流并发数，最大为4，默认4。
+   * <p>最大拉流并发数，最大为4，默认4。</p>
    */
   MaxConcurrent?: number
   /**
-   * 绑定的安全组 ID。
+   * <p>绑定的安全组 ID。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SecurityGroupIds?: Array<string>
   /**
-   * 可用区，output目前最多只支持一个。
+   * <p>可用区，output目前最多只支持一个。</p>
    */
   Zones?: Array<string>
   /**
-   * 输出的RIST配置信息。
+   * <p>输出的RIST配置信息。</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RISTSettings?: DescribeOutputRISTSettings
   /**
-   * 对于含有多个音/视频轨的流，可以指定需要使用的轨道
+   * <p>对于含有多个音/视频轨的流，可以指定需要使用的轨道</p>
    * @deprecated
    */
   PidSelector?: PidSelector
   /**
-   * 输出模块配置，相关的URL，包括提供的拉流地址，或者配置的输出到第三方的转推地址
+   * <p>输出模块配置，相关的URL，包括提供的拉流地址，或者配置的输出到第三方的转推地址</p>
    */
   StreamUrls?: Array<StreamUrlDetail>
   /**
-   * 对于含有多个音/视频轨的流，可以指定需要使用的轨道
+   * <p>对于含有多个音/视频轨的流，可以指定需要使用的轨道</p>
    */
   StreamSelector?: StreamSelector
+  /**
+   * <p>启用或者禁用输出</p><p>枚举值：</p><ul><li>DISABLED： 禁用</li><li>ENABLED： 启用</li></ul>
+   */
+  State?: string
 }
 
 /**
@@ -17611,6 +17636,36 @@ export interface AiAnalysisTaskDelLogoOutput {
 }
 
 /**
+ * 字幕压制模块文字阴影配置
+ */
+export interface SubtitleShadowConfig {
+  /**
+   * 文字阴影配置开关，0关闭，1开启，默认0
+   */
+  SubtitleShadowConfigSwitch?: number
+  /**
+   * 阴影宽度，默认单位像素，底层默认值为0，无阴影
+
+   */
+  ShadowWidth?: number
+  /**
+   * 阴影宽度单位， 0 像素，1百分比，默认为0，像素
+
+   */
+  ShadowWidthUnit?: number
+  /**
+   * 阴影颜色。6位16进制RGB。不填默认黑色（有设置阴影的情况下）
+
+   */
+  ShadowColor?: string
+  /**
+   * 阴影透明度。(0，1] 正浮点数。不填默认1，完全不透明（有设置阴影的情况下）
+
+   */
+  ShadowAlpha?: number
+}
+
+/**
  * DescribeBatchTaskDetail请求参数结构体
  */
 export interface DescribeBatchTaskDetailRequest {
@@ -19186,6 +19241,38 @@ export interface AigcVideoReferenceVideoInfo {
    * <p>通过KeepOriginalSound参数选择是否保留视频原声，yes为保留，no为不保留；当前参数对特征参考视频（feature）也生效。</p>
    */
   KeepOriginalSound?: string
+}
+
+/**
+ * 参考主体信息。
+对于Vidu模型：
+Id -> server_id， 通过主体创建接口获取的主体ID。
+name -> 主体ID， 后续通过@主体ID方式使用。
+
+对于Kling模型:
+id -> element_id， 主体ID, 通过主体创建接口获取的主体ID。
+ */
+export interface AigcVideoReferenceSubjectInfo {
+  /**
+   * <p>参考主体的 ID。</p>
+   */
+  Id?: string
+  /**
+   * <p>主体名称。</p>
+   */
+  Name?: string
+  /**
+   * <p>主体音色ID。</p>
+   */
+  VoiceId?: string
+  /**
+   * <p>主体图片列表。</p>
+   */
+  ImageUrls?: Array<string>
+  /**
+   * <p>主体视频列表。</p>
+   */
+  VideoUrls?: Array<string>
 }
 
 /**
