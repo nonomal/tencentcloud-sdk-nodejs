@@ -14535,20 +14535,21 @@ export interface CreateDirectConnectGatewayCcnRoutesRequest {
  */
 export interface ModifyGatewayFlowQosRequest {
   /**
-   * 网关实例ID，目前我们支持的网关实例类型有，
-专线网关实例ID，形如，`dcg-ltjahce6`；
-Nat网关实例ID，形如，`nat-ltjahce6`；
-VPN网关实例ID，形如，`vpn-ltjahce6`。
+   * <p>网关实例ID，目前我们支持的网关实例类型有，<br>专线网关实例ID，形如，<code>dcg-ltjahce6</code>；<br>Nat网关实例ID，形如，<code>nat-ltjahce6</code>；<br>VPN网关实例ID，形如，<code>vpn-ltjahce6</code>。</p>
    */
   GatewayId: string
   /**
-   * 流控带宽值。取值大于0，表示限流到指定的Mbps；取值等于0，表示完全限流；取值为-1，不限流。
+   * <p>流控带宽值。取值大于0，表示限流到指定的Mbps；取值等于0，表示完全限流；取值为-1，不限流。</p>
    */
   Bandwidth: number
   /**
-   * 限流的云服务器内网IP。
+   * <p>限流的云服务器内网IP。</p><p>参数格式：10.0.0.2</p>
    */
   IpAddresses: Array<string>
+  /**
+   * <p>限流方向，取值为In代表入向，Out代表出向。当前仅标准型Nat实例网关流控带宽方向可设置入向限流。</p>
+   */
+  Direction?: string
 }
 
 /**

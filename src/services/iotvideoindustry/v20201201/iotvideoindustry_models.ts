@@ -868,45 +868,61 @@ export interface RecordPlanDetail {
  */
 export interface RecordTaskItem {
   /**
-   * 录像任务ID
+   * <p>录像任务ID</p>
    */
   RecordTaskId?: string
   /**
-   * 录制计划ID
+   * <p>录制计划ID</p>
    */
   RecordPlanId?: string
   /**
-   * 本录制片段开始时间
+   * <p>本录制片段开始时间</p>
    */
   StartTime?: number
   /**
-   * 本录制片段结束时间
+   * <p>本录制片段结束时间</p>
    */
   EndTime?: number
   /**
-   * 录制模式
+   * <p>录制模式</p>
    */
   EventId?: number
   /**
-   * 本录制片段对应的录制文件URL
+   * <p>本录制片段对应的录制文件URL</p>
    */
   VideoUrl?: string
   /**
-   * 本录制片段当前的录制状态
+   * <p>本录制片段当前的录制状态</p>
    */
   RecordStatus?: number
   /**
-   * 场景ID
+   * <p>场景ID</p>
    */
   SceneId?: number
   /**
-   * 告警ID
+   * <p>告警ID</p>
    */
   WarnId?: number
   /**
-   * 录制id，NVR下属设备有效
+   * <p>录制id，NVR下属设备有效</p>
    */
   RecordId?: string
+  /**
+   * <p>视频自增ID</p>
+   */
+  InitID?: number
+  /**
+   * <p>过期时间</p>
+   */
+  ExpectDeleteTime?: number
+  /**
+   * <p>录制时长</p>
+   */
+  RecordTimeLen?: number
+  /**
+   * <p>文件大小</p>
+   */
+  FileSize?: number
 }
 
 /**

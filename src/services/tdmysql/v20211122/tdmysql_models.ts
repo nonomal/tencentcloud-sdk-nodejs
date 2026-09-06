@@ -423,6 +423,16 @@ export interface DescribeDBSecurityGroupsResponse {
 }
 
 /**
+ * DescribeInstanceDataReservedSpace请求参数结构体
+ */
+export interface DescribeInstanceDataReservedSpaceRequest {
+  /**
+   * <p>实例ID</p>
+   */
+  InstanceId: string
+}
+
+/**
  * 实例列表过滤条件
  */
 export interface InstanceFilter {
@@ -629,6 +639,20 @@ export interface BackupPolicyModelOutPut {
 }
 
 /**
+ * ModifyInstanceDataReservedSpace返回参数结构体
+ */
+export interface ModifyInstanceDataReservedSpaceResponse {
+  /**
+   * <p>参数下发 flow 任务 ID（复用 ModifyDBParameters 链路，异步 flow 但秒级生效）</p>
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * ModifyInstanceSSLStatus请求参数结构体
  */
 export interface ModifyInstanceSSLStatusRequest {
@@ -640,6 +664,16 @@ export interface ModifyInstanceSSLStatusRequest {
    * <p>是否启用SSL</p>
    */
   Enabled: boolean
+}
+
+/**
+ * ResetDbaAdminPrivileges返回参数结构体
+ */
+export interface ResetDbaAdminPrivilegesResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -739,6 +773,16 @@ export interface StorageNodeSpec {
    * <p>磁盘类型CLOUD_DISK：云盘LOCAL_DISK：本地盘</p>
    */
   DiskTypeCategory?: string
+}
+
+/**
+ * DescribeDBCharsets返回参数结构体
+ */
+export interface DescribeDBCharsetsResponse {
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -1124,6 +1168,20 @@ export interface DBEngineInfo {
    * <p>是否支持Serverless模式</p>
    */
   IsSupportServerless?: boolean
+}
+
+/**
+ * DescribeFlowTypes返回参数结构体
+ */
+export interface DescribeFlowTypesResponse {
+  /**
+   * <p>任务类型信息，供前端下拉筛选使用</p>
+   */
+  FlowTypes?: Array<FlowType>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -1830,6 +1888,20 @@ export interface ModifyMaintenanceWindowRequest {
 }
 
 /**
+ * ModifyInstanceDataReservedSpace请求参数结构体
+ */
+export interface ModifyInstanceDataReservedSpaceRequest {
+  /**
+   * <p>实例ID</p>
+   */
+  InstanceId: string
+  /**
+   * <p>拟修改的目标保留空间大小</p><p>单位：GB</p>
+   */
+  ReservedSpaceGB: number
+}
+
+/**
  * DestroyInstances返回参数结构体
  */
 export interface DestroyInstancesResponse {
@@ -2423,6 +2495,16 @@ export interface DescribeMaintenanceWindowResponse {
    */
   RequestId?: string
 }
+
+/**
+ * DescribeFlowTypes请求参数结构体
+ */
+export type DescribeFlowTypesRequest = null
+
+/**
+ * DescribeDBCharsets请求参数结构体
+ */
+export type DescribeDBCharsetsRequest = null
 
 /**
  * 节点信息
@@ -4115,6 +4197,22 @@ export interface StandbyDBInstanceRelation {
 }
 
 /**
+ * 任务类型信息，供前端下拉筛选使用
+ */
+export interface FlowType {
+  /**
+   * <p>任务类型名称，后续可以对 DescribeFlows 出参中的 FlowName 进行筛选</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  FlowName?: string
+  /**
+   * <p>任务类型中文描述</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  FlowDesc?: string
+}
+
+/**
  * DescribeDBSAvailableRecoveryTime请求参数结构体
  */
 export interface DescribeDBSAvailableRecoveryTimeRequest {
@@ -4139,6 +4237,16 @@ export interface ModifyDBInstanceVPortResponse {
 }
 
 /**
+ * ResetDbaAdminPrivileges请求参数结构体
+ */
+export interface ResetDbaAdminPrivilegesRequest {
+  /**
+   * <p>实例id</p>
+   */
+  InstanceId: string
+}
+
+/**
  * BreakStandbyDBInstanceRelation返回参数结构体
  */
 export interface BreakStandbyDBInstanceRelationResponse {
@@ -4146,6 +4254,36 @@ export interface BreakStandbyDBInstanceRelationResponse {
    * 任务 ID
    */
   FlowId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DescribeInstanceDataReservedSpace返回参数结构体
+ */
+export interface DescribeInstanceDataReservedSpaceResponse {
+  /**
+   * <p>实际保留比例（%，单节点）</p>
+   */
+  ReservedRate?: number
+  /**
+   * <p>实际保留空间 GB（单节点）</p><p>单位：GB</p>
+   */
+  ReservedSpaceGB?: number
+  /**
+   * <p>用户可用空间 GB（单节点）</p><p>单位：GB</p>
+   */
+  UsableSpaceGB?: number
+  /**
+   * <p>true=旧版本（&lt;21.6.4.0），值取自老参数 tdstore_enter_readonly_threshold；false=新版本</p>
+   */
+  IsLegacy?: boolean
+  /**
+   * <p>内核版本号</p>
+   */
+  KernelVersion?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

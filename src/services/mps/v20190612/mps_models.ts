@@ -928,6 +928,10 @@ export interface CloneViralRequest {
    * <p>模特形象</p>
    */
   Persona?: CloneViralPersona
+  /**
+   * <p>输出相关参数</p>
+   */
+  Output?: CloneViralOutputOption
 }
 
 /**
@@ -4065,7 +4069,7 @@ export interface CloneViralAIGC {
    */
   Duration?: number
   /**
-   * <p>宽高比。可选 16:9/4:3/1:1/3:4/9:16/21:9/adaptive</p>
+   * <p>宽高比。旗舰版支持 16:9/4:3/1:1/3:4/9:16/21:9/adaptive，标准版支持16:9/1:1/9:16</p>
    */
   AspectRatio?: string
   /**
@@ -6744,6 +6748,20 @@ export interface ComposeTargetInfo {
 }
 
 /**
+ * AIGC 文档生成视频水印图片信息
+ */
+export interface DocToVideoWatermarkInfo {
+  /**
+   * <p>用于生成视频的水印图片 URL。</p>
+   */
+  ImageUrl?: string
+  /**
+   * <p>水印图片位置。</p><p>枚举值：</p><ul><li>top-left： 左上角</li><li>top-right： 右上角</li><li>bottom-left： 左下角</li><li>bottom-right： 右下角</li></ul>
+   */
+  Position?: string
+}
+
+/**
  * 任务统计数据。
  */
 export interface TaskStatData {
@@ -8420,6 +8438,16 @@ export interface AigcTaskListItem {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RequestBody?: string
+  /**
+   * <p>任务其他信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskInfo?: string
+  /**
+   * <p>任务子状态</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Stage?: string
 }
 
 /**
@@ -8732,13 +8760,17 @@ export interface ImageWatermarkInput {
 }
 
 /**
- * DescribeStreamPackageLinearAssemblyChannel请求参数结构体
+ * 爆款复刻输出配置
  */
-export interface DescribeStreamPackageLinearAssemblyChannelRequest {
+export interface CloneViralOutputOption {
   /**
-   * 频道id。
+   * <p>输出类型。默认url</p><p>枚举值：</p><ul><li>url： 临时链接，有效期24小时</li><li>cos： 指定cos桶和路径</li></ul>
    */
-  Id: string
+  Type?: string
+  /**
+   * <p>自定义cos信息</p>
+   */
+  CosInfo?: CloneViralCosInfo
 }
 
 /**
@@ -10454,35 +10486,26 @@ export interface MediaUsageItem {
 }
 
 /**
- * 智能字幕输出信息
+ * 编排原子任务
  */
-export interface SmartSubtitleTaskBatchOutput {
+export interface Activity {
   /**
-   * <p>任务进度。</p>
+   * <p>原子任务类型：</p><li>input: 起始节点</li><li>output：终止节点</li><li>action-trans：转码</li><li>action-samplesnapshot：采样截图</li><li>action-AIAnalysis: 分析</li><li>action-AIRecognition：识别</li><li>action-aiReview：审核</li><li>action-animated-graphics：转动图</li><li>action-image-sprite：雪碧图</li><li>action-snapshotByTimeOffset: 时间点截图</li><li>action-adaptive-substream：自适应码流</li><li>action-AIQualityControl：媒体质检</li><li>action-SmartSubtitles：智能字幕</li><li>action-exec-rules：判断规则</li><li>action-SmartErase：智能擦除</li>
    */
-  Progress?: number
+  ActivityType: string
   /**
-   * <p>任务状态，有 PROCESSING，SUCCESS，WAITING 和 FAIL 四种。</p>
+   * <p>前驱节点索引数组。<br>注意：创建和修改编排时，该参数无效，由服务端自动生成。</p>
    */
-  Status?: string
+  PredriveIndex?: Array<number | bigint>
   /**
-   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
+   * <p>后驱节点索引数组</p>
    */
-  ErrCodeExt?: string
+  ReardriveIndex?: Array<number | bigint>
   /**
-   * <p>错误信息。</p>
-   */
-  Message?: string
-  /**
-   * <p>翻译任务输出信息。</p>
+   * <p>原子任务参数</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
-  TransTextTask?: SmartSubtitleTaskTransTextResultOutput
-  /**
-   * <p>语音全文识别任务输出信息。</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  AsrFullTextTask?: SmartSubtitleTaskAsrFullTextResultOutput
+  ActivityPara?: ActivityPara
 }
 
 /**
@@ -12289,6 +12312,16 @@ export interface DescribeAigcTaskStatusResponse {
    * <p>任务类型</p>
    */
   TaskType?: string
+  /**
+   * <p>任务其他信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskInfo?: string
+  /**
+   * <p>任务子状态</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Stage?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -16898,6 +16931,16 @@ export interface ProgramAlertCounts {
 }
 
 /**
+ * DescribeStreamPackageLinearAssemblyChannel请求参数结构体
+ */
+export interface DescribeStreamPackageLinearAssemblyChannelRequest {
+  /**
+   * 频道id。
+   */
+  Id: string
+}
+
+/**
  * DescribeCloneViralTask返回参数结构体
  */
 export interface DescribeCloneViralTaskResponse {
@@ -16913,6 +16956,10 @@ export interface DescribeCloneViralTaskResponse {
    * <p>当任务状态为 DONE时，返回视频Url列表，视频存储24小时</p>
    */
   VideoUrls?: Array<string>
+  /**
+   * <p>任务请求体</p>
+   */
+  RequestBody?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -18380,6 +18427,26 @@ export interface DocToVideoInput {
    * <p>音色ID。仅开启AI配音功能时有效。</p>
    */
   VoiceId?: string
+  /**
+   * <p>是否开启 PPTX 保真复刻模式。</p><p>开启状态下，会尽可能复刻输入 PPTX 文档的内容，无法完美复刻。<br>暂时无法复刻动画效果，</p><p>开启状态下，需保证输入文档中至少有一个 PPTX 文档。<br>如果有多个 PPTX 文档，则只会对首个文档进行保真复刻。</p><p>默认值：false</p>
+   */
+  PPTXFidelity?: boolean
+  /**
+   * <p>生成视频的模式。</p><p>枚举值：</p><ul><li>stage： 确认后生成模式</li><li>auto： 端到端直接生成模式</li></ul>
+   */
+  Mode?: string
+  /**
+   * <p>用于生成视频的背景图片信息。</p><p>仅在 PreserveLayout 为 false 时起作用。</p>
+   */
+  Background?: DocToVideoBackgroundInfo
+  /**
+   * <p>用于生成视频的水印图片信息。</p><p>仅在 PreserveLayout 为 false 时起作用。</p>
+   */
+  Watermark?: DocToVideoWatermarkInfo
+  /**
+   * <p>是否开启字幕生成。</p><p>默认值：false</p>
+   */
+  EnableCaption?: boolean
 }
 
 /**
@@ -20036,26 +20103,21 @@ export interface UpdateVoiceResponse {
 }
 
 /**
- * 编排原子任务
+ * 爆款复刻输出COS信息
  */
-export interface Activity {
+export interface CloneViralCosInfo {
   /**
-   * <p>原子任务类型：</p><li>input: 起始节点</li><li>output：终止节点</li><li>action-trans：转码</li><li>action-samplesnapshot：采样截图</li><li>action-AIAnalysis: 分析</li><li>action-AIRecognition：识别</li><li>action-aiReview：审核</li><li>action-animated-graphics：转动图</li><li>action-image-sprite：雪碧图</li><li>action-snapshotByTimeOffset: 时间点截图</li><li>action-adaptive-substream：自适应码流</li><li>action-AIQualityControl：媒体质检</li><li>action-SmartSubtitles：智能字幕</li><li>action-exec-rules：判断规则</li><li>action-SmartErase：智能擦除</li>
+   * <p>区域</p>
    */
-  ActivityType: string
+  Region?: string
   /**
-   * <p>前驱节点索引数组。<br>注意：创建和修改编排时，该参数无效，由服务端自动生成。</p>
+   * <p>COS桶</p>
    */
-  PredriveIndex?: Array<number | bigint>
+  Bucket?: string
   /**
-   * <p>后驱节点索引数组</p>
+   * <p>目录。空时默认根目录</p>
    */
-  ReardriveIndex?: Array<number | bigint>
-  /**
-   * <p>原子任务参数</p>
-注意：此字段可能返回 null，表示取不到有效值。
-   */
-  ActivityPara?: ActivityPara
+  Dir?: string
 }
 
 /**
@@ -21292,7 +21354,7 @@ export interface QueryTaskFilter {
    */
   TaskId?: string
   /**
-   * <p>任务类型</p>
+   * <p>任务类型</p><p>枚举值：</p><ul><li>RedrawVideo： 视频重绘</li><li>AIDrama： AI漫剧</li><li>DocGenVideo： 文档生视频</li><li>FissionVideo： 视频裂变</li></ul>
    */
   TaskType?: string
   /**
@@ -21307,6 +21369,18 @@ export interface QueryTaskFilter {
    * <p>宽高比</p>
    */
   Ratio?: string
+  /**
+   * <p>任务执行模式</p><p>枚举值：</p><ul><li>auto： 直接生成</li><li>phased： 确认后再生成</li></ul>
+   */
+  ExecuteMode?: string
+  /**
+   * <p>裂变任务视频类型过滤: ugc、talk、display、unboxing、reaction</p><p>枚举值：</p><ul><li>ugc： UGC种草</li><li>talk： 产品口播</li><li>display： 产品展示</li><li>unboxing： 开箱分享</li><li>reaction： 反应展示</li></ul>
+   */
+  VideoType?: string
+  /**
+   * <p>模型类型</p><p>枚举值：</p><ul><li>standard： 标准版</li><li>flagship： 高级版</li></ul>
+   */
+  ModelTier?: string
 }
 
 /**
@@ -22156,6 +22230,16 @@ export interface ImageAreaBoxInfo {
 }
 
 /**
+ * AIGC 文档生成视频背景图片信息
+ */
+export interface DocToVideoBackgroundInfo {
+  /**
+   * <p>用于生成视频的背景图片 URL。</p>
+   */
+  ImageUrl?: string
+}
+
+/**
  * 直播流 AI 审核结果
  */
 export interface LiveStreamAiReviewResultItem {
@@ -22426,6 +22510,38 @@ export interface MediaVideoStreamItem {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FpsDenominator?: number
+}
+
+/**
+ * 智能字幕输出信息
+ */
+export interface SmartSubtitleTaskBatchOutput {
+  /**
+   * <p>任务进度。</p>
+   */
+  Progress?: number
+  /**
+   * <p>任务状态，有 PROCESSING，SUCCESS，WAITING 和 FAIL 四种。</p>
+   */
+  Status?: string
+  /**
+   * <p>错误码，空字符串表示成功，其他值表示失败，取值请参考 <a href="https://cloud.tencent.com/document/product/862/50369#.E8.A7.86.E9.A2.91.E5.A4.84.E7.90.86.E7.B1.BB.E9.94.99.E8.AF.AF.E7.A0.81">媒体处理类错误码</a> 列表。</p>
+   */
+  ErrCodeExt?: string
+  /**
+   * <p>错误信息。</p>
+   */
+  Message?: string
+  /**
+   * <p>翻译任务输出信息。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TransTextTask?: SmartSubtitleTaskTransTextResultOutput
+  /**
+   * <p>语音全文识别任务输出信息。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AsrFullTextTask?: SmartSubtitleTaskAsrFullTextResultOutput
 }
 
 /**

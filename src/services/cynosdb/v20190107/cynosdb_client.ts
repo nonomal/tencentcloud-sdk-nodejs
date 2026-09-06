@@ -2579,7 +2579,7 @@ export class Client extends AbstractClient {
    * 本接口（TransferStoragePrepayToPostpay）用于将预付费存储转为后付费存储
    */
   async TransferStoragePrepayToPostpay(
-    req?: TransferStoragePrepayToPostpayRequest,
+    req: TransferStoragePrepayToPostpayRequest,
     cb?: (error: string, rep: TransferStoragePrepayToPostpayResponse) => void
   ): Promise<TransferStoragePrepayToPostpayResponse> {
     return this.request("TransferStoragePrepayToPostpay", req, cb)

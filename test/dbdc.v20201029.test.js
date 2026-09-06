@@ -28,6 +28,16 @@ it("dbdc.v20201029.DestroyDBCustomNode", async function () {
     }
 })
 
+it("dbdc.v20201029.DescribeDBCustomDisasterRecoverGroups", async function () {
+    try {
+       const data = await client.DescribeDBCustomDisasterRecoverGroups({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("dbdc.v20201029.ModifyDBCustomNodeAttributes", async function () {
     try {
        const data = await client.ModifyDBCustomNodeAttributes({})
@@ -208,6 +218,16 @@ it("dbdc.v20201029.RenewDBCustomNode", async function () {
     }
 })
 
+it("dbdc.v20201029.ModifyDBCustomNodesDisasterRecoverGroup", async function () {
+    try {
+       const data = await client.ModifyDBCustomNodesDisasterRecoverGroup({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("dbdc.v20201029.DescribeDBCustomClusterDetail", async function () {
     try {
        const data = await client.DescribeDBCustomClusterDetail({})
@@ -221,6 +241,26 @@ it("dbdc.v20201029.DescribeDBCustomClusterDetail", async function () {
 it("dbdc.v20201029.IsolateDBCustomNode", async function () {
     try {
        const data = await client.IsolateDBCustomNode({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("dbdc.v20201029.CreateDBCustomCluster", async function () {
+    try {
+       const data = await client.CreateDBCustomCluster({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("dbdc.v20201029.DeleteDBCustomDisasterRecoverGroups", async function () {
+    try {
+       const data = await client.DeleteDBCustomDisasterRecoverGroups({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -248,9 +288,9 @@ it("dbdc.v20201029.DescribeInstanceList", async function () {
     }
 })
 
-it("dbdc.v20201029.CreateDBCustomCluster", async function () {
+it("dbdc.v20201029.DeleteDBCustomNodesDisasterRecoverGroup", async function () {
     try {
-       const data = await client.CreateDBCustomCluster({})
+       const data = await client.DeleteDBCustomNodesDisasterRecoverGroup({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -268,6 +308,16 @@ it("dbdc.v20201029.RemoveNodesFromDBCustomCluster", async function () {
     }
 })
 
+it("dbdc.v20201029.ModifyDBCustomDisasterRecoverGroupTags", async function () {
+    try {
+       const data = await client.ModifyDBCustomDisasterRecoverGroupTags({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("dbdc.v20201029.DescribeDBCustomClusterNodeConfig", async function () {
     try {
        const data = await client.DescribeDBCustomClusterNodeConfig({})
@@ -278,9 +328,9 @@ it("dbdc.v20201029.DescribeDBCustomClusterNodeConfig", async function () {
     }
 })
 
-it("dbdc.v20201029.ModifyDBCustomNodeTags", async function () {
+it("dbdc.v20201029.ModifyDBCustomDisasterRecoverGroupAttribute", async function () {
     try {
-       const data = await client.ModifyDBCustomNodeTags({})
+       const data = await client.ModifyDBCustomDisasterRecoverGroupAttribute({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -328,9 +378,29 @@ it("dbdc.v20201029.DescribeDBCustomClusterNodeResources", async function () {
     }
 })
 
+it("dbdc.v20201029.CreateDBCustomDisasterRecoverGroup", async function () {
+    try {
+       const data = await client.CreateDBCustomDisasterRecoverGroup({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("dbdc.v20201029.ModifyDBCustomClusterNodeConfig", async function () {
     try {
        const data = await client.ModifyDBCustomClusterNodeConfig({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("dbdc.v20201029.DescribeDBCustomDisasterRecoverGroupQuota", async function () {
+    try {
+       const data = await client.DescribeDBCustomDisasterRecoverGroupQuota({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -351,6 +421,16 @@ it("dbdc.v20201029.DescribeDBCustomTaskStatus", async function () {
 it("dbdc.v20201029.CheckRoleAuthorized", async function () {
     try {
        const data = await client.CheckRoleAuthorized({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("dbdc.v20201029.ModifyDBCustomNodeTags", async function () {
+    try {
+       const data = await client.ModifyDBCustomNodeTags({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

@@ -26,6 +26,11 @@ export interface IsolateDBCustomNodeRequest {
 }
 
 /**
+ * DescribeDBCustomDisasterRecoverGroupQuota请求参数结构体
+ */
+export type DescribeDBCustomDisasterRecoverGroupQuotaRequest = null
+
+/**
  * DescribeDBCustomClusterDetail返回参数结构体
  */
 export interface DescribeDBCustomClusterDetailResponse {
@@ -111,52 +116,6 @@ export interface DescribeDBCustomClusterResourcesRequest {
 }
 
 /**
- * DescribeInstances请求参数结构体
- */
-export interface DescribeInstancesRequest {
-  /**
-   * 集群类型: 0 一主一备, 1 一主两备...N-1 一主N备
-   */
-  InstanceTypes?: Array<number | bigint>
-  /**
-   * 产品ID:  0 MYSQL，1 TDSQL
-   */
-  ProductIds?: Array<number | bigint>
-  /**
-   * 集群uuid: 如 dbdc-q810131s
-   */
-  InstanceIds?: Array<string>
-  /**
-   * 是否按金融围笼标志搜索
-   */
-  FenceFlag?: boolean
-  /**
-   * 按实例名字模糊匹配
-   */
-  InstanceName?: string
-  /**
-   * 每页数目, 整型
-   */
-  PageSize?: number
-  /**
-   * 页码, 整型
-   */
-  PageNumber?: number
-  /**
-   * 排序字段，枚举：createtime,groupname
-   */
-  OrderBy?: string
-  /**
-   * 排序方式: asc升序, desc降序
-   */
-  OrderByType?: string
-  /**
-   * 集群状态: -2 已删除, -1 已隔离, 0 创建中, 1 运行中, 2 扩容中, 3 删除中
-   */
-  InstanceStatus?: number
-}
-
-/**
  * ModifyInstanceName请求参数结构体
  */
 export interface ModifyInstanceNameRequest {
@@ -196,6 +155,21 @@ export interface DescribeInstancesResponse {
    * 集群扩展信息
    */
   Instances?: Array<InstanceExpand>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DeleteDBCustomDisasterRecoverGroups返回参数结构体
+ */
+export interface DeleteDBCustomDisasterRecoverGroupsResponse {
+  /**
+   * <p>任务ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: number
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -276,6 +250,28 @@ export interface DescribeDBCustomClusterNodeConfigRequest {
    * <p>按照一个或者多个 NodeId 查询。</p><p>入参限制：每次请求的数量上限为100</p>
    */
   NodeIds: Array<string>
+}
+
+/**
+ * DescribeDBCustomDisasterRecoverGroupQuota返回参数结构体
+ */
+export interface DescribeDBCustomDisasterRecoverGroupQuotaResponse {
+  /**
+   * <p>可创建置放群组数量的上限</p>
+   */
+  GroupQuota?: number
+  /**
+   * <p>已经创建的置放群组数量</p>
+   */
+  CurrentNum?: number
+  /**
+   * <p>物理机类型置放群组内节点的配额数</p>
+   */
+  NodeInHostGroupQuota?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -449,6 +445,32 @@ export interface DescribeInstanceListResponse {
 }
 
 /**
+ * DescribeDBCustomDisasterRecoverGroups请求参数结构体
+ */
+export interface DescribeDBCustomDisasterRecoverGroupsRequest {
+  /**
+   * <p>置放群组ID</p><p>入参限制：单次数量上限是10</p>
+   */
+  DisasterRecoverGroupIds?: Array<string>
+  /**
+   * <p>查询筛选条件。支持的筛选条件包括：</p><ul><li>tag-key：按标签键进行过滤。</li><li>tag-value：按标签值进行过滤。</li></ul><p>入参限制：数量上限为5</p>
+   */
+  Filters?: Array<Filter>
+  /**
+   * <p>根据标签键和标签值筛选 DB Custom 置放群组</p><p>入参限制：数量上限为5</p>
+   */
+  Tags?: Array<Tag>
+  /**
+   * <p>分页偏移量</p>
+   */
+  Offset?: number
+  /**
+   * <p>返回数量</p><p>取值范围：[1, 100]</p><p>默认值：20</p>
+   */
+  Limit?: number
+}
+
+/**
  * ModifyDBCustomNodeSecurityGroups返回参数结构体
  */
 export interface ModifyDBCustomNodeSecurityGroupsResponse {
@@ -532,6 +554,16 @@ export interface DescribeDBCustomClusterResourcesResponse {
    * <p>集群可再调度余量（所有节点 max(0, Allocatable - Requests) 累加求和）</p>
    */
   Available?: MetaResource
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * ModifyDBCustomDisasterRecoverGroupTags返回参数结构体
+ */
+export interface ModifyDBCustomDisasterRecoverGroupTagsResponse {
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -747,11 +779,11 @@ export interface ModifyDBCustomClusterTagsRequest {
    */
   ClusterId: string
   /**
-   * <p>为 DB Custom 集群绑定的标签信息</p><p>入参限制：参考标签平台的限制策略</p>
+   * <p>为 DB Custom 集群绑定的标签信息</p><p>入参限制：参考标签平台的限制策略</p><p>如果集群未关联输入的标签键，则增加关联；若已关联，则将该集群关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
    */
   AddTags?: Array<Tag>
   /**
-   * <p>为 DB Custom 集群删除的标签Key</p>
+   * <p>为 DB Custom 集群解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
    */
   DeleteTagKeys?: Array<string>
 }
@@ -768,6 +800,24 @@ export interface DescribeDBCustomTaskStatusResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * ModifyDBCustomNodeTags请求参数结构体
+ */
+export interface ModifyDBCustomNodeTagsRequest {
+  /**
+   * <p>DB Custom 节点ID</p><p>参数格式：dbcn-0zan5xxk</p>
+   */
+  NodeId: string
+  /**
+   * <p>为节点绑定的标签信息</p><p>入参限制：参考标签侧的限制</p><p>如果节点未关联输入的标签键，则增加关联；若已关联，则将该节点关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+   */
+  AddTags?: Array<Tag>
+  /**
+   * <p>需要解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+   */
+  DeleteTagKeys?: Array<string>
 }
 
 /**
@@ -911,6 +961,51 @@ export interface ModifyDBCustomClusterNodeConfigResponse {
 }
 
 /**
+ * CreateDBCustomDisasterRecoverGroup请求参数结构体
+ */
+export interface CreateDBCustomDisasterRecoverGroupRequest {
+  /**
+   * <p>置放群组名称</p><p>入参限制：长度1-60个字符，支持中、英文</p>
+   */
+  Name: string
+  /**
+   * <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul><p>默认值：HOST</p><p>当前仅支持物理机类型</p>
+   */
+  Type?: string
+  /**
+   * <p>置放群组策略</p><p>入参限制：当前仅支持分散置放群组</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul><p>默认值：SPREAD</p>
+   */
+  Strategy?: string
+  /**
+   * <p>置放群组的亲和度，在置放群组的实例会按该亲和度分布</p><p>取值范围：[1, 10]</p><p>默认值：1</p>
+   */
+  Affinity?: number
+  /**
+   * <p>标签</p>
+   */
+  Tags?: Array<Tag>
+  /**
+   * <p>用于保证请求幂等性的字符串。该字符串由客户生成，需保证不同请求之间唯一，最大值不超过64个ASCII字符。若不指定该参数，则无法保证请求的幂等性。</p>
+   */
+  ClientToken?: string
+}
+
+/**
+ * DeleteDBCustomNodesDisasterRecoverGroup返回参数结构体
+ */
+export interface DeleteDBCustomNodesDisasterRecoverGroupResponse {
+  /**
+   * <p>任务ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * DB实例详情
  */
 export interface DBInstanceDetail {
@@ -1005,6 +1100,30 @@ export interface DBInstanceDetail {
 }
 
 /**
+ * ModifyDBCustomDisasterRecoverGroupAttribute返回参数结构体
+ */
+export interface ModifyDBCustomDisasterRecoverGroupAttributeResponse {
+  /**
+   * <p>任务ID</p>
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * DestroyDBCustomNode请求参数结构体
+ */
+export interface DestroyDBCustomNodeRequest {
+  /**
+   * <p>DB Custom 节点ID</p>
+   */
+  NodeId: string
+}
+
+/**
  * 集群节点 taint 信息。
  */
 export interface Taint {
@@ -1020,16 +1139,6 @@ export interface Taint {
    * <p>Taint 的值，≤ 63 字符，可为空</p>
    */
   Value?: string
-}
-
-/**
- * DestroyDBCustomNode请求参数结构体
- */
-export interface DestroyDBCustomNodeRequest {
-  /**
-   * <p>DB Custom 节点ID</p>
-   */
-  NodeId: string
 }
 
 /**
@@ -1184,6 +1293,24 @@ export interface CheckRoleAuthorizedRequest {
 }
 
 /**
+ * ModifyDBCustomNodesDisasterRecoverGroup请求参数结构体
+ */
+export interface ModifyDBCustomNodesDisasterRecoverGroupRequest {
+  /**
+   * <p>节点ID</p><p>入参限制：单次数量上限为100</p>
+   */
+  NodeIds: Array<string>
+  /**
+   * <p>置放群组ID</p><p>入参限制：支持传一个ID</p>
+   */
+  DisasterRecoverGroupIds: Array<string>
+  /**
+   * <p>是否强制更换节点宿主机</p><p>枚举值：</p><ul><li>true： 表示允许节点更换宿主机，允许重启。本地盘节点不支持指定此参数。</li><li>false： 不允许节点更换宿主机，只在当前宿主机上加入置放群组。这可能导致更换置放群组失败。</li></ul><p>默认值：false</p>
+   */
+  Force?: boolean
+}
+
+/**
  * CreateDBCustomNodes请求参数结构体
  */
 export interface CreateDBCustomNodesRequest {
@@ -1271,6 +1398,10 @@ export interface CreateDBCustomNodesRequest {
    * <p>设置节点安全组</p><p>参数格式：设置需要与节点绑定的多个安全组ID，以数组形式配置。</p>
    */
   SecurityGroupIds?: Array<string>
+  /**
+   * <p>置放群组ID</p><p>入参限制：仅支持指定一个</p>
+   */
+  DisasterRecoverGroupIds?: Array<string>
 }
 
 /**
@@ -1309,6 +1440,64 @@ export interface ModifyDBCustomNodeTagsResponse {
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
+}
+
+/**
+ * 集群扩展信息。
+ */
+export interface InstanceExpand {
+  /**
+   * 集群ID
+   */
+  InstanceId?: string
+  /**
+   * 集群名称
+   */
+  InstanceName?: string
+  /**
+   * 用户ID
+   */
+  AppId?: number
+  /**
+   * 地域
+   */
+  Region?: string
+  /**
+   * 可用区
+   */
+  Zone?: string
+  /**
+   * 集群类型： 0：一主一备，1：一主两备
+   */
+  InstanceType?: number
+  /**
+   * 集群状态: 0 集群创建中, 1 集群有效, 2 集群扩容中, 3 集群删除中, 4 集群缩容中 -1 集群已隔离 -2 集群已删除
+   */
+  InstanceStatus?: number
+  /**
+   * 创建时间
+   */
+  CreateTime?: string
+  /**
+   * 实例自动续费标识： 0正常续费 1自动续费 2到期不续费
+   */
+  AutoRenewFlag?: number
+  /**
+   * 机型
+   */
+  Machine?: string
+  /**
+   * 过期时间
+   */
+  PeriodEndTime?: string
+  /**
+   * 集群信息
+   */
+  InstanceDetail?: InstanceDetail
+  /**
+   * 计费侧的产品ID
+   */
+  Pid?: number
 }
 
 /**
@@ -1383,6 +1572,21 @@ export interface DataDisk {
    * <p>磁盘名称</p><p>DataDisk 作为输入参数时，DiskName 无效。</p>
    */
   DiskName?: string
+}
+
+/**
+ * ModifyDBCustomNodesDisasterRecoverGroup返回参数结构体
+ */
+export interface ModifyDBCustomNodesDisasterRecoverGroupResponse {
+  /**
+   * <p>任务ID</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaskId?: number
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
 }
 
 /**
@@ -1682,6 +1886,25 @@ export interface DescribeDBCustomClusterKubeconfigRequest {
 }
 
 /**
+ * DescribeDBCustomDisasterRecoverGroups返回参数结构体
+ */
+export interface DescribeDBCustomDisasterRecoverGroupsResponse {
+  /**
+   * <p>总数</p>
+   */
+  TotalCount?: number
+  /**
+   * <p>置放群组列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  DisasterRecoverGroupSet?: Array<DisasterRecoverGroup>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
  * RemoveNodesFromDBCustomCluster请求参数结构体
  */
 export interface RemoveNodesFromDBCustomClusterRequest {
@@ -1722,6 +1945,20 @@ export interface DescribeDBCustomClustersResponse {
 }
 
 /**
+ * DeleteDBCustomNodesDisasterRecoverGroup请求参数结构体
+ */
+export interface DeleteDBCustomNodesDisasterRecoverGroupRequest {
+  /**
+   * <p>节点ID</p><p>入参限制：单次数量上限为100</p>
+   */
+  NodeIds: Array<string>
+  /**
+   * <p>置放群组ID</p><p>入参限制：只支持传一个ID</p>
+   */
+  DisasterRecoverGroupIds: Array<string>
+}
+
+/**
  * CheckRoleAuthorized返回参数结构体
  */
 export interface CheckRoleAuthorizedResponse {
@@ -1740,21 +1977,49 @@ export interface CheckRoleAuthorizedResponse {
 }
 
 /**
- * ModifyDBCustomNodeTags请求参数结构体
+ * DescribeInstances请求参数结构体
  */
-export interface ModifyDBCustomNodeTagsRequest {
+export interface DescribeInstancesRequest {
   /**
-   * <p>DB Custom 节点ID</p><p>参数格式：dbcn-0zan5xxk</p>
+   * 集群类型: 0 一主一备, 1 一主两备...N-1 一主N备
    */
-  NodeId: string
+  InstanceTypes?: Array<number | bigint>
   /**
-   * <p>为节点绑定的标签信息</p><p>入参限制：参考标签侧的限制</p>
+   * 产品ID:  0 MYSQL，1 TDSQL
    */
-  AddTags?: Array<Tag>
+  ProductIds?: Array<number | bigint>
   /**
-   * <p>需要删除的标签Key</p>
+   * 集群uuid: 如 dbdc-q810131s
    */
-  DeleteTagKeys?: Array<string>
+  InstanceIds?: Array<string>
+  /**
+   * 是否按金融围笼标志搜索
+   */
+  FenceFlag?: boolean
+  /**
+   * 按实例名字模糊匹配
+   */
+  InstanceName?: string
+  /**
+   * 每页数目, 整型
+   */
+  PageSize?: number
+  /**
+   * 页码, 整型
+   */
+  PageNumber?: number
+  /**
+   * 排序字段，枚举：createtime,groupname
+   */
+  OrderBy?: string
+  /**
+   * 排序方式: asc升序, desc降序
+   */
+  OrderByType?: string
+  /**
+   * 集群状态: -2 已删除, -1 已隔离, 0 创建中, 1 运行中, 2 扩容中, 3 删除中
+   */
+  InstanceStatus?: number
 }
 
 /**
@@ -1975,6 +2240,28 @@ export interface DBCustomNode {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SecurityGroupIds?: Array<string>
+  /**
+   * <p>置放群组ID</p>
+   */
+  DisasterRecoverGroupId?: string
+}
+
+/**
+ * ModifyDBCustomDisasterRecoverGroupAttribute请求参数结构体
+ */
+export interface ModifyDBCustomDisasterRecoverGroupAttributeRequest {
+  /**
+   * <p>置放群组ID</p>
+   */
+  DisasterRecoverGroupId: string
+  /**
+   * <p>置放群组名称</p><p>入参限制：长度1-60个字符，支持中、英文</p>
+   */
+  Name?: string
+  /**
+   * <p>置放群组的亲和度，在置放群组的节点会按该亲和度分布</p><p>取值范围：[1, 10]</p>
+   */
+  Affinity?: number
 }
 
 /**
@@ -2076,6 +2363,16 @@ export interface ModifyDBCustomClusterAttributesResponse {
 }
 
 /**
+ * DeleteDBCustomDisasterRecoverGroups请求参数结构体
+ */
+export interface DeleteDBCustomDisasterRecoverGroupsRequest {
+  /**
+   * <p>置放群组ID</p><p>入参限制：数量上限为10。若置放群组内有节点，需要先移除。</p>
+   */
+  DisasterRecoverGroupIds: Array<string>
+}
+
+/**
  * 连通 DB Custom 集群 API Server 的网络配置。
  */
 export interface ApiServerNetwork {
@@ -2112,6 +2409,48 @@ export interface DescribeDBCustomZonesResponse {
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ZoneSet?: Array<ZoneInfo>
+  /**
+   * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
+   */
+  RequestId?: string
+}
+
+/**
+ * CreateDBCustomDisasterRecoverGroup返回参数结构体
+ */
+export interface CreateDBCustomDisasterRecoverGroupResponse {
+  /**
+   * <p>置放群组ID</p>
+   */
+  DisasterRecoverGroupId?: string
+  /**
+   * <p>置放群组名称</p>
+   */
+  Name?: string
+  /**
+   * <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul>
+   */
+  Type?: string
+  /**
+   * <p>状态</p><p>枚举值：</p><ul><li>Creating： 创建中</li></ul>
+   */
+  Status?: string
+  /**
+   * <p>置放群组内可容纳的节点数量</p>
+   */
+  NodeQuotaTotal?: number
+  /**
+   * <p>置放群组内已有节点数量</p>
+   */
+  CurrentNum?: number
+  /**
+   * <p>创建时间</p>
+   */
+  CreatedTime?: string
+  /**
+   * <p>置放群组策略</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul>
+   */
+  Strategy?: string
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
@@ -2215,6 +2554,24 @@ export interface ModifyDBCustomNodeAttributesRequest {
 }
 
 /**
+ * ModifyDBCustomDisasterRecoverGroupTags请求参数结构体
+ */
+export interface ModifyDBCustomDisasterRecoverGroupTagsRequest {
+  /**
+   * <p>置放群组ID</p>
+   */
+  DisasterRecoverGroupId: string
+  /**
+   * <p>为 DB Custom 置放群组绑定的标签信息</p><p>入参限制：参考标签侧的限制</p><p>如果置放群组未关联输入的标签键，则增加关联；若已关联，则将该置放群组关联的键对应的标签值修改为输入值。本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+   */
+  AddTags?: Array<Tag>
+  /**
+   * <p>需要解关联的标签Key</p><p>本接口中 AddTags 和 DeleteTagKeys 二者必须存在其一，且二者不能包含相同的标签键。</p>
+   */
+  DeleteTagKeys?: Array<string>
+}
+
+/**
  * DescribeDBCustomClusterKubeconfig返回参数结构体
  */
 export interface DescribeDBCustomClusterKubeconfigResponse {
@@ -2291,61 +2648,54 @@ export interface DescribeDBCustomNodesRequest {
 }
 
 /**
- * 集群扩展信息。
+ * DB Custom 置放群组信息。
  */
-export interface InstanceExpand {
+export interface DisasterRecoverGroup {
   /**
-   * 集群ID
+   * <p>置放群组ID</p>
    */
-  InstanceId?: string
+  DisasterRecoverGroupId?: string
   /**
-   * 集群名称
+   * <p>置放群组名称</p>
    */
-  InstanceName?: string
+  Name?: string
   /**
-   * 用户ID
+   * <p>置放群组类型</p><p>枚举值：</p><ul><li>HOST： 物理机</li></ul>
    */
-  AppId?: number
+  Type?: string
   /**
-   * 地域
+   * <p>置放群组状态</p><p>枚举值：</p><ul><li>Creating： 创建中</li><li>Available： 正常可使用</li><li>CreateFailed： 创建失败</li><li>Deleting： 删除中</li><li>Modifying： 变更中</li></ul>
    */
-  Region?: string
+  Status?: string
   /**
-   * 可用区
+   * <p>置放群组内最大容纳节点数</p>
    */
-  Zone?: string
+  NodeQuotaTotal?: number
   /**
-   * 集群类型： 0：一主一备，1：一主两备
+   * <p>置放群组内当前节点数</p>
    */
-  InstanceType?: number
+  CurrentNum?: number
   /**
-   * 集群状态: 0 集群创建中, 1 集群有效, 2 集群扩容中, 3 集群删除中, 4 集群缩容中 -1 集群已隔离 -2 集群已删除
+   * <p>亲和度</p><p>取值范围：[1, 10]</p>
    */
-  InstanceStatus?: number
+  Affinity?: number
   /**
-   * 创建时间
+   * <p>置放群组策略</p><p>枚举值：</p><ul><li>SPREAD： 分散置放群组</li></ul>
    */
-  CreateTime?: string
+  Strategy?: string
   /**
-   * 实例自动续费标识： 0正常续费 1自动续费 2到期不续费
+   * <p>创建时间</p>
    */
-  AutoRenewFlag?: number
+  CreatedTime?: string
   /**
-   * 机型
+   * <p>标签信息</p>
+注意：此字段可能返回 null，表示取不到有效值。
    */
-  Machine?: string
+  Tags?: Array<Tag>
   /**
-   * 过期时间
+   * <p>置放群组内 DB Custom 节点数量</p>
    */
-  PeriodEndTime?: string
-  /**
-   * 集群信息
-   */
-  InstanceDetail?: InstanceDetail
-  /**
-   * 计费侧的产品ID
-   */
-  Pid?: number
+  NodeIds?: Array<string>
 }
 
 /**

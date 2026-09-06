@@ -13094,6 +13094,14 @@ export interface NodeHardwareInfo {
    * <p>磁盘问题描述</p>
    */
   DiskHealthIssues?: Array<DiskHealthIssue>
+  /**
+   * <p>所在节点组ID</p>
+   */
+  NodeGroupId?: string
+  /**
+   * <p>所在节点组名称</p>
+   */
+  NodeGroupName?: string
 }
 
 /**

@@ -34,16 +34,20 @@ import {
   ModifyInstanceNameRequest,
   DescribeUserPrivilegesResponse,
   DescribeDBSecurityGroupsResponse,
+  DescribeInstanceDataReservedSpaceRequest,
   InstanceFilter,
   Explain,
   BackupStatisticsModel,
   ResetUsersPasswordRequest,
   BackupPolicyModelOutPut,
+  ModifyInstanceDataReservedSpaceResponse,
   ModifyInstanceSSLStatusRequest,
+  ResetDbaAdminPrivilegesResponse,
   ModifyInstanceNameResponse,
   DescribeDBSBackupStatisticsDetailRequest,
   DescribeDBParametersResponse,
   StorageNodeSpec,
+  DescribeDBCharsetsResponse,
   IsolateDBInstanceResponse,
   DescribeInstanceSSLStatusResponse,
   DeleteDBSBackupSetsResponse,
@@ -63,6 +67,7 @@ import {
   DescribeDBSArchiveLogsResponse,
   ModifyUserPrivilegesResponse,
   DBEngineInfo,
+  DescribeFlowTypesResponse,
   DescribeSlowLogsResponse,
   CreateDBSBackupResponse,
   BackupSetsReqFilter,
@@ -80,6 +85,7 @@ import {
   DescribeDBInstanceDetailResponse,
   DescribeDatabaseObjectsRequest,
   ModifyMaintenanceWindowRequest,
+  ModifyInstanceDataReservedSpaceRequest,
   DestroyInstancesResponse,
   UserInfo,
   DescribeSaleInfoResponse,
@@ -106,6 +112,8 @@ import {
   CreateCloneInstanceResponse,
   DescribeDatabaseObjectsResponse,
   DescribeMaintenanceWindowResponse,
+  DescribeFlowTypesRequest,
+  DescribeDBCharsetsRequest,
   InstanceNode,
   SecurityGroupBound,
   DescribeDBSBackupStatisticsResponse,
@@ -159,9 +167,12 @@ import {
   TablePrivileges,
   DescribeUserPrivilegesRequest,
   StandbyDBInstanceRelation,
+  FlowType,
   DescribeDBSAvailableRecoveryTimeRequest,
   ModifyDBInstanceVPortResponse,
+  ResetDbaAdminPrivilegesRequest,
   BreakStandbyDBInstanceRelationResponse,
+  DescribeInstanceDataReservedSpaceResponse,
   UpgradeInstanceRequest,
   BackupSetModel,
   InstanceParam,
@@ -229,13 +240,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 新增/修改实例维护时间窗口配置
+   * 本接口（DescribeDBCharsets）提供查询支持字符集功能
    */
-  async ModifyMaintenanceWindow(
-    req: ModifyMaintenanceWindowRequest,
-    cb?: (error: string, rep: ModifyMaintenanceWindowResponse) => void
-  ): Promise<ModifyMaintenanceWindowResponse> {
-    return this.request("ModifyMaintenanceWindow", req, cb)
+  async DescribeDBCharsets(
+    req?: DescribeDBCharsetsRequest,
+    cb?: (error: string, rep: DescribeDBCharsetsResponse) => void
+  ): Promise<DescribeDBCharsetsResponse> {
+    return this.request("DescribeDBCharsets", req, cb)
   }
 
   /**
@@ -349,6 +360,46 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 修改实例备份备注 ModifyDBSBackupSetComment
+   */
+  async ModifyDBSBackupSetComment(
+    req: ModifyDBSBackupSetCommentRequest,
+    cb?: (error: string, rep: ModifyDBSBackupSetCommentResponse) => void
+  ): Promise<ModifyDBSBackupSetCommentResponse> {
+    return this.request("ModifyDBSBackupSetComment", req, cb)
+  }
+
+  /**
+   * 本接口（DescribeInstanceDataReservedSpace）提供查询实例数据保留空间
+   */
+  async DescribeInstanceDataReservedSpace(
+    req: DescribeInstanceDataReservedSpaceRequest,
+    cb?: (error: string, rep: DescribeInstanceDataReservedSpaceResponse) => void
+  ): Promise<DescribeInstanceDataReservedSpaceResponse> {
+    return this.request("DescribeInstanceDataReservedSpace", req, cb)
+  }
+
+  /**
+   * 本接口（ModifyInstanceDataReservedSpace）提供修改实例数据保留空间
+   */
+  async ModifyInstanceDataReservedSpace(
+    req: ModifyInstanceDataReservedSpaceRequest,
+    cb?: (error: string, rep: ModifyInstanceDataReservedSpaceResponse) => void
+  ): Promise<ModifyInstanceDataReservedSpaceResponse> {
+    return this.request("ModifyInstanceDataReservedSpace", req, cb)
+  }
+
+  /**
+   * 重置dbaadmin账号权限
+   */
+  async ResetDbaAdminPrivileges(
+    req: ResetDbaAdminPrivilegesRequest,
+    cb?: (error: string, rep: ResetDbaAdminPrivilegesResponse) => void
+  ): Promise<ResetDbaAdminPrivilegesResponse> {
+    return this.request("ResetDbaAdminPrivileges", req, cb)
+  }
+
+  /**
    * 本接口（CreateDBInstances）提供批量创建实例功能
    */
   async CreateDBInstances(
@@ -456,6 +507,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DescribeSlowLogsResponse) => void
   ): Promise<DescribeSlowLogsResponse> {
     return this.request("DescribeSlowLogs", req, cb)
+  }
+
+  /**
+   * 新增/修改实例维护时间窗口配置
+   */
+  async ModifyMaintenanceWindow(
+    req: ModifyMaintenanceWindowRequest,
+    cb?: (error: string, rep: ModifyMaintenanceWindowResponse) => void
+  ): Promise<ModifyMaintenanceWindowResponse> {
+    return this.request("ModifyMaintenanceWindow", req, cb)
   }
 
   /**
@@ -639,13 +700,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 修改实例备份备注 ModifyDBSBackupSetComment
+   * 本接口（DescribeFlowTypes）用于获取所有任务类型
    */
-  async ModifyDBSBackupSetComment(
-    req: ModifyDBSBackupSetCommentRequest,
-    cb?: (error: string, rep: ModifyDBSBackupSetCommentResponse) => void
-  ): Promise<ModifyDBSBackupSetCommentResponse> {
-    return this.request("ModifyDBSBackupSetComment", req, cb)
+  async DescribeFlowTypes(
+    req?: DescribeFlowTypesRequest,
+    cb?: (error: string, rep: DescribeFlowTypesResponse) => void
+  ): Promise<DescribeFlowTypesResponse> {
+    return this.request("DescribeFlowTypes", req, cb)
   }
 
   /**

@@ -208,6 +208,7 @@ import {
   DescribeBudgetAssociationsRequest,
   ModifyIntentRouterAttributeRequest,
   ModifyTargetGroupInstancesPortRequest,
+  EmbeddingConfig,
   CreateClsLogSetRequest,
   ModalityProbeDetail,
   ModifyDomainResponse,

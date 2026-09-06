@@ -774,6 +774,7 @@ import {
   DescribeStorageRegionsRequest,
   ProcessImageAsyncTemplateItem,
   DescribeAigcFaceInfoResponse,
+  KnowledgeBaseInfo,
   ImageQualityEnhanceInfo,
   CreateMPSTemplateResponse,
   WechatPublishTask,

@@ -5176,6 +5176,10 @@ export interface FileUploadTask {
  */
 export interface CreateKnowledgeBaseResponse {
   /**
+   * <p>创建成功后的知识库ID。</p>
+   */
+  KnowledgeBaseId?: string
+  /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */
   RequestId?: string
@@ -8438,17 +8442,11 @@ export interface AiRecognitionTaskOcrFullTextSegmentItem {
  */
 export interface ColorEnhanceInfo {
   /**
-   * 色彩增强控制开关，可选值：
-<li>ON：开启综合增强；</li>
-<li>OFF：关闭综合增强。</li>
+   * <p>色彩增强控制开关</p><p>枚举值：</p><ul><li>ON： 开启色彩增强</li><li>OFF： 关闭色彩增强</li></ul>
    */
   Switch: string
   /**
-   * 色彩增强类型，仅当色彩增强控制开关为 ON 时有效，可选值：
-<li>weak：轻色彩增强；</li>
-<li>normal：正常色彩增强；</li>
-<li>strong：强色彩增强。</li>
-默认值：weak。
+   * <p>色彩增强类型，仅当色彩增强控制开关为 ON 时有效，可选值：</p><li>weak：轻色彩增强；</li><li>normal：正常色彩增强；</li><li>strong：强色彩增强。</li>默认值：weak。
    */
   Type?: string
 }
@@ -10764,7 +10762,7 @@ export interface TextToSpeechSyncRequest {
    */
   LanguageBoost?: string
   /**
-   * <p>输出相关参数</p><p>可以指定输出形式等。默认输出音频base64。</p>
+   * <p>输出相关参数</p><p>可以指定输出形式等。默认输出音频URL。</p>
    */
   Output?: TextToSpeechSyncOutputOption
   /**
@@ -12391,7 +12389,7 @@ export interface CreateAigcVideoTaskRequest {
    */
   ModelName: string
   /**
-   * <p>模型版本。取值：<br>当 ModelName 是 Hailuo，可选值为 02、2.3、2.3-fast、H3、H3_regen；<br>当 ModelName 是 Kling，可选值为 1.6、2.0、2.1、2.5、2.6、O1、3.0、3.0-Omni；<br>当 ModelName 是 Vidu，可选值为 q2、q2-pro、q2-turbo、q3、q3-pro、q3-turbo；<br>当 ModelName 是 GV，可选值为 3.1、3.1-fast；<br>当 ModelName 是 OS，可选值为 2.0；<br>当 ModelName 是 Hunyuan，可选值为 1.5；<br>当 ModelName 是 Mingmou，可选值为 1.0；<br>当 ModelName 是 PixVerse，可选值为 v5.6、v6、c1；</p>
+   * <p>模型版本。取值：<br>当 ModelName 是 Hailuo，可选值为 02、2.3、2.3-fast、H3、H3_regen、H3-Max；<br>当 ModelName 是 Kling，可选值为 1.6、2.0、2.1、2.5、2.6、O1、3.0、3.0-Omni、3.0-turbo、scene；<br>当 ModelName 是 Vidu，可选值为 q2、q2-pro、q2-turbo、q3、q3-pro、q3-turbo、q3-mix、q3-drama、q3-ad、scene、avatar-q2-pro、avatar-q2-turbo、lip-sync；<br>当 ModelName 是 GV，可选值为 3.1、3.1-fast、3.1-lite、omni；<br>当 ModelName 是 OS，可选值为 2.0；<br>当 ModelName 是 Hunyuan，可选值为 1.5、3d_2.0；<br>当 ModelName 是 Mingmou，可选值为 1.0；<br>当 ModelName 是 PixVerse，可选值为 v5.6、v6、c1；</p>
    */
   ModelVersion: string
   /**
@@ -12427,7 +12425,7 @@ export interface CreateAigcVideoTaskRequest {
    */
   OutputConfig?: AigcVideoOutputConfig
   /**
-   * <p>输入文件的区域信息。当文件url是国外地址时候，可选Oversea。默认Mainland。</p>
+   * <p>输入文件的区域信息。取值如下：</p><ul><li>当输入文件存储在海外时：Oversea；</li><li>当输入文件存储在美西时：OverseaUSWest；</li><li>当输入文件存储在国内时：Mainland。</li></ul><p>默认值：Mainland</p>
    */
   InputRegion?: string
   /**
@@ -16325,7 +16323,7 @@ export interface CloneVoiceAsyncRequest {
    */
   LanguageBoost?: string
   /**
-   * <p>音色克隆拓展参数。<code>ExtParam</code> 支持的字段： </p><ul><li><code>text</code> (string)：试听合成文本，最大 1000 字符；为空或不传时不返回试听音频。</li></ul>
+   * <p>音色克隆拓展参数。<code>ExtParam</code> 支持的字段：</p><ul>  <li><code>text</code> (string)：试听合成文本，最大 <code>1000</code> 字符；非空时必须同时传 <code>tts_model</code>，克隆成功后返回试听音频 <code>DemoAudio</code>。</li>  <li><code>model</code> (string)：克隆模型，缺省 <code>minimax-voice-clone</code>。</li>  <li><code>tts_model</code> (string)：合成试听音频用的模型，可选 <code>minimax-speech-2.8-hd</code>、<code>minimax-speech-2.8-turbo</code>、<code>minimax-speech-2.6-hd</code>、<code>minimax-speech-2.6-turbo</code>、<code>minimax-speech-02-hd</code>、<code>minimax-speech-02-turbo</code>；<code>text</code> 非空时必填。</li>  <li><code>text_lang</code> (string)：试听文本语言。</li>  <li><code>voice_profile</code> (object)：音色画像，可选字段：    <ul>      <li><code>name</code> (string)：音色名称。</li>      <li><code>description</code> (string)：音色描述。</li>      <li><code>gender</code> (string)：性别，可选 <code>male</code> / <code>female</code> / <code>unknown</code>。</li>      <li><code>age</code> (string)：年龄段，可选 <code>child</code> / <code>teenager</code> / <code>youth</code> / <code>middle_aged</code> / <code>senior</code> / <code>unknown</code>。</li>      <li><code>languages</code> (string[])：支持语言，如 <code>["zh", "en"]</code>。</li>      <li><code>labels</code> (string[])：音色标签，如 <code>["磁性"]</code>。</li>      <li><code>scenes</code> (string[])：适用场景，如 <code>["解说"]</code>。</li>    </ul>  </li></ul>
    */
   ExtParam?: string
   /**
@@ -19543,6 +19541,32 @@ export interface DescribeAigcFaceInfoResponse {
 }
 
 /**
+ * 知识库信息。
+ */
+export interface KnowledgeBaseInfo {
+  /**
+   * <p>知识库ID。</p>
+   */
+  KnowledgeBaseId?: string
+  /**
+   * <p>知识库名称。</p>
+   */
+  Name?: string
+  /**
+   * <p>知识库描述。</p>
+   */
+  Description?: string
+  /**
+   * <p>知识库状态。</p><p>枚举值：</p><ul><li>creating： 创建中</li><li>active： 正常</li><li>deleting： 删除中</li></ul>
+   */
+  Status?: string
+  /**
+   * <p>知识库创建时间。</p>
+   */
+  CreateTime?: string
+}
+
+/**
  * 综合增强控制
  */
 export interface ImageQualityEnhanceInfo {
@@ -22595,7 +22619,7 @@ export interface DescribeStorageDataRequest {
  */
 export interface DescribeTaskDetailResponse {
   /**
-   * <p>任务类型，取值：<li>Procedure：视频处理任务；</li><li>EditMedia：视频编辑任务；</li><li>SplitMedia：视频拆条任务；</li><li>ComposeMedia：制作媒体文件任务；</li><li>WechatPublish：微信发布任务；</li><li>WechatMiniProgramPublish：微信小程序视频发布任务；</li><li>PullUpload：拉取上传媒体文件任务；</li><li>FastClipMedia：快速剪辑任务；</li><li>RemoveWatermarkTask：智能去除水印任务；</li><li>DescribeFileAttributesTask：获取文件属性任务；</li><li>RebuildMedia：音画质重生任务（不推荐使用）；</li><li>ReviewAudioVideo：音视频审核任务；</li><li>ExtractTraceWatermark：提取溯源水印任务；</li><li>ExtractCopyRightWatermark：提取版权水印任务；</li><li>QualityInspect：音画质检测任务；</li><li>QualityEnhance：音画质重生任务；</li><li>ComplexAdaptiveDynamicStreaming：复杂自适应码流任务；</li><li>ProcessMediaByMPS：MPS 视频处理任务；</li><li>AigcImageTask：AIGC 生图任务；</li><li>SceneAigcImageTask：场景化 AIGC 生图任务；</li><li>AigcVideoTask：AIGC 生视频任务；</li><li>ImportMediaKnowledge：导入媒体知识任务。</li><li>SceneAigcVideoTask：场景化 AIGC 生视频任务；</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> CreateAigcAdvancedCustomElement：创建自定义主体任务</li><li>CreateAigcCustomVoice：创建自定义音色任务</li><li>CreateAigcSubject：创建主体任务</li><li>AigcVideoRedrawTask：AIGC 视频转绘任务</li><li>CreateAigcAudioClone：AIGC 声音复刻任务</li><li>DescribeAigcFaceInfoAsync：异步获取 AIGC 人脸信息任务</li><li>WandAsrTask：WAND 语音识别</li><li>AigcHunyuan3DTask：AIGC 混元 3D 任务</li><li>DesignVoiceAsync：音色设计</li><li>CloneVoiceAsync：音色克隆</li><li>TextToSpeechAsync：语音生成</li><li>VideoDubbingAsync：视频翻译配音</li></p>
+   * <p>任务类型，取值：<li>Procedure：视频处理任务；</li><li>EditMedia：视频编辑任务；</li><li>SplitMedia：视频拆条任务；</li><li>ComposeMedia：制作媒体文件任务；</li><li>WechatPublish：微信发布任务；</li><li>WechatMiniProgramPublish：微信小程序视频发布任务；</li><li>PullUpload：拉取上传媒体文件任务；</li><li>FastClipMedia：快速剪辑任务；</li><li>RemoveWatermarkTask：智能去除水印任务；</li><li>DescribeFileAttributesTask：获取文件属性任务；</li><li>RebuildMedia：音画质重生任务（不推荐使用）；</li><li>ReviewAudioVideo：音视频审核任务；</li><li>ExtractTraceWatermark：提取溯源水印任务；</li><li>ExtractCopyRightWatermark：提取版权水印任务；</li><li>QualityInspect：音画质检测任务；</li><li>QualityEnhance：音画质重生任务；</li><li>ComplexAdaptiveDynamicStreaming：复杂自适应码流任务；</li><li>ProcessMediaByMPS：MPS 视频处理任务；</li><li>AigcImageTask：AIGC 生图任务；</li><li>SceneAigcImageTask：场景化 AIGC 生图任务；</li><li>AigcVideoTask：AIGC 生视频任务；</li><li>AigcAudioTask：AIGC 生音频任务；</li><li>ImportMediaKnowledge：导入媒体知识任务。</li><li>SceneAigcVideoTask：场景化 AIGC 生视频任务；</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> ExtractBlindWatermark：提取数字水印任务。</li><li> CreateAigcAdvancedCustomElement：创建自定义主体任务</li><li>CreateAigcCustomVoice：创建自定义音色任务</li><li>CreateAigcSubject：创建主体任务</li><li>AigcVideoRedrawTask：AIGC 视频转绘任务</li><li>CreateAigcAudioClone：AIGC 声音复刻任务</li><li>DescribeAigcFaceInfoAsync：异步获取 AIGC 人脸信息任务</li><li>WandAsrTask：WAND 语音识别</li><li>AigcHunyuan3DTask：AIGC 混元 3D 任务</li><li>DesignVoiceAsync：音色设计</li><li>CloneVoiceAsync：音色克隆</li><li>TextToSpeechAsync：语音生成</li><li>VideoDubbingAsync：视频翻译配音</li></p>
    */
   TaskType?: string
   /**
@@ -25087,7 +25111,7 @@ export interface CreateAigcImageTaskRequest {
    */
   ModelName: string
   /**
-   * <p>模型版本。取值：</p><li>当 ModelName 是 OG，可选值为 image2_low、image2_medium、image2_high；</li><li>当 ModelName 是 GG，可选值为 2.5、3.0、3.1、3.1-lite；</li><li>当 ModelName 是 Hunyuan，可选值为 3.0；</li><li>当 ModelName 是 Vidu，可选值为 q2；</li><li>当 ModelName 是 Kling，可选值为 2.1、3.0、3.0-Omni、O1、scene；</li><li>当 ModelName 是Mingmou，可选值为 1.0；</li>
+   * <p>模型版本。取值：</p><li>当 ModelName 是 OG，可选值为 image2_low、image2_medium、image2_high；</li><li>当 ModelName 是 GG，可选值为 2.5、3.0、3.1、3.1-lite；</li><li>当 ModelName 是 Hunyuan，可选值为 3.0、3d_2.0、3.5-preview；</li><li>当 ModelName 是 Vidu，可选值为 q2；</li><li>当 ModelName 是 Kling，可选值为 2.1、3.0、3.0-Omni、O1、scene；</li><li>当 ModelName 是Mingmou，可选值为 1.0；</li>
    */
   ModelVersion: string
   /**
@@ -27562,6 +27586,14 @@ export interface QualityInspectTemplateItem {
  * DescribeKnowledgeBases返回参数结构体
  */
 export interface DescribeKnowledgeBasesResponse {
+  /**
+   * <p>符合条件的知识库总数。包含隐式的默认知识库。</p>
+   */
+  TotalCount?: number
+  /**
+   * <p>知识库信息列表。</p>
+   */
+  KnowledgeBaseSet?: Array<KnowledgeBaseInfo>
   /**
    * 唯一请求 ID，由服务端生成，每次请求都会返回（若请求因其他原因未能抵达服务端，则该次请求不会获得 RequestId）。定位问题时需要提供该次请求的 RequestId。
    */

@@ -1347,73 +1347,98 @@ export interface MLIDCardOCRRequest {
  */
 export interface VatInvoiceItem {
   /**
-   * 行号
+   * <p>行号</p>
    */
-  LineNo: string
+  LineNo?: string
   /**
-   * 名称
+   * <p>名称</p>
    */
-  Name: string
+  Name?: string
   /**
-   * 规格
+   * <p>规格</p>
    */
-  Spec: string
+  Spec?: string
   /**
-   * 单位
+   * <p>单位</p>
    */
-  Unit: string
+  Unit?: string
   /**
-   * 数量
+   * <p>数量</p>
    */
-  Quantity: string
+  Quantity?: string
   /**
-   * 单价
+   * <p>单价</p>
    */
-  UnitPrice: string
+  UnitPrice?: string
   /**
-   * 不含税金额
+   * <p>不含税金额</p>
    */
-  AmountWithoutTax: string
+  AmountWithoutTax?: string
   /**
-   * 税率
+   * <p>税率</p>
    */
-  TaxRate: string
+  TaxRate?: string
   /**
-   * 税额
+   * <p>税额</p>
    */
-  TaxAmount: string
+  TaxAmount?: string
   /**
-   * 税收分类编码
+   * <p>税收分类编码</p>
    */
-  TaxClassifyCode: string
+  TaxClassifyCode?: string
   /**
-   * 运输工具类型
+   * <p>运输工具类型</p>
    */
   VehicleType?: string
   /**
-   * 运输工具牌号
+   * <p>运输工具牌号</p>
    */
   VehicleBrand?: string
   /**
-   * 起始地
+   * <p>起始地</p>
    */
   DeparturePlace?: string
   /**
-   * 到达地
+   * <p>到达地</p>
    */
   ArrivalPlace?: string
   /**
-   * 运输货物名称
+   * <p>运输货物名称</p>
    */
   TransportItemsName?: string
   /**
-   * 建筑服务发生地
+   * <p>建筑服务发生地</p>
    */
   ConstructionPlace?: string
   /**
-   * 建筑项目名称
+   * <p>建筑项目名称</p>
    */
   ConstructionName?: string
+  /**
+   * <p>原始税率</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  OriginalTaxRate?: string
+  /**
+   * <p>原始税额</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  OriginalTaxAmount?: string
+  /**
+   * <p>零税率标识</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ZeroTaxRateMark?: string
+  /**
+   * <p>含税单价</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaxIncludedUnitPrice?: string
+  /**
+   * <p>含税金额</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaxIncludedAmount?: number
 }
 
 /**
@@ -1700,79 +1725,79 @@ export interface TextVatInvoice {
  */
 export interface VehicleInvoiceInfo {
   /**
-   * 车辆类型
+   * <p>车辆类型</p>
    */
   CarType?: string
   /**
-   * 厂牌型号
+   * <p>厂牌型号</p>
    */
   PlateModel?: string
   /**
-   * 产地
+   * <p>产地</p>
    */
   ProduceAddress?: string
   /**
-   * 合格证号
+   * <p>合格证号</p>
    */
   CertificateNo?: string
   /**
-   * 进口证明书号
+   * <p>进口证明书号</p>
    */
   ImportNo?: string
   /**
-   * LSVCA2NP9HN0xxxxx
+   * <p>LSVCA2NP9HN0xxxxx</p>
    */
   VinNo?: string
   /**
-   * 完税证书号
+   * <p>完税证书号</p>
    */
   PayTaxesNo?: string
   /**
-   * 吨位
+   * <p>吨位</p>
    */
   Tonnage?: string
   /**
-   * 限乘人数
+   * <p>限乘人数</p>
    */
   LimitCount?: string
   /**
-   * 发动机号码
+   * <p>发动机号码</p>
    */
   EngineNo?: string
   /**
-   * 商检单号
+   * <p>商检单号</p>
    */
   BizCheckFormNo?: string
   /**
-   * 主管税务机关代码
+   * <p>主管税务机关代码</p>
    */
   TaxtationOrgCode?: string
   /**
-   * 主管税务机关名称
+   * <p>主管税务机关名称</p>
    */
   TaxtationOrgName?: string
   /**
-   * 税率
+   * <p>税率</p>
    */
   MotorTaxRate?: string
   /**
-   * 银行账号
+   * <p>银行账号</p>
    */
   MotorBankName?: string
   /**
-   * 开户行
+   * <p>开户行</p>
    */
   MotorBankAccount?: string
   /**
-   * 销售地址
+   * <p>销售地址</p>
    */
   SellerAddress?: string
   /**
-   * 销售电话
+   * <p>销售电话</p>
    */
   SellerTel?: string
   /**
-   * 购方身份证
+   * <p>购方身份证</p>
    */
   BuyerNo?: string
 }
@@ -3612,101 +3637,99 @@ export interface ElectronicTollSummaryList {
  */
 export interface ElectronicAirTransport {
   /**
-   * 发票代码
+   * <p>发票代码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Code?: string
   /**
-   * 发票号码
+   * <p>发票号码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Number?: string
   /**
-   * 开票日期
+   * <p>开票日期</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Date?: string
   /**
-   * 金额
+   * <p>金额</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Amount?: string
   /**
-   * 校验码
+   * <p>校验码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CheckCode?: string
   /**
-   * 价税合计
+   * <p>价税合计</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Total?: string
   /**
-   * 抵扣标志
+   * <p>抵扣标志</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DeductionMark?: string
   /**
-   * 发票状态代码，0正常 1 未更新  2作废 3已红冲
+   * <p>发票状态代码，0正常 1 未更新  2作废 3已红冲</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StateCode?: string
   /**
-   * 购方识别号
+   * <p>购方识别号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BuyerTaxCode?: string
   /**
-   * 购方名称
+   * <p>购方名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BuyerName?: string
   /**
-   * 合计税额
+   * <p>合计税额</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Tax?: string
   /**
-   * 国内国际标识
+   * <p>国内国际标识</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DomesticInternationalMark?: string
   /**
-   * 旅客姓名
+   * <p>旅客姓名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PassengerName?: string
   /**
-   * 有效身份证件号码
+   * <p>有效身份证件号码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PassengerNo?: string
   /**
-   * 电子客票号码
+   * <p>电子客票号码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ElectronicNumber?: string
   /**
-   * 全电发票（航空运输电子客票行程单）详细信息
-
-
+   * <p>全电发票（航空运输电子客票行程单）详细信息</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ElectronicAirTransportDetails?: Array<ElectronicAirTransportDetail>
   /**
-   * 票价
+   * <p>票价</p>
    */
   Fare?: string
   /**
-   * 燃油附加费
+   * <p>燃油附加费</p>
    */
   FuelSurcharge?: string
   /**
-   * 增值税税额
+   * <p>增值税税额</p>
    */
   TaxAmount?: string
   /**
-   * 民航发展基金
+   * <p>民航发展基金</p>
    */
   DevelopmentFund?: string
 }
@@ -5224,101 +5247,154 @@ export interface RecognizeEncryptedIDCardOCRRequest {
  */
 export interface UsedVehicleInvoiceInfo {
   /**
-   * 所属税局
+   * <p>所属税局</p>
    */
-  TaxBureau: string
+  TaxBureau?: string
   /**
-   * 买方单位/个人
+   * <p>买方单位/个人</p>
    */
-  Buyer: string
+  Buyer?: string
   /**
-   * 买方单位代码/身份证号码
+   * <p>买方单位代码/身份证号码</p>
    */
-  BuyerNo: string
+  BuyerNo?: string
   /**
-   * 买方单位/个人地址
+   * <p>买方单位/个人地址</p>
    */
-  BuyerAddress: string
+  BuyerAddress?: string
   /**
-   * 买方单位电话
+   * <p>买方单位电话</p>
    */
-  BuyerTel: string
+  BuyerTel?: string
   /**
-   * 卖方单位/个人
+   * <p>卖方单位/个人</p>
    */
-  Seller: string
+  Seller?: string
   /**
-   * 卖方单位代码/身份证号码
+   * <p>卖方单位代码/身份证号码</p>
    */
-  SellerNo: string
+  SellerNo?: string
   /**
-   * 卖方单位/个人地址
+   * <p>卖方单位/个人地址</p>
    */
-  SellerAddress: string
+  SellerAddress?: string
   /**
-   * 卖方单位电话
+   * <p>卖方单位电话</p>
    */
-  SellerTel: string
+  SellerTel?: string
   /**
-   * 车牌照号
+   * <p>车牌照号</p>
    */
-  VehicleLicenseNo: string
+  VehicleLicenseNo?: string
   /**
-   * 登记证号
+   * <p>登记证号</p>
    */
-  RegisterNo: string
+  RegisterNo?: string
   /**
-   * 车架号/车辆识别代码
+   * <p>车架号/车辆识别代码</p>
    */
-  VehicleIdentifyNo: string
+  VehicleIdentifyNo?: string
   /**
-   * 转入地车辆管理所名称
+   * <p>转入地车辆管理所名称</p>
    */
-  ManagementOffice: string
+  ManagementOffice?: string
   /**
-   * 车价合计
+   * <p>车价合计</p>
    */
-  VehicleTotalPrice: string
+  VehicleTotalPrice?: string
   /**
-   * 经营、拍卖单位
+   * <p>经营、拍卖单位</p>
    */
-  Auctioneer: string
+  Auctioneer?: string
   /**
-   * 经营、拍卖单位地址
+   * <p>经营、拍卖单位地址</p>
    */
-  AuctioneerAddress: string
+  AuctioneerAddress?: string
   /**
-   * 经营、拍卖单位纳税人识别号
+   * <p>经营、拍卖单位纳税人识别号</p>
    */
-  AuctioneerTaxpayerNum: string
+  AuctioneerTaxpayerNum?: string
   /**
-   * 经营、拍卖单位开户银行、账号
+   * <p>经营、拍卖单位开户银行、账号</p>
    */
-  AuctioneerBankAccount: string
+  AuctioneerBankAccount?: string
   /**
-   * 经营、拍卖单位电话
+   * <p>经营、拍卖单位电话</p>
    */
-  AuctioneerTel: string
+  AuctioneerTel?: string
   /**
-   * 二手车市场
+   * <p>二手车市场</p>
    */
-  Market: string
+  Market?: string
   /**
-   * 二手车市场纳税人识别号
+   * <p>二手车市场纳税人识别号</p>
    */
-  MarketTaxpayerNum: string
+  MarketTaxpayerNum?: string
   /**
-   * 二手车市场地址
+   * <p>二手车市场地址</p>
    */
-  MarketAddress: string
+  MarketAddress?: string
   /**
-   * 二手车市场开户银行账号
+   * <p>二手车市场开户银行账号</p>
    */
-  MarketBankAccount: string
+  MarketBankAccount?: string
   /**
-   * 二手车市场电话
+   * <p>二手车市场电话</p>
    */
-  MarketTel: string
+  MarketTel?: string
+  /**
+   * <p>车价合计中文大写</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  VehicleTotalPriceCN?: string
+  /**
+   * <p>发票风险等级</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  InvoiceRiskLevel?: string
+  /**
+   * <p>车辆类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CarType?: string
+  /**
+   * <p>厂牌型号</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PlateModel?: string
+  /**
+   * <p>作废人</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AbandonerName?: string
+  /**
+   * <p>作废日期</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AbandonDate?: string
+  /**
+   * <p>开票方类型：1 经营单位，2 拍卖单位，03 二手车市场。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IssuerType?: string
+  /**
+   * <p>开票方纳税人识别号</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IssuerTaxCode?: string
+  /**
+   * <p>自行编码</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  CustomCode?: string
+  /**
+   * <p>商品编码</p>
+   */
+  TaxClassifyCode?: string
+  /**
+   * <p>零税率标识：空：非零税率，0：出口零税，1：免税，2：不征税，3 普通零税率</p>
+   */
+  ZeroTaxRateMark?: string
 }
 
 /**
@@ -5701,47 +5777,47 @@ export interface QuestionSplitLayoutOCRResponse {
  */
 export interface ElectronicAirTransportDetail {
   /**
-   * 航段序号
+   * <p>航段序号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FlightSegment?: string
   /**
-   * 始发站
+   * <p>始发站</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StationGetOn?: string
   /**
-   * 目的站
+   * <p>目的站</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StationGetOff?: string
   /**
-   * 承运人
+   * <p>承运人</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Carrier?: string
   /**
-   * 航班号
+   * <p>航班号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FlightNumber?: string
   /**
-   * 座位等级
+   * <p>座位等级</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SeatLevel?: string
   /**
-   * 承运日期
+   * <p>承运日期</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FlightDate?: string
   /**
-   * 起飞时间
+   * <p>起飞时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DepartureTime?: string
   /**
-   * 客票级别/客票类别
+   * <p>客票级别/客票类别</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   FareBasis?: string
@@ -7124,125 +7200,149 @@ export interface EraseHandwrittenImageOCRResponse {
  */
 export interface ElectronicTrainTicket {
   /**
-   * 购方名称
+   * <p>购方名称</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BuyerName?: string
   /**
-   * 购方识别号
+   * <p>购方识别号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   BuyerTaxCode?: string
   /**
-   * 发票号码
+   * <p>发票号码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Number?: string
   /**
-   * 开票日期
+   * <p>开票日期</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Date?: string
   /**
-   * 价税合计（中文大写）
+   * <p>价税合计（中文大写）</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TotalCN?: string
   /**
-   * 税额
+   * <p>税额</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Tax?: string
   /**
-   * 业务类型，0：退票，1:售票
+   * <p>业务类型，0：退票，1:售票</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ServiceType?: string
   /**
-   * 出发时间
+   * <p>出发时间</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TimeGetOn?: string
   /**
-   * 车次
+   * <p>车次</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TrainNumber?: string
   /**
-   * 发票代码
+   * <p>发票代码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Code?: string
   /**
-   * 席别
+   * <p>席别</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   SeatType?: string
   /**
-   * 乘车日期
+   * <p>乘车日期</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   DateGetOn?: string
   /**
-   * 车厢
+   * <p>车厢</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TrainCabin?: string
   /**
-   * 出发站
+   * <p>出发站</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StationGetOn?: string
   /**
-   * 电子客票号
+   * <p>电子客票号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   ElectronicNumber?: string
   /**
-   * 姓名
+   * <p>姓名</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PassengerName?: string
   /**
-   * 证件号
+   * <p>证件号</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   PassengerNo?: string
   /**
-   * 金额
+   * <p>金额</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Amount?: string
   /**
-   * 到达站
+   * <p>到达站</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StationGetOff?: string
   /**
-   * 税率
+   * <p>税率</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   TaxRate?: string
   /**
-   * 席位
+   * <p>席位</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Seat?: string
   /**
-   * 价税合计
+   * <p>价税合计</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   Total?: string
   /**
-   * 校验码
+   * <p>校验码</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   CheckCode?: string
   /**
-   * 发票状态代码，0正常 1 未更新  2作废 3已红冲
+   * <p>发票状态代码，0正常 1 未更新  2作废 3已红冲</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   StateCode?: string
+  /**
+   * <p>发票类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Type?: string
+  /**
+   * <p>空调特征</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AirConditionerFeature?: string
+  /**
+   * <p>票种，不替代 VatInvoice.Type。</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TicketType?: string
+  /**
+   * <p>原始税率</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  OriginalTaxRate?: string
+  /**
+   * <p>全电发票号码，映射源字段 qdfphm。</p>
+   */
+  FullElectronicNumber?: string
 }
 
 /**
@@ -7863,25 +7963,33 @@ export interface Polygon {
  */
 export interface PassInvoiceInfo {
   /**
-   * 通行费车牌号
+   * <p>通行费车牌号；数电通行费源字段 cph 写入该字段。</p>
    */
-  NumberPlate: string
+  NumberPlate?: string
   /**
-   * 通行费类型
+   * <p>通行费类型；数电通行费源字段 cllx 写入该字</p>
    */
-  Type: string
+  Type?: string
   /**
-   * 通行日期起
+   * <p>通行日期起</p>
    */
-  PassDateBegin: string
+  PassDateBegin?: string
   /**
-   * 通行日期止
+   * <p>通行日期止</p>
    */
-  PassDateEnd: string
+  PassDateEnd?: string
   /**
-   * 税收分类编码
+   * <p>税收分类编码</p>
    */
-  TaxClassifyCode: string
+  TaxClassifyCode?: string
+  /**
+   * <p>通行费车牌号</p>
+   */
+  CarType?: string
+  /**
+   * <p>通行费车辆类型</p>
+   */
+  PlateNumber?: string
 }
 
 /**
@@ -8583,6 +8691,32 @@ export interface VatInvoiceRoll {
    * 条目
    */
   VatRollItems?: Array<VatRollItem>
+}
+
+/**
+ * 红字发票信息
+ */
+export interface RedLetterInvoiceItem {
+  /**
+   * <p>红字发票代码</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Code?: string
+  /**
+   * <p>红字发票号码</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Number?: string
+  /**
+   * <p>红字开票日期</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Date?: string
+  /**
+   * <p>红字发票状态</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  State?: string
 }
 
 /**
@@ -9530,164 +9664,200 @@ export interface MainlandPermitOCRResponse {
  */
 export interface VatInvoice {
   /**
-   * 发票代码
+   * <p>发票代码</p>
    */
   Code?: string
   /**
-   * 发票号码
+   * <p>发票号码</p>
    */
   Number?: string
   /**
-   * 开票日期
+   * <p>开票日期</p>
    */
   Date?: string
   /**
-   * 购方抬头
-通用机打发票类型时不返回
+   * <p>购方抬头<br>通用机打发票类型时不返回</p>
    */
   BuyerName?: string
   /**
-   * 购方税号
-通用机打发票类型时不返回
+   * <p>购方税号<br>通用机打发票类型时不返回</p>
    */
   BuyerTaxCode?: string
   /**
-   * 购方地址电话
-通用机打发票类型做不返回
+   * <p>购方地址电话<br>通用机打发票类型做不返回</p>
    */
   BuyerAddressPhone?: string
   /**
-   * 购方银行账号
-通用机打发票类型时不返回
+   * <p>购方银行账号<br>通用机打发票类型时不返回</p>
    */
   BuyerBankAccount?: string
   /**
-   * 销方名称
+   * <p>销方名称</p>
    */
   SellerName?: string
   /**
-   * 销方税号
+   * <p>销方税号</p>
    */
   SellerTaxCode?: string
   /**
-   * 销方地址电话
+   * <p>销方地址电话</p>
    */
   SellerAddressPhone?: string
   /**
-   * 销方银行账号
+   * <p>销方银行账号</p>
    */
   SellerBankAccount?: string
   /**
-   * 备注
+   * <p>备注</p>
    */
   Remark?: string
   /**
-   * 机器编码
+   * <p>机器编码</p>
    */
   MachineNo?: string
   /**
-   * 票种类型
-01：增值税专用发票，
-02：货运运输业增值税专用发票，
-03：机动车销售统一发票，
-04：增值税普通发票，
-08：增值税电子专用发票（含全电，全电仅新版接口支持），
-09：全电发票，
-0901：全电纸质发票(增值税专用发票)，
-0903：全电纸质(机动车销售统一发票)，
-0904：全电纸质发票(增值税普通发票)，
-0910：电子发票(普通发票)，
-0915：全电纸质(二手车销售统一发票)，
-0920：电子发票(增值税专用发票)，
-0930：电子发票(机动车销售统一发票)，
-0940：电子发票(二手车销售统一发票)，
-10：增值税电子普通发票（含全电，全电仅新版接口支持），
-11：增值税普通发票（卷式），
-14：增值税电子（通行费）发票，
-15：二手车销售统一发票，
-32：深圳区块链发票，
-61：电子发票（航空运输电子客票行程单），
-8208：电子发票(通行费发票)，
-83：电子发票(铁路电子客票)，
-100：区块链发票，
-101：财政票据，
-102：通用电子发票，
-103：车辆通行费
-
-
-
-
+   * <p>票种类型<br>01：增值税专用发票，<br>02：货运运输业增值税专用发票，<br>03：机动车销售统一发票，<br>04：增值税普通发票，<br>08：增值税电子专用发票（含全电，全电仅新版接口支持），<br>09：全电发票，<br>0901：全电纸质发票(增值税专用发票)，<br>0903：全电纸质(机动车销售统一发票)，<br>0904：全电纸质发票(增值税普通发票)，<br>0910：电子发票(普通发票)，<br>0915：全电纸质(二手车销售统一发票)，<br>0920：电子发票(增值税专用发票)，<br>0930：电子发票(机动车销售统一发票)，<br>0940：电子发票(二手车销售统一发票)，<br>10：增值税电子普通发票（含全电，全电仅新版接口支持），<br>11：增值税普通发票（卷式），<br>14：增值税电子（通行费）发票，<br>15：二手车销售统一发票，<br>32：深圳区块链发票，<br>61：电子发票（航空运输电子客票行程单），<br>8208：电子发票(通行费发票)，<br>83：电子发票(铁路电子客票)，<br>100：区块链发票，<br>101：财政票据，<br>102：通用电子发票，<br>103：车辆通行费</p>
    */
   Type?: string
   /**
-   * 具体的全电发票类型：01: 全电专用发票；02：全电普通发票；03：全电火车票；04：全电机票行程单
+   * <p>具体的全电发票类型：01: 全电专用发票；02：全电普通发票；03：全电火车票；04：全电机票行程单</p>
    */
   ElectronicType?: string
   /**
-   * 检验码
+   * <p>检验码</p>
    */
   CheckCode?: string
   /**
-   * 是否作废（红冲）是否作废（红冲）
-Y：已作废，N：未作废，H：红冲，HP：部分红冲，HF：全额红冲
+   * <p>是否作废（红冲）是否作废（红冲）<br>Y：已作废，N：未作废，H：红冲，HP：部分红冲，HF：全额红冲</p>
    */
   IsAbandoned?: string
   /**
-   * 是否有销货清单 
-Y: 有清单 N：无清单 
-卷票无
+   * <p>是否有销货清单<br>Y: 有清单 N：无清单<br>卷票无</p>
    */
   HasSellerList?: string
   /**
-   * 销货清单标题
+   * <p>销货清单标题</p>
    */
   SellerListTitle?: string
   /**
-   * 销货清单税额
+   * <p>销货清单税额</p>
    */
   SellerListTax?: string
   /**
-   * 不含税金额
+   * <p>不含税金额</p>
    */
   AmountWithoutTax?: string
   /**
-   * 税额
+   * <p>税额</p>
    */
   TaxAmount?: string
   /**
-   * 含税金额
+   * <p>含税金额</p>
    */
   AmountWithTax?: string
   /**
-   * 项目明细
+   * <p>项目明细</p>
    */
   Items?: Array<VatInvoiceItem>
   /**
-   * 所属税局
+   * <p>所属税局</p>
    */
   TaxBureau?: string
   /**
-   * 通行费标志:Y、是;N、否
+   * <p>通行费标志:Y、是;N、否</p>
    */
   TrafficFreeFlag?: string
   /**
-   * 是否为红票
+   * <p>是否为红票</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   RedLetterInvoiceMark?: boolean
   /**
-   * 开具类型标识（0: 委托代开，1：自开，2：代开，3：代办退税
+   * <p>开具类型标识（0: 委托代开，1：自开，2：代开，3：代办退税</p>
 注意：此字段可能返回 null，表示取不到有效值。
    */
   IssuingTypeMark?: number
   /**
-   * 代开销售方名称
+   * <p>代开销售方名称</p>
    */
   SellerAgentName?: string
   /**
-   * 代开销售方税号
+   * <p>代开销售方税号</p>
    */
   SellerAgentTaxID?: string
+  /**
+   * <p>地区代码</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RegionCode?: string
+  /**
+   * <p>复核人</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  ReviewerName?: string
+  /**
+   * <p>开票人</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  IssuerName?: string
+  /**
+   * <p>收款人</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PayeeName?: string
+  /**
+   * <p>开票机号</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  MachineCode?: string
+  /**
+   * <p>税控码/密码区</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaxControlCode?: string
+  /**
+   * <p>价税合计（中文大写）</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  AmountWithTaxCN?: string
+  /**
+   * <p>税率</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  TaxRate?: string
+  /**
+   * <p>特殊票种代码</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  SpecialTicketCode?: string
+  /**
+   * <p>红字发票信息列表</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RedLetterInvoices?: Array<RedLetterInvoiceItem>
+  /**
+   * <p>全电类型</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  FullElectronicType?: string
+  /**
+   * <p>OFD版式文件下载链接</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  OfdUrl?: string
+  /**
+   * <p>PDF版式文件下载链接</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  PdfUrl?: string
+  /**
+   * <p>原发票代码，对应蓝字发票代码。</p>
+   */
+  OriginalCode?: string
+  /**
+   * <p>原发票号码，对应蓝字发票号码。</p>
+   */
+  OriginalNumber?: string
 }
 
 /**

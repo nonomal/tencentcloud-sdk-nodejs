@@ -68,9 +68,9 @@ it("tdmysql.v20211122.ModifyInstanceNetwork", async function () {
     }
 })
 
-it("tdmysql.v20211122.ModifyMaintenanceWindow", async function () {
+it("tdmysql.v20211122.DescribeDBCharsets", async function () {
     try {
-       const data = await client.ModifyMaintenanceWindow({})
+       const data = await client.DescribeDBCharsets({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -188,6 +188,46 @@ it("tdmysql.v20211122.DescribeDBParameters", async function () {
     }
 })
 
+it("tdmysql.v20211122.ModifyDBSBackupSetComment", async function () {
+    try {
+       const data = await client.ModifyDBSBackupSetComment({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tdmysql.v20211122.DescribeInstanceDataReservedSpace", async function () {
+    try {
+       const data = await client.DescribeInstanceDataReservedSpace({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tdmysql.v20211122.ModifyInstanceDataReservedSpace", async function () {
+    try {
+       const data = await client.ModifyInstanceDataReservedSpace({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tdmysql.v20211122.ResetDbaAdminPrivileges", async function () {
+    try {
+       const data = await client.ResetDbaAdminPrivileges({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
 it("tdmysql.v20211122.CreateDBInstances", async function () {
     try {
        const data = await client.CreateDBInstances({})
@@ -291,6 +331,16 @@ it("tdmysql.v20211122.DescribeDBSBackupStatistics", async function () {
 it("tdmysql.v20211122.DescribeSlowLogs", async function () {
     try {
        const data = await client.DescribeSlowLogs({})
+       expect(data).to.be.ok
+    } catch(error) {
+      expect(error.requestId).to.be.ok
+      expect(error.code).to.be.ok
+    }
+})
+
+it("tdmysql.v20211122.ModifyMaintenanceWindow", async function () {
+    try {
+       const data = await client.ModifyMaintenanceWindow({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok
@@ -478,9 +528,9 @@ it("tdmysql.v20211122.DescribeMaintenanceWindow", async function () {
     }
 })
 
-it("tdmysql.v20211122.ModifyDBSBackupSetComment", async function () {
+it("tdmysql.v20211122.DescribeFlowTypes", async function () {
     try {
-       const data = await client.ModifyDBSBackupSetComment({})
+       const data = await client.DescribeFlowTypes({})
        expect(data).to.be.ok
     } catch(error) {
       expect(error.requestId).to.be.ok

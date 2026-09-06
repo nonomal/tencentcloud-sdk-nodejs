@@ -245,6 +245,7 @@ import {
   DescribeExtractDocAgentJobResponse,
   ResidenceBookletOCRResponse,
   VatInvoiceRoll,
+  RedLetterInvoiceItem,
   CarInvoiceOCRResponse,
   VehicleRegCertOCRResponse,
   GeneralFastOCRRequest,

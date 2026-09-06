@@ -248,7 +248,7 @@ export interface RemoveModelRewriteRequest {
  */
 export interface ModelAlias {
   /**
-   * <p>模型积分系数配置，包含 <code>InputCoefficient</code>、<code>InputCachedCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p>未配置时输入系数默认为 25，缓存命中输入系数默认为 3，输出系数默认为 100。</p>
+   * <p>模型积分系数配置，包含 <code>InputCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p>未配置时输入系数和输出系数均返回 1。</p>
    */
   Coefficient?: Coefficient
   /**
@@ -267,6 +267,10 @@ export interface ModelAlias {
    * <p>状态</p><p>枚举值：</p><ul><li>Active： 正常可用</li><li>Configuring： 变配中</li><li>ConfigureFailed： 变配失败</li></ul>
    */
   Status?: string
+  /**
+   * <p>模型能力</p>
+   */
+  Capability?: string
 }
 
 /**
@@ -693,6 +697,10 @@ export interface DescribeModelAssociationsRequest {
    * <p>翻页偏移量</p><p>默认值：0</p>
    */
   Offset?: number
+  /**
+   * <p>模型输出模态</p>
+   */
+  Capability?: string
 }
 
 /**
@@ -1477,6 +1485,14 @@ export interface ModifyModelRouterAttributesRequest {
    * <p>带宽</p><p>取值范围：[1, 2048]</p><p>单位：Mbps</p>
    */
   Bandwidth?: number
+  /**
+   * <p>模型输出模态</p>
+   */
+  Capability?: string
+  /**
+   * <p>embedding 模态配置</p>
+   */
+  EmbeddingConfig?: EmbeddingConfig
 }
 
 /**
@@ -1901,6 +1917,10 @@ export interface ModelRouterDetail {
    * <p>计费信息</p>
    */
   BillingConfig?: ModelRouterBillingConfigOutput
+  /**
+   * <p>Embedding配置</p>
+   */
+  EmbeddingConfig?: EmbeddingConfig
 }
 
 /**
@@ -2749,6 +2769,14 @@ export interface ModifyModelAttributesRequest {
    * <p>多协议 Api Base URL</p>
    */
   ApiBases?: Array<ApiBaseItem>
+  /**
+   * <p>非chat输出模态的Api Base URL</p>
+   */
+  ApiBase?: string
+  /**
+   * <p>非chat输出模态的请求后缀</p>
+   */
+  EndpointPath?: string
 }
 
 /**
@@ -3655,6 +3683,10 @@ export interface TestServiceProviderConnectionRequest {
    * <p>    CMR 私网管道ID </p>
    */
   CMRPrivateNetworkTunnelId?: string
+  /**
+   * <p>对应模型的能力</p><p>枚举值：</p><ul><li>chat： 生文能力</li><li>embedding： 向量能力</li></ul>
+   */
+  Capability?: string
 }
 
 /**
@@ -4246,6 +4278,27 @@ export interface ModifyTargetGroupInstancesPortRequest {
 }
 
 /**
+ * embedding配置。
+ */
+export interface EmbeddingConfig {
+  /**
+   * <p>模型内路由策略</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RoutingStrategy?: string
+  /**
+   * <p>路由参数</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  RoutingStrategyArgs?: RoutingStrategyArgs
+  /**
+   * <p>同一模型请求重试次数</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  NumRetries?: number
+}
+
+/**
  * CreateClsLogSet请求参数结构体
  */
 export interface CreateClsLogSetRequest {
@@ -4454,6 +4507,14 @@ export interface CreateModelRequest {
    * <p>健康检查配置</p>
    */
   HealthCheckConfigs?: Array<ServiceProviderHealthCheckConfigItemInput>
+  /**
+   * <p>模型输出模态</p>
+   */
+  Capability?: string
+  /**
+   * <p>请求后缀</p>
+   */
+  EndpointPath?: string
 }
 
 /**
@@ -6855,17 +6916,21 @@ export interface DescribeAsyncJobsRequest {
  */
 export interface ModifyModelAliasAttributesRequest {
   /**
-   * <p>模型积分系数配置。</p><p>必填，至少包含 <code>InputCoefficient</code>、<code>InputCachedCoefficient</code>、<code>OutputCoefficient</code> 中的一个字段，未传字段保持原值。</p><p><code>InputCoefficient</code> 为非缓存命中输入积分系数。</p><p><code>InputCachedCoefficient</code> 为缓存命中输入积分系数，用于 provider prompt cache 命中的输入 token。</p><p><code>OutputCoefficient</code> 为输出积分系数。</p><p>各字段取值范围：[0, 5000]，仅支持整数，0 表示该类 token 不计积分。</p>
+   * <p>模型积分系数配置。</p><p>必填，包含 <code>InputCoefficient</code> 和 <code>OutputCoefficient</code>。</p><p><code>InputCoefficient</code> 为输入积分系数。</p><p><code>OutputCoefficient</code> 为输出积分系数。</p><p>取值范围：[1, 200]，最多支持 1 位小数。</p>
    */
   Coefficient: Coefficient
   /**
-   * <p>模型别名列表。</p><p>不传 <code>ServiceProviderIds</code>（按 ModelAlias 账号维度修改）时支持数组批量，同一份 Coefficient 应用到多个别名。</p><p>传入 <code>ServiceProviderIds</code>（按 ServiceProvider 维度修改）时只能传 1 个别名，锁定唯一 model 别名；去重后不等于 1 个将返回 InvalidParameter。</p>
+   * <p>模型别名</p>
    */
   ModelAliasNames: Array<string>
   /**
    * <p>BYOK 实例（ServiceProvider）ID 列表。</p><p>可选，数组。传入时按 ServiceProvider 维度修改：把同一份 Coefficient 批量应用到数组内每一个实例（覆盖配置，仅作用于这些实例），此时 <code>ModelAliasNames</code> 只能传 1 个别名（即 1 别名 × N ServiceProvider）；数组需去重、非空、上限 100，任一实例不归属/不存在/该实例下无该别名将整批返回错误。不传时按 ModelAlias（账号）维度修改，作用于该别名下未单独配置覆盖的全部实例。</p>
    */
   ServiceProviderIds?: Array<string>
+  /**
+   * <p>模型能力</p>
+   */
+  Capability?: string
 }
 
 /**
@@ -9649,6 +9714,16 @@ export interface ModelKeyInfoItem {
    * <p>健康检查配置</p>
    */
   HealthCheckConfigs?: Array<ServiceProviderHealthCheckConfigItemOutput>
+  /**
+   * <p>模型输出模态</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  Capability?: string
+  /**
+   * <p>请求后缀</p>
+注意：此字段可能返回 null，表示取不到有效值。
+   */
+  EndpointPath?: string
 }
 
 /**
@@ -10609,6 +10684,10 @@ export interface ModelAssociation {
    * <p>模型类型</p>
    */
   Type?: string
+  /**
+   * <p>输出模态</p>
+   */
+  Capability?: string
 }
 
 /**
@@ -10870,6 +10949,10 @@ export interface CreateModelRouterRequest {
    * <p>单位</p><p>取值范围：[1, 2048]</p><p>单位：Mbps</p>
    */
   Bandwidth?: number
+  /**
+   * <p>Embedding 配置</p>
+   */
+  EmbeddingConfig?: EmbeddingConfig
 }
 
 /**

@@ -19,17 +19,19 @@ import { AbstractClient } from "../../../common/abstract_client"
 import { ClientConfig } from "../../../common/interface"
 import {
   IsolateDBCustomNodeRequest,
+  DescribeDBCustomDisasterRecoverGroupQuotaRequest,
   DescribeDBCustomClusterDetailResponse,
   DestroyDBCustomClusterRequest,
   DescribeDBCustomClusterResourcesRequest,
-  DescribeInstancesRequest,
   ModifyInstanceNameRequest,
   DescribeDBCustomClusterNodeConfigResponse,
   DescribeInstancesResponse,
+  DeleteDBCustomDisasterRecoverGroupsResponse,
   SystemDisk,
   DBCustomNodeTypeInfo,
   ModifyInstanceNameResponse,
   DescribeDBCustomClusterNodeConfigRequest,
+  DescribeDBCustomDisasterRecoverGroupQuotaResponse,
   ModifyDBCustomNodeAttributesResponse,
   CreateDBCustomClusterResponse,
   DescribeDBCustomImagesRequest,
@@ -38,11 +40,13 @@ import {
   DBCustomClusterNodeResource,
   CreateDBCustomClusterRequest,
   DescribeInstanceListResponse,
+  DescribeDBCustomDisasterRecoverGroupsRequest,
   ModifyDBCustomNodeSecurityGroupsResponse,
   Label,
   RemoveNodesFromDBCustomClusterResponse,
   DescribeDBCustomNodesResponse,
   DescribeDBCustomClusterResourcesResponse,
+  ModifyDBCustomDisasterRecoverGroupTagsResponse,
   DescribeDBCustomClusterNodesRequest,
   DescribeInstanceListRequest,
   DescribeDBCustomClustersRequest,
@@ -53,24 +57,31 @@ import {
   DescribeDBCustomRegionsRequest,
   ModifyDBCustomClusterTagsRequest,
   DescribeDBCustomTaskStatusResponse,
+  ModifyDBCustomNodeTagsRequest,
   DescribeInstanceDetailResponse,
   ModifyDBCustomClusterNodeConfigResponse,
+  CreateDBCustomDisasterRecoverGroupRequest,
+  DeleteDBCustomNodesDisasterRecoverGroupResponse,
   DBInstanceDetail,
-  Taint,
+  ModifyDBCustomDisasterRecoverGroupAttributeResponse,
   DestroyDBCustomNodeRequest,
+  Taint,
   DescribeDBCustomZonesRequest,
   ModifyDBCustomClusterNodeConfigRequest,
   HostDetail,
   CheckRoleAuthorizedRequest,
+  ModifyDBCustomNodesDisasterRecoverGroupRequest,
   CreateDBCustomNodesRequest,
   RenewDBCustomNodeResponse,
   DescribeDBCustomImagesResponse,
   ModifyDBCustomNodeTagsResponse,
+  InstanceExpand,
   AddNodesToDBCustomClusterResponse,
   DestroyDBCustomClusterResponse,
   DescribeDBCustomClusterNodeResourcesRequest,
   ResourceTag,
   DataDisk,
+  ModifyDBCustomNodesDisasterRecoverGroupResponse,
   ModifyDBCustomClusterAttributesRequest,
   DescribeDBCustomNodeTypesRequest,
   LoginSettings,
@@ -82,10 +93,12 @@ import {
   DescribeInstanceDetail,
   InstanceDeviceInfo,
   DescribeDBCustomClusterKubeconfigRequest,
+  DescribeDBCustomDisasterRecoverGroupsResponse,
   RemoveNodesFromDBCustomClusterRequest,
   DescribeDBCustomClustersResponse,
+  DeleteDBCustomNodesDisasterRecoverGroupRequest,
   CheckRoleAuthorizedResponse,
-  ModifyDBCustomNodeTagsRequest,
+  DescribeInstancesRequest,
   DescribeDBCustomClusterDetailRequest,
   RenewDBCustomNodeRequest,
   Filter,
@@ -93,25 +106,29 @@ import {
   DBCustomClusterNodeConfig,
   MetaResource,
   DBCustomNode,
+  ModifyDBCustomDisasterRecoverGroupAttributeRequest,
   DBCustomClusterNode,
   DescribeDBCustomNodeSecurityGroupsResponse,
   DestroyDBCustomNodeResponse,
   DescribeDBCustomTaskStatusRequest,
   ModifyDBCustomClusterAttributesResponse,
+  DeleteDBCustomDisasterRecoverGroupsRequest,
   ApiServerNetwork,
   RegionInfo,
   DescribeDBCustomZonesResponse,
+  CreateDBCustomDisasterRecoverGroupResponse,
   DescribeDBInstancesResponse,
   CreateDBCustomNodesResponse,
   DescribeDBCustomNodeSecurityGroupsRequest,
   DescribeDBCustomClusterNodesResponse,
   DescribeInstanceDetailRequest,
   ModifyDBCustomNodeAttributesRequest,
+  ModifyDBCustomDisasterRecoverGroupTagsRequest,
   DescribeDBCustomClusterKubeconfigResponse,
   ContainerNetwork,
   DescribeHostListRequest,
   DescribeDBCustomNodesRequest,
-  InstanceExpand,
+  DisasterRecoverGroup,
   DBCustomCluster,
   DeviceInfo,
   ModifyDBCustomNodeSecurityGroupsRequest,
@@ -136,6 +153,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: DestroyDBCustomNodeResponse) => void
   ): Promise<DestroyDBCustomNodeResponse> {
     return this.request("DestroyDBCustomNode", req, cb)
+  }
+
+  /**
+   * 该接口（DescribeDBCustomDisasterRecoverGroups）用于查询 DB Custom 置放群组列表。
+   */
+  async DescribeDBCustomDisasterRecoverGroups(
+    req: DescribeDBCustomDisasterRecoverGroupsRequest,
+    cb?: (error: string, rep: DescribeDBCustomDisasterRecoverGroupsResponse) => void
+  ): Promise<DescribeDBCustomDisasterRecoverGroupsResponse> {
+    return this.request("DescribeDBCustomDisasterRecoverGroups", req, cb)
   }
 
   /**
@@ -319,6 +346,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 该接口（ModifyDBCustomNodesDisasterRecoverGroup）用于修改 DB Custom 节点的置放群组。
+   */
+  async ModifyDBCustomNodesDisasterRecoverGroup(
+    req: ModifyDBCustomNodesDisasterRecoverGroupRequest,
+    cb?: (error: string, rep: ModifyDBCustomNodesDisasterRecoverGroupResponse) => void
+  ): Promise<ModifyDBCustomNodesDisasterRecoverGroupResponse> {
+    return this.request("ModifyDBCustomNodesDisasterRecoverGroup", req, cb)
+  }
+
+  /**
    * 该接口(DescribeDBCustomClusterDetail) 用于查询 DB Custom 集群的详情信息。
    */
   async DescribeDBCustomClusterDetail(
@@ -336,6 +373,26 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: IsolateDBCustomNodeResponse) => void
   ): Promise<IsolateDBCustomNodeResponse> {
     return this.request("IsolateDBCustomNode", req, cb)
+  }
+
+  /**
+   * 该接口（CreateDBCustomCluster）用于创建 DB Custom 集群。
+   */
+  async CreateDBCustomCluster(
+    req: CreateDBCustomClusterRequest,
+    cb?: (error: string, rep: CreateDBCustomClusterResponse) => void
+  ): Promise<CreateDBCustomClusterResponse> {
+    return this.request("CreateDBCustomCluster", req, cb)
+  }
+
+  /**
+   * 该接口（DeleteDBCustomDisasterRecoverGroups）用于删除 DB Custom 置放群组。
+   */
+  async DeleteDBCustomDisasterRecoverGroups(
+    req: DeleteDBCustomDisasterRecoverGroupsRequest,
+    cb?: (error: string, rep: DeleteDBCustomDisasterRecoverGroupsResponse) => void
+  ): Promise<DeleteDBCustomDisasterRecoverGroupsResponse> {
+    return this.request("DeleteDBCustomDisasterRecoverGroups", req, cb)
   }
 
   /**
@@ -359,13 +416,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 该接口（CreateDBCustomCluster）用于创建 DB Custom 集群。
+   * 该接口（DeleteDBCustomNodesDisasterRecoverGroup）用于移除 DB Custom 节点的置放群组。
    */
-  async CreateDBCustomCluster(
-    req: CreateDBCustomClusterRequest,
-    cb?: (error: string, rep: CreateDBCustomClusterResponse) => void
-  ): Promise<CreateDBCustomClusterResponse> {
-    return this.request("CreateDBCustomCluster", req, cb)
+  async DeleteDBCustomNodesDisasterRecoverGroup(
+    req: DeleteDBCustomNodesDisasterRecoverGroupRequest,
+    cb?: (error: string, rep: DeleteDBCustomNodesDisasterRecoverGroupResponse) => void
+  ): Promise<DeleteDBCustomNodesDisasterRecoverGroupResponse> {
+    return this.request("DeleteDBCustomNodesDisasterRecoverGroup", req, cb)
   }
 
   /**
@@ -379,6 +436,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 该接口（ModifyDBCustomDisasterRecoverGroupTags）用于修改 DB Custom 置放群组绑定的标签。
+   */
+  async ModifyDBCustomDisasterRecoverGroupTags(
+    req: ModifyDBCustomDisasterRecoverGroupTagsRequest,
+    cb?: (error: string, rep: ModifyDBCustomDisasterRecoverGroupTagsResponse) => void
+  ): Promise<ModifyDBCustomDisasterRecoverGroupTagsResponse> {
+    return this.request("ModifyDBCustomDisasterRecoverGroupTags", req, cb)
+  }
+
+  /**
    * 该接口（DescribeDBCustomClusterNodeConfig）用于查询 DB Custom 集群内节点的配置信息。
    */
   async DescribeDBCustomClusterNodeConfig(
@@ -389,13 +456,13 @@ export class Client extends AbstractClient {
   }
 
   /**
-   * 该接口（ModifyDBCustomNodeTags）用于修改 DB Custom 节点绑定的标签。
+   * 该接口（ModifyDBCustomDisasterRecoverGroupAttribute）用于修改 DB Custom 置放群组的属性。
    */
-  async ModifyDBCustomNodeTags(
-    req: ModifyDBCustomNodeTagsRequest,
-    cb?: (error: string, rep: ModifyDBCustomNodeTagsResponse) => void
-  ): Promise<ModifyDBCustomNodeTagsResponse> {
-    return this.request("ModifyDBCustomNodeTags", req, cb)
+  async ModifyDBCustomDisasterRecoverGroupAttribute(
+    req: ModifyDBCustomDisasterRecoverGroupAttributeRequest,
+    cb?: (error: string, rep: ModifyDBCustomDisasterRecoverGroupAttributeResponse) => void
+  ): Promise<ModifyDBCustomDisasterRecoverGroupAttributeResponse> {
+    return this.request("ModifyDBCustomDisasterRecoverGroupAttribute", req, cb)
   }
 
   /**
@@ -439,6 +506,16 @@ export class Client extends AbstractClient {
   }
 
   /**
+   * 该接口（CreateDBCustomDisasterRecoverGroup）用于创建 DB Custom 置放群组。
+   */
+  async CreateDBCustomDisasterRecoverGroup(
+    req: CreateDBCustomDisasterRecoverGroupRequest,
+    cb?: (error: string, rep: CreateDBCustomDisasterRecoverGroupResponse) => void
+  ): Promise<CreateDBCustomDisasterRecoverGroupResponse> {
+    return this.request("CreateDBCustomDisasterRecoverGroup", req, cb)
+  }
+
+  /**
    * 该接口（ModifyDBCustomClusterNodeConfig）用于修改 DB Custom 集群中节点的配置。
    */
   async ModifyDBCustomClusterNodeConfig(
@@ -446,6 +523,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: ModifyDBCustomClusterNodeConfigResponse) => void
   ): Promise<ModifyDBCustomClusterNodeConfigResponse> {
     return this.request("ModifyDBCustomClusterNodeConfig", req, cb)
+  }
+
+  /**
+   * 该接口（DescribeDBCustomDisasterRecoverGroupQuota）用于查询 DB Custom 置放群组配额。
+   */
+  async DescribeDBCustomDisasterRecoverGroupQuota(
+    req?: DescribeDBCustomDisasterRecoverGroupQuotaRequest,
+    cb?: (error: string, rep: DescribeDBCustomDisasterRecoverGroupQuotaResponse) => void
+  ): Promise<DescribeDBCustomDisasterRecoverGroupQuotaResponse> {
+    return this.request("DescribeDBCustomDisasterRecoverGroupQuota", req, cb)
   }
 
   /**
@@ -466,6 +553,16 @@ export class Client extends AbstractClient {
     cb?: (error: string, rep: CheckRoleAuthorizedResponse) => void
   ): Promise<CheckRoleAuthorizedResponse> {
     return this.request("CheckRoleAuthorized", req, cb)
+  }
+
+  /**
+   * 该接口（ModifyDBCustomNodeTags）用于修改 DB Custom 节点绑定的标签。
+   */
+  async ModifyDBCustomNodeTags(
+    req: ModifyDBCustomNodeTagsRequest,
+    cb?: (error: string, rep: ModifyDBCustomNodeTagsResponse) => void
+  ): Promise<ModifyDBCustomNodeTagsResponse> {
+    return this.request("ModifyDBCustomNodeTags", req, cb)
   }
 
   /**
